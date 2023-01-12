@@ -15,11 +15,10 @@ public class RotateMatrixBy90Degree {
         System.out.println("print input matrix");
         print(matrix);
 
-
         int m = matrix.length;
         int n = matrix[0].length;
 
-        //transpose
+        //do matrix transpose
         for(int i=0; i<m; i++)
         {
             for(int j=i+1; j<n; j++)
@@ -34,7 +33,7 @@ public class RotateMatrixBy90Degree {
         System.out.println("print after transpose");
         print(matrix);
 
-        //swap columns
+        //swap columns to finally rotate by 90 degree
         for(int i=0; i<m; i++)
         {
             for(int j=0; j<n/2; j++)
