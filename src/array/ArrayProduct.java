@@ -1,6 +1,7 @@
 package array;
 
 public class ArrayProduct {
+    
     public static void main(String[] args)
     {
         getProduct(new int[]{1,2,3,4});
