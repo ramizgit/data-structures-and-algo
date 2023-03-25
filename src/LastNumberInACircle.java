@@ -1,6 +1,6 @@
 public class LastNumberInACircle {
 
-    public static void main(String[] args) //todo:practice
+    public static void main(String[] args)
     {
         lastNumberInCircle(5, 3);
     }
