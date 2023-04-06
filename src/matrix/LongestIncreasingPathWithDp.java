@@ -36,9 +36,11 @@ public class LongestIncreasingPathWithDp {
         int max = 0;
 
         int[][] dp = new int[rows][cols];
-        for(int r=0; r<rows; r++){
-            for(int c=0; c<cols; c++){
-                dp[r][c] = 0;
+        
+        //initialize dp to zero
+        for(int i=0; i<rows; i++){
+            for(int j=0; j<cols; j++){
+                dp[i][j] = 0;
             }
         }
 
