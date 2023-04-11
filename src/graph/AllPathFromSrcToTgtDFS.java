@@ -36,6 +36,6 @@ public class AllPathFromSrcToTgtDFS {
             }
         }
 
-        path.remove(path.size()-1); //backtrack
+        path.remove(path.size()-1); //backtracking
     }
 }
