@@ -8,7 +8,6 @@ public class RemoveKDigitsToGetMinNum {
         System.out.println(getMin("14301620", 4)); //120
         System.out.println(getMin("1230987", 2)); //10987
         System.out.println(getMin("1230987", 3)); //987
-
     }
 
     public static String getMin(String num, int k)
