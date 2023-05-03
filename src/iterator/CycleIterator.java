@@ -39,6 +39,5 @@ public class CycleIterator<T> extends ListFlattenedIterator<T>{
                 break;
             }
         }
-        
     }
 }
