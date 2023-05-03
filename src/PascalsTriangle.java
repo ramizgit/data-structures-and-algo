@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PascalsTriangle {
+    
     public static void main(String[] args)
     {
         getPascalsTriangle(4);
@@ -29,6 +30,7 @@ public class PascalsTriangle {
             rowList.add(1);
             triangleList.add(rowList);
         }
+        
         System.out.println(triangleList);
     }
 }
