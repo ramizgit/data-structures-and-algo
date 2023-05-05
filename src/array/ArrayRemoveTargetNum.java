@@ -31,5 +31,4 @@ public class ArrayRemoveTargetNum {
         }
         return arr;
     }
-
 }
