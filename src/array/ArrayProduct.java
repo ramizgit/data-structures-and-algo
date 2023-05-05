@@ -21,7 +21,7 @@ public class ArrayProduct {
             leftProduct[i] = arr[i-1] * leftProduct[i-1];
         }
 
-        System.out.println("left product:");
+        System.out.println("Left product:");
         for(int i=0; i<leftProduct.length; i++)
         {
             System.out.print(leftProduct[i] + " ");
@@ -32,7 +32,7 @@ public class ArrayProduct {
             rightProduct[i] = arr[i+1] * rightProduct[i+1];
         }
 
-        System.out.println("\nright product:");
+        System.out.println("\nRight product:");
         for(int i=0; i<rightProduct.length; i++)
         {
             System.out.print(rightProduct[i] + " ");
@@ -43,7 +43,7 @@ public class ArrayProduct {
             finalProduct[i] = leftProduct[i] * rightProduct[i];
         }
 
-        System.out.println("\nfinal product:");
+        System.out.println("\nFinal product:");
         for(int i=0; i<finalProduct.length; i++)
         {
             System.out.print(finalProduct[i] + " ");
