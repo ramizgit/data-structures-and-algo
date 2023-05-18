@@ -39,6 +39,7 @@ class Graph{
         this.adjList.put(source, edges);
     }
 
+    //O((V+E)logV) time complexity
     public void dijkstra(int source)
     {
         Map<Integer, Integer> shortestDistance = new HashMap<>();
