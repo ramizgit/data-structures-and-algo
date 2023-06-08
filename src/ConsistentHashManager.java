@@ -115,7 +115,6 @@ public class ConsistentHashManager {
         consistentHashManager.addServer("server3");
         consistentHashManager.addServer("server4");
 
-
         //add key
         consistentHashManager.addKey("key1");
         consistentHashManager.addKey("key2");
