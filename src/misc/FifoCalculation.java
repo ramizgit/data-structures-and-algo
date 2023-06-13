@@ -4,13 +4,7 @@ import java.text.DecimalFormat;
 import java.util.*;
 
 public class FifoCalculation {
-
-    /*
-    2015-01-01,AAPL,B,50,100.0
-    2015-01-01,AAPL,B,50,100.0
-    2015-01-01,AAPL,B,50,100.0
-    2015-01-01,AAPL,B,50,100.0
-     */
+    
     private String calculateTax(List<String> trades)
     {
         Map<String, List<String>> tickerToTradesMap = this.getTickerToTradesMap(trades);
@@ -50,7 +44,6 @@ public class FifoCalculation {
 
                 } else if (isSell(trade)) {
                     //match with buy
-
                     while (quantity > 0 && !longQueue.isEmpty()){
                         Pair longTrade = longQueue.poll();
 
@@ -136,12 +129,6 @@ public class FifoCalculation {
         trades.add("2015-01-01,AAPL,B,10,70.0");
         trades.add("2015-01-01,AAPL,B,70,160.0");
 
-        /*
-        50 * (130-100) = 1500
-        10 * (130-120) = 100
-        profit = 1600
-         */
-
         System.out.println("Tax ======= "+fifo.calculateTax(trades));
     }
 
@@ -163,4 +150,3 @@ public class FifoCalculation {
         }
     }
 }
-
