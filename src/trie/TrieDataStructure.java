@@ -53,9 +53,4 @@ class TrieNode{
         }
         return current.endOfWord;
     }
-
-    //todo:delete
-
 }
-
-
