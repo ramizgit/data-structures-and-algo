@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TrieDataStructure {
-
     public static void main(String args[])
     {
         TrieNode trie = new TrieNode();
