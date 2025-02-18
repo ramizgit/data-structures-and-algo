@@ -36,7 +36,7 @@ public class DiameterOfTree {
         int left = dfs(root.left, result);
         int right = dfs(root.right, result);
 
-        result[0] = Math.max(result[0], 1+left+right);
+        result[0] = Math.max(result[0], left+right);
 
         return 1 + Math.max(left, right);
     }
