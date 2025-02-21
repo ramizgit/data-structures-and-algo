@@ -18,45 +18,43 @@ public class CourseScheduleDFS {
         System.out.println(canFinish(5, input4)); //true
     }
 
-    public static boolean canFinish(int numCourses, int[][] prerequisites)
+    private static boolean canFinish(int numCourses, int[][] prerequisites)
     {
         Map<Integer, List<Integer>> graph = buildGraph(prerequisites);
 
-        //now do dfs and find if any cycle
         for(int i=0; i<numCourses; i++){
-            if(!dfs(graph, i, new HashSet<>())){
+            boolean[] ret = new boolean[1];
+            ret[0] = true;
+            dfs(i, graph, new HashSet<>(), ret);
+            if(!ret[0]){
                 return false;
             }
         }
         return true;
     }
 
-    public static boolean dfs(Map<Integer, List<Integer>> graph, int node, Set<Integer> visitedNodes)
+    private static void dfs(int num, Map<Integer, List<Integer>> graph, Set<Integer> visited, boolean[] ret)
     {
-        boolean ret = true;
-
-        List<Integer> adjNodes = graph.getOrDefault(node, new ArrayList<>());
-
-        for(int n : adjNodes){
-            if(visitedNodes.contains(n)){
-                return false;
+        visited.add(num);
+        List<Integer> neighbours = graph.getOrDefault(num, new ArrayList<>());
+        for(int neighbour : neighbours){
+            if(visited.contains(neighbour)){
+                ret[0] = false;
             }else {
-                visitedNodes.add(node);
-                ret = dfs(graph, n, visitedNodes);
+                visited.add(neighbour);
+                dfs(neighbour, graph, visited, ret);
             }
         }
-
-        return ret;
     }
 
-    public static Map<Integer, List<Integer>> buildGraph(int[][] prerequisites)
+   private static Map<Integer, List<Integer>> buildGraph(int[][] prerequisites)
     {
         Map<Integer, List<Integer>> graph = new HashMap<>();
+
         for(int[] prerequisite : prerequisites){
-            List<Integer> list = graph.getOrDefault(prerequisite[0], new ArrayList<>());
-            list.add(prerequisite[1]);
-            graph.put(prerequisite[0], list);
+            graph.computeIfAbsent(prerequisite[0], key -> new ArrayList<>()).add(prerequisite[1]);
         }
+
         return graph;
     }
 }
