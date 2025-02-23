@@ -1,45 +1,45 @@
 package array;
 
 public class QuickSelect {
-    public static void main(String[] args) {
-        int[] arr = new int[]{10, 4, 5, 8, 6, 11, 26};
-        System.out.println(select(arr, 3, 0, arr.length-1)); //6
 
-        int[] arr2 = new int[]{4, 3, 2, 10, 11, 18, 5, 6, 7};
-        System.out.println(select(arr2, 3, 0, arr2.length-1)); //4
+    public static void main(String[] args)
+    {
+
     }
 
-    public static int select(int[] arr, int k, int low, int high) {
-        int p = partition(arr, low, high);
+    private static int findKthLargest(int[] arr, int k)
+    {
+        k = arr.length - k;
+        return quickSelect(arr, 0, arr.length-1, k);
 
-        if (p == k - 1) {
-            return arr[p];
-        } else if (p < k - 1) {
-            return select(arr, k, p + 1, high);
-        } else {
-            return select(arr, k, low, p - 1);
-        }
     }
 
-    public static int partition(int[] arr, int low, int high) {
-        int j = low;
+    private static int quickSelect(int[] arr, int left, int right, int k)
+    {
+        int p = left;
 
-        for (int i = low; i <= high; i++) {
-            if (arr[i] < arr[high]) {
-                swap(arr, i, j);
-                j++;
+        for(int i=left; i<right; i++){
+            if(arr[i] <= arr[right]){
+                //swap
+                int temp = arr[i];
+                arr[i] = arr[p];
+                arr[p] = temp;
+
+                p++;
             }
         }
 
-        swap(arr, high, j);
+        //at the end swap pivot
+        int temp = arr[right];
+        arr[right] = arr[p];
+        arr[p] = temp;
 
-        return j;
-    }
-
-    public static void swap(int[] arr, int index, int pivotIndex)
-    {
-        int tmp = arr[pivotIndex];
-        arr[pivotIndex] = arr[index];
-        arr[index] = tmp;
+        if(p == k){
+            return arr[p];
+        } else if (p < k) {
+            return quickSelect(arr, p+1, right, k);
+        }else {
+            return quickSelect(arr, left, p-1, k);
+        }
     }
 }
