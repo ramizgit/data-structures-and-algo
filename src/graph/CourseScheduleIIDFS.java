@@ -2,7 +2,7 @@ package graph;
 
 import java.util.*;
 
-public class CourseScheduleIIDFS {
+public class CourseScheduleII {
     public static void main(String[] args)
     {
         int[][] input = { {1, 0} };
@@ -24,51 +24,52 @@ public class CourseScheduleIIDFS {
         System.out.println(findOrder(2, input6)); //[1, 0]
     }
 
-    public static List<Integer> findOrder(int numCourses, int[][] prerequisites)
+    private static List<Integer> findOrder(int numCourses, int[][] prerequisites)
     {
         Map<Integer, List<Integer>> graph = buildGraph(prerequisites);
-        List<Integer> answer = new ArrayList<>();
+        List<Integer> courseOder = new ArrayList<>();
+        boolean[] loop = new boolean[1];
 
-        //now do dfs and find if any cycle
-        for(int i=0; i<numCourses; i++){
-            if(!dfs(graph, i, new HashSet<>(), answer)){
+        for(int i=0 ;i< numCourses; i++){
+            dfs(graph, i, courseOder, new HashSet<>(), loop);
+
+            if(loop[0]){
                 return new ArrayList<>();
             }
         }
-        return answer;
+
+        return courseOder;
     }
 
-    public static boolean dfs(Map<Integer, List<Integer>> graph, int node, Set<Integer> visitedNodes, List<Integer> answer)
+    private static void dfs(Map<Integer, List<Integer>> graph, int current, List<Integer> courseOder, Set<Integer> visited, boolean[] loop)
     {
-        visitedNodes.add(node);
-        boolean ret = true;
+        visited.add(current);
 
-        List<Integer> adjNodes = graph.getOrDefault(node, new ArrayList<>());
+        List<Integer> neighbours = graph.getOrDefault(current, new ArrayList<>());
 
-        for(int n : adjNodes){
-            if(visitedNodes.contains(n)){
-                return false;
+        for(int neighbour : neighbours){
+            if(!visited.contains(neighbour)){
+                dfs(graph, neighbour, courseOder, visited, loop);
             }else {
-                ret = dfs(graph, n, visitedNodes, answer);
+                loop[0] = true;
+                return;
             }
         }
 
-        //Add the node to the answer order
-        if(!answer.contains(node)){
-            answer.add(node);
+        if(!courseOder.contains(current)){
+            courseOder.add(current);
         }
-
-        return ret;
     }
 
-    public static Map<Integer, List<Integer>> buildGraph(int[][] prerequisites)
+    private static Map<Integer, List<Integer>> buildGraph(int[][] prerequisites)
     {
         Map<Integer, List<Integer>> graph = new HashMap<>();
+
         for(int[] prerequisite : prerequisites){
-            List<Integer> list = graph.getOrDefault(prerequisite[0], new ArrayList<>());
-            list.add(prerequisite[1]);
-            graph.put(prerequisite[0], list);
+            graph.computeIfAbsent(prerequisite[0], key -> new ArrayList<>()).add(prerequisite[1]);
         }
+
         return graph;
     }
+    
 }
