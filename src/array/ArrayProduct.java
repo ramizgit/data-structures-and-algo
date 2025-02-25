@@ -13,40 +13,24 @@ public class ArrayProduct {
         int[] rightProduct = new int[arr.length];
         int[] finalProduct = new int[arr.length];
 
+        //populate left product
         leftProduct[0] = 1;
-        rightProduct[rightProduct.length-1] = 1;
-
         for(int i=1; i < arr.length; i++)
         {
             leftProduct[i] = arr[i-1] * leftProduct[i-1];
         }
 
-        System.out.println("Left product:");
-        for(int i=0; i<leftProduct.length; i++)
-        {
-            System.out.print(leftProduct[i] + " ");
-        }
-
+        //populate right product
+        rightProduct[rightProduct.length-1] = 1;
         for(int i=arr.length-2; i>=0; i--)
         {
             rightProduct[i] = arr[i+1] * rightProduct[i+1];
         }
 
-        System.out.println("\nRight product:");
-        for(int i=0; i<rightProduct.length; i++)
-        {
-            System.out.print(rightProduct[i] + " ");
-        }
-
+        //populate final product
         for(int i=0; i < arr.length; i++)
         {
             finalProduct[i] = leftProduct[i] * rightProduct[i];
-        }
-
-        System.out.println("\nFinal product:");
-        for(int i=0; i<finalProduct.length; i++)
-        {
-            System.out.print(finalProduct[i] + " ");
         }
     }
 }
