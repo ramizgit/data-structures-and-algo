@@ -34,6 +34,8 @@ public class BinaryTreeAllPaths {
 
         System.out.println(pathToTargetNode(node, 10));
 
+        System.out.println(sumRootToLeafNums(node));
+
     }
 
     private static List<List<Integer>> allPaths(Node node)
@@ -86,5 +88,25 @@ public class BinaryTreeAllPaths {
         }
 
         currentPath.remove(currentPath.size()-1); //backtrack
+    }
+
+    private static int sumRootToLeafNums(Node node)
+    {
+        return dfs(node, 0);
+    }
+
+    private static int dfs(Node node, int curr)
+    {
+        if(node == null){
+            return 0;
+        }
+
+        curr = curr * 10 + node.value;
+
+        if(node.left == null && node.right == null){
+            return curr;
+        }
+
+        return dfs(node.left, curr) + dfs(node.right, curr);
     }
 }
