@@ -39,11 +39,6 @@ public class TrappingRainWater {
         for(int i=2; i<arr.length; i++){
             maxLeft[i] = Math.max(arr[i-1], maxLeft[i-1]);
         }
-
-        /*for(int i=0; i<maxLeft.length; i++){
-            System.out.print(maxLeft[i]+ " ");
-        }
-        System.out.println();*/
     }
 
     public static void populateMaxRightArray(int[] arr, int[] maxRight)
@@ -53,10 +48,5 @@ public class TrappingRainWater {
         for(int i=arr.length-3; i>=0; i--){
             maxRight[i] = Math.max(arr[i+1], maxRight[i+1]);
         }
-
-        /*for(int i=0; i<maxRight.length; i++){
-            System.out.print(maxRight[i]+ " ");
-        }
-        System.out.println();*/
     }
 }
