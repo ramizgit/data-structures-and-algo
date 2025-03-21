@@ -29,7 +29,7 @@ public class RotatedSortedArray {
             mid = (low + high) >>> 1;
             //mid = (high - low)/2 + low;
 
-            if(mid == arr.length-1 || arr[mid] < arr[mid-1] && arr[mid] < arr[mid+1]){
+            if( (mid == arr.length-1) || (mid == 0) || (arr[mid] < arr[mid-1] && arr[mid] < arr[mid+1])){
                 //pivot element found
                 return arr[mid];
             }else if(arr[mid] < arr[low] && arr[mid] < arr[high]){
