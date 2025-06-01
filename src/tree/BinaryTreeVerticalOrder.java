@@ -1,5 +1,6 @@
 package meta;
 
+import com.sun.source.tree.Tree;
 import tree.Node;
 
 import java.util.*;
@@ -8,8 +9,6 @@ public class BinaryTreeVerticalOrder {
 
     public static void main(String[] args)
     {
-        //note : nodes are guaranteed to be found in the tree
-
         Node node12 = new Node(12, null, null);
         Node node10 = new Node(10, null, null);
         Node node11 = new Node(11, node12, null);
@@ -29,39 +28,46 @@ public class BinaryTreeVerticalOrder {
                       12
          */
 
-        verticalOrder(node);
+        verticalOrderBfs(node);
     }
-
-    private static void verticalOrder(Node node)
+    
+    private static void verticalOrderBfs(Node node)
     {
-        TreeMap<Integer, TreeMap<Integer, List<Integer>>> map = new TreeMap<>();
+        Queue<VNode> queue = new LinkedList<>();
+        VNode root = new VNode(node, 0);
+        queue.add(root);
+        TreeMap<Integer, List<Integer>> verticalOrder = new TreeMap<>();
 
-        dfs(node, 0, 0, map);
+        while (!queue.isEmpty()){
+            VNode poll = queue.poll();
 
-        // Convert the TreeMap to the required List<List<Integer>> format
-        List<List<Integer>> result = new ArrayList<>();
-        for (TreeMap<Integer, List<Integer>> levels : map.values()) {
-            List<Integer> vertical = new ArrayList<>();
-            for (List<Integer> nodes : levels.values()) {
-                vertical.addAll(nodes);
+            //add to vertical oder tree map
+            verticalOrder.computeIfAbsent(poll.vertical, key ->new ArrayList<>()).add(poll.node.value);
+
+            if(poll.node.left != null){
+                queue.add(new VNode(poll.node.left, poll.vertical-1));
             }
-            result.add(vertical);
+
+            if(poll.node.right != null){
+                queue.add(new VNode(poll.node.right, poll.vertical+1));
+            }
+        }
+
+        //traverse vertical order tree map and collect result
+        List<List<Integer>> result = new ArrayList<>();
+        for(List<Integer> values : verticalOrder.values()){
+            result.add(values);
         }
         System.out.println(result);
     }
+}
 
-    //dfs
-    private static void dfs(Node node, int level, int vertical, TreeMap<Integer, TreeMap<Integer, List<Integer>>> map)
-    {
-        if(node == null){
-            return;
-        }
+class VNode{
+    Node node;
+    int vertical;
 
-        TreeMap<Integer, List<Integer>> levelmap = map.getOrDefault(vertical, new TreeMap<>());
-        levelmap.computeIfAbsent(level, key -> new ArrayList<>()).add(node.value);
-        map.put(vertical, levelmap);
-
-        dfs(node.left, level+1, vertical-1, map);
-        dfs(node.right, level+1, vertical+1, map);
+    public VNode(Node node, int vertical) {
+        this.node = node;
+        this.vertical = vertical;
     }
 }
