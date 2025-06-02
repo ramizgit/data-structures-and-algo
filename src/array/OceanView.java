@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OceanView {
+
     public static void main(String[] args)
     {
         findBuildingsWithOceanViews(new int[]{4,3,2,1}); //0 1 2 3
@@ -13,30 +14,29 @@ public class OceanView {
 
     private static int[] findBuildingsWithOceanViews(int[] input)
     {
-        List<Integer> result = new ArrayList<>();
-        result.add(input.length-1);
+        List<Integer> buildings = new ArrayList<>();
 
-        int rightMax = input[input.length-1];
+        //last building can always view the ocean
+        buildings.add(input.length-1);
+        int maxRight = input[input.length-1];
 
-        for(int i=input.length-2; i>=0; i--)
-        {
-            if(input[i] > rightMax){
-                result.add(i);
-                rightMax = input[i];
+        for(int i= input.length-2; i>=0; i--){
+            if(input[i] > maxRight){
+                buildings.add(i);
+
+                //reset max
+                maxRight = input[i];
             }
         }
 
-        int[] resultarray = new int[result.size()];
+        System.out.println(buildings);
 
-        for(int i = result.size()-1, j=0; i>=0; i--, j++){
-            resultarray[j] = result.get(i);
+        int[] output = new int[buildings.size()];
+        int idx = 0;
+        for(int i=buildings.size()-1; i>=0 ;i--){
+            output[idx++] = buildings.get(i);
         }
 
-        for(int e : resultarray){
-            System.out.print(e + " ");
-        }
-        System.out.println();
-
-        return resultarray;
+        return output;
     }
 }
