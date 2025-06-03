@@ -17,6 +17,29 @@ public class LongestSubStrWithoutRepeatingCh {
     {
         int left = 0;
         int right = 0;
+        int maxLen = 0;
+
+        Set<Character> set = new HashSet<>();
+
+        while (right < s.length()){
+
+            while (set.contains(s.charAt(right))){
+                set.remove(s.charAt(left));
+                left++;
+            }
+
+            set.add(s.charAt(right));
+            maxLen = Math.max(maxLen, right - left + 1);
+            right++;
+        }
+
+        return maxLen;
+    }
+
+    /*private static int lengthOfLongestSubstring2(String s)
+    {
+        int left = 0;
+        int right = 0;
         int len = 0;
 
         Set<Character> set = new HashSet<>();
@@ -40,5 +63,5 @@ public class LongestSubStrWithoutRepeatingCh {
         }
 
         return len;
-    }
+    }*/
 }
