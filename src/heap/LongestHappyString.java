@@ -34,9 +34,12 @@ public class LongestHappyString {
         StringBuilder sb = new StringBuilder();
 
         while (maxheap.size() > 1){
+            //step1 : poll max chars
             char maxChar = maxheap.poll();
             char secondMaxChar = maxheap.poll();
 
+            //step2 : add to the result
+            //step3 : reduce frequency
             if(freq.get(maxChar) >= 2){
                 sb.append(maxChar).append(maxChar);
                 freq.put(maxChar, freq.get(maxChar) - 2);
@@ -53,7 +56,7 @@ public class LongestHappyString {
                 freq.put(secondMaxChar, freq.get(secondMaxChar) - 1);
             }
 
-            //put back
+            //step4 : put back in the heap
             if(freq.get(maxChar) > 0){
                 maxheap.offer(maxChar);
             }
