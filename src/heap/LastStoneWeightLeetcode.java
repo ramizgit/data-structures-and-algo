@@ -21,7 +21,7 @@ public class LastStoneWeightLeetcode {
 
         //add all stones to the max heap
         for(int stone : stones){
-            maxheap.add(stone);
+            maxheap.offer(stone);
         }
 
         while (maxheap.size() > 1){
@@ -31,7 +31,7 @@ public class LastStoneWeightLeetcode {
             int diff = haviestStone - secondHaviestStone;
 
             if(diff != 0){
-                maxheap.add(diff);
+                maxheap.offer(diff);
             }
         }
 
