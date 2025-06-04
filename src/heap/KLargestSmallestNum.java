@@ -10,8 +10,6 @@ public class KLargestSmallestNum {
         int[] arr = {8,1,3,2,6,7,9};
 
         System.out.println(findKthLargestElementWIthHeapOfSizeK(arr, 3)); //7
-        System.out.println(findKthLargestElementWIthHeapOfSizeArray(arr, 3)); //7
-
         System.out.println(findKthSmallestElementWIthHeapOfSizeK(arr, 3)); //3
     }
 
@@ -26,10 +24,10 @@ public class KLargestSmallestNum {
         Queue<Integer> minheap = new PriorityQueue<>();
 
         for(int e : arr){
-            minheap.add(e);
+            minheap.offer(e);
 
             if(minheap.size() > k){
-                minheap.remove();
+                minheap.poll();
             }
         }
 
@@ -51,10 +49,10 @@ public class KLargestSmallestNum {
         Queue<Integer> maxheap = new PriorityQueue<>(Collections.reverseOrder());
 
         for(int e : arr){
-            maxheap.add(e);
+            maxheap.offer(e);
 
             if(maxheap.size() > k){
-                maxheap.remove();
+                maxheap.poll();
             }
         }
 
@@ -63,21 +61,5 @@ public class KLargestSmallestNum {
         }else {
             return -1;//no element
         }
-    }
-
-    public static int findKthLargestElementWIthHeapOfSizeArray(int[] arr, int k)
-    {
-        //****BAD APPROACH, TAKES MORE SPACE COMPLEXITY*****
-        Queue<Integer> maxheap = new PriorityQueue<>(Collections.reverseOrder());
-
-        for(int e : arr){
-            maxheap.add(e);
-        }
-
-        for(int i=0; i<k-1; i++){
-            maxheap.remove();
-        }
-
-        return maxheap.peek();
     }
 }
