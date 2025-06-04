@@ -18,52 +18,53 @@ public class MinimumWindowSubstringLeetcode {
             return "";
         }
 
-        Map<Character, Integer> map = new HashMap<>();
-
+        //get freqency of target string
+        Map<Character, Integer> tmap = new HashMap<>();
         for(char ch : t.toCharArray()){
-            map.put(ch, map.getOrDefault(ch, 0)+1);
+            tmap.put(ch, tmap.getOrDefault(ch, 0) + 1);
         }
 
+        int left = 0;
+        int right = 0;
+        int matched = 0;
+        int minLen = Integer.MAX_VALUE;
         int start = 0;
         int end = 0;
-        int min = Integer.MAX_VALUE;
-        int answer = 0;
-        int count=0;
 
-        while (end < s.length())
-        {
-            char ch = s.charAt(end);
+        while (right < s.length()){
+            char rightCh = s.charAt(right);
 
-            if(map.getOrDefault(ch, 0) > 0){
-                count++;
+            //reduce tmap freq is matching char found
+            if(tmap.containsKey(rightCh)){
+                tmap.put(rightCh, tmap.getOrDefault(rightCh, 0) - 1);
+
+                if(tmap.get(rightCh) == 0){
+                    //one char fully matched, increase count
+                    matched++;
+                }
             }
-            map.put(ch, map.getOrDefault(ch, 0)-1);
 
-            while (count == t.length())
-            {
-                if(min > (end - start + 1))
-                {
-                    min = end - start + 1;
-                    answer = start;
+            //move left ptr if fully matched
+            while (tmap.keySet().size() == matched){
+                //capture min window len
+                if(minLen > (right - left + 1)){
+                    minLen = right - left + 1;
+                    start = left;
+                    end = right + 1;
                 }
 
-                map.put(s.charAt(start), map.getOrDefault(s.charAt(start), 0)+1);
-
-                if(map.get(s.charAt(start)) > 0){
-                    count--;
+                char leftCh = s.charAt(left++);
+                if(tmap.containsKey(leftCh)){
+                    if(tmap.get(leftCh) == 0){
+                        matched--;
+                    }
+                    tmap.put(leftCh, tmap.getOrDefault(leftCh, 0) + 1);
                 }
-
-                //reduce window size
-                start++;
             }
-            end++;
+            right++;
         }
 
-        if(min == Integer.MAX_VALUE){
-            return "";
-        }
-
-        return s.substring(answer, answer + min);
+        return s.substring(start, end);
     }
 }
 
