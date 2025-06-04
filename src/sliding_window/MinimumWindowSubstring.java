@@ -15,6 +15,11 @@ public class MinimumWindowSubstring {
 
     private static String minWindow(String s, String t)
     {
+        //handle edge cases
+        if(s.isEmpty() || t.isEmpty() || s.length() < t.length()){
+            return "";
+        }
+        
         //get freqency of target string
         Map<Character, Integer> tmap = new HashMap<>();
         for(char ch : t.toCharArray()){
