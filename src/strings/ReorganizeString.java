@@ -30,20 +30,20 @@ public class ReorganizeString {
         StringBuilder sb = new StringBuilder();
 
         while(maxHeap.size() > 1){
-            char maxChar = maxHeap.remove();
+            char maxChar = maxHeap.poll();
             sb.append(maxChar);
             frequencyMap.put(maxChar, frequencyMap.get(maxChar) - 1);
 
-            char nextChar = maxHeap.remove();
+            char nextChar = maxHeap.poll();
             sb.append(nextChar);
             frequencyMap.put(nextChar, frequencyMap.get(nextChar) - 1);
 
             if(frequencyMap.get(maxChar) > 0){
-                maxHeap.add(maxChar);
+                maxHeap.offer(maxChar);
             }
 
             if(frequencyMap.get(nextChar) > 0){
-                maxHeap.add(nextChar);
+                maxHeap.offer(nextChar);
             }
         }
 
