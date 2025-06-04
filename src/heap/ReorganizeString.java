@@ -30,14 +30,18 @@ public class ReorganizeString {
         StringBuilder sb = new StringBuilder();
 
         while(maxHeap.size() > 1){
+            //step1 : poll max chars
             char maxChar = maxHeap.poll();
+            //step2 : add to the result
             sb.append(maxChar);
+             //step3 : reduce frequency
             frequencyMap.put(maxChar, frequencyMap.get(maxChar) - 1);
 
             char nextChar = maxHeap.poll();
             sb.append(nextChar);
             frequencyMap.put(nextChar, frequencyMap.get(nextChar) - 1);
 
+            //step4 : put back in the heap
             if(frequencyMap.get(maxChar) > 0){
                 maxHeap.offer(maxChar);
             }
