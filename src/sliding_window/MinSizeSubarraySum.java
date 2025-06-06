@@ -26,13 +26,11 @@ public class MinSizeSubarraySum {
         while (right < nums.length){
             sum += nums[right];
 
-            while (sum > target){
+            while (sum >= target){
+                result = Math.min(result, right - left + 1);
+
                 sum -= nums[left];
                 left++;
-            }
-
-            if(sum == target){
-                result = Math.min(result, right - left + 1);
             }
 
             right++;
@@ -41,4 +39,3 @@ public class MinSizeSubarraySum {
         return result == Integer.MAX_VALUE ? 0 : result;
     }
 }
-
