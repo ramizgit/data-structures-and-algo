@@ -14,14 +14,13 @@ public class BaseballGame {
     private static int calPoints(String[] operations)
     {
         Stack<Integer> stack = new Stack<>();
-        int result = 0;
 
         for(String op : operations){
-            if(op.equals("C")){
+            if(op.equals("C") && !stack.empty()){
                 stack.pop();
-            }else if(op.equals("D")){
+            }else if(op.equals("D") && !stack.empty()){
                 stack.push(2 * stack.peek());
-            }else if(op.equals("+")){
+            }else if(op.equals("+") && stack.size() >=2 ){
                 int top = stack.pop();
                 int secondtop = stack.pop();
                 stack.push(secondtop);
@@ -33,6 +32,7 @@ public class BaseballGame {
             }
         }
 
+        int result = 0;
         while (!stack.empty()){
             result += stack.pop();
         }
@@ -40,4 +40,3 @@ public class BaseballGame {
         return result;
     }
 }
-
