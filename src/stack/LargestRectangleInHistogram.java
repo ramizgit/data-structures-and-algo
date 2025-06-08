@@ -15,9 +15,7 @@ public class LargestRectangleInHistogram {
     {
         int[] leftArray = computeLeftArray(arr);
         int[] rightArray = computeRightArray(arr);
-
-        //we have got both left and right array limits
-        //now calculate area for each posisition
+        
         int maxArea = 0;
 
         for(int i=0; i<arr.length; i++)
@@ -35,10 +33,7 @@ public class LargestRectangleInHistogram {
         int[] leftArray = new int[arr.length];
         Stack<Integer> stack = new Stack<>();
 
-        stack.push(0);
-        leftArray[0] = 0;
-
-        for(int i=1; i<arr.length; i++){
+        for(int i=0; i<arr.length; i++){
             while(!stack.empty() && arr[i] <= arr[stack.peek()]){
                 stack.pop();
             }
@@ -58,10 +53,7 @@ public class LargestRectangleInHistogram {
         int[] rightArray = new int[arr.length];
         Stack<Integer> stack = new Stack<>();
 
-        stack.push(arr.length-1);
-        rightArray[arr.length-1] = arr.length-1;
-
-        for(int i=arr.length-2; i>=0; i--){
+        for(int i=arr.length-1; i>=0; i--){
             while(!stack.empty() && arr[i] <= arr[stack.peek()]){
                 stack.pop();
             }
@@ -75,4 +67,3 @@ public class LargestRectangleInHistogram {
         return rightArray;
     }
 }
-
