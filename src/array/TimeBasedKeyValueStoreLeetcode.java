@@ -1,14 +1,11 @@
 package array;
 
-import javafx.util.Pair;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class TimeBasedKeyValueStoreLeetcode {
-
     public static void main(String[] args)
     {
         TimeMap map = new TimeMap();
@@ -40,7 +37,7 @@ public class TimeBasedKeyValueStoreLeetcode {
 }
 
 class TimeMap{
-    private Map<String, List<Pair<Integer, String>>> map;
+    private Map<String, List<TimeValuePair>> map;
 
     public TimeMap()
     {
@@ -49,44 +46,52 @@ class TimeMap{
 
     public void set(String key, String value, int timestamp)
     {
-        List<Pair<Integer, String>> values = this.map.getOrDefault(key, new ArrayList<>());
-        values.add(new Pair<>(timestamp, value));
-        this.map.put(key, values);
+        this.map.computeIfAbsent(key, val -> new ArrayList<>()).add(new TimeValuePair(timestamp, value));
     }
 
     public String get(String key, int timestamp)
     {
-        List<Pair<Integer, String>> values = this.map.get(key);
+        List<TimeValuePair> values = this.map.get(key);
 
         if(values == null || values.isEmpty()){
             return "";
         }
 
         //handle edge cases
-        if(timestamp <= values.get(0).getKey()){
-            return values.get(0).getValue();
+        if(timestamp <= values.get(0).time){
+            return values.get(0).value;
         }
-        if(timestamp >= values.get(values.size()-1).getKey()){
-            return values.get(values.size()-1).getValue();
+        if(timestamp >= values.get(values.size()-1).time){
+            return values.get(values.size()-1).value;
         }
 
         //else do binary search
-        int start = 0;
-        int end = values.size()-1;
+        int low = 0;
+        int high = values.size()-1;
+        String result = "";
 
-        while (start <= end){
-            int mid = (start + end) >>> 1;
+        while (low <= high){
+            int mid = low + (high - low)/2;
 
-            if(timestamp == values.get(mid).getKey() || (timestamp > values.get(mid).getKey() && timestamp < values.get(mid+1).getKey())){
-                return values.get(mid).getValue();
-            }else if(timestamp < values.get(mid).getKey() && timestamp > values.get(mid-1).getKey()){
-                return values.get(mid-1).getValue();
-            }else if(timestamp < values.get(mid).getKey()){
-                end = mid - 1;
-            }else {
-                start = mid + 1;
+            if (values.get(mid).time == timestamp) {
+                return values.get(mid).value;
+            } else if (values.get(mid).time < timestamp) {
+                result = values.get(mid).value; //potential answer, might be overriden if a more suitable time matching found later
+                low = mid + 1;
+            } else {
+                high = mid - 1;
             }
         }
-        return "";
+        return result;
+    }
+}
+
+class TimeValuePair{
+    int time;
+    String value;
+
+    public TimeValuePair(int time, String value) {
+        this.time = time;
+        this.value = value;
     }
 }
