@@ -76,7 +76,7 @@ class TimeMap{
             if (values.get(mid).time == timestamp) {
                 return values.get(mid).value;
             } else if (values.get(mid).time < timestamp) {
-                result = values.get(mid).value;
+                result = values.get(mid).value; //potential answer, might be overriden if a more suitable time matching found later
                 low = mid + 1;
             } else {
                 high = mid - 1;
