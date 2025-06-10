@@ -6,7 +6,6 @@ public class CapacityToShipPackages {
 
     public static void main(String[] args)
     {
-        // weights = [3,2,2,4,1,4], days = 3
         System.out.println(leastCapacity(new int[]{1,2,3,4,5,6,7,8,9,10}, 5)); //15
         System.out.println(leastCapacity(new int[]{3,2,2,4,1,4}, 3)); //6
         System.out.println(leastCapacity(new int[]{1,2,3,1,1}, 4)); //3
