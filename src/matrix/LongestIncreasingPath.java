@@ -15,23 +15,27 @@ public class LongestIncreasingPath {
 
     public static int getLongestIncreasingPath(int[][] matrix)
     {
-        int rows = matrix.length;
-        int cols = matrix[0].length;
+        int m = matrix.length;
+        int n = matrix[0].length;
         int maxCount = 0;
+        int[][] memo = new int[m][n];
 
-        for(int i=0; i<rows; i++){
-            for(int j=0; j<cols; j++){
-                //dfs
-                maxCount = Math.max(maxCount, dfs(matrix, new boolean[rows][cols], rows, cols, i, j));
+        for(int i=0; i<m; i++){
+            for(int j=0; j<n; j++){
+                maxCount = Math.max(maxCount, memo, dfs(matrix, new boolean[m][n], m, n, i, j));
             }
         }
 
         return maxCount;
     }
 
-    public static int dfs(int[][] matrix, boolean[][] visited, int rows, int cols, int i, int j)
+    public static int dfs(int[][] matrix, int[][] memo, boolean[][] visited, int rows, int cols, int i, int j)
     {
-        int max = 0;
+        if(memo[i][j] != 0){
+            return memo[i][j];
+        }
+
+        int max = 1;
         int[][] directions = { {0, -1}, {0, 1}, {-1, 0}, {1, 0}};
 
         visited[i][j] = true;
@@ -41,9 +45,12 @@ public class LongestIncreasingPath {
             int y = j + dir[1];
 
             if(x >= 0 && y >= 0 && x < rows && y < cols && matrix[x][y] > matrix[i][j] && !visited[x][y]){
-                max = Math.max(max, dfs(matrix, visited, rows, cols, x, y));
+                max = Math.max(max, 1 + dfs(matrix, memo, visited, rows, cols, x, y));
             }
         }
-        return max+1;
+
+        //store for memoiztion
+        memo[i][j] = max;
+        return max;
     }
 }
