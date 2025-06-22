@@ -1,11 +1,7 @@
 package matrix;
 
-import javafx.util.Pair;
-
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Set;
 
 public class ShortestPathBinaryMatrixBFS {
     public static void main(String[] args)
@@ -26,28 +22,29 @@ public class ShortestPathBinaryMatrixBFS {
             return -1;
         }
 
-        int rows = grid.length;
-        int cols = grid[0].length;
+        int m = grid.length;
+        int n = grid[0].length;
 
         Queue<Coordinates> queue = new LinkedList<>();
-        Set<Pair<Integer, Integer>> visited = new HashSet<>();
+        boolean[][] visited = new boolean[m][n];
         queue.add(new Coordinates(0, 0, 1));
-        visited.add(new Pair<>(0, 0));
+        visited[0][0] = true;
         int[][] directions = { {0, 1}, {0, -1}, {1, 0}, {-1, 0}, {1, 1}, {-1, -1}, {1, -1}, {-1, 1} };
 
         while (!queue.isEmpty()){
             Coordinates poll = queue.poll();
 
-            if(poll.row == rows-1 && poll.col == cols-1){
-                return poll.path;
+            if(poll.row == m-1 && poll.col == n-1){
+                return poll.dist;
             }
 
             for(int[] dir : directions){
                 int x = poll.row + dir[0];
                 int y = poll.col + dir[1];
 
-                if(x >= 0 && y >= 0 && x < rows && y < cols && grid[x][y] != 1 && !visited.contains(new Pair<>(x, y))){
-                    queue.add(new Coordinates(x, y, poll.path+1));
+                if(x >= 0 && y >= 0 && x < m && y < n && grid[x][y] != 1 && !visited[x][y]){
+                    queue.add(new Coordinates(x, y, poll.dist+1));
+                    visited[x][y] = true;
                 }
             }
         }
@@ -56,14 +53,14 @@ public class ShortestPathBinaryMatrixBFS {
     }
 }
 
-class Coordinates{
+/*class Coordinates {
     int row;
     int col;
-    int path;
+    int dist;
 
-    public Coordinates(int row, int col, int path) {
+    public Coordinates(int row, int col, int dist){
         this.row = row;
         this.col = col;
-        this.path = path;
+        this.dist = dist;
     }
-}
+}*/
