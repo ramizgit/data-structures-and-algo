@@ -1,6 +1,7 @@
 package matrix;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class PacificAtlanticWaterFlow {
@@ -16,65 +17,49 @@ public class PacificAtlanticWaterFlow {
 
     public static List<List<Integer>> pacificAtlantic(int[][] heights)
     {
-        int row = heights.length;
-        int col = heights[0].length;
+        int m = heights.length;
+        int n = heights[0].length;
 
-        boolean[][] pacific = new boolean[row][col];
-        boolean[][] atlantic = new boolean[row][col];
+        boolean[][] pacific = new boolean[m][n];
+        boolean[][] atlantic = new boolean[m][n];
 
-        //populate first column and first row of pacific as true, populate last column and last row of atlantic as true
-        for(int i=0; i<col; i++){
-            pacific[0][i] = true;
-            atlantic[row-1][i] = true;
-        }
-        for(int i=0; i<row; i++){
-            pacific[i][0] = true;
-            atlantic[i][col-1] = true;
+        for(int i=0; i<m; i++){
+            dfs(heights, pacific, i, 0, m, n); //left pacific
+            dfs(heights, atlantic, i, n-1, m, n); //right atlantic
         }
 
-        //populate rest of the pacific dp matrix
-        for(int i=1; i<row; i++){
-            for(int j=1; j<col; j++){
-                if(!(pacific[i-1][j] || pacific[i][j-1])){
-                    pacific[i][j] = false;
-                }else {
-                    if(heights[i][j] >= heights[i-1][j] || heights[i][j] >= heights[i][j-1]){
-                        pacific[i][j] = true;
-                    }else {
-                        pacific[i][j] = false;
-                    }
-                }
-            }
-        }
-
-        //populate rest of the atlantic dp matrix
-        for(int i=row-2; i>=0; i--){
-            for(int j=col-2; j>=0; j--){
-                if(!(atlantic[i+1][j] || atlantic[i][j+1])){
-                    atlantic[i][j] = false;
-                }else {
-                    if(heights[i][j] >= heights[i+1][j] || heights[i][j] >= heights[i][j+1]){
-                        atlantic[i][j] = true;
-                    }else {
-                        atlantic[i][j] = false;
-                    }
-                }
-            }
+        for(int j=0; j<n; j++){
+            dfs(heights, pacific, 0, j, m, n); //top pacific
+            dfs(heights, atlantic, m-1, j, m, n); //bottom atlantic
         }
 
         //find intersection
         List<List<Integer>> list = new ArrayList<>();
-        for(int i=0; i<row; i++){
-            for(int j=0; j<col; j++){
+        for(int i=0; i<m; i++){
+            for(int j=0; j<n; j++){
                 if(pacific[i][j] && atlantic[i][j]){
-                    List<Integer> tmplist = new ArrayList<>();
-                    tmplist.add(i);
-                    tmplist.add(j);
-                    list.add(tmplist);
+                    list.add(Arrays.asList(i, j));
                 }
             }
         }
 
         return list;
     }
+
+    private static void dfs(int[][] heights, boolean[][] ocean, int i, int j, int m, int n)
+    {
+        ocean[i][j] = true;
+
+        int[][] directions = { {1, 0}, {-1, 0}, {0, 1}, {0, -1} };
+
+        for(int[] dir : directions){
+            int x = i + dir[0];
+            int y = j + dir[1];
+
+            if(x >= 0 && x < m && y >= 0 && y < n && heights[x][y] >= heights[i][j] && !ocean[x][y]){
+                dfs(heights, ocean, x, y, m, n);
+            }
+        }
+    }
 }
+
