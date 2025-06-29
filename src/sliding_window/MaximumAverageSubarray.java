@@ -16,9 +16,15 @@ public class MaximumAverageSubarray {
 
         double maxAvg = (double) sum / k;
 
-        for(int i=k; i<nums.length; i++){
-            sum += nums[i] - nums[i-k];
+        int left = 0;
+        int right = k;
+
+        while (right < nums.length){
+            sum += nums[right] - nums[left];
             maxAvg = Math.max(maxAvg, (double)sum/k);
+
+            right++;
+            left++;
         }
 
         return maxAvg;
