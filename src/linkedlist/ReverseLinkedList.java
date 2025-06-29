@@ -13,8 +13,8 @@ public class ReverseLinkedList {
 
         Node.print(node1);
 
-        Node node = reverseIteratively(node1);
-        //Node node = reverseViaRecursion(node1);
+        //Node node = reverseIteratively(node1);
+        Node node = reverseViaRecursion(node1);
 
         Node.print(node);
     }
@@ -46,7 +46,7 @@ public class ReverseLinkedList {
             return head;
         }
 
-        Node newHead = reverseIteratively(head.next);
+        Node newHead = reverseViaRecursion(head.next);
         head.next.next = head;
         head.next = null;
 
