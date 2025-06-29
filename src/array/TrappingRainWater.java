@@ -3,9 +3,8 @@ package array;
 public class TrappingRainWater {
     public static void main(String[] args)
     {
-        System.out.println(maxRainWater(new int[]{0,1,0,2,1,0,1,3,2,1,2,1}));
-
-        System.out.println(maxRainWater(new int[]{4,2,0,3,2,5}));
+        System.out.println(maxRainWater(new int[]{0,1,0,2,1,0,1,3,2,1,2,1})); //6
+        System.out.println(maxRainWater(new int[]{4,2,0,3,2,5})); //9
     }
 
     public static int maxRainWater(int[] arr)
@@ -14,11 +13,8 @@ public class TrappingRainWater {
             return 0;
         }
 
-        int[] maxLeft = new int[arr.length];
-        int[] maxRight = new int[arr.length];
-
-        populateMaxLeftArray(arr, maxLeft);
-        populateMaxRightArray(arr, maxRight);
+        int[] maxLeft = getMaxLeftArray(arr);
+        int[] maxRight = getMaxRightArray(arr);
 
         int maxWater = 0;
 
@@ -32,21 +28,23 @@ public class TrappingRainWater {
         return maxWater;
     }
 
-    public static void populateMaxLeftArray(int[] arr, int[] maxLeft)
+    public static int[] getMaxLeftArray(int[] arr)
     {
+        int[] maxLeft = new int[arr.length];
         maxLeft[0] = 0;
-        maxLeft[1] = arr[0];
-        for(int i=2; i<arr.length; i++){
+        for(int i=1; i<arr.length; i++){
             maxLeft[i] = Math.max(arr[i-1], maxLeft[i-1]);
         }
+        return maxLeft;
     }
 
-    public static void populateMaxRightArray(int[] arr, int[] maxRight)
+    public static int[] getMaxRightArray(int[] arr)
     {
+        int[] maxRight = new int[arr.length];
         maxRight[maxRight.length-1] = 0;
-        maxRight[maxRight.length-2] = arr[arr.length-1];
-        for(int i=arr.length-3; i>=0; i--){
+        for(int i=arr.length-2; i>=0; i--){
             maxRight[i] = Math.max(arr[i+1], maxRight[i+1]);
         }
+        return maxRight;
     }
 }
