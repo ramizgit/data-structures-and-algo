@@ -8,7 +8,7 @@ public class AsteroidCollision {
 
     public static void main(String[] args)
     {
-        //[10,2,-5]
+        asteroidCollision(new int[]{-9,10,2,-15});
         asteroidCollision(new int[]{10,2,-5});
         asteroidCollision(new int[]{5,10,-5});
         asteroidCollision(new int[]{5,10,-15,-10});
@@ -20,24 +20,33 @@ public class AsteroidCollision {
         Stack<Integer> stack = new Stack<>();
 
         for(int i=0; i<asteroids.length; i++){
-            if(!stack.empty() && stack.peek() > 0 && asteroids[i] < 0){
-                //collision will happen, take action
-                while (!stack.empty()){
-                    if(Math.abs(asteroids[i]) < stack.peek()){
-                        break;
-                    } else {
-                        stack.pop();
-                    }
+            int current = asteroids[i];
+            boolean destroyed = false;
+
+            while (!stack.empty() && current < 0 && stack.peek() > 0){
+                //collision will happen
+                int currentAbs = Math.abs(current);
+                if(currentAbs < stack.peek()){
+                    //current will get destroyed
+                    destroyed = true;
+                    break;
+                } else if (currentAbs == stack.peek()) {
+                    //both will get destroyed
+                    destroyed = true;
+                    stack.pop();
+                    break;
+                }else {
+                    //only top will get destroyed
+                    stack.pop();
                 }
-                //push if empty stack
-                if(stack.empty()){
-                    stack.push(asteroids[i]);
-                }
-            }else {
-                stack.push(asteroids[i]);
+            }
+
+            if(!destroyed){
+                stack.push(current);
             }
         }
 
+        //collect output
         int[] output = new int[stack.size()];
         int i = output.length-1;
         while (!stack.empty()){
@@ -48,4 +57,3 @@ public class AsteroidCollision {
         return output;
     }
 }
-
