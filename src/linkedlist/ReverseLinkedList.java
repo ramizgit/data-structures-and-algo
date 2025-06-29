@@ -1,55 +1,55 @@
 package linkedlist;
 
 public class ReverseLinkedList {
+    //https://leetcode.com/problems/reverse-linked-list/description/
+
     public static void main(String[] args)
     {
-        //5 -> 3 -> 6 -> 8 -> 7 -> null
-        //7 -> 8 -> 6 -> 3 -> 5 -> null
+        Node node5 = new Node(5, null);
+        Node node4 = new Node(4, node5);
+        Node node3 = new Node(3, node4);
+        Node node2 = new Node(2, node3);
+        Node node1 = new Node(1, node2);
 
-        Node node7 = new Node(7, null);
-        Node node8 = new Node(8, node7);
-        Node node6 = new Node(6, node8);
-        Node node3 = new Node(3, node6);
-        Node node5 = new Node(5, node3);
+        Node.print(node1);
 
-        print(node5);
-        print(reverseViaRecursion(node5));
-        //print(reverseViaIteration(node5));
+        Node node = reverseIteratively(node1);
+        //Node node = reverseViaRecursion(node1);
+
+        Node.print(node);
     }
 
-    public static Node reverseViaIteration(Node node)
+    private static Node reverseIteratively(Node head)
     {
+        if(head == null || head.next == null){
+            return head;
+        }
+
+        Node curr = head;
         Node prev = null;
         Node next = null;
-        Node current = node;
 
-        while(current != null){
-            next = current.next;
-            current.next = prev;
-            prev = current;
-            current = next;
+        while (curr != null){
+            next = curr.next;
+            curr.next = prev;
+
+            prev = curr;
+            curr = next;
         }
 
         return prev;
     }
 
-    public static Node reverseViaRecursion(Node node)
+    private static Node reverseViaRecursion(Node head)
     {
-        if(node.next == null){
-            return node;
+        if(head == null || head.next == null){
+            return head;
         }
 
-        Node head = reverseViaRecursion(node.next);
-        node.next.next = node;
-        node.next = null;
-        return head;
-    }
+        Node newHead = reverseIteratively(head.next);
+        head.next.next = head;
+        head.next = null;
 
-    public static void print(Node node){
-        while(node != null){
-            System.out.print(node.value + " -> ");
-            node = node.next;
-        }
-        System.out.println();
+        return newHead;
     }
 }
