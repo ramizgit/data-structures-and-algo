@@ -23,7 +23,6 @@ public class BestTimeToBuySellStock {
             //reset if selling price is lower
             if(prices[sell] < prices[buy]){
                 buy = sell;
-                sell = sell + 1;
             }
 
             sell++;
