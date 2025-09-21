@@ -4,7 +4,8 @@ public class SplitArrayLargestSum {
     public static void main(String[] args)
     {
 
-        //1,2,3,10
+        //nums = [7,2,5,10,8], k = 2
+        System.out.println(splitArray(new int[]{7,2,5,10,8}, 2));
 
     }
 
@@ -32,6 +33,7 @@ public class SplitArrayLargestSum {
         return answer;
     }
 
+    //nums = [7,2,5,10,8], k = 2
     private static boolean canSplit(int[] nums, int k, int maxSum)
     {
         int sum = 0;
@@ -50,4 +52,3 @@ public class SplitArrayLargestSum {
         return count <= k;
     }
 }
-
