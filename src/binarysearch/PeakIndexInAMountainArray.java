@@ -1,6 +1,8 @@
 package binarysearch;
 
 public class PeakIndexInAMountainArray {
+    //https://leetcode.com/problems/peak-index-in-a-mountain-array/description/
+    
     public static void main(String[] args)
     {
         System.out.println(findPeak(new int[]{0,1,0})); //1
