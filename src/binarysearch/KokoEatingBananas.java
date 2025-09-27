@@ -29,10 +29,10 @@ public class KokoEatingBananas {
             if(timeToFinish == h){
                 return speed;
             } else if (timeToFinish < h) {
-                max = speed - 1;
+                max = speed - 1; //slow down and koko able to eat all banana within h
                 result = speed; //potential answer, lets see if we can do better, otherwise this will be the answer
             }else {
-                min = speed + 1;
+                min = speed + 1; //hurry up
             }
         }
 
