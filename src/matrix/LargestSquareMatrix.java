@@ -1,6 +1,7 @@
-package matrix;
+package dp;
 
 public class LargestSquareMatrix {
+    //https://leetcode.com/problems/maximal-square/description/
     public static void main(String[] args)
     {
         int[][] m1 = new int[][]{ {1, 0, 1, 1, 1}, {1, 0, 1, 1, 1}, {1, 1, 1, 1, 1}, {1, 0, 0, 1, 0}};
@@ -19,26 +20,20 @@ public class LargestSquareMatrix {
         int n = matrix[0].length;
 
         int[][] dp = new int[m][n];
-        int laretSquare = 0;
+        int max = 0;
 
         //populate first column of dp
         for(int i=0; i<m; i++)
         {
             dp[i][0] = matrix[i][0];
-
-            if(dp[i][0] > laretSquare){
-                laretSquare = dp[i][0];
-            }
+            max = Math.max(max, dp[i][0]);
         }
 
         //populate first row of dp
         for(int j=0; j<n; j++)
         {
             dp[0][j] = matrix[0][j];
-
-            if(dp[0][j] > laretSquare){
-                laretSquare = dp[0][j];
-            }
+            max = Math.max(max, dp[0][j]);
         }
 
         //populate rest of the dp matrix using previously calculated values
@@ -50,12 +45,10 @@ public class LargestSquareMatrix {
                     dp[i][j] = 0;
                 }else if(matrix[i][j] == 1){
                     dp[i][j] = Math.min(Math.min(dp[i][j-1], dp[i-1][j]), dp[i-1][j-1]) + 1;
-                    if(dp[i][j] > laretSquare){
-                        laretSquare = dp[i][j];
-                    }
+                    max = Math.max(max, dp[i][j]);
                 }
             }
         }
-        return laretSquare;
+        return max;
     }
 }
