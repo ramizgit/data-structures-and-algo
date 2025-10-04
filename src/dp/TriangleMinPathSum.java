@@ -22,7 +22,6 @@ public class TriangleMinPathSum {
 
         for(int i=m-2; i>=0; i--){
             int[] curr = triangle[i];
-            int[] prev = triangle[i+1];
             for(int j=0; j<curr.length; j++){
                 dp[j] = curr[j] + Math.min(dp[j], dp[j+1]);
             }
