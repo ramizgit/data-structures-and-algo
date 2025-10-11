@@ -20,8 +20,8 @@ public class NumberOfIslands {
         for(int i=0; i<m; i++){
             for(int j=0; j<n; j++){
                 if(grid[i][j] == 1 && !visited[i][j]){
-                    dfs(grid, visited, i, j, m, n);
                     result++;
+                    dfs(grid, visited, i, j, m, n);
                 }
             }
         }
@@ -39,7 +39,7 @@ public class NumberOfIslands {
             int x = i + dir[0];
             int y = j + dir[1];
 
-            if(x >= 0 && x < m && y >= 0 && y < n && !visited[x][y] && grid[x][y] == 1){
+            if(x >= 0 && x < m && y >= 0 && y < n && grid[x][y] == 1 && !visited[x][y]){
                 dfs(grid, visited, x, y, m, n);
             }
         }
