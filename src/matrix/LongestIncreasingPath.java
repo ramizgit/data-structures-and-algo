@@ -1,55 +1,53 @@
-package matrix;
+package grid;
 
-public class LongestIncreasingPath {
+public class LongestIncreasingPathInMatrix {
+    //https://leetcode.com/problems/longest-increasing-path-in-a-matrix/description/
     public static void main(String[] args)
     {
-        int[][] matrix = {{9,9,4},{6,6,8},{2,1,1}};
-        System.out.println(getLongestIncreasingPath(matrix)); //4
+        int[][] matrix = {
+                {9, 9, 4},
+                {6, 6, 8},
+                {2, 1, 1}
+        };
 
-        int[][] matrix2 = {{3,4,5},{3,2,6},{2,2,1}};
-        System.out.println(getLongestIncreasingPath(matrix2)); //4
-
-        int[][] matrix3 = { {9,9,8,7}, {3,2,1,6}, {4,5,6,7} };
-        System.out.println(getLongestIncreasingPath(matrix3)); //7
+        System.out.println("Longest Increasing Path: " + longestIncreasingPath(matrix)); // Output: 4 (Path: 1 → 2 → 6 → 9)
     }
 
-    public static int getLongestIncreasingPath(int[][] matrix)
+    private static int longestIncreasingPath(int[][] grid)
     {
-        int m = matrix.length;
-        int n = matrix[0].length;
-        int maxCount = 0;
+        int m = grid.length;
+        int n = grid[0].length;
+
         int[][] memo = new int[m][n];
+        int max = 0;
 
         for(int i=0; i<m; i++){
             for(int j=0; j<n; j++){
-                maxCount = Math.max(maxCount, memo, dfs(matrix, new boolean[m][n], m, n, i, j));
+                max = Math.max(max, dfs(grid, memo, m, n, i, j));
             }
         }
-
-        return maxCount;
+        return max;
     }
 
-    public static int dfs(int[][] matrix, int[][] memo, boolean[][] visited, int rows, int cols, int i, int j)
+    //dfs
+    private static int dfs(int[][] grid, int[][] memo, int m, int n, int i, int j)
     {
         if(memo[i][j] != 0){
             return memo[i][j];
         }
 
         int max = 1;
-        int[][] directions = { {0, -1}, {0, 1}, {-1, 0}, {1, 0}};
-
-        visited[i][j] = true;
+        int[][] directions = { {1, 0}, {-1, 0}, {0, 1}, {0, -1} };
 
         for(int[] dir : directions){
             int x = i + dir[0];
             int y = j + dir[1];
 
-            if(x >= 0 && y >= 0 && x < rows && y < cols && matrix[x][y] > matrix[i][j] && !visited[x][y]){
-                max = Math.max(max, 1 + dfs(matrix, memo, visited, rows, cols, x, y));
+            if(x >= 0 && y >= 0 && x < m && y < n && grid[x][y] > grid[i][j]){
+                max = Math.max(max, 1 + dfs(grid, memo, m, n, x, y));
             }
         }
 
-        //store for memoiztion
         memo[i][j] = max;
         return max;
     }
