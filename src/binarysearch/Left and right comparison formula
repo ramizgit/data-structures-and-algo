@@ -1,0 +1,11 @@
+How to decide when to use left <= right and when just left < right in binary search
+
+Here’s a simple decision checklist you can memorize:
+
+Question	If YES → use
+Am I checking == target inside loop?	left <= right
+Do I return immediately when found?	left <= right
+Am I finding a boundary, minimum, maximum, or peak?	left < right
+Do I compare mid with mid+1 or mid-1?	left < right
+Do I want loop to stop when pointers meet?	left < right
+Do I want loop to stop when pointers cross?	left <= right
