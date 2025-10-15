@@ -12,7 +12,28 @@ public class FindPeakElement {
         System.out.println(findPeakElement(new int[]{4,3,2,1})); //0
     }
 
+    //todo:practice it, here left < high, not <=
     private static int findPeakElement(int[] nums)
+    {
+        int low = 0, high = nums.length - 1;
+
+        while (low < high) {  // note: strictly <
+            int mid = low + (high - low) / 2;
+    
+            // compare mid with its next element only
+            if (nums[mid] > nums[mid + 1]) {
+                // peak is on the left (including mid)
+                high = mid;
+            } else {
+                // peak is on the right
+                low = mid + 1;
+            }
+        }
+
+        return low; // or high (both will be same)
+    }
+
+     private static int findPeakElement(int[] nums)
     {
         int low = 0;
         int high = nums.length-1;
