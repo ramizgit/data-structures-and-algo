@@ -23,7 +23,7 @@ public class KokoEatingBanana {
             int midSpeed = minSpeed + (maxSpeed - minSpeed)/2;
 
             if(canFinish(piles, midSpeed, h)){
-                answer = midSpeed;
+                answer = midSpeed; //potential answer
                 maxSpeed = midSpeed - 1;
             }else{
                 minSpeed = midSpeed + 1;
