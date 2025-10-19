@@ -1,51 +1,45 @@
 package binarysearch;
 
-public class KokoEatingBananas {
-    //https://leetcode.com/problems/koko-eating-bananas/description/
+package neetcode150.binarySearch;
 
+public class KokoEatingBanana {
     public static void main(String[] args)
     {
-        System.out.println(minEatingSpeed(new int[]{3,6,7,11}, 8)); //4
-        System.out.println(minEatingSpeed(new int[]{30,11,23,4,20}, 5)); //30
-        System.out.println(minEatingSpeed(new int[]{30,11,23,4,20}, 6)); //23
-        System.out.println(minEatingSpeed(new int[]{1000}, 1000)); //1
+        System.out.println(minEatingSpeed(new int[]{1,4,3,2}, 9)); //2
+        System.out.println(minEatingSpeed(new int[]{25,10,23,4}, 4)); //2
     }
 
     private static int minEatingSpeed(int[] piles, int h)
     {
-        int min = 1;
-        int max = Integer.MIN_VALUE;
-        int result = 0;
-
+        int minSpeed = 1;
+        int maxSpeed = 0;
         for(int pile : piles){
-            max = Math.max(max, pile);
+            maxSpeed = Math.max(maxSpeed, pile);
         }
 
-        while (min <= max){
-            int speed = min + (max - min)/2;
+        int answer = 0;
 
-            int timeToFinish = timeToFinish(piles, speed);
+        while(minSpeed <= maxSpeed){
+            int midSpeed = minSpeed + (maxSpeed - minSpeed)/2;
 
-            if(timeToFinish == h){
-                return speed;
-            } else if (timeToFinish < h) {
-                max = speed - 1; //slow down and koko able to eat all banana within h
-                result = speed; //potential answer, lets see if we can do better, otherwise this will be the answer
-            }else {
-                min = speed + 1; //hurry up
+            if(canFinish(piles, midSpeed, h)){
+                answer = midSpeed;
+                maxSpeed = midSpeed - 1;
+            }else{
+                minSpeed = midSpeed + 1;
             }
         }
 
-        return result;
+        return answer;
     }
 
-    private static int timeToFinish(int[] piles, int speed)
+    private static boolean canFinish(int[] piles, int speed, int h)
     {
-        int time = 0;
-        for(int i=0; i< piles.length; i++){
-            time += Math.ceilDiv(piles[i], speed);
+        int hour = 0;
+        for(int pile : piles){
+            hour += Math.ceilDiv(pile, speed);
         }
-        return time;
+
+        return hour <= h;
     }
 }
-
