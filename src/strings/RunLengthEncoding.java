@@ -20,16 +20,14 @@ public class RunLengthEncoding {
 
         while (right < input.length()){
             if(input.charAt(left) != input.charAt(right)){
-                output.append(right-left);
-                output.append(input.charAt(left));
+                output.append(right-left).append(input.charAt(left));
                 left = right;
             }
             right++;
         }
 
         //append left over
-        output.append(right-left);
-        output.append(input.charAt(left));
+        output.append(right-left).append(input.charAt(left));
 
         return output.toString();
     }
