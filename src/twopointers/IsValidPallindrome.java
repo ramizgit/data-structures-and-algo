@@ -19,10 +19,12 @@ public class IsValidPallindrome {
 
         while (left < right)
         {
+            //ignore non alpha numeric, keep moving
             while (left < right && !isAlphaNum(input.charAt(left))){
                 left++;
             }
 
+            //ignore non alpha numeric, keep moving
             while (right > left && !isAlphaNum(input.charAt(right))){
                 right--;
             }
