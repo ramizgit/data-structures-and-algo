@@ -29,6 +29,7 @@ public class IsValidPallindrome {
                 right--;
             }
 
+            //compare
             if(Character.toLowerCase(input.charAt(left)) != Character.toLowerCase(input.charAt(right))){
                 return false;
             }
