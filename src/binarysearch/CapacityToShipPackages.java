@@ -1,8 +1,8 @@
 package binarysearch;
 
-public class CapacityToShipPackages {
+package neetcode150.binarySearch;
 
-    //https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/description/
+public class CapacityToShipPackages {
 
     public static void main(String[] args)
     {
@@ -13,51 +13,44 @@ public class CapacityToShipPackages {
 
     private static int leastCapacity(int[] weights, int days)
     {
+        int minCapacity = 0;
+        int maxCapacity = 0;
 
-        int max = 0;
-        int sum = 0;
-
-        for(int weight : weights){
-            sum += weight;
-            max = Math.max(max, weight);
+        for(int w : weights){
+            minCapacity = Math.max(minCapacity, w);
+            maxCapacity += w;
         }
 
-        int low = max;
-        int high = sum;
-        int result = 0;
+        int answer = 0;
 
-        while (low <= high){
-            int capacity = low + (high - low)/2;
-            int numOfDays = numOfDaysToShip(weights, capacity);
+        while(minCapacity <= maxCapacity){
+            int midCapacity = minCapacity + (maxCapacity - minCapacity)/2;
 
-            if(numOfDays == days){
-                return capacity;
-            } else if (numOfDays < days) {
-                high = capacity - 1;
-                result = capacity; //could be potential answer
-            }else {
-                low = capacity + 1;
+            if(canShip(weights, days, midCapacity)){
+                answer = midCapacity; //potentail answer
+                maxCapacity = midCapacity - 1;
+            }else{
+                minCapacity = midCapacity + 1;
             }
         }
 
-        return result;
+        return answer;
     }
 
-    private static int numOfDaysToShip(int[] weights, int capacity)
+    private static boolean canShip(int[] weights, int days, int capacity)
     {
-        int numOfDays = 1;
-        int sum = 0;
-        for(int i=0; i< weights.length; i++){
-            sum += weights[i];
+        int totalDays = 1;
+        int totalWeight = 0;
 
-            //reset if exceeds capacity
-            if(sum > capacity){
-                sum = weights[i];
-                numOfDays++;
+        for(int w : weights){
+            totalWeight += w;
+
+            if(totalWeight > capacity){
+                totalDays++;
+                totalWeight = w; //reset
             }
         }
 
-        return numOfDays;
+        return totalDays <= days;
     }
 }
-
