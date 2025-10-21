@@ -1,6 +1,7 @@
 package stack;
 
-import java.util.Stack;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 public class RemoveAllAdjacentDupsInStringii {
     //https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string-ii/description/
@@ -14,24 +15,24 @@ public class RemoveAllAdjacentDupsInStringii {
 
     private static String removeDuplicates(String s, int k)
     {
-        Stack<CharCountPair> stack = new Stack<>();
+        Deque<CharCountPair> stack = new ArrayDeque<>();
 
         for(char ch : s.toCharArray()){
-            if(!stack.empty() && ch == stack.peek().ch){
-                CharCountPair pair = stack.pop();
-                if(pair.count < k - 1){
-                    stack.push(new CharCountPair(ch, pair.count + 1));
+            if(!stack.isEmpty() && ch == stack.peek().ch){
+                stack.peek().count++;
+                if(stack.peek().count == k){
+                    stack.pop();
                 }
-            }else {
+            }else{
                 stack.push(new CharCountPair(ch, 1));
             }
         }
 
         StringBuilder sb = new StringBuilder();
-        while (!stack.empty()){
-            CharCountPair pair = stack.pop();
-            for(int i=0; i<pair.count; i++){
-                sb.append(pair.ch);
+        while(!stack.isEmpty()){
+            CharCountPair pop = stack.pop();
+            for(int i=0; i<pop.count; i++){
+                sb.append(pop.ch);
             }
         }
 
@@ -48,4 +49,3 @@ class CharCountPair{
         this.count = count;
     }
 }
-
