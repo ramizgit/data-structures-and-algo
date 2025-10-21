@@ -17,11 +17,6 @@ public class MaximumRectangleInBinaryMatrix {
         int[] tmparr = new int[n];
         int maxRectangle = 0;
 
-        for(int i=0; i<n; i++)
-        {
-            tmparr[i] = 0;
-        }
-
         //populate first row of the matrix into tmp array
         for(int i=0; i<m; i++)
         {
