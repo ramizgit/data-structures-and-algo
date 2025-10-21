@@ -29,9 +29,7 @@ public class MaximumRectangleInBinaryMatrix {
                 }
             }
             int area = LargestRectangleInHistogram.getLargestRectangle(tmparr);
-            if(area > maxRectangle){
-                maxRectangle = area;
-            }
+            maxRectangle = Math.max(maxRectangle, area);
         }
 
         return maxRectangle;
