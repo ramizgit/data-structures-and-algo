@@ -1,13 +1,11 @@
 package stack;
 
+import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
 
 public class MaximumFrequencyStack {
-    //https://leetcode.com/problems/maximum-frequency-stack/description/
-
     public static void main(String[] args)
     {
         FreqStack freqStack = new FreqStack();
@@ -26,30 +24,38 @@ public class MaximumFrequencyStack {
 }
 
 class FreqStack {
-
-    Map<Integer, Integer> keyFreq;
-    Map<Integer, Deque<Integer>> freqList;
-    int maxFreq = Integer.MIN_VALUE;
+    private Map<Integer, Integer> freq;
+    private Map<Integer, Deque<Integer>> freqStack;
+    private int maxFreq;
 
     public FreqStack() {
-        this.keyFreq = new HashMap<>();
-        this.freqList = new HashMap<>();
+        this.freq = new HashMap<>();
+        this.freqStack = new HashMap<>();
+        maxFreq = 0;
     }
 
     public void push(int val) {
-        this.keyFreq.put(val, this.keyFreq.getOrDefault(val, 0) + 1);
-        maxFreq = Math.max(maxFreq, this.keyFreq.get(val));
-        this.freqList.computeIfAbsent(this.keyFreq.get(val), key -> new LinkedList<>()).addLast(val);
+        int newFreq = freq.getOrDefault(val, 0) + 1;
+        freq.put(val, newFreq);
+        freqStack.computeIfAbsent(newFreq, key -> new ArrayDeque<>()).push(val);
+
+        //update max freq
+        maxFreq = Math.max(maxFreq, newFreq);
     }
 
     public int pop() {
-        int popped = this.freqList.get(this.maxFreq).removeLast();
-        this.keyFreq.put(popped, this.keyFreq.get(popped) - 1);
+        Deque<Integer> stack = freqStack.get(maxFreq);
+        int val = stack.pop();
 
-        if(this.freqList.get(maxFreq).isEmpty()){
+        //reduce freq
+        freq.put(val, freq.get(val) - 1);
+
+        // if no more elements at this frequency, decrease maxFreq
+        if (stack.isEmpty()) {
+            freqStack.remove(maxFreq); // optional, keeps map clean
             maxFreq--;
         }
 
-        return popped;
+        return val;
     }
 }
