@@ -1,10 +1,9 @@
 package stack;
 
-import java.util.Stack;
-
 public class LongestValidParantheses {
     public static void main(String[] args)
     {
+        System.out.println(getLongestValidParantheses("()(())"));
         System.out.println(getLongestValidParantheses("(()"));
         System.out.println(getLongestValidParantheses(")()())"));
         System.out.println(getLongestValidParantheses(")(()))"));
@@ -13,24 +12,46 @@ public class LongestValidParantheses {
 
     public static int getLongestValidParantheses(String input)
     {
-        Stack<Character> stack = new Stack<>();
-        int output = 0;
+        int left = 0;
+        int right = 0;
+        int max = 0;
 
-        for(int i=0; i < input.length(); i++)
-        {
-            char c = input.charAt(i);
-            if (c == '(') {
-                stack.push(c);
+        //left pass
+        for(int i=0; i<input.length(); i++){
+            if(input.charAt(i) == '('){
+                left++;
+            }else{
+                right++;
             }
-            else {
-                if(!stack.empty()){
-                    if(stack.peek() == '('){
-                        output +=2;
-                        stack.pop();
-                    }
-                }
+
+            if(left == right){
+                max = Math.max(max, left * 2);
+            }else if(right > left){
+                //reset
+                left = 0;
+                right = 0;
             }
         }
-        return output;
+
+        //right pass
+        left = 0;
+        right = 0;
+        for(int i=input.length()-1; i>=0; i--){
+            if(input.charAt(i) == '('){
+                left++;
+            }else{
+                right++;
+            }
+
+            if(left == right){
+                max = Math.max(max, left * 2);
+            }else if(left > right){
+                //reset
+                left = 0;
+                right = 0;
+            }
+        }
+
+        return max;
     }
 }
