@@ -50,54 +50,49 @@ class LFUInterfaceImpl implements LFUInterface{
 
     @Override
     public void put(String key, String val) {
+        //scenario if key already exists in the map
+        if(keyValmap.containsKey(key)){
+            keyValmap.put(key, val);
+            get(key); // treat update as access
+            return;
+        }
+
+        //scenario where its a brand new key
         if(keyValmap.size() == LIMIT){
             //remove LFU, if tie, LRU
-            Deque<String> deque = freqListmap.get(leastFreq);
-            String last = deque.removeLast();
+            Deque<String> deque = freqListmap.get(leastFreq); //LFU
+            String last = deque.removeLast(); //LRU
             keyFreqmap.remove(last);
             keyValmap.remove(last);
         }
 
-        //put or override key val map
+        //populate map with new key val
         keyValmap.put(key, val);
 
-        //update frequency
-        keyFreqmap.put(key, keyFreqmap.getOrDefault(key, 0)+1);
+        //set frequency to 1 for new key and add to deque
+        keyFreqmap.put(key, 1);
+        freqListmap.computeIfAbsent(1, k -> new LinkedList<>()).addFirst(key);
 
-        Deque<String> deque = freqListmap.getOrDefault(keyFreqmap.get(key), new LinkedList<>());
-        deque.remove(key);
-        deque.addFirst(key);
-        freqListmap.put(keyFreqmap.get(key), deque);
-
-        this.updateLeastFreq(key);
+        //set least freq to 1
+        leastFreq = 1;
     }
 
     @Override
     public String get(String key) {
-        if(keyValmap.containsKey(key)){
-            //reorder
-            int freq = keyFreqmap.get(key);
-            freqListmap.get(freq).remove(key);
-            Deque<String> deque = freqListmap.getOrDefault(freq+1, new LinkedList<>());
-            deque.addFirst(key);
-            freqListmap.put(freq+1, deque);
+        if (!keyValmap.containsKey(key)) return null;
 
-            //increase frequency
-            keyFreqmap.put(key, keyFreqmap.get(key)+1);
-
-            //update least frequency
-            this.updateLeastFreq(key);
-
-            return keyValmap.get(key);
+        int prevFreq = keyFreqmap.get(key);
+        freqListmap.get(prevFreq).remove(key); //remove from prev deque
+        //update least frequency
+        if (freqListmap.get(prevFreq).isEmpty() && prevFreq == leastFreq) {
+            leastFreq++;
         }
-        return null;
-    }
 
-    private void updateLeastFreq(String key) {
-        leastFreq = Math.min(leastFreq, keyFreqmap.get(key));
-        if(freqListmap.get(leastFreq) != null && freqListmap.get(leastFreq).isEmpty()){
-            leastFreq = keyFreqmap.get(key);
-        }
+        int newFreq = prevFreq + 1;
+        keyFreqmap.put(key, newFreq); //set new frequency
+        freqListmap.computeIfAbsent(newFreq, k -> new LinkedList<>()).addFirst(key); //promote to new freq list
+
+        return keyValmap.get(key);
     }
 
     @Override
@@ -112,8 +107,10 @@ class LFUInterfaceImpl implements LFUInterface{
 
     @Override
     public void state() {
+        System.out.println("Sate Start");
         System.out.println(keyValmap);
         System.out.println(keyFreqmap);
         System.out.println(freqListmap);
+        System.out.println("Sate End");
     }
 }
