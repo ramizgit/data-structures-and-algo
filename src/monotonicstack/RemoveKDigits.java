@@ -1,6 +1,7 @@
 package monotonicstack;
 
-import java.util.Stack;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 public class RemoveKDigits {
     //https://leetcode.com/problems/remove-k-digits/description/
@@ -9,30 +10,39 @@ public class RemoveKDigits {
         System.out.println(removeKdigits("1432219", 3)); //1219
         System.out.println(removeKdigits("10200", 1)); //200
         System.out.println(removeKdigits("10", 2)); //0
+        System.out.println(removeKdigits("54321", 2)); //321
+        System.out.println(removeKdigits("12345", 2)); //321
     }
 
     private static String removeKdigits(String num, int k)
     {
-        Stack<Integer> stack = new Stack<>();
+        Deque<Character> stack = new ArrayDeque<>();
 
-        for(int i=0; i<num.length(); i++){
-            int curr = num.charAt(i) - '0';
-
-            //monotonic increasing (non-decreasing) stack
-            while (!stack.empty() && curr < stack.peek() && k > 0){
+        for(char ch : num.toCharArray()){
+            while (!stack.isEmpty() && k > 0 && ch < stack.peek()){
                 stack.pop();
                 k--;
             }
+            stack.push(ch);
+        }
 
-            stack.push(curr);
+        //if still something left
+        while(!stack.isEmpty() && k > 0){
+            stack.pop();
+            k--;
         }
 
         //collect output
         StringBuilder sb = new StringBuilder();
-        while (!stack.empty()){
-            sb.append(stack.pop());
+        while (!stack.isEmpty()){
+            sb.insert(0, stack.pop());
         }
 
-        return sb.reverse().toString();
+        // Remove leading zeros
+        while (!sb.isEmpty() && sb.charAt(0) == '0') {
+            sb.deleteCharAt(0);
+        }
+
+        return sb.isEmpty() ? "0" : sb.toString();
     }
 }
