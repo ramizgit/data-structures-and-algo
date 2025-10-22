@@ -1,0 +1,33 @@
+some notes:
+1. if u use left <= right, then left = mid + 1 OR right = mid - 1.
+2. if u use left < right, then left = mid +1 OR right = mid, otherwise could go infinite loop
+
+Two coding examples:-
+
+#  USING LEFT < RIGHT, SIMPLIFIES THE CODE, PREFERABLE
+def findPeakElement(nums):
+    left, right = 0, len(nums) - 1
+    while left < right:
+        mid = left + (right - left) // 2
+        # Check if mid is a peak or if peak is to the left
+        if nums[mid] > nums[mid + 1]:
+            right = mid  # Peak is at mid or left of mid
+        else:
+            left = mid + 1  # Peak is to the right of mid
+    return left  # When left == right, this is a peak
+
+# USING LEFT <= RIGHT, IT COMPLICATES THE CODE A BIT
+def findPeakElement_alt(nums):
+    left, right = 0, len(nums) - 1
+    while left <= right:
+        mid = left + (right - left) // 2
+        # Handle edge cases for mid
+        left_neighbor = nums[mid - 1] if mid > 0 else float('-inf')
+        right_neighbor = nums[mid + 1] if mid < len(nums) - 1 else float('-inf')
+        if nums[mid] > left_neighbor and nums[mid] > right_neighbor:
+            return mid  # Found peak
+        elif mid > 0 and nums[mid - 1] > nums[mid]:
+            right = mid - 1  # Peak to the left
+        else:
+            left = mid + 1  # Peak to the right
+    return left  # Fallback, though loop should return earlier
