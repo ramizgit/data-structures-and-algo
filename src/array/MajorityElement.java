@@ -17,8 +17,9 @@ public class MajorityElement {
             if(arr[i] == majority){
                 count++;
             }else if(count == 0){
+                //reset
                 majority = arr[i];
-                count++;
+                count = 1;
             }else {
                 count--;
             }
