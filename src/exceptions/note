@@ -2,3 +2,5 @@ there are few exceptions you should take a note before an interview.
 
 1. longest increasing subsequnece in an int array, might sound like DP, BUT it is binary search
 2. longest valid paranthesis might sound like stack approach, but it is simple left pass and right pass without using stack
+3. peak elelemnt is binary search, but 132 pattern is stack problem
+
