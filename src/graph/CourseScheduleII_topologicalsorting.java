@@ -15,21 +15,13 @@ public class CourseScheduleII_topologicalsorting {
         System.out.println(findOrder(3, input3)); //[]
 
         int[][] input4 = { {1, 0}, {2,1} };
-        System.out.println(findOrder(5, input4)); //[0, 1, 2, 3, 4]
+        System.out.println(findOrder(5, input4)); //[0, 1, 2, 3, 4] OR [0, 3, 4, 1, 2]
 
         int[][] input5 = { {1,0}, {2,0}, {1,2}  };
-        System.out.println(findOrder(5, input5)); //[0, 2, 1, 3, 4]
+        System.out.println(findOrder(5, input5)); //[0, 2, 1, 3, 4] OR [0, 3, 4, 2, 1]
 
-
-        int[][] input6 = {
-                {1, 0},
-                {2, 0},
-                {3, 1},
-                {3, 2},
-                {1, 3}
-        };
-        System.out.println(findOrder(4, input6)); //[0, 2, 1, 3, 4]
-
+        int[][] input6 = {{1, 0}, {2, 0}, {3, 1}, {3, 2}, {1, 3}};
+        System.out.println(findOrder(4, input6)); //[]
     }
 
     private static List<Integer> findOrder(int numCourses, int[][] prerequisites)
