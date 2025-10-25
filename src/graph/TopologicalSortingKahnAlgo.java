@@ -3,70 +3,56 @@ package graph;
 import java.util.*;
 
 public class TopologicalSortingKahnAlgo {
+
     public static void main(String[] args)
     {
         System.out.println(topologicalSort(new int[][]{ {1,2}, {1,3}, {2,4}, {3,4}, {4,5} }));
-
         System.out.println(topologicalSort(new int[][]{ {1,3}, {1,4}, {2,3}, {4,5}, {5,2} }));
-
         System.out.println(topologicalSort(new int[][]{ {1,3}, {1,4}, {2,3}, {2,5}, {4,5} }));
-
     }
 
-    private static List<Integer> topologicalSort(int[][] input)
+    private static List<Integer> topologicalSort(int[][] edges)
     {
-        Map<Integer, List<Integer>> graph = buildGraph(input);
-        Map<Integer, Integer> indegree = indegree(graph);
-        return bfs(graph, indegree);
-    }
+        Map<Integer, List<Integer>> graph = new HashMap<>();
+        Map<Integer, Integer> inDegree = new HashMap<>();
 
-    private static List<Integer> bfs(Map<Integer, List<Integer>> graph, Map<Integer, Integer> indegree)
-    {
+        // Build graph + indegree together
+        for(int[] edge : edges){
+            int src = edge[0], dest = edge[1];
+
+            //build graph
+            graph.computeIfAbsent(src, k -> new ArrayList<>()).add(dest);
+            graph.computeIfAbsent(dest, k -> new ArrayList<>());
+
+            //track indegree
+            inDegree.put(dest, inDegree.getOrDefault(dest, 0) + 1);
+            inDegree.putIfAbsent(src, 0); // ensure src also appears in indegree map
+        }
+
+        // Start with all 0-indegree nodes
+        Deque<Integer> queue = new ArrayDeque<>();
+        for(Map.Entry<Integer, Integer> entry : inDegree.entrySet()){
+            if(entry.getValue() == 0){
+                queue.offer(entry.getKey());
+            }
+        }
+
         List<Integer> result = new ArrayList<>();
-        Queue<Integer> queue = new LinkedList<>();
 
-        //add zero indegree vertices into the queue to start with
-        Set<Integer> set = new HashSet<>(graph.keySet());
-        set.removeAll(indegree.keySet());
-        queue.addAll(set);
+        // Standard BFS
+        while(!queue.isEmpty()){
+            int node = queue.poll();
+            result.add(node);
 
-        while (!queue.isEmpty()){
-            int poll = queue.poll();
-            result.add(poll);
-
-            //reduce indegree of all edges connected to poll
-            for(int edge : graph.getOrDefault(poll, new ArrayList<>())){
-                indegree.put(edge, indegree.get(edge) - 1);
-
-                if(indegree.get(edge) == 0){
-                    queue.add(edge);
+            for(int neighbor : graph.getOrDefault(node, new ArrayList<>())){
+                inDegree.put(neighbor, inDegree.get(neighbor) - 1);
+                if(inDegree.get(neighbor) == 0){
+                    queue.offer(neighbor);
                 }
             }
         }
 
-        return result;
-    }
-
-    private static Map<Integer, Integer> indegree(Map<Integer, List<Integer>> graph)
-    {
-        Map<Integer, Integer> indegreeMap = new HashMap<>();
-
-        for(List<Integer> edges : graph.values()){
-            for(int edge : edges){
-                indegreeMap.put(edge, indegreeMap.getOrDefault(edge, 0)+1);
-            }
-        }
-        return indegreeMap;
-    }
-
-    private static Map<Integer, List<Integer>> buildGraph(int[][] input)
-    {
-        Map<Integer, List<Integer>> graph = new HashMap<>();
-
-        for (int[] ints : input) {
-            graph.computeIfAbsent(ints[0], key -> new ArrayList<>()).add(ints[1]);
-        }
-
-        return graph;
+        // If result doesn't contain all nodes → cycle detected
+        return (result.size() == graph.size()) ? result : new ArrayList<>();
     }
 }
