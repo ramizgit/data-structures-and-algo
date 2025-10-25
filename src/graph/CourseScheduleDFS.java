@@ -2,7 +2,8 @@ package graph;
 
 import java.util.*;
 
-public class CourseScheduleDFS {
+public class CourseSchedule {
+
     public static void main(String[] args)
     {
         int[][] input = { {1, 0} };
@@ -16,6 +17,9 @@ public class CourseScheduleDFS {
 
         int[][] input4 = { {1, 0}, {2,1} };
         System.out.println(canFinish(5, input4)); //true
+
+        int[][] input5 = { {1,0}, {2,0}, {1,2}  };
+        System.out.println(canFinish(5, input5)); //true
     }
 
     private static boolean canFinish(int numCourses, int[][] prerequisites)
@@ -23,38 +27,47 @@ public class CourseScheduleDFS {
         Map<Integer, List<Integer>> graph = buildGraph(prerequisites);
 
         for(int i=0; i<numCourses; i++){
-            boolean[] ret = new boolean[1];
-            ret[0] = true;
-            dfs(i, graph, new HashSet<>(), ret);
-            if(!ret[0]){
+            Set<Integer> visited = new HashSet<>();
+            if(cycleExists(i,graph, visited)){
                 return false;
             }
         }
+
         return true;
     }
 
-    private static void dfs(int num, Map<Integer, List<Integer>> graph, Set<Integer> visited, boolean[] ret)
+    //dfs
+    private static boolean cycleExists(int start, Map<Integer, List<Integer>> graph, Set<Integer> visited)
     {
-        visited.add(num);
-        List<Integer> neighbours = graph.getOrDefault(num, new ArrayList<>());
+        if(visited.contains(start)){
+            return true; //cycle found
+        }
+
+        visited.add(start);
+
+        //explore neighbours
+        List<Integer> neighbours = graph.getOrDefault(start, new ArrayList<>());
+
         for(int neighbour : neighbours){
-            if(visited.contains(neighbour)){
-                ret[0] = false;
-            }else {
-                visited.add(neighbour);
-                dfs(neighbour, graph, visited, ret);
+            if(cycleExists(neighbour, graph, visited)){
+                return true;
             }
         }
+
+        visited.remove(start); //backtracking
+
+        return false;
     }
 
-   private static Map<Integer, List<Integer>> buildGraph(int[][] prerequisites)
+    private static Map<Integer, List<Integer>> buildGraph(int[][] prerequisites)
     {
         Map<Integer, List<Integer>> graph = new HashMap<>();
 
         for(int[] prerequisite : prerequisites){
-            graph.computeIfAbsent(prerequisite[0], key -> new ArrayList<>()).add(prerequisite[1]);
+            graph.computeIfAbsent(prerequisite[0], k -> new ArrayList<>()).add(prerequisite[1]);
         }
 
         return graph;
     }
+
 }
