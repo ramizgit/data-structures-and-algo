@@ -11,6 +11,22 @@ public class NumOfConnectedComponents {
 
         int[][] input2 = { {0,1},{0,2},{1,2},{3,4}, {3,5} };
         System.out.println(countCompleteComponents(6, input2)); //1
+
+        //******* BELOW TO TEST IMPL FOR JUST COUNT NUM OF CONNECTED COMPONENTS, NOT RATLED TO COMPLETE COMPONETS
+        System.out.println("BELOW TO TEST IMPL FOR JUST COUNT NUM OF CONNECTED COMPONENTS, NOT RATLED TO COMPLETE COMPONETS");
+
+        /*
+        0-1-2
+        3-4
+        5
+         */
+        System.out.println(countConnectedComponents(6, input)); //3
+
+        /*
+        0-1-2
+        3-4-5
+         */
+        System.out.println(countConnectedComponents(6, input2)); //2
     }
 
     private static int countCompleteComponents(int n, int[][] edges)
@@ -29,7 +45,7 @@ public class NumOfConnectedComponents {
         }
 
         //dfs
-        Set<Integer> visited = new HashSet<>();
+        Set<Integer> visited = new HashSet<>(); //this has to be outside of the loop
         int connectedCompCount = 0;
 
         for(int i=0; i<n; i++){
@@ -64,6 +80,46 @@ public class NumOfConnectedComponents {
         for(int neighbour : graph.get(start)){
             if(!visited.contains(neighbour)){
                 dfs(neighbour, graph, visited, output);
+            }
+        }
+    }
+
+    //*** JUST COUNT NUM OF CONNECTED COMPONENTS, NOT RATLED TO COMPLETE COMPONETS
+    private static int countConnectedComponents(int n, int[][] edges)
+    {
+        //initialize graph
+        Map<Integer, List<Integer>> graph = new HashMap<>();
+        for(int i=0; i<n; i++){
+            graph.put(i, new ArrayList<>());
+        }
+
+        //populate edges
+        for(int[] edge : edges){
+            graph.get(edge[0]).add(edge[1]);
+            graph.get(edge[1]).add(edge[0]); //since undirected graph, hence adding both ways
+        }
+
+        //dfs to count connected componets
+        Set<Integer> visited = new HashSet<>();
+        int connectedComponents = 0;
+        for(int i=0; i<n; i++){
+            if(!visited.contains(i)){
+                connectedComponents++;
+                dfs(i, graph, visited);
+            }
+        }
+
+        return connectedComponents;
+    }
+
+    private static void dfs(int start, Map<Integer, List<Integer>> graph, Set<Integer> visited)
+    {
+        visited.add(start);
+
+        //explore neighbours
+        for(int neighbour : graph.get(start)){
+            if(!visited.contains(neighbour)){
+                dfs(neighbour, graph, visited);
             }
         }
     }
