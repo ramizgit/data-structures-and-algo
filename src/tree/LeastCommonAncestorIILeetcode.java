@@ -53,6 +53,7 @@ public class LeastCommonAncestorIILeetcode {
             return null;
         }
 
+        //NOTE : we need to traverse whole tree first, hence this recursion call is before equality check
         Node left = dfs(root.left, node1, node2, found);
         Node right = dfs(root.right, node1, node2, found);
 
