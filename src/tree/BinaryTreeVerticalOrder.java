@@ -1,17 +1,13 @@
-package meta;
-
-import com.sun.source.tree.Tree;
-import tree.Node;
+package tree;
 
 import java.util.*;
 
-public class BinaryTreeVerticalOrder {
+public class VerticalOrderTraversal {
 
     public static void main(String[] args)
     {
-        Node node12 = new Node(12, null, null);
         Node node10 = new Node(10, null, null);
-        Node node11 = new Node(11, node12, null);
+        Node node11 = new Node(11, null, null);
         Node node7 = new Node(7, node10, node11);
         Node node6 = new Node(6, null, null);
         Node node5 = new Node(5, null, null);
@@ -20,54 +16,68 @@ public class BinaryTreeVerticalOrder {
         Node node2 = new Node(2, node4, node5);
         Node node = new Node(1, node2, node3);
 
-        /*
-              1
-           2     3
-        4    5  6    7
-                   10   11
-                      12
-         */
-
-        verticalOrderBfs(node);
+        System.out.println(verticalTraversal(node));
     }
-    
-    private static void verticalOrderBfs(Node node)
+
+    private static List<List<Integer>> verticalTraversal(Node root)
     {
-        Queue<VNode> queue = new LinkedList<>();
-        VNode root = new VNode(node, 0);
+        if (root == null) {
+            return new ArrayList<>();
+        }
+
+        Queue<Node> queue = new ArrayDeque<>();
+        root.level = 0;
         queue.add(root);
-        TreeMap<Integer, List<Integer>> verticalOrder = new TreeMap<>();
 
-        while (!queue.isEmpty()){
-            VNode poll = queue.poll();
+        TreeMap<Integer, List<Integer>> result = new TreeMap<>();
 
-            //add to vertical oder tree map
-            verticalOrder.computeIfAbsent(poll.vertical, key ->new ArrayList<>()).add(poll.node.value);
+        while(!queue.isEmpty()){
+            Node node = queue.poll();
 
-            if(poll.node.left != null){
-                queue.add(new VNode(poll.node.left, poll.vertical-1));
+            //collect result
+            result.computeIfAbsent(node.level, k -> new ArrayList<>()).add(node.value);
+
+            if(node.left != null){
+                node.left.level = node.level - 1;
+                queue.add(node.left);
             }
 
-            if(poll.node.right != null){
-                queue.add(new VNode(poll.node.right, poll.vertical+1));
+            if(node.right != null){
+                node.right.level = node.level + 1;
+                queue.add(node.right);
             }
         }
 
-        //traverse vertical order tree map and collect result
-        List<List<Integer>> result = new ArrayList<>();
-        for(List<Integer> values : verticalOrder.values()){
-            result.add(values);
-        }
-        System.out.println(result);
+        List<List<Integer>> verticalOrder = new ArrayList<>();
+        verticalOrder.addAll(result.values());
+        return verticalOrder;
     }
 }
 
-class VNode{
-    Node node;
-    int vertical;
+class Node {
+    int value;
+    Node left;
+    Node right;
+    int level;
 
-    public VNode(Node node, int vertical) {
-        this.node = node;
-        this.vertical = vertical;
+    public Node(int value, Node left, Node right) {
+        this.value = value;
+        this.left = left;
+        this.right = right;
+    }
+
+    public Node(int value, Node left, Node right, int level) {
+        this.value = value;
+        this.left = left;
+        this.right = right;
+        this.level = level;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 }
