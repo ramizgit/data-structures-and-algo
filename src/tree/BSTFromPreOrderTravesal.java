@@ -1,37 +1,32 @@
 package tree;
 
-import java.util.Arrays;
-import java.util.List;
+public class BSTFromPreorder {
 
-public class BSTFromPreOrderTravesal {
-    public static void main(String[] args)
+    private static Node buildBST(int[] preorder)
     {
-        List<Integer> preorder = Arrays.asList(8, 5, 1, 7, 10, 12);
-        Node root = buildTree(preorder, new int[]{0}, Integer.MAX_VALUE);
-        printTreeInOrder(root);
+        int[] idx = new int[1];
+        return dfs(preorder, idx, Integer.MIN_VALUE, Integer.MAX_VALUE);
     }
 
-    private static Node buildTree(List<Integer> preorder, int[] index, int maxbound)
+    private static Node dfs(int[] preorder, int[] idx, int lower, int upper)
     {
-        if(index[0] == preorder.size() || preorder.get(index[0]) > maxbound){
+        if(idx[0] == preorder.length){
             return null;
         }
 
-        Node node = new Node(preorder.get(index[0]), null, null);
-        index[0]++;
-        node.left = buildTree(preorder, index, node.value);
-        node.right = buildTree(preorder, index, maxbound);
-        return node;
-    }
+        int nodeVal = preorder[idx[0]];
 
-    private static void printTreeInOrder(Node node)
-    {
-        if(node == null){
-            return;
+        //check range
+        if(nodeVal < lower || nodeVal > upper){
+            return null;
         }
 
-        printTreeInOrder(node.left);
-        System.out.print(node.value + " ");
-        printTreeInOrder(node.right);
+        Node node = new Node(nodeVal);
+        idx[0]++;
+
+        node.left = dfs(preorder, idx, lower, nodeVal);
+        node.right = dfs(preorder, idx, nodeVal, upper);
+
+        return node;
     }
 }
