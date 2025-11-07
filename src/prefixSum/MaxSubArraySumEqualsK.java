@@ -25,9 +25,7 @@ public class MaxSubArraySumEqualsK {
                 maxLen = Math.max(maxLen, (i - prefixSum.get(sum - target)));
             }
 
-            if (!prefixSum.containsKey(sum)) {
-                prefixSum.put(sum, i);
-            }
+            prefixSum.putIfAbsent(sum, i);
         }
 
         return maxLen;
