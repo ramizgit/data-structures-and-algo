@@ -9,6 +9,7 @@ public class GraphValidTree {
     criteria:
     1. no loop
     2. all vertices connected as one component
+    3. a tree with n nodes must have exactly n - 1 edges
      */
 
     public static void main(String[] args)
