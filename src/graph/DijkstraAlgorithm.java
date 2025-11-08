@@ -6,92 +6,59 @@ public class DijkstraAlgorithm {
 
     public static void main(String[] args)
     {
-        Graph graph = new Graph();
-        graph.addEdge(1, 2, 20);
-        graph.addEdge(1, 3, 10);
-        graph.addEdge(2, 1, 20);
-        graph.addEdge(3, 1, 10);
-        graph.addEdge(2, 4, 10);
-        graph.addEdge(3, 4, 30);
-        graph.addEdge(4, 2, 10);
-        graph.addEdge(4, 3, 30);
 
-        System.out.println("Graph:");
-        graph.print();
-
-        System.out.println("Shortest paths:");
-        graph.dijkstra(1);
-    }
-}
-
-class Graph{
-
-    private Map<Integer, List<Edge>> adjList;
-
-    public Graph() {
-        this.adjList = new HashMap<>();
     }
 
-    public void addEdge(int source, int target, int weight)
-    {
-        List<Edge> edges = this.adjList.getOrDefault(source, new ArrayList<>());
-        edges.add(new Edge(target, weight));
-        this.adjList.put(source, edges);
-    }
+    //undirected graph
+    //O((V+E)logV)
+    private static int[] dijkstra(int v, int[][] edges, int source) {
 
-    //O((V+E)logV) time complexity
-    public void dijkstra(int source)
-    {
-        Map<Integer, Integer> shortestDistance = new HashMap<>();
-        PriorityQueue<Edge> minheap = new PriorityQueue<>( (e1, e2) -> e1.weight - e2.weight );
-        minheap.add(new Edge(source, 0));
-        shortestDistance.put(source, 0);
+        //initialize graph
+        Map<Integer, List<Edge>> graph = new HashMap<>();
+        for(int i=0; i<v; i++){
+            graph.put(i, new ArrayList<>());
+        }
 
-        while (!minheap.isEmpty()){
-            Edge minedge = minheap.poll();
+        //populate edges
+        for(int[] edge : edges){
+            graph.get(edge[0]).add(new Edge(edge[1], edge[2]));
+            graph.get(edge[1]).add(new Edge(edge[0], edge[2])); //undirected graph, hence adding both
+        }
 
-            //get adjacent/neighbour vertices
-            List<Edge> neighbours = this.adjList.get(minedge.vertex);
+        int[] dist = new int[v];
+        Arrays.fill(dist, Integer.MAX_VALUE);
+
+        Queue<Edge> pq = new PriorityQueue<>( (a,b) -> a.w - b.w );
+        pq.add(new Edge(source, 0));
+        dist[source] = 0; //starting point
+
+        while(!pq.isEmpty()){
+            Edge curr = pq.poll();
+
+            if(curr.w > dist[curr.v]){
+                /*
+                When you update a distance (relax an edge), you push a new entry into the priority queue:
+                …but you don’t remove the old, outdated entry for the same node (Java PQ doesn’t support efficient removal).
+                hence this check to ignore such. e.g., below
+                (v=2, w=10)
+                (v=2, w=5)
+                (v=3, w=7)
+                 */
+                continue;
+            }
+
+            List<Edge> neighbours = graph.get(curr.v);
             for(Edge neighbour : neighbours){
-                if(!shortestDistance.containsKey(neighbour.vertex) ||
-                        (shortestDistance.get(neighbour.vertex) > (minedge.weight + neighbour.weight))) {
-
-                    //put or update shortest distance
-                    shortestDistance.put(neighbour.vertex, minedge.weight + neighbour.weight);
-                    System.out.println("logging : vertex : "+neighbour.vertex + " weight : "+(minedge.weight+neighbour.weight));
-
-                    //add neighbours to the minheap
-                    minheap.add(new Edge(neighbour.vertex, minedge.weight + neighbour.weight));
+                int currDist = dist[neighbour.v];
+                int newDist = curr.w + neighbour.w;
+                if(newDist < currDist){
+                    dist[neighbour.v] = newDist; //relaxation
+                    pq.add(new Edge(neighbour.v, newDist));
                 }
             }
         }
 
-        //print result
-        for(Map.Entry<Integer, Integer> entry : shortestDistance.entrySet()){
-            System.out.println(entry.getKey()+" : "+entry.getValue());
-        }
-    }
-
-    public void print()
-    {
-        for(Map.Entry<Integer, List<Edge>> entry : this.adjList.entrySet()){
-            int source = entry.getKey();
-            System.out.print(source + " -->");
-            List<Edge> edges = entry.getValue();
-            for(Edge edge : edges){
-                System.out.print("["+edge.vertex+","+edge.weight+"]");
-            }
-            System.out.println();
-        }
-    }
-
-    class Edge{
-        int vertex;
-        int weight;
-
-        public Edge(int vertex, int weight) {
-            this.vertex = vertex;
-            this.weight = weight;
-        }
+        return dist;
     }
 }
+
