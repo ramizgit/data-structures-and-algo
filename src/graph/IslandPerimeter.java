@@ -40,9 +40,9 @@ public class IslandPerimeter {
 
             // If out of bounds or water, it's a perimeter edge
             if (x < 0 || x >= m || y < 0 || y >= n || grid[x][y] == 0) {
-                perimeter[0]++;
-            } else if (!visited[x][y]) { // Else if land and not visited, keep exploring
-                dfs(grid, visited, x, y, m, n, perimeter);
+                perimeter[0]++; //water or out of bound → contributes to perimeter
+            } else if (!visited[x][y]) {
+                dfs(grid, visited, x, y, m, n, perimeter); //else if land and not visited, keep exploring
             }
         }
     }
