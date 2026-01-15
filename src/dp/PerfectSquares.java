@@ -12,6 +12,7 @@ public class PerfectSquares {
         System.out.println(numSquares(1));
     }
 
+    //// SAME AS COIN CHANGE PROBLEM
     private static int numSquares(int n)
     {
         //populate array of perfect squares
