@@ -19,7 +19,8 @@ public class JumpGameII {
         while (right < arr.length - 1){
             int farthest=0;
             while (left <= right){
-                farthest = Math.max(farthest, left + arr[left++]);
+                farthest = Math.max(farthest, left + arr[left]);
+                left++;
             }
 
             left = right+1;
