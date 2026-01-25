@@ -26,7 +26,6 @@ public class RottenOrangesBFS {
         int cols = grid[0].length;
         int numOfFreshOrange=0;
         Queue<Coordinates> queue = new LinkedList<>();
-        //TODO : YOUR ARE MISSING VISITED BOOLEAN GRID
 
         //scan the grid and collect num of fresh oranges, as well as all rotten orange coordinates for bfs
         for(int i=0; i<rows; i++){
@@ -60,7 +59,6 @@ public class RottenOrangesBFS {
                 if(x >= 0 && y >= 0 && x < rows && y < cols && grid[x][y] == 1){
                     grid[x][y] = 2;
                     queue.add(new Coordinates(x, y, poll.distance+1));
-                    //TODO : ALSO ADD TO VISITED GRID
                     numOfFreshOrange--;
                     if(numOfFreshOrange == 0){
                         return poll.distance+1;
