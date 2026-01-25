@@ -13,12 +13,8 @@ public class TriangleMinPathSum {
     private static int minPathSum(int[][] triangle)
     {
         int m = triangle.length;
-        int n = triangle[m-1].length;
 
-        int[] dp = new int[n];
-        for(int i=0; i<n; i++){
-            dp[i] = triangle[m-1][i];
-        }
+        int[] dp = triangle[m-1].clone();
 
         for(int i=m-2; i>=0; i--){
             int[] curr = triangle[i];
