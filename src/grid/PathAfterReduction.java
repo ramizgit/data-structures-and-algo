@@ -25,9 +25,9 @@ public class PathAfterReduction {
         int left = 0;
         int right = 0;
 
-        for(int[] row : grid){
-            for(int val : row){
-                right = Math.max(right, val);
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                right = Math.max(right, grid[i][j]);
             }
         }
 
@@ -44,8 +44,8 @@ public class PathAfterReduction {
             boolean[][] visited = new boolean[m][n];
 
             if(canExit(grid, m, n, 0, 0, visited, mid)){
-                max = mid;
-                left = mid + 1;
+                max = mid; //possible answer
+                left = mid + 1; //try harder, i mean with higher number
             }else{
                 right = mid - 1;
             }
