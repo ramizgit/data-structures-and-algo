@@ -4,14 +4,11 @@ import java.util.*;
 
 public class ShortestPath {
 
-    //PRINT SHRORTEST PATH
     public List<Coordinates> shortestPathInGrid(int[][] grid)
     {
         int m = grid.length;
         int n = grid[0].length;
-
-        List<List<Coordinates>> result = new ArrayList<>();
-
+        
         //queue for bfs logic
         Queue<Coordinates> queue = new ArrayDeque<>();
         queue.add(new Coordinates(0, 0, 0));
