@@ -1,32 +1,34 @@
 package binarysearch;
 
-package neetcode150.binarySearch;
+public class KokoEatingBananas {
+    //https://leetcode.com/problems/koko-eating-bananas/description/
 
-public class KokoEatingBanana {
     public static void main(String[] args)
     {
-        System.out.println(minEatingSpeed(new int[]{1,4,3,2}, 9)); //2
-        System.out.println(minEatingSpeed(new int[]{25,10,23,4}, 4)); //2
+        System.out.println(minEatingSpeed(new int[]{3,6,7,11}, 8)); //4
+        System.out.println(minEatingSpeed(new int[]{30,11,23,4,20}, 5)); //30
+        System.out.println(minEatingSpeed(new int[]{30,11,23,4,20}, 6)); //23
+        System.out.println(minEatingSpeed(new int[]{1000}, 1000)); //1
     }
 
     private static int minEatingSpeed(int[] piles, int h)
     {
-        int minSpeed = 1;
-        int maxSpeed = 0;
-        for(int pile : piles){
-            maxSpeed = Math.max(maxSpeed, pile);
-        }
-
+        int low = 1;
+        int high = 0;
         int answer = 0;
 
-        while(minSpeed <= maxSpeed){
-            int midSpeed = minSpeed + (maxSpeed - minSpeed)/2;
+        for(int pile : piles){
+            high = Math.max(high, pile);
+        }
 
-            if(canFinish(piles, midSpeed, h)){
-                answer = midSpeed; //potential answer
-                maxSpeed = midSpeed - 1;
-            }else{
-                minSpeed = midSpeed + 1;
+        while (low <= high){
+            int mid = low + (high - low)/2;
+
+            if (canFinish(piles, mid, h)) {
+                answer = mid; //possible answer
+                high = mid - 1; //slow down as koko able to eat all banana within h
+            }else {
+                low = mid + 1; //hurry up
             }
         }
 
@@ -35,11 +37,14 @@ public class KokoEatingBanana {
 
     private static boolean canFinish(int[] piles, int speed, int h)
     {
-        int hour = 0;
-        for(int pile : piles){
-            hour += Math.ceilDiv(pile, speed);
-        }
+        int time = 0;
+        for (int pile : piles) {
+            time += Math.ceilDiv(pile, speed);
 
-        return hour <= h;
+            if (time > h) {
+                return false;
+            }
+        }
+        return true;
     }
 }
