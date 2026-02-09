@@ -4,7 +4,7 @@ public class SingleNumber {
     //https://leetcode.com/problems/single-number/description/
     /*
     There could be multiple ways:-
-    1. use hashmap to keep track of requency, and find answer, its linear but uses extra space
+    1. brute force : use set to add elements, if already added, remove it, finally set will have the answer. but O(n) space
     2. sort and use two pointers, but non-linear (0(nlogn)
     3. XOR - recommended - linear and no extra space
      */
