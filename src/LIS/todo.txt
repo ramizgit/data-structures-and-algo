@@ -1,0 +1,38 @@
+Longest Increasing Subsequence (LIS)
+Longest Bitonic Subsequence
+https://leetcode.com/problems/minimum-number-of-removals-to-make-mountain-array/description/
+
+
+
+Tier 2 — Pair / 2D LIS (VERY IMPORTANT)
+Russian Doll Envelopes
+Maximum Length of Pair Chain
+Building Bridges (classic interview problem)
+Box Stacking
+Best Team With No Conflicts
+Cuboid Stacking
+
+
+Number of Longest Increasing Subsequences
+Increasing Triplet Subsequence (Very popular because it has an elegant O(n) solution.)
+Maximum Sum Increasing Subsequence
+Make Array Strictly Increasing (Hard)
+
+=========================
+Weighted LIS
+
+Max sum instead of max length
+
+Example:
+
+Maximum sum increasing subsequence
+============================
+Counting LIS
+
+Example:
+
+Number of LIS
+============================
+One-Line Mental Shortcut
+🧩 “Delete minimum → keep maximum valid subsequence”
+
