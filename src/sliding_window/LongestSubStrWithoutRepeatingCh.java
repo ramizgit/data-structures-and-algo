@@ -15,21 +15,27 @@ public class LongestSubStrWithoutRepeatingCh {
 
     private static int lengthOfLongestSubstring(String s)
     {
+        if(s == null || s.isEmpty()){
+            return 0;
+        }
+
         int left = 0;
         int right = 0;
         int maxLen = 0;
-
         Set<Character> set = new HashSet<>();
 
-        while (right < s.length()){
+        while(right < s.length()){
+            char ch = s.charAt(right);
 
-            while (set.contains(s.charAt(right))){
+            while(set.contains(ch)){
                 set.remove(s.charAt(left));
                 left++;
             }
 
-            set.add(s.charAt(right));
+            set.add(ch);
+
             maxLen = Math.max(maxLen, right - left + 1);
+
             right++;
         }
 
