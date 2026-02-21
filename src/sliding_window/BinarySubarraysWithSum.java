@@ -1,38 +1,39 @@
-package slidingwindow;
+package slidingWindow;
 
 public class BinarySubarraysWithSum {
+
     //https://leetcode.com/problems/binary-subarrays-with-sum/description/
-
-    public static void main(String[] args)
+    /*
+    Given a binary array nums and an integer goal, return the number of non-empty subarrays with a sum goal.
+    A subarray is a contiguous part of the array.
+     */
+    
+    public int numSubarraysWithSum(int[] nums, int goal)
     {
-        System.out.println(numSubarraysWithSum(new int[]{1,0,1,0,1}, 2)); //4
-        System.out.println(numSubarraysWithSum(new int[]{0,0,0,0,0}, 0)); //15
-
+        return numSubarraysWithSumAtMostK(nums, goal) - numSubarraysWithSumAtMostK(nums, goal-1);
     }
 
-    private static int numSubarraysWithSum(int[] nums, int goal)
+    private int numSubarraysWithSumAtMostK(int[] nums, int k)
     {
-        return slidingWindow(nums, goal) - slidingWindow(nums, goal-1);
-    }
+        if (k < 0) {
+            return 0;
+        }
 
-    private static int slidingWindow(int[] nums, int target)
-    {
         int left = 0;
         int right = 0;
         int sum = 0;
         int count = 0;
 
-        while (right < nums.length){
+        while(right < nums.length){
             sum += nums[right];
 
-            while (left <= right && sum > target){
+            //shrink if needed
+            while(sum > k){
                 sum -= nums[left];
                 left++;
             }
 
-            if(sum <= target){
-                count += (right - left + 1);
-            }
+            count += right - left + 1; //num of subarrays with at most k sum
 
             right++;
         }
