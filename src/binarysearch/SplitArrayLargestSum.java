@@ -9,25 +9,31 @@ public class SplitArrayLargestSum {
 
     private static int splitArray(int[] nums, int k)
     {
-        int low = 0;
-        int high = 0;
-        int answer = Integer.MAX_VALUE;
+        int max = 0;
+        int total = 0;
 
         for(int n : nums){
-            low = Math.max(low, n);
-            high += n;
+            max = Math.max(max, n);
+            total += n;
         }
 
+        //binary search
+        int low = max;
+        int high = total;
+
+        int answer = 0;
+
         while(low <= high){
-            int mid = low + (high - low)/2;
+            int mid = low + (high - low) / 2;
 
             if(canSplit(nums, k, mid)){
                 answer = mid; //possible answer
-                high = mid - 1;
+                high = mid - 1; //try lower to minimize max sum
             }else{
-               low = mid + 1;
+                low = mid + 1;
             }
         }
+
         return answer;
     }
 
