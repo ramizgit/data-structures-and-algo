@@ -1,83 +1,59 @@
-package strings;
+package google;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-public class FindAllAnagarams {
+public class FindAllAnagrams {
 
-    public static void main(String[] args)
-    {
-        //Input: s = "cbaebabacd", p = "abc"
-
-        System.out.println(findAllAnagarams("cbaebabacd", "abc")); //[0,6]
-        System.out.println(findAllAnagarams("abab", "ab")); //[0,1,2]
+    public static void main(String[] args) {
+        System.out.println(findAllAnagrams("cbaebabacd", "abc")); // [0, 6]
+        System.out.println(findAllAnagrams("abab", "ab"));        // [0, 1, 2]
     }
 
-    private static List<Integer> findAllAnagarams(String s, String p)
-    {
-        int numOfAnagram = 0;
+    public static List<Integer> findAllAnagrams(String s, String p) {
         List<Integer> result = new ArrayList<>();
-        if(s.length() < p.length()){
-            return new ArrayList<>();
-        }
 
-        Map<Character, Integer> pCharFreq = new HashMap<>();
-        Map<Character, Integer> cCharFreq = new HashMap<>();
+        if (s.length() < p.length()) return result;
 
-        for(char ch : p.toCharArray()){
-            pCharFreq.put(ch, pCharFreq.getOrDefault(ch, 0)+1);
+        int[] freq = new int[26];
+
+        // Count chars in p
+        for (char c : p.toCharArray()) {
+            freq[c - 'a']++;
         }
 
         int left = 0;
-        int right = p.length()-1;
+        int right = 0;
+        int remaining = p.length();  // chars we still need to match
 
-        for(int i=left; i<=right; i++){
-            cCharFreq.put(s.charAt(i), cCharFreq.getOrDefault(s.charAt(i), 0)+1);
-        }
+        while (right < s.length()) {
 
-        //check if anagram or not
+            // Include s[right]
+            char rc = s.charAt(right);
+            if (freq[rc - 'a'] > 0) {
+                remaining--;
+            }
+            freq[rc - 'a']--;
 
-
-        while(left < s.length() && right < s.length()){
-            if(isAnagram(pCharFreq, cCharFreq)){
-                numOfAnagram++;
+            // When window size equals p.length()
+            if (remaining == 0) {
                 result.add(left);
-                //add to result
             }
 
-            //move left
-            cCharFreq.put(s.charAt(left), cCharFreq.get(s.charAt(left))-1);
-            if(cCharFreq.get(s.charAt(left)) == 0){
-                cCharFreq.remove(s.charAt(left)); //remove char if freq is zero
-            }
-            left++;
+            // Shrink window to size p.length()
+            if (right - left == p.length()) {
+                char lc = s.charAt(left);
 
-            //move right
+                if (freq[lc - 'a'] >= 0) {
+                    remaining++;
+                }
+
+                freq[lc - 'a']++;
+                left++;
+            }
+
             right++;
-            if(right < s.length()){
-                cCharFreq.put(s.charAt(right), cCharFreq.getOrDefault(s.charAt(right), 0)+1);
-            }
         }
-
-        System.out.println("num of anagram = "+numOfAnagram);
 
         return result;
-    }
-
-    private static boolean isAnagram(Map<Character, Integer> pCharFreq, Map<Character, Integer> cCharFreq)
-    {
-        if(pCharFreq.keySet().size() != cCharFreq.keySet().size()){
-            return false;
-        }
-
-        for(char ch : pCharFreq.keySet()){
-            if(pCharFreq.get(ch) != cCharFreq.get(ch)){
-                return false;
-            }
-        }
-
-        return true;
     }
 }
