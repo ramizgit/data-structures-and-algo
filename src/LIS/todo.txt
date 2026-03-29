@@ -6,7 +6,6 @@ https://leetcode.com/problems/minimum-number-of-removals-to-make-mountain-array/
 
 Tier 2 — Pair / 2D LIS (VERY IMPORTANT)
 Russian Doll Envelopes
-Maximum Length of Pair Chain
 Building Bridges (classic interview problem)
 Box Stacking
 Best Team With No Conflicts
