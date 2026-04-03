@@ -3,8 +3,6 @@ package prefixSum;
 public class KRadiusSubArrAverage {
     //https://leetcode.com/problems/k-radius-subarray-averages/description/
 
-    //todo
-
     public int[] getAverages(int[] nums, int k)
     {
         int n = nums.length;
@@ -29,7 +27,7 @@ public class KRadiusSubArrAverage {
             int left = i - k;
             int right = i + k;
 
-            long sum = prefix[right] - (left > 0 ? prefix[left - 1] : 0);
+            long sum = prefix[right] - prefix[left] + nums[left];
             radius[i] = (int) (sum / window);
         }
 
