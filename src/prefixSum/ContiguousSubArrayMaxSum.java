@@ -32,6 +32,8 @@ public class ContiguousSubArrayMaxSum {
         int currPrefix = 0;
 
         for(int i=0; i<arr.length; i++){
+
+            //Populate answer if condition  a[i] = a[j] where j > i is met
             if(prefixMap.containsKey(arr[i])){
                 int sum = currPrefix - prefixMap.get(arr[i]).prefix + arr[i];
                 if(sum > maxSum){
@@ -41,6 +43,7 @@ public class ContiguousSubArrayMaxSum {
                 }
             }
 
+            //Populate map
             if(!prefixMap.containsKey(arr[i]) || prefixMap.get(arr[i]).prefix > currPrefix){
                 prefixMap.put(arr[i], new IdxPrefixPair(i, currPrefix));
             }
