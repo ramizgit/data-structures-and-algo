@@ -30,7 +30,7 @@ public class PartitionEqualSubsetSum2D {
         return dp[target];
     }
 
-    
+    //using 2-D, but not preferable, follow above 1-D solution only
     public static boolean canPartition(int[] nums) {
         int totalSum = 0;
         for (int n : nums) {
