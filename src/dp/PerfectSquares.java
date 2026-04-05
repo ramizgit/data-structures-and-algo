@@ -17,8 +17,8 @@ public class PerfectSquares {
     {
         //populate array of perfect squares
         int[] squares = new int[n+1];
-        for(int i=0; i<=n; i++){
-            squares[i] = i * i;
+        for(int i=1; i<=n; i++){
+            squares[i-1] = i * i;
         }
 
         int[] dp = new int[n+1];
@@ -27,9 +27,6 @@ public class PerfectSquares {
 
         for(int i=1; i<=n; i++){
             for(int s : squares){
-                if(s == 0){
-                    continue;
-                }
                 if(i >= s){
                     dp[i] = Math.min(dp[i], 1 + dp[i-s]);
                 }
