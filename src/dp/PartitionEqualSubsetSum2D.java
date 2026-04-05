@@ -51,10 +51,10 @@ public class PartitionEqualSubsetSum2D {
         boolean[] dp = new boolean[target+1]; //the DP array must be indexed by sum (target), not by number of elements
         dp[0] = true; //base case
 
-        for(int i=1; i<=nums.length; i++){
-            //backward loop since 0/1 knspsack
-            for(int t=target; t>=nums[i-1]; t--){
-                dp[t] |= dp[t - nums[i-1]];
+        for(int n : nums){
+            for(int t=target; t>=n; t--){ //backward loop since 0/1 knspsack
+                dp[t] = dp[t] //dont pick
+                        || dp[t - n]; //pick
             }
         }
 
