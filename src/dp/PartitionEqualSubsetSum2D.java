@@ -2,6 +2,35 @@ package dp;
 
 public class PartitionEqualSubsetSum2D {
 
+    //https://leetcode.com/problems/partition-equal-subset-sum/description/
+    
+    //usign 1-D array, 0/1 knapsack, using backward loop
+    public static boolean canPartition1Ddp(int[] nums) {
+        int totalSum = 0;
+        for (int n : nums) {
+            totalSum += n;
+        }
+
+        if (totalSum % 2 != 0) {
+            return false;
+        }
+
+        int target = totalSum / 2;
+
+        boolean[] dp = new boolean[target+1]; //the DP array must be indexed by sum (target), not by number of elements
+        dp[0] = true; //base case
+
+        for(int n : nums){
+            for(int t=target; t>=n; t--){ //backward loop since 0/1 knspsack
+                dp[t] = dp[t] //dont pick
+                        || dp[t - n]; //pick
+            }
+        }
+
+        return dp[target];
+    }
+
+    
     public static boolean canPartition(int[] nums) {
         int totalSum = 0;
         for (int n : nums) {
@@ -34,33 +63,7 @@ public class PartitionEqualSubsetSum2D {
 
         return dp[n][target];
     }
-
-    //todo:write usign 1-D array, ints 0/1 knapsack, using backward loop
-    public static boolean canPartition1Ddp(int[] nums) {
-        int totalSum = 0;
-        for (int n : nums) {
-            totalSum += n;
-        }
-
-        if (totalSum % 2 != 0) {
-            return false;
-        }
-
-        int target = totalSum / 2;
-
-        boolean[] dp = new boolean[target+1]; //the DP array must be indexed by sum (target), not by number of elements
-        dp[0] = true; //base case
-
-        for(int n : nums){
-            for(int t=target; t>=n; t--){ //backward loop since 0/1 knspsack
-                dp[t] = dp[t] //dont pick
-                        || dp[t - n]; //pick
-            }
-        }
-
-        return dp[target];
-    }
-
+    
     // Optional test
     public static void main(String[] args) {
         int[] nums = {1, 5, 11, 5};
