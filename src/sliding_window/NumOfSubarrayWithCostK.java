@@ -8,6 +8,12 @@ public class NumOfSubarrayWithCostK {
     given an input arr, find num of subarrays that have cost <=k, cost is defined as (max - min) * length of subarray
      */
 
+     /*
+     NOTE:
+    if questions asks to find num of subarrays with cost exactly k, then call below
+    return numOfSubarrWithCostAtMostK(arr, k) - numOfSubarrWithCostAtMostK(arr, k - 1);
+     */
+
     public int numOfSubarrWithCostK(int[] arr, int k)
     {
         int left = 0;
