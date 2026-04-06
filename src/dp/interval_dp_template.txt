@@ -1,0 +1,29 @@
+public int intervalDP(int[] arr) {
+    int n = arr.length;
+    int[][] dp = new int[n][n];
+
+    // length of interval
+    for (int len = 1; len <= n; len++) {
+
+        for (int i = 0; i < n; i++) {
+
+            int j = i + len - 1;
+            if (j >= n) break;
+
+            // initialize (IMPORTANT: depends on problem)
+            // dp[i][j] = 0; OR Integer.MAX_VALUE;
+
+            for (int k = i; k <= j; k++) {
+
+                int left  = (k == i) ? BASE_LEFT  : dp[i][k - 1];
+                int right = (k == j) ? BASE_RIGHT : dp[k + 1][j];
+
+                int curr = left + right + COST(i, k, j, arr);
+
+                dp[i][j] = OPTIMIZE(dp[i][j], curr);
+            }
+        }
+    }
+
+    return dp[0][n - 1];
+}
