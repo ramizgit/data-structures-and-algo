@@ -1,5 +1,8 @@
 package dp;
 
+//https://leetcode.com/problems/burst-balloons/description/
+//NOTE : HARD CATEGORY PROBLEM, INTERVAL DP
+
 public class BurstBalloons {
 
     public static void main(String[] args)
