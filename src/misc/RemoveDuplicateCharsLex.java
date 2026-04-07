@@ -24,14 +24,15 @@ public class RemoveDuplicateCharsLex {
         StringBuilder output = new StringBuilder();
 
         for(char ch : input.toCharArray()){
+            freq.put(ch, freq.get(ch)-1);
+            
             if(visited.contains(ch)){
-                freq.put(ch, freq.get(ch)-1);
+                continue;
             }else {
                 while (!stack.empty() && ch < stack.peek() && freq.get(stack.peek())>0){
                     visited.remove(stack.pop());
                 }
                 stack.push(ch);
-                freq.put(ch, freq.get(ch)-1);
                 visited.add(ch);
             }
         }
