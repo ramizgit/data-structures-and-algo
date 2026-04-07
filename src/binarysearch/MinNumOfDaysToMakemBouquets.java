@@ -1,4 +1,4 @@
-package binarysearch;
+package binarySearch;
 
 public class MinNumOfDaysToMakemBouquets {
 
@@ -30,11 +30,9 @@ public class MinNumOfDaysToMakemBouquets {
 
         while(left <= right) {
             int mid =  left + (right - left) / 2;
-            //check feasibility
-            int numOfDays = numDays(bloomDay, m, k, mid);
 
-            if(numOfDays >= m){
-                answer = Math.min(answer, mid);
+            if(canMakeBouquet(bloomDay, m, k, mid)){ //check feasibility
+                answer = mid; //possible answer
                 right = mid - 1;
             }else{
                 left = mid + 1;
@@ -44,29 +42,26 @@ public class MinNumOfDaysToMakemBouquets {
         return answer;
     }
 
-    private static int numDays(int[] bloomDay, int m, int k, int days)
+    private static boolean canMakeBouquet(int[] bloomDay, int m, int k, int days)
     {
         //bloomDay = [7,7,7,7,12,7,7], m = 2, k = 3
-        int counter = 0;
-        int num = 0;
-        for(int i=0; i<bloomDay.length; i++){
-            if(bloomDay[i] <= days){
-                counter++;
+        int flowers = 0, bouquets = 0;
 
-                if(counter == k){
-                    num++;
-                    if (num >= m) {
-                        return num; // early exit
+        for (int d : bloomDay) {
+            if (d <= days) {
+                flowers++;
+                if (flowers == k) {
+                    bouquets++;
+                    if (bouquets == m) {
+                        return true;
                     }
-                    //reset
-                    counter = 0;
+                    flowers = 0; //reset for next bouquet
                 }
-            }else{
-                //reset
-                counter = 0;
+            } else {
+                flowers = 0; //reset if adjacent condition not met
             }
         }
 
-        return num;
+        return false;
     }
 }
