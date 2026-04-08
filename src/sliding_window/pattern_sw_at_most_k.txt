@@ -1,0 +1,18 @@
+Count subarrays/substrings with exactly K
+👉 solved using
+exact(K) = atMost(K) - atMost(K-1)
+
+When this trick applies
+--------------------------
+Use it when:
+Elements are non-negative OR
+Problem is about distinct count / frequency
+Sliding window can maintain a monotonic condition
+
+5 Must-Know Problems
+---------------------
+1. Binary Subarrays With Sum k
+2. Subarrays with K Different Integers
+3. Count Number of Nice Subarrays
+4. Longest Substring with At Most K Distinct Characters
+5. Substrings with Exactly K Distinct Characters
