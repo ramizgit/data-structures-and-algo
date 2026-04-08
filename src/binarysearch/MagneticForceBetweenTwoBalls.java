@@ -37,24 +37,21 @@ public class MagneticForceBetweenTwoBalls {
         return answer;
     }
 
-    private static boolean canPlace(int[] position, int m, int dist){
-        //always place first ball at the start
-        int pos = position[0];
+    private static boolean canPlace(int[] position, int m, int dist) {
+        int lastPlaced = position[0]; ////always place first ball at the start
         int count = 1;
-
-        for(int i=1; i<position.length; i++){
-            if(position[i] - pos >= dist){
+    
+        for (int i = 1; i < position.length; i++) {
+            if (position[i] - lastPlaced >= dist) {
                 count++;
-
-                //rest pos
-                pos = position[i];
-            }
-
-            //if condition met, exit
-            if(count == m){
-                return true;
+                lastPlaced = position[i]; //reset position
+    
+                if (count == m) {
+                    return true;
+                }
             }
         }
+    
         return false;
     }
 }
