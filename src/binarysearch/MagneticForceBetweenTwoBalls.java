@@ -19,8 +19,8 @@ public class MagneticForceBetweenTwoBalls {
         //sort inputs if not already
         Arrays.sort(position);
 
-        int left = 1; //position[1] - position[0];
-        int right = position[position.length - 1] - position[0];
+        int left = 1; //min possible distance between two balls
+        int right = position[position.length - 1] - position[0]; //max possible distnce between two balls
         int answer = 0;
 
         while(left <= right){
