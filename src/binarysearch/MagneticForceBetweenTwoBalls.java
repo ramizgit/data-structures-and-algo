@@ -11,7 +11,6 @@ public class MagneticForceBetweenTwoBalls {
         //position = [1,2,3,4,7], m = 3
         System.out.println(maxDistance(new int[]{1,2,3,4,7}, 3));
         System.out.println(maxDistance(new int[]{1, 3, 5, 6, 7}, 3));
-
     }
 
     private static int maxDistance(int[] position, int m)
