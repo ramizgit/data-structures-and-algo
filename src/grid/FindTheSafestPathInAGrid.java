@@ -10,7 +10,7 @@ public class FindTheSafestPathInAGrid {
         int n = grid[0].length;
 
         //step1 : iterate grid and collect all thief cells in queue for bfs
-        int[][] safe = new int[m][n];
+        int[][] safe = new int[m][n]; //copy of grid with safety factor
         Queue<Coordinates> queue = new ArrayDeque<>();
 
         for(int i=0; i<m; i++){
