@@ -33,6 +33,7 @@ public class LastDayWhereYouCanStillCross {
             grid[cell[0]][cell[1]] = 1; //fill water in the grid
         }
 
+        //note : use bfs as we have multiple entry points, all cells in the first row where its 0
         //add starting points to bfs queue
         Queue<Coordinates> queue = new ArrayDeque<>();
         boolean[][] visited = new boolean[row][col]; //to avoid infinite loop
