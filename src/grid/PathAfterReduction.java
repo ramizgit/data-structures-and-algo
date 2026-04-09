@@ -1,6 +1,10 @@
 package grid;
 
 public class PathAfterReduction {
+    /*
+    problem asked in meta interview
+     */
+    
     public static void main(String[] args)
     {
         int[][] grid = {
@@ -22,36 +26,36 @@ public class PathAfterReduction {
         int m = grid.length;
         int n = grid[0].length;
 
-        int left = 0;
-        int right = 0;
+        int low = 0;
+        int high = 0;
 
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                right = Math.max(right, grid[i][j]);
+                high = Math.max(high, grid[i][j]);
             }
         }
 
-        int max = 0;
+        int answer = 0;
 
-        while(left <= right){
-            int mid = left + (right - left)/2;
+        while(low <= high){
+            int mid = low + (high - low)/2;
 
             if (grid[0][0] - mid <= 0) { // cannot start
-                right = mid - 1;
+                high = mid - 1; //try lower
                 continue;
             }
 
             boolean[][] visited = new boolean[m][n];
 
             if(canExit(grid, m, n, 0, 0, visited, mid)){
-                max = mid; //possible answer
-                left = mid + 1; //try harder, i mean with higher number
+                answer = mid; //possible answer
+                low = mid + 1; //try higher
             }else{
-                right = mid - 1;
+                high = mid - 1; //try lower
             }
         }
 
-        return max;
+        return answer;
     }
 
     //dfs
