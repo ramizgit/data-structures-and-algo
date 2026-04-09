@@ -5,6 +5,7 @@ import java.util.*;
 public class LastDayWhereYouCanStillCross {
 
     //https://leetcode.com/problems/last-day-where-you-can-still-cross/description/
+    
     public int latestDayToCross(int row, int col, int[][] cells)
     {
         int low = 0;
