@@ -8,6 +8,11 @@ public class BestMeetingPoint {
 
   //todo : practice
 
+    /*APPRAOCH:-
+    We collect row and column indices of all people. Since median minimizes total Manhattan distance,
+    we sort these indices and pick the middle
+     */
+
     public int minTotalDistance(int[][] grid) {
 
         int m = grid.length;
