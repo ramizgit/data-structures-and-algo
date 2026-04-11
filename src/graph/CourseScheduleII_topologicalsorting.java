@@ -26,17 +26,15 @@ public class CourseScheduleII_topologicalsorting {
 
     private static List<Integer> findOrder(int numCourses, int[][] prerequisites)
     {
-        //build graph and indegree
+        //initialize graph and indegree map
         Map<Integer, List<Integer>> graph = new HashMap<>();
         Map<Integer, Integer> indegree = new HashMap<>();
-
-        //build graph for each node
         for(int i=0; i<numCourses; i++){
             graph.put(i, new ArrayList<>());
             indegree.put(i, 0);
         }
 
-        //update greaph and indegree as per prerequisites
+        //populate graph and indegree as per prerequisites
         for(int[] p : prerequisites){
             int src = p[1];
             int des = p[0];
@@ -45,32 +43,32 @@ public class CourseScheduleII_topologicalsorting {
             indegree.put(des, indegree.get(des) + 1);
         }
 
-        //BFS
-        Queue<Integer> queue = new ArrayDeque<>();
+        Queue<Integer> queue = new ArrayDeque<>(); //for bfs logic
         //Queue<Integer> queue = new PriorityQueue<>(); //NOTE(***) : USE PRIORITY QUEUE IF U NEED ANSWER IN SORTED ORDER WHEREVER POSSIBLE
         List<Integer> result = new ArrayList<>();
+
+        //collect all starting vertices with 0 indegree in the bfs queue
         for(Map.Entry<Integer, Integer> entry : indegree.entrySet()){
             if(entry.getValue() == 0){
                 queue.offer(entry.getKey());
             }
         }
 
+        //bfs logic
         while(!queue.isEmpty()){
             int node = queue.poll();
             result.add(node);
 
-            List<Integer> neighbours = graph.get(node);
-            for(int neighbour : neighbours){
+            for(int neighbour : graph.get(node)){
                 indegree.put(neighbour, indegree.get(neighbour) - 1);
                 if(indegree.get(neighbour) == 0){
-                    queue.add(neighbour);
+                    queue.add(neighbour); //add to bfs queue once indegree becomes 0
                 }
             }
         }
 
-        // if we couldn't schedule all courses, cycle detected
         if(result.size() != numCourses){
-            return new ArrayList<>(); // return empty list
+            return new ArrayList<>(); // return empty list as we couldn't schedule all courses, cycle detected
         }
 
         return result;
