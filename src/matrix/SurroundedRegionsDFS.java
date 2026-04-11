@@ -58,6 +58,6 @@ public class SurroundedRegionsDFS {
 
     private static boolean onTheBorder(int rows, int cols, int i, int j)
     {
-        return ((i ==0 || i == rows -1) || (j ==0 || j == cols-1));
+        return ((i == 0 || i == rows -1) || (j == 0 || j == cols-1));
     }
 }
