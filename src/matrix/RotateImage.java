@@ -3,6 +3,10 @@ package matrix;
 public class RotateImage {
     //https://leetcode.com/problems/rotate-image/description/
 
+    /*
+    You are given an n x n 2D matrix representing an image, rotate the image by 90 degrees (clockwise).
+    */
+
     public static void main(String[] args)
     {
         int[][] matrix = { {1,2,3},{4,5,6},{7,8,9} };
