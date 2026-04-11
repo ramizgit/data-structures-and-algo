@@ -1,67 +1,45 @@
 package matrix;
 
-public class MaxSumRectangleInMatrix {
+public class MaximumSumRectangle {
 
-    public static void main(String[] args)
+    /*
+    Given a 2D matrix mat[][] of integers, find the maximum sum among all possible submatrices.
+     */
+
+    //Time complexity : O(m^2 * n)
+    //Space complexity : O(n)
+    public int maxSumRectangle(int[][] matrix)
     {
-        int[][] input = {   {6, -5, -7, 4, -4},
-                            {-9, 3, -6, 5, 2},
-                            {-10, 4, 7, -6, 3},
-                            {-8, 9, -3, 3, -7} };
+        int m = matrix.length;
+        int n = matrix[0].length;
+        int max = Integer.MIN_VALUE;
 
-        System.out.println(getMaxSumRectangle(input));
-    }
-
-    public static int getMaxSumRectangle(int[][] input)
-    {
-        int max = 0;
-        int rows = input.length;
-
-        for(int l=0; l<rows; l++){
-            for(int i=l; i<rows; i++){
-                int[] tmparr = copy(input[i]);
-                for(int j=l; j<i; j++){
-                    tmparr = add(tmparr, input[j]);
+        for(int i=0; i<m; i++){ //O(m) time
+            int[] colSum = new int[n]; //O(n) space
+            for(int r=i; r<m; r++){ //O(m) time
+                for(int j=0; j<n; j++){ //O(n) time
+                    colSum[j] += matrix[r][j];
                 }
-                max = Math.max(max, getMaxSubArraySum(tmparr));
+
+                //run kadens algo
+                max = Math.max(max, getMaxSubArraySum(colSum)); //O(n)
             }
         }
 
         return max;
     }
 
-    public static int getMaxSubArraySum(int[] arr)
+    // Kadane's algorithm (handles all-negative case)
+    public int getMaxSubArraySum(int[] arr)
     {
-        int sum = 0;
-        int max = 0;
+        int curr = arr[0];
+        int max = arr[0];
 
-        for(int i=0; i<arr.length; i++){
-            sum += arr[i];
-
-            //reset if sum is negative
-            if(sum < 0){
-                sum = 0;
-            }
-
-            max = Math.max(max, sum);
+        for(int i = 1; i < arr.length; i++){
+            curr = Math.max(arr[i], curr + arr[i]);
+            max = Math.max(max, curr);
         }
 
         return max;
-    }
-
-    public static int[] copy(int[] input){
-        int[] output = new int[input.length];
-        for(int i=0; i<input.length; i++){
-            output[i] = input[i];
-        }
-        return output;
-    }
-
-    public static int[] add(int[] arr1, int[] arr2){
-        int[] output = new int[arr1.length];
-        for(int i=0; i<arr1.length; i++){
-            output[i] = arr1[i] + arr2[i];
-        }
-        return output;
     }
 }
