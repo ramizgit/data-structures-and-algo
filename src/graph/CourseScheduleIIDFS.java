@@ -3,6 +3,9 @@ package graph;
 import java.util.*;
 
 public class CourseScheduleII {
+
+    //NOTE : DO NOT REFER THIS CODE, REFER THE NEXT FILE, USING TOPLOGICAL SORITNG VIA KAHNS ALGORIGHT
+    
     public static void main(String[] args)
     {
         int[][] input = { {1, 0} };
