@@ -15,9 +15,8 @@ public class DetectSquares {
         int x = point[0];
         int y = point[1];
 
-        Map<Integer, Integer> yMap = this.map.getOrDefault(x, new HashMap<>());
-        yMap.put(y, yMap.getOrDefault(y, 0) + 1);
-        this.map.put(x, yMap);
+        map.putIfAbsent(x, new HashMap<>());
+        map.get(x).put(y, map.get(x).getOrDefault(y, 0) + 1);
     }
 
     public int count(int[] point) {
@@ -46,6 +45,38 @@ public class DetectSquares {
         }
 
         return count;
+    }
+
+    // NEW METHOD - JUST RETURNS TRUE OR FALSE TO DETECT SQUARE
+    public boolean completesSquare(int[] point) {
+        int x = point[0];
+        int y = point[1];
+
+        if (!map.containsKey(x)) return false;
+
+        Map<Integer, Integer> yMap = map.get(x);
+
+        for (int y2 : yMap.keySet()) {
+            if (y == y2) continue;
+
+            int d = Math.abs(y - y2);
+
+            // check right square
+            if (getCount(x + d, y) > 0 &&
+                    getCount(x + d, y2) > 0 &&
+                    getCount(x, y2) > 0) {
+                return true;
+            }
+
+            // check left square
+            if (getCount(x - d, y) > 0 &&
+                    getCount(x - d, y2) > 0 &&
+                    getCount(x, y2) > 0) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private int getCount(int x, int y) {
