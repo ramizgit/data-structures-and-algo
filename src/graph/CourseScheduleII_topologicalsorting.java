@@ -59,7 +59,7 @@ public class CourseScheduleII_topologicalsorting {
             int node = queue.poll();
             result.add(node);
 
-            List<Integer> neighbours = graph.getOrDefault(node, new ArrayList<>());
+            List<Integer> neighbours = graph.get(node);
             for(int neighbour : neighbours){
                 indegree.put(neighbour, indegree.get(neighbour) - 1);
                 if(indegree.get(neighbour) == 0){
