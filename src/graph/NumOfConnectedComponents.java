@@ -55,9 +55,9 @@ public class NumOfConnectedComponents {
 
                 //check if connected component
                 int numOfNodes = output[0];
-                int numOfEdges = output[1] / 2;
+                int numOfEdges = output[1] / 2; //divive by 2 as every edge is counted twice in an undirected graph dfs
 
-                int expectedNumOfEdges = numOfNodes * (numOfNodes-1) / 2; //Note *** : Math formula, need to memorize
+                int expectedNumOfEdges = numOfNodes * (numOfNodes-1) / 2; //formula to get number of edges in a complete connected graph
 
                 if(numOfEdges == expectedNumOfEdges){
                     connectedCompCount++;
