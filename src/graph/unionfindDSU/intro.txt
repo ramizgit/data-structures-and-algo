@@ -1,0 +1,27 @@
+Group things together and quickly check if two things belong to the same group
+
+1. Find(x)
+👉 Returns:
+“Which group does x belong to?”
+
+2. Union(x, y)
+👉 Merges:
+“Put x and y into the same group”
+
+Key Difference (Golden Line)
+DFS/BFS explores the graph, while Union-Find maintains connectivity information.
+
+
+Pattern Recognition (VERY IMPORTANT)
+Use Union-Find when you see:
+👉 “Are these two connected?”
+👉 “Merge groups dynamically”
+👉 “Detect cycle while adding edges”
+👉 “Groups keep changing”
+
+
+Do these in order:
+Redundant Connection
+Number of Connected Components
+Accounts Merge
+💥 This gives you ~80% coverage of UF interview questions
