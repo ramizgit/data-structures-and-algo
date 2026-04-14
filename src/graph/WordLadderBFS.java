@@ -59,30 +59,6 @@ public class WordLadderBFS {
         return 0;
     }
 
-    /*public static void dfs(String beginWord, String endWord, Map<String, List<String>> adjList, List<String> path, List<List<String>> result, Set<String> visited)
-    {
-        visited.add(beginWord);
-        path.add(beginWord);
-
-        if(beginWord.equals(endWord)){
-            result.add(new ArrayList<>(path));
-        }else {
-            List<String> words = adjList.get(beginWord);
-
-            if(words == null){
-                return;
-            }
-
-            for(String word : words){
-                if(!visited.contains(word)){
-                    dfs(word, endWord, adjList, path, result, visited);
-                }
-
-            }
-        }
-        path.remove(path.size()-1);
-    }*/
-
     public static Map<String, List<String>> getPatternMap(List<String> wordList)
     {
         Map<String, List<String>> patternmap = new HashMap<>();
