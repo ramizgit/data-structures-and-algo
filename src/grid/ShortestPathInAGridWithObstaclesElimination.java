@@ -39,7 +39,7 @@ public class ShortestPathInAGridWithObstaclesElimination {
 
                 int newK = curr.k - grid[x][y];
                 if (newK >= 0 && !visited[x][y][newK]) {
-                    visited[x][y][newK] = true;
+                    visited[x][y][newK] = true; //relaxation
                     queue.offer(new Coordinate(x, y, newK, curr.dist + 1));
                 }
             }
