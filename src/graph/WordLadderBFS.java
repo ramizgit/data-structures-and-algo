@@ -6,6 +6,8 @@ import java.util.*;
 
 public class WordLadderBFS {
 
+    //https://leetcode.com/problems/word-ladder/description/
+
     public static void main(String[] args)
     {
         System.out.println("Shortest sequene = "+ladderLength("hit", "cog", Arrays.asList("hot","dot","dog","lot","log","cog")));//5
