@@ -38,7 +38,7 @@ public class PathWithMaximumProbability {
         PriorityQueue<Edge> pq = new PriorityQueue<Edge>( (a,b) -> Double.compare(b.p, a.p));
         pq.offer(new Edge(start_node, 1.0)); //initial probability
 
-        double[] probs = new double[n];
+        double[] probs = new double[n]; //array to store optimal cost for max prob
         Arrays.fill(probs, 0.0);
         probs[start_node] = 1.0; //initial probability
 
