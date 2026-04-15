@@ -4,3 +4,6 @@
 | Weights ∈ {0,1}            | ✅ 0-1 BFS                     |
 | Weights ≥ 0 (any value)    | ✅ Dijkstra                    |
 | Negative weights exist     | ❌ Dijkstra → use Bellman-Ford |
+
+
+The choice of algorithm depends on edge weights, not on whether the graph is directed or undirected.
