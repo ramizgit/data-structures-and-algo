@@ -37,12 +37,13 @@ public class DijkstraAlgorithm {
 
             if(curr.w > dist[curr.v]){
                 /*
+                If current weight is more than what we already computed, then ignore, as it is outdated.
                 When you update a distance (relax an edge), you push a new entry into the priority queue:
                 …but you don’t remove the old, outdated entry for the same node (Java PQ doesn’t support efficient removal).
                 hence this check to ignore such. e.g., below
-                (v=2, w=10)
-                (v=2, w=5)
-                (v=3, w=7)
+                0 → 1 (10)
+                0 → 2 (5)
+                2 → 1 (3)
                  */
                 continue;
             }
