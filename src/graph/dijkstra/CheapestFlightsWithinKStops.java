@@ -32,9 +32,6 @@ public class CheapestFlightsWithinKStops {
         PriorityQueue<Edges> pq = new PriorityQueue<>( (a,b) -> a.price - b.price );
         pq.offer(new Edges(src, 0, 0)); //source
 
-        int[] stopsArr = new int[n];
-        Arrays.fill(stopsArr, Integer.MAX_VALUE);
-
         while(!pq.isEmpty()){
             Edges curr = pq.poll();
 
@@ -47,12 +44,6 @@ public class CheapestFlightsWithinKStops {
             if(curr.stops > k) {
                 continue;
             }
-
-            //if i already reached this node with fewer stops, ignore this path
-            if(curr.stops >= stopsArr[curr.dst]) {
-                continue;
-            }
-            stopsArr[curr.dst] = curr.stops;
 
             //explore neighbours
             for(Edges neighbour : graph.get(curr.dst)){
