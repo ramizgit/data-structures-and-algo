@@ -28,8 +28,8 @@ public class DijkstraAlgorithm {
         int[] dist = new int[v];
         Arrays.fill(dist, Integer.MAX_VALUE);
 
-        Queue<Edge> pq = new PriorityQueue<>( (a,b) -> a.w - b.w );
-        pq.add(new Edge(source, 0));
+        PriorityQueue<Edge> pq = new PriorityQueue<>( (a,b) -> a.w - b.w );
+        pq.offer(new Edge(source, 0));
         dist[source] = 0; //starting point
 
         while(!pq.isEmpty()){
@@ -53,7 +53,7 @@ public class DijkstraAlgorithm {
                 int newDist = curr.w + neighbour.w;
                 if(newDist < currDist){
                     dist[neighbour.v] = newDist; //relaxation
-                    pq.add(new Edge(neighbour.v, newDist));
+                    pq.offer(new Edge(neighbour.v, newDist));
                 }
             }
         }
