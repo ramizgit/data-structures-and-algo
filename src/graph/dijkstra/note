@@ -1,0 +1,6 @@
+| Edge Weights               | Algorithm                     |
+| -------------------------- | ----------------------------- |
+| All edges = 1 (unweighted) | ✅ BFS                         |
+| Weights ∈ {0,1}            | ✅ 0-1 BFS                     |
+| Weights ≥ 0 (any value)    | ✅ Dijkstra                    |
+| Negative weights exist     | ❌ Dijkstra → use Bellman-Ford |
