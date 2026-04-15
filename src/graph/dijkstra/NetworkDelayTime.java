@@ -29,7 +29,7 @@ public class NetworkDelayTime {
         }
 
         //dijkstra algo
-        int[] dist = new int[n+1];
+        int[] dist = new int[n+1]; //to hold optimal min network dist
         Arrays.fill(dist, Integer.MAX_VALUE);
 
         PriorityQueue<Edge> pq = new PriorityQueue<>( (a,b) -> a.w - b.w );
