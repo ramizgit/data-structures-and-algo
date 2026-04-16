@@ -2,8 +2,9 @@
 | -------------------------- | ----------------------------- |
 | All edges = 1 (unweighted) | ✅ BFS                         |
 | Weights ∈ {0,1}            | ✅ 0-1 BFS                     |
-| Weights ≥ 0 (any value)    | ✅ Dijkstra                    |
+| Weights ≥ 0 & single source| ✅ Dijkstra                    |
 | Negative weights exist     | ❌ Dijkstra → use Bellman-Ford |
+| All-pairs shortest path    | Can use Floyd–Warshall if n is small, otherwise Dijkstra |
 
 
 The choice of algorithm depends on edge weights, not on whether the graph is directed or undirected.
