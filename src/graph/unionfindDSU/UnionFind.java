@@ -7,11 +7,12 @@ public class UnionFind {
     public UnionFind(int n) {
         this.parent = new int[n];
 
-        for(int i=0; i<n; i++){
+        for(int i=0; i<n; i++){ //Time : O(n)
             this.parent[i] = i;
         }
     }
 
+    //Time : O(α(n)) amortized → ~O(1)
     public int find(int x)
     {
         if(parent[x] != x){
@@ -20,7 +21,8 @@ public class UnionFind {
 
         return parent[x]; //returns top most parent
     }
-
+    
+    //Time : O(α(n)) amortized → ~O(1)
     public boolean union(int x, int y)
     {
         int rootX = find(x);
