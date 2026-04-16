@@ -7,3 +7,16 @@
 
 
 The choice of algorithm depends on edge weights, not on whether the graph is directed or undirected.
+
+Dijkstra vs Floyd–Warshall
+| Feature                      | Dijkstra                                | Floyd–Warshall                      |
+| ---------------------------- | --------------------------------------- | ----------------------------------- |
+| **Problem Type**             | Single-source shortest path             | All-pairs shortest path             |
+| **Approach**                 | Greedy                                  | Dynamic Programming                 |
+| **Core Idea**                | Always pick nearest unvisited node      | Try every node as intermediate      |
+| **Time Complexity**          | `O(E log V)` (with heap)                | `O(V³)`                             |
+| **Space Complexity**         | `O(V)`                                  | `O(V²)`                             |
+| **Graph Type**               | Works best for sparse graphs            | Works fine for dense graphs         |
+| **Data Structure**           | Priority Queue (Min Heap)               | 2D matrix                           |
+| **Example Use Case**         | GPS routing from one city               | Network latency between all servers |
+
