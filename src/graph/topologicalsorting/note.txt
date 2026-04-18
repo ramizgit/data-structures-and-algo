@@ -1,0 +1,5 @@
+| Problem                      | DSU | Topological Sort |
+| ---------------------------- | --- | ---------------- |
+| Cycle detection (undirected) | ✅   | ❌                |
+| Cycle detection (directed)   | ❌   | ✅                |
+| Ordering (dependency)        | ❌   | ✅                |
