@@ -1,0 +1,150 @@
+🧠 GRAPH ALGO CHEAT SHEET
+🔹 1. Connectivity / Components
+Problem type:
+“Are these connected?”
+“Number of components”
+“Group similar items”
+Use:
+DFS / BFS
+DSU (Union-Find) ✅ preferred for dynamic / multiple queries
+Works on:
+✅ Undirected graphs
+⚠️ Directed → only weak connectivity (ignore direction)
+🔹 2. Reachability (A → B?)
+Problem type:
+“Can we go from A to B?”
+“Path exists?”
+Use:
+DFS / BFS
+Works on:
+✅ Directed
+✅ Undirected
+
+👉 DSU ❌ (cannot capture direction)
+
+🔹 3. Shortest Path
+Unweighted graph:
+BFS
+Weighted graph:
+Condition	Algorithm
+All weights = 1	BFS
+Positive weights	Dijkstra ✅
+Negative weights allowed	Bellman-Ford
+All-pairs shortest path	Floyd-Warshall
+Works on:
+✅ Directed
+✅ Undirected
+🔹 4. Topological Order (Dependencies)
+Problem type:
+“Course schedule”
+“Build order”
+“Task dependency”
+Use:
+Topological Sort (Kahn’s / DFS)
+Works on:
+✅ Directed Acyclic Graph (DAG)
+
+👉 DSU ❌
+👉 BFS/DFS alone ❌ (need ordering)
+
+🔹 5. Cycle Detection
+Undirected:
+DFS with parent tracking
+DSU ✅ very common
+Directed:
+DFS + recursion stack
+Kahn’s (topo sort)
+🔹 6. Minimum Spanning Tree (MST)
+Problem type:
+“Minimum cost to connect all nodes”
+Use:
+Kruskal (DSU) ✅
+Prim’s
+Works on:
+✅ Undirected weighted graph
+
+👉 Directed ❌
+
+🔹 7. Ratio / Division / Relative Weight Problems (🔥 your question)
+Problem type:
+a / b = k
+evaluate relationships
+Use:
+DFS ✅
+Weighted DSU ✅ (best)
+Works on:
+⚠️ Looks directed BUT actually bidirectional
+🔹 8. Strongly Connected Components (SCC)
+Problem type:
+“Groups where everyone reaches everyone”
+Use:
+Kosaraju
+Tarjan
+Works on:
+✅ Directed
+🔥 SUPER IMPORTANT PATTERN RECOGNITION
+When to use DSU (memorize this)
+
+Use DSU when you see:
+
+“Group / connect”
+“Are they in same set?”
+“Merge sets”
+“Equivalence relation”
+“Dynamic connectivity”
+“Many queries”
+
+👉 Bonus:
+
+If ratios / weights between nodes → use Weighted DSU
+When NOT to use DSU
+
+Avoid DSU if:
+
+❌ Direction matters (A → B but not B → A)
+❌ You need actual path
+❌ You need shortest path
+❌ You need ordering
+🧭 Quick Decision Tree (INTERVIEW GOLD)
+
+Ask yourself:
+
+1. Is it about connectivity/grouping?
+
+→ DSU or DFS
+
+2. Is direction important?
+YES → DFS/BFS/Topo
+NO → DSU possible
+3. Is weight involved?
+Path cost → Dijkstra
+Ratio relation → DSU (weighted)
+4. Many queries?
+
+→ Prefer DSU
+
+⚡ Examples Mapping
+Problem	Algo
+Number of islands	DFS / BFS
+Friend circles	DSU
+Course schedule	Topo
+Network delay time	Dijkstra
+Evaluate division	DFS / DSU
+Redundant connection	DSU
+Cheapest flight (k stops)	BFS / Bellman-Ford
+🧠 Final Memory Trick
+
+Think in 3 axes:
+
+1. Direction → matters or not?
+2. Weight → cost or relation?
+3. Query type → path / connectivity / optimization?
+🎯 If you remember ONLY this
+
+👉 DSU = grouping, not pathfinding
+
+👉 DFS/BFS = traversal / reachability
+
+👉 Dijkstra = shortest path
+
+👉 Topo = ordering with dependencies
