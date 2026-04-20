@@ -4,31 +4,39 @@ import java.util.*;
 
 public class BinTreeFromPreAndInOrder {
 
-    private static Node buildTree(int[] preorder, int[] inorder)
+    public Node buildTree(int[] preorder, int[] inorder)
     {
-        Map<Integer, Integer> inOrderIdxMap = new HashMap<>();
+        Map<Integer, Integer> inorderIdxMap = new HashMap<>();
         for(int i=0; i<inorder.length; i++){
-            inOrderIdxMap.put(inorder[i], i);
+            inorderIdxMap.put(inorder[i], i);
         }
 
-        int[] preOrderIdx = new int[1];
+        int[] preorderIdx = {0};
 
-        return dfs(preorder, inOrderIdxMap, preOrderIdx, 0, inorder.length-1);
+        return dfs(preorder, 0, inorder.length-1, inorderIdxMap, preorderIdx);
     }
 
-    private static Node dfs(int[] preorder, Map<Integer, Integer> inOrderIdxMap, int[] preOrderIdx, int start, int end)
+    public Node dfs(int[] preorder, int left, int right, Map<Integer, Integer> inorderIdxMap, int[] preorderIdx)
     {
-        if(start > end){
+        if(left > right){
             return null;
         }
 
-        Node node = new Node(preorder[preOrderIdx[0]]);
-        preOrderIdx[0]++;
-        int inOrderIdx = inOrderIdxMap.get(node.value);
-
-        node.left = dfs(preorder, inOrderIdxMap, preOrderIdx, start, inOrderIdx-1);
-        node.right = dfs(preorder, inOrderIdxMap, preOrderIdx, inOrderIdx+1, end);
+        Node node = new Node(preorder[preorderIdx[0]++]);
+        int mid = inorderIdxMap.get(node.value);
+        node.left = dfs(preorder, left, mid-1, inorderIdxMap, preorderIdx);
+        node.right = dfs(preorder, mid+1, right, inorderIdxMap, preorderIdx);
 
         return node;
+    }
+
+    class Node {
+        int value;
+        Node left;
+        Node right;
+
+        public Node(int value) {
+            this.value = value;
+        }
     }
 }
