@@ -16,7 +16,7 @@ public class CoinChange {
     {
         int[] dp = new int[amount+1];
         Arrays.fill(dp,amount+1);
-        dp[0] = 0;
+        dp[0] = 0; //base case
 
         for(int i=1; i<=amount; i++){
             for(int c : coins){
@@ -35,7 +35,7 @@ public class CoinChange {
     {
         int[] dp = new int[amount+1];
         Arrays.fill(dp,amount+1);
-        dp[0] = 0;
+        dp[0] = 0; //base case
 
         int[] choice = new int[amount+1];
 
