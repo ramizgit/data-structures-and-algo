@@ -41,8 +41,7 @@ public class CoinChange {
 
         for(int i=1; i<=amount; i++){
             for(int c : coins){
-                if((i >= c) && (1 + dp[i-c] < dp[i])){
-                    //dp[i] = Math.min(dp[i], 1 + dp[i-c]);
+                if( (i >= c) && ( (1 + dp[i-c]) < dp[i]) ){
                     dp[i] = 1 + dp[i-c];
                     choice[i] = c;
                 }
