@@ -1,44 +1,34 @@
 package intervals;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class NonOverlappingIntervals {
+
     //https://leetcode.com/problems/non-overlapping-intervals/description/
 
-    public static void main(String[] args)
+    //Time : O(nlogn)
+    public int eraseOverlapIntervals(int[][] intervals)
     {
-        System.out.println(eraseOverlapIntervals(new int[][]{{1,2},{2,3},{3,4},{1,3}})); //1
-        System.out.println(eraseOverlapIntervals(new int[][]{{1,2},{1,2},{1,2}})); //2
-        System.out.println(eraseOverlapIntervals(new int[][]{{1,2},{2,3}})); //0
-    }
-
-    private static int eraseOverlapIntervals(int[][] intervals)
-    {
-        List<int[]> input = new ArrayList<>();
-        for(int[] interval : intervals){
-            input.add(interval);
+        if(intervals == null || intervals.length == 0){
+            return 0;
         }
-        Collections.sort(input, (a,b) -> a[0] - b[0]);
 
-        int result = 0;
-        int prevEnd = input.get(0)[1];
+        //Greedy approach : always keep the interval that ends earliest, it leaves maximum space for future intervals
+        Arrays.sort(intervals, (a, b) -> a[1] - b[1]); //sort by end time
 
-        for(int i=1; i<input.size(); i++){
-            int[] current = input.get(i);
+        int remove = 0;
+        int prevEnd = intervals[0][1];
 
-            if(current[0] < prevEnd){
-                //overlap
-                result++;
+        for(int i=1; i<intervals.length; i++){
+            int[] curr = intervals[i];
 
-                prevEnd = Math.min(prevEnd, current[1]);
-            }else {
-                //no overlap, move on
-                prevEnd = current[1];
+            if(curr[0] < prevEnd){
+                remove++; //overlap found → remove current interval (greedy choice)
+            }else{
+                prevEnd = curr[1]; //move forward with current valid interval
             }
         }
 
-        return result;
+        return remove;
     }
 }
