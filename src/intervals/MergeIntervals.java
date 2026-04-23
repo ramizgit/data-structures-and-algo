@@ -1,47 +1,37 @@
 package intervals;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class MergeIntervals {
-    //https://leetcode.com/problems/merge-intervals/description/
 
-    public static void main(String[] args)
-    {
-        merge(new int[][]{{2,6},{1,3},{8,10},{15,18}});
-        merge(new int[][]{{1,4},{4,5}});
-    }
+    //https://leetcode.com/problems/merge-intervals/
 
-    private static int[][] merge(int[][] intervals)
+    public int[][] merge(int[][] intervals)
     {
-        List<int[]> input = new ArrayList<>();
-        for(int[] interval : intervals){
-            input.add(interval);
+        //input validation
+        if(intervals == null || intervals.length == 0){
+            return new int[0][0];
         }
 
-        Collections.sort(input, (a,b)->a[0] - b[0]);
+        //sort input intervals for by start time
+        Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
 
         List<int[]> result = new ArrayList<>();
-        result.add(input.get(0));
+        result.add(intervals[0]); //first interval
 
-        for(int i=1; i<input.size(); i++){
-            int[] currentInterval = input.get(i);
-            int[] lastInterval = result.get(result.size()-1);
+        for(int i=1; i<intervals.length; i++){
+            int[] curr = intervals[i];
+            int[] last = result.get(result.size() - 1); // 🔥 important
 
-            if(currentInterval[0] <= lastInterval[1]){
-                //there is overlap
-                currentInterval[0] = Math.min(currentInterval[0], lastInterval[0]);
-                currentInterval[1] = Math.max(currentInterval[1], lastInterval[1]);
-
-                result.remove(result.size()-1);
-                result.add(currentInterval);
-            }else {
-                result.add(currentInterval);
+            if(curr[0] <= last[1]){ //if current starts before previous ends, then merge
+                // merge → update last interval
+                last[1] = Math.max(last[1], curr[1]);
+            }else{
+                //no overlap, add new interval
+                result.add(curr);
             }
         }
 
         return result.toArray(new int[result.size()][2]);
     }
 }
-
