@@ -6,6 +6,11 @@ public class NonOverlappingIntervals {
 
     //https://leetcode.com/problems/non-overlapping-intervals/description/
 
+    /*
+    Given an array of intervals intervals where intervals[i] = [starti, endi], 
+    return the minimum number of intervals you need to remove to make the rest of the intervals non-overlapping.
+    Note that intervals which only touch at a point are non-overlapping. For example, [1, 2] and [2, 3] are non-overlapping.
+     */
     //Time : O(nlogn)
     public int eraseOverlapIntervals(int[][] intervals)
     {
@@ -17,15 +22,16 @@ public class NonOverlappingIntervals {
         Arrays.sort(intervals, (a, b) -> a[1] - b[1]); //sort by end time
 
         int remove = 0;
-        int prevEnd = intervals[0][1];
+        int prevEndTime = intervals[0][1];
 
         for(int i=1; i<intervals.length; i++){
-            int[] curr = intervals[i];
+            int currStartTime = intervals[i][0];
+            int currentEndTime = intervals[i][1];
 
-            if(curr[0] < prevEnd){
+            if(currStartTime < prevEndTime){
                 remove++; //overlap found → remove current interval (greedy choice)
             }else{
-                prevEnd = curr[1]; //move forward with current valid interval
+                prevEndTime = currentEndTime; //move forward with current valid interval
             }
         }
 
