@@ -1,0 +1,35 @@
+🔑 The decision rule (this is what you should remember)
+🟢 1. If goal = maximize number of non-overlapping intervals
+
+👉 Sort by END time
+
+Examples:
+
+Non-overlapping Intervals
+Maximum Length of Pair Chain
+Activity Selection
+Why?
+
+Picking earliest finishing interval leaves maximum room for future ones
+
+🔵 2. If goal = merge / detect overlaps / process ranges
+
+👉 Sort by START time
+
+Examples:
+
+Merge intervals
+Insert interval
+Meeting rooms (some variants)
+Why?
+
+You process intervals in chronological order
+
+🟡 3. If goal = DP / LIS-style chaining
+
+👉 Usually sort by START (or dimension)
+
+Examples:
+
+Russian Doll Envelopes
+Box stacking (your earlier problem)
