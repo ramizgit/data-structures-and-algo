@@ -18,10 +18,10 @@ public class MeetingRoom {
 
         //check adjacent intervals for any overlap
         for(int i=1; i<intervals.length; i++){
-            int[] curr = intervals[i];
-            int[] prev = intervals[i-1];
+            int currStartTime = intervals[i][0];
+            int prevEndTime = intervals[i-1][1];
 
-            if(curr[0] < prev[1]){
+            if(currStartTime < prevEndTime){
                 return false; //overlap found
             }
         }
