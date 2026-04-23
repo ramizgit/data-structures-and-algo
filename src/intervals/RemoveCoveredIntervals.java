@@ -1,45 +1,35 @@
 package intervals;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class RemoveCoveredIntervals {
 
     //https://leetcode.com/problems/remove-covered-intervals/description/
-    public static void main(String[] args)
-    {
-        System.out.println(removeCoveredIntervals(new int[][]{{1,4}, {3,6}, {2,8}})); //2
-        System.out.println(removeCoveredIntervals(new int[][]{{1,4}, {2,3}})); //1
-        System.out.println(removeCoveredIntervals(new int[][]{{1,4}, {4,5}})); //2
-        System.out.println(removeCoveredIntervals(new int[][]{{1,5}, {1,10}, {2,7}})); //1
-    }
 
-    private static int removeCoveredIntervals(int[][] intervals)
+    public int removeCoveredIntervals(int[][] intervals)
     {
-        List<int[]> input = new ArrayList<>();
-        for(int[] interval : intervals){
-            input.add(interval);
+        if(intervals == null || intervals.length == 0){
+            return 0;
         }
-        Collections.sort(input, (a,b) -> a[0] - b[0]);
 
-        int result = input.size();
+        //APPROACH : for coverage problems → sort by start ASC and end DESC
 
-        for(int i=1; i<input.size(); i++){
-            int[] prev = input.get(i-1);
-            int[] curr = input.get(i);
+        //sort input intervals so that bigger intervals come first and smaller (covered) ones come later
+        Arrays.sort(intervals, (a, b) -> {
+            if (a[0] != b[0]) return a[0] - b[0];
+            return b[1] - a[1];
+        });
 
-            //check if prev covers curr
-            if(curr[0] >= prev[0] && curr[1] <= prev[1]){
-                result--;
-            }
+        int count = 0;
+        int prevMaxEnd = 0;
 
-            //check if curr covers prev
-            if(prev[0] == curr[0] && prev[1] <= curr[1]){
-                result--;
+        for (int[] interval : intervals) {
+            if (interval[1] > prevMaxEnd) {
+                count++; //not covered
+                prevMaxEnd = interval[1];
             }
         }
 
-        return result;
+        return count;
     }
 }
