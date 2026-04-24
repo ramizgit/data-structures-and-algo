@@ -33,3 +33,14 @@ Examples:
 
 Russian Doll Envelopes
 Box stacking (your earlier problem)
+
+-----------------------------------------------------------------------------------------
+
+| Problem                   | What you do   | Pattern           |
+| ------------------------- | ------------- | ----------------- |
+| Non-overlapping intervals | Drop overlaps | Greedy (end time) |
+| Meeting Rooms II          | Assign rooms  | Heap              |
+| Max events                | Assign days   | Heap              |
+
+
+
