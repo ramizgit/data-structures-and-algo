@@ -6,6 +6,13 @@ public class MaximumLengthOfPairChain {
 
     //https://leetcode.com/problems/maximum-length-of-pair-chain/
 
+    /*
+    You are given an array of n pairs pairs where pairs[i] = [lefti, righti] and lefti < righti.
+    A pair p2 = [c, d] follows a pair p1 = [a, b] if b < c. A chain of pairs can be formed in this fashion.
+    Return the length longest chain which can be formed.
+    You do not need to use up all the given intervals. You can select pairs in any order.
+     */
+
     public int findLongestChain(int[][] pairs)
     {
         /*
@@ -14,12 +21,15 @@ public class MaximumLengthOfPairChain {
         Arrays.sort(pairs, (a, b) -> a[1] - b[1]); //sort asc by end time
 
         int chainLen = 1;
-        int prevEnd = pairs[0][1];
+        int prevEndTime = pairs[0][1];
 
         for(int i = 1; i<pairs.length; i++){
-            if(pairs[i][0] > prevEnd){
-                chainLen++;
-                prevEnd = pairs[i][1]; // update to chosen interval
+            int currStartTime = pairs[i][0];
+            int currentEndTime = pairs[i][1];
+
+            if(currStartTime > prevEndTime){
+                chainLen++; //chain found, increment
+                prevEndTime = currentEndTime; //update to current interval end time
             }
         }
 
