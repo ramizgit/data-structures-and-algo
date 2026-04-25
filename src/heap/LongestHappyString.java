@@ -39,7 +39,7 @@ public class LongestHappyString {
                     maxheap.offer(second);
                 }
 
-                //add first back now
+                //add first back to the heap
                 maxheap.offer(first);
             }else{
                 sb.append(first.ch);
