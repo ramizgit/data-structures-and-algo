@@ -1,80 +1,65 @@
 package heap;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class LongestHappyString {
 
-    public static void main(String[] args)
-    {
-        System.out.println(longestDiverseString(1, 1, 7)); //ccaccbcc
-        System.out.println(longestDiverseString(7, 1, 0)); //aabaa
-        System.out.println(longestDiverseString(3, 0, 0)); //aa
-    }
+    //https://leetcode.com/problems/longest-happy-string/description/
 
-    private static String longestDiverseString(int a, int b, int c)
+    public String longestDiverseString(int a, int b, int c)
     {
-        Map<Character, Integer> freq = new HashMap<>();
-        freq.put('a', a);
-        freq.put('b', b);
-        freq.put('c', c);
-
-        PriorityQueue<Character> maxheap = new PriorityQueue<>( (x,y) -> freq.get(y) - freq.get(x) );
-        if(a != 0){
-            maxheap.offer('a');
+        PriorityQueue<CharFreq> maxheap = new  PriorityQueue<>( (x, y) -> y.freq - x.freq );
+        if(a > 0){
+            maxheap.offer(new CharFreq('a', a));
         }
-        if(b != 0){
-            maxheap.offer('b');
+        if(b > 0){
+            maxheap.offer(new CharFreq('b', b));
         }
-        if(c != 0){
-            maxheap.offer('c');
+        if(c > 0){
+            maxheap.offer(new CharFreq('c', c));
         }
 
         StringBuilder sb = new StringBuilder();
 
-        while (maxheap.size() > 1){
-            //step1 : poll max chars
-            char maxChar = maxheap.poll();
-            char secondMaxChar = maxheap.poll();
+        while(!maxheap.isEmpty()){
+            CharFreq first = maxheap.poll();
 
-            //step2 : add to the result
-            //step3 : reduce frequency
-            if(freq.get(maxChar) >= 2){
-                sb.append(maxChar).append(maxChar);
-                freq.put(maxChar, freq.get(maxChar) - 2);
+            //check if triplet found
+            int len = sb.length();
+            if(len >= 2 && sb.charAt(len-1) == first.ch && sb.charAt(len-2) == first.ch){
+
+                if(maxheap.isEmpty()){
+                    break;
+                }
+
+                CharFreq second = maxheap.poll();
+                sb.append(second.ch);
+                second.freq--;
+                if(second.freq > 0){
+                    maxheap.offer(second);
+                }
+
+                //add first back now
+                maxheap.offer(first);
             }else{
-                sb.append(maxChar);
-                freq.put(maxChar, freq.get(maxChar) - 1);
-            }
-
-            if(freq.get(secondMaxChar) >= 2){
-                sb.append(secondMaxChar).append(secondMaxChar);
-                freq.put(secondMaxChar, freq.get(secondMaxChar) - 2);
-            }else{
-                sb.append(secondMaxChar);
-                freq.put(secondMaxChar, freq.get(secondMaxChar) - 1);
-            }
-
-            //step4 : put back in the heap
-            if(freq.get(maxChar) > 0){
-                maxheap.offer(maxChar);
-            }
-            if(freq.get(secondMaxChar) > 0){
-                maxheap.offer(secondMaxChar);
-            }
-        }
-
-        if(!maxheap.isEmpty()){
-            char maxChar = maxheap.poll();
-            if(freq.get(maxChar) >= 2){
-                sb.append(maxChar).append(maxChar);
-            }else {
-                sb.append(maxChar);
+                sb.append(first.ch);
+                first.freq--;
+                if(first.freq > 0){
+                    maxheap.offer(first);
+                }
             }
         }
 
         return sb.toString();
     }
-}
 
+    class CharFreq{
+        char ch;
+        int freq;
+
+        public CharFreq(char ch, int freq) {
+            this.ch = ch;
+            this.freq = freq;
+        }
+    }
+}
