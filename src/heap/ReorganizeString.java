@@ -1,62 +1,56 @@
 package heap;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.PriorityQueue;
-import java.util.Queue;
+import java.util.*;
 
 public class ReorganizeString {
-    //Given a string s, rearrange the characters of s so that any two adjacent characters are not the same.
 
-    public static void main(String[] args)
-    {
-        System.out.println(reorganizeString("aaaaabbbcc")); //ababacacba
-        System.out.println(reorganizeString("aaab")); //empty string as no solution
-    }
+    //Given a string s, rearrange the characters of s so that any two adjacent characters are not the same.
 
     public static String reorganizeString(String input)
     {
-        //build frequency count map
-        Map<Character, Integer> frequencyMap = new HashMap<>();
-
-        for(int i=0; i<input.length(); i++){
-            frequencyMap.put(input.charAt(i), frequencyMap.getOrDefault(input.charAt(i), 0)+1);
+        //input validation
+        if(input == null || input.isEmpty()){
+            return "";
         }
 
-        //build max heap for ech character based on frequency count
-        Queue<Character> maxHeap = new PriorityQueue<>( (a, b) -> frequencyMap.get(b) - frequencyMap.get(a) );
-        maxHeap.addAll(frequencyMap.keySet());
+        //count frequency
+        int[] freq = new int[26];
+        for(char ch : input.toCharArray()){
+            freq[ch - 'a']++;
+        }
+
+        //populate max heap with {char, freq} pairs
+        PriorityQueue<int[]> maxheap = new PriorityQueue<>( (a, b) -> b[1] - a[1] );
+        for(int i=0; i<26; i++){
+            maxheap.offer(new int[]{i, freq[i]});
+        }
 
         StringBuilder sb = new StringBuilder();
 
-        while(maxHeap.size() > 1){
-            //step1 : poll max chars
-            char maxChar = maxHeap.poll();
-            //step2 : add to the result
-            sb.append(maxChar);
-             //step3 : reduce frequency
-            frequencyMap.put(maxChar, frequencyMap.get(maxChar) - 1);
+        while(maxheap.size() > 1){
+            int[] first = maxheap.poll();
+            int[] second = maxheap.poll();
 
-            char nextChar = maxHeap.poll();
-            sb.append(nextChar);
-            frequencyMap.put(nextChar, frequencyMap.get(nextChar) - 1);
+            sb.append((char) (first[0] + 'a'));
+            sb.append((char) (second[0] + 'a'));
 
-            //step4 : put back in the heap
-            if(frequencyMap.get(maxChar) > 0){
-                maxHeap.offer(maxChar);
+            first[1]--;
+            second[1]--;
+
+            if(first[1] > 0){
+                maxheap.offer(first);
             }
-
-            if(frequencyMap.get(nextChar) > 0){
-                maxHeap.offer(nextChar);
+            if(second[1] > 0){
+                maxheap.offer(second);
             }
         }
 
-        if(!maxHeap.isEmpty()){
-            char last = maxHeap.remove();
-            if(frequencyMap.get(last) > 1){
+        if(!maxheap.isEmpty()){
+            int[] last = maxheap.poll();
+            if(last[1] > 1){
                 return "";
             }
-            sb.append(last);
+            sb.append((char) (last[0] + 'a'));
         }
 
         return sb.toString();
