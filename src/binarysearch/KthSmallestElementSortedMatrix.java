@@ -1,10 +1,12 @@
 package heap;
 
+import java.util.*;
+
 public class KthSmallestElementSortedMatrix {
 
     //https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/description/
 
-    //binary search approach
+    //BINARY SEARCH APPROACH
     //Time complexity : O(nlog(max-min))
     //Space complexity : O(1)
     public int kthSmallest(int[][] matrix, int k)
@@ -46,5 +48,46 @@ public class KthSmallestElementSortedMatrix {
         }
 
         return count >= k;
+    }
+
+    //HEAP BASED APPROACH
+    //Time complexity : O(nlogn + klogn)
+    //Space complexity : O(n)
+    public int kthSmallestViaHeap(int[][] matrix, int k)
+    {
+        int n = matrix.length;
+
+        PriorityQueue<Elements> minheap = new PriorityQueue<>( (a, b) -> a.val - b.val ); //O(n) space
+
+        //O(nlogn) total for this for loop
+        for(int i=0; i<n; i++){
+            minheap.offer(new Elements(i, 0, matrix[i][0])); //each insert is O(logn)
+        }
+
+        int result = 0;
+
+        //O(klogn) for this while loop
+        while(k>0){
+            Elements curr = minheap.poll(); //each poll is O(logn)
+            result = curr.val;
+            if(curr.col + 1 < n){
+                minheap.offer(new Elements(curr.row, curr.col + 1, matrix[curr.row][curr.col + 1])); //each insert is O(logn)
+            }
+            k--;
+        }
+
+        return result;
+    }
+
+    class Elements{
+        int row;
+        int col;
+        int val;
+
+        public Elements(int row, int col, int val) {
+            this.row = row;
+            this.col = col;
+            this.val = val;
+        }
     }
 }
