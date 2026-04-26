@@ -22,9 +22,9 @@ public class KthSmallestElementSortedMatrix {
 
             if(hasKElementsLessOrEqualToTarget(matrix, mid, k, n)){
                 answer = mid; //possible answer
-                high = mid - 1;
+                high = mid - 1; //try lower
             }else{
-                low = mid + 1;
+                low = mid + 1; //try higher
             }
         }
 
