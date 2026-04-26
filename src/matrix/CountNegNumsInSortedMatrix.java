@@ -1,22 +1,6 @@
 package matrix;
 
 public class CountNegNumsInSortedMatrix {
-    public static void main(String[] args)
-    {
-        int[][] input = { {4,3,2,-1},
-                          {3,2,1,-1},
-                          {1,1,-1,-2},
-                          {-1,-1,-2,-3} };
-        System.out.println(countInDescendingOrderMatrix(input)); //8
-
-        int[][] input2 = { {-3,-2,-1,1}, {-2,2,3,4}, {4,5,7,8} };
-        System.out.println(countInAscendingOrderMatrix(input2)); //4
-
-        //Search in row wise and col wise sorted matrix
-        int[][] input3 = { {10, 20, 30, 40}, {15, 25, 35, 45}, {27, 29, 37, 48}, {32, 33, 39, 50} };
-        System.out.println(searchInRowAndColWiseSortedMatrix(input3, 29)); //true
-        System.out.println(searchInRowAndColWiseSortedMatrix(input3, 19)); //false
-    }
 
     public static int countInDescendingOrderMatrix(int[][] input)
     {
@@ -24,19 +8,15 @@ public class CountNegNumsInSortedMatrix {
         int cols = input[0].length;
         int count=0;
 
-        int i = 0;
-        int j = cols-1;
+        int row = 0;
+        int col = cols-1;
 
-        while (i < rows &&  j >= 0){
-            if(input[i][j] < 0){
-                //add to the answer count
-                count += (rows - i);
-
-                //move left
-                j--;
+        while (row < rows &&  col >= 0){
+            if(input[row][col] < 0){
+                count += (rows - row); //add to the answer count
+                col--; //move left
             }else {
-                //move down
-                i++;
+                row++; //move down
             }
         }
 
@@ -49,19 +29,15 @@ public class CountNegNumsInSortedMatrix {
         int cols = input[0].length;
         int count=0;
 
-        int i = 0;
-        int j = cols-1;
+        int row = 0;
+        int col = cols-1;
 
-        while (i < rows &&  j >= 0){
-            if(input[i][j] < 0){
-                //add to the answer count
-                count += (j+1);
-
-                //move down
-                i++;
+        while (row < rows &&  col >= 0){
+            if(input[row][col] < 0){
+                count += (col+1); //add to the answer count
+                row++; //move down
             }else {
-                //move left
-                j--;
+                col--; //move left
             }
         }
 
@@ -73,18 +49,16 @@ public class CountNegNumsInSortedMatrix {
         int rows = input.length;
         int cols = input[0].length;
 
-        int i=0;
-        int j=cols-1;
+        int row=0;
+        int col=cols-1;
 
-        while (i<rows && j>=0){
-            if(input[i][j] == target){
+        while (row<rows && col>=0){
+            if(input[row][col] == target){
                 return true;
-            }else if(target < input[i][j]){
-                //move left
-                j--;
+            }else if(target < input[row][col]){
+                col--; //move left
             }else {
-                //move down
-                i++;
+                row++; //move down
             }
         }
         return false;
