@@ -21,21 +21,24 @@ public class MaximumHeightByStackingCuboids {
 
         int n = cuboids.length;
 
+        // Step 3: LIS
         int[] dp = new int[n];
         for (int i = 0; i < n; i++) {
-            dp[i] = cuboids[i][2]; // initialize height
+            dp[i] = cuboids[i][2]; // initialize height, base case
         }
 
         int max = 0;
 
-        // Step 3: LIS
         for (int i = 0; i < n; i++) {
+            int[] curr = cuboids[i];
             for (int j = 0; j < i; j++) {
-                if (cuboids[j][0] <= cuboids[i][0] && //width
-                        cuboids[j][1] <= cuboids[i][1] && //length
-                        cuboids[j][2] <= cuboids[i][2]) { //height
+                int[] prev = cuboids[j];
 
-                    dp[i] = Math.max(dp[i], dp[j] + cuboids[i][2]);
+                if (prev[0] <= curr[0] && //width
+                        prev[1] <= curr[1] && //length
+                        prev[2] <= curr[2]) { //height
+
+                    dp[i] = Math.max(dp[i], dp[j] + curr[2]);
                 }
             }
 
