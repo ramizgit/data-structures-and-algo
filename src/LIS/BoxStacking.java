@@ -27,18 +27,18 @@ public class BoxStacking {
 
         int m = boxes.size();
 
-        int[] dp = new int[m];
         // Step 3: LIS on height
+        int[] dp = new int[m];
         for (int i = 0; i < m; i++) {
-            dp[i] = boxes.get(i).h;
+            dp[i] = boxes.get(i).h; //base case
         }
 
         int max = 0;
 
         for (int i = 1; i < m; i++) {
+            Box curr = boxes.get(i);
             for (int j = 0; j < i; j++) {
                 Box prev = boxes.get(j);
-                Box curr = boxes.get(i);
 
                 if (prev.l < curr.l && prev.w < curr.w) {
                     dp[i] = Math.max(dp[i], dp[j] + curr.h);
