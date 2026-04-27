@@ -13,7 +13,7 @@ public class DivideArrInSetsOfKConsecutiveNums {
 
     private static boolean partitionArray(int[] nums, int k)
     {
-        if(nums == null || nums.length % k != 0){
+        if(nums == null || nums.length == 0 || nums.length % k != 0){
             return false;
         }
 
