@@ -14,6 +14,7 @@ public class MinimumAreaRectangle {
 
 
     //APPROACH : pick two diagonally opp. points and check if other two corresponding diagonal points exists or not
+    //Time : O(n²), Space : O(n)
     public int minAreaRect(int[][] points)
     {
         int n = points.length;
