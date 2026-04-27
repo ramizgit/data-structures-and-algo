@@ -6,11 +6,6 @@ public class DivideArrInSetsOfKConsecutiveNums {
 
     //https://leetcode.com/problems/divide-array-in-sets-of-k-consecutive-numbers/description/
 
-    public static void main(String[] args)
-    {
-
-    }
-
     private static boolean partitionArray(int[] nums, int k)
     {
         if(nums == null || nums.length == 0 || nums.length % k != 0){
