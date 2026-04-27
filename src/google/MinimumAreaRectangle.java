@@ -12,8 +12,12 @@ public class MinimumAreaRectangle {
     If there is not any such rectangle, return 0.
      */
 
+
+    //APPROACH : pick two diagonally opp. points and check if other two corresponding diagonal points exists or not
     public int minAreaRect(int[][] points)
     {
+        int n = points.length;
+
         //store points in hashset for quick O(1) lookup
         Set<String> pointsSet = new HashSet<>();
         for(int[] point : points){
@@ -23,8 +27,8 @@ public class MinimumAreaRectangle {
         int minArea = Integer.MAX_VALUE;
 
         //iterate all pairs, check if rectangle feasbile, calculate area
-        for(int i=0; i<points.length; i++){
-            for(int j=i+1; j<points.length; j++){
+        for(int i=0; i<n; i++){
+            for(int j=i+1; j<n; j++){
                 int[] p1 = points[i];
                 int[] p2 = points[j];
 
@@ -37,9 +41,10 @@ public class MinimumAreaRectangle {
                     continue; //ignore pairs that are not diagonals
                 }
 
-                //check diagonals
+                //check existence of diagonally opposite points
                 String diagonal1 = x1+","+y2; //{x1, y2};
                 String diagonal2 = x2+","+y1;// {x2, y1};
+
                 if(pointsSet.contains(diagonal1) && pointsSet.contains(diagonal2)){
                     int area = Math.abs(x1 - x2) * Math.abs(y1 - y2);
                     minArea = Math.min(minArea, area);
