@@ -18,13 +18,19 @@ public class ShortestPathInAGridWithObstaclesElimination {
         Queue<Coordinate> queue = new ArrayDeque<>(); //bfs queue
         queue.add(new Coordinate(0, 0, k, 0));
 
+        /*
+        For intermediate cells, we care about future possibilities, hence need to track k as well in the visited state
+         */
         boolean[][][] visited = new boolean[m][n][k+1]; //keep track of visited cells
         visited[0][0][k] = true;
 
         while(!queue.isEmpty()){
             Coordinate curr = queue.poll();
 
-            //exit condition
+            //early exit
+            /*
+            we don’t care about what k is left, we only care what is the minimum distance to reach here
+             */
             if(curr.row == m-1 && curr.col == n-1){
                 return curr.dist;
             }
@@ -39,7 +45,7 @@ public class ShortestPathInAGridWithObstaclesElimination {
 
                 int newK = curr.k - grid[x][y];
                 if (newK >= 0 && !visited[x][y][newK]) {
-                    visited[x][y][newK] = true; //relaxation
+                    visited[x][y][newK] = true;
                     queue.offer(new Coordinate(x, y, newK, curr.dist + 1));
                 }
             }
@@ -47,18 +53,19 @@ public class ShortestPathInAGridWithObstaclesElimination {
 
         return -1;
     }
-}
 
-class Coordinate{
-    int row;
-    int col;
-    int k;
-    int dist;
+    class Coordinate{
+        int row;
+        int col;
+        int k;
+        int dist;
 
-    public Coordinate(int row, int col, int k, int dist) {
-        this.row = row;
-        this.col = col;
-        this.k = k;
-        this.dist = dist;
+        public Coordinate(int row, int col, int k, int dist) {
+            this.row = row;
+            this.col = col;
+            this.k = k;
+            this.dist = dist;
+        }
     }
 }
+
