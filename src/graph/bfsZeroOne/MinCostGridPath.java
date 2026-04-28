@@ -26,7 +26,7 @@ public class MinCostGridPath {
         //bfs logic
         Deque<CellCost> deque = new ArrayDeque<>();
         deque.offerFirst(new CellCost(0, 0, 0));
-        cost[0][0] = 0;
+        cost[0][0] = 0; //starting cell
 
         int[][] directions = { {0, 1, 1}, //right
                                 {0, -1, 2}, //left
@@ -35,6 +35,14 @@ public class MinCostGridPath {
 
         while(!deque.isEmpty()){
             CellCost curr = deque.pollFirst();
+
+            //early exit
+            /*
+            Early exit is safe here because 0-1 BFS processes nodes in increasing cost order, so this is the minimum cost to reach destination
+             */
+            if(curr.row == m-1 && curr.col == n-1){
+                return curr.cost;
+            }
 
             //explore all four directions
             for(int[] dir : directions){
@@ -60,16 +68,16 @@ public class MinCostGridPath {
 
         return cost[m-1][n-1];
     }
-}
 
-class CellCost{
-    int row;
-    int col;
-    int cost;
+    class CellCost{
+        int row;
+        int col;
+        int cost;
 
-    public CellCost(int row, int col, int cost) {
-        this.row = row;
-        this.col = col;
-        this.cost = cost;
+        public CellCost(int row, int col, int cost) {
+            this.row = row;
+            this.col = col;
+            this.cost = cost;
+        }
     }
 }
