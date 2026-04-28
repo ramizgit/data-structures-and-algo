@@ -1,0 +1,25 @@
+//If edges have only two weights (0 and 1), replace Dijkstra with 0-1 BFS using a deque.
+
+Deque<Node> dq = new ArrayDeque<>();
+dq.offerFirst(src);
+dist[src] = 0; //or cost array
+
+while (!dq.isEmpty()) {
+    Node curr = dq.pollFirst();
+
+    //early exit condition
+
+    //explore neighbours
+    for (Edge e : neighbors) {
+        int newCost = dist[curr] + e.weight; // 0 or 1
+
+        if (newCost < dist[next]) {
+            dist[next] = newCost;
+
+            if (e.weight == 0)
+                dq.offerFirst(next);
+            else
+                dq.offerLast(next);
+        }
+    }
+}
