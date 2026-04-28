@@ -1,0 +1,6 @@
+Number of Boomerangs
+
+Detect Squares [done]
+Minimum Area Rectangle [done]
+Minimum Area Rectangle II [done]
+max points on a line [done]
