@@ -8,7 +8,7 @@ public class BoxStacking {
 
     public int maxHeight(int[] height, int[] width, int[] length, int n) {
 
-        // Step 1: generate all rotations
+        // Step 1: generate all rotations as it is also allowable to use multiple instances of the same type of box.
         List<Box> boxes = new ArrayList<>();
 
         for (int i = 0; i < n; i++) {
@@ -23,6 +23,7 @@ public class BoxStacking {
         }
 
         // Step 2: sort by base (l, w) ascending (LIS style)
+        //this ensures when we process a box, all possible boxes that can go above it are already processed, primarily for DP concept
         Collections.sort(boxes);
 
         int m = boxes.size();
@@ -52,6 +53,14 @@ public class BoxStacking {
     }
 
     private Box createBox(int x, int y, int h) {
+        /*
+        We enforce length >= breadth to eliminate duplicate base orientations and ensure consistent comparisons during LIS/DP
+        You guarantee:
+            Consistent ordering
+            Symmetry removed
+            Valid comparisons in both dimensions
+        If a cuboid can be rotated to fit somewhere, then its sorted version will also fit in that same position.
+        */
         int l = Math.max(x, y);
         int w = Math.min(x, y);
         return new Box(l, w, h);
