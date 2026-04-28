@@ -33,6 +33,9 @@ public class MinimumObstacleRemovalToReachCorner {
             Cellcost curr = deque.pollFirst();
 
             //early exit
+            /*
+            Early exit is safe here because 0-1 BFS processes nodes in increasing cost order, so this is the minimum cost to reach destination
+             */
             if(curr.row == m-1 && curr.col == n-1){
                 return curr.cost;
             }
@@ -44,7 +47,7 @@ public class MinimumObstacleRemovalToReachCorner {
 
                 if(x>=0 && x<m && y>=0 && y<n){
                     int newCost = curr.cost + grid[x][y]; // 0 or 1
-                    if(newCost < cost[x][y]){
+                    if(newCost < cost[x][y]){ //cost[][] replaces visited set concept to avoid infinite loop
                         cost[x][y] = newCost; //relaxation
 
                         if(grid[x][y] == 0){
@@ -60,16 +63,16 @@ public class MinimumObstacleRemovalToReachCorner {
 
         return cost[m-1][n-1]; //should not reach here ideally, will early exit
     }
-}
 
-class Cellcost{
-    int row;
-    int col;
-    int cost;
+    class Cellcost{
+        int row;
+        int col;
+        int cost;
 
-    public Cellcost(int row, int col, int cost) {
-        this.row = row;
-        this.col = col;
-        this.cost = cost;
+        public Cellcost(int row, int col, int cost) {
+            this.row = row;
+            this.col = col;
+            this.cost = cost;
+        }
     }
 }
