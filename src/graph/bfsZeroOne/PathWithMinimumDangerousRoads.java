@@ -124,13 +124,17 @@ public class PathWithMinimumDangerousRoads {
                 continue;
             }
 
+            //early exit
+            if(curr.node == n){
+                return curr.cost <= k;
+            }
+
             //explore neighbours
             for(Edge neighbour : graph.get(curr.node)){
-                //relaxation
                 int newCost = curr.cost + (neighbour.w > threshold ? 1 : 0);
                 if (newCost < cost[neighbour.v]) {
+                    //relaxation
                     cost[neighbour.v] = newCost;
-
                     if (neighbour.w <= threshold) {
                         deque.offerFirst(new State(neighbour.v,  newCost)); //safe road, cost=0
                     } else {
