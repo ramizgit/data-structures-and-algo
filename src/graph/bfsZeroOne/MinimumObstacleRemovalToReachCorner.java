@@ -7,7 +7,9 @@ public class MinimumObstacleRemovalToReachCorner {
     //https://leetcode.com/problems/minimum-obstacle-removal-to-reach-corner/description/
 
     /*
-    APPROACH : graph + 0-1 bfs + relaxation (not DP remembe)
+    APPROACH : graph + 0-1 bfs + relaxation
+    0-1 BFS is essentially a special case of Dijkstra. Hence we maintain minimum cost to cost[][] reach each node
+    and do relaxation.
      */
 
     public int minimumObstacles(int[][] grid)
@@ -25,12 +27,17 @@ public class MinimumObstacleRemovalToReachCorner {
 
         //bfs
         Deque<Cellcost> deque = new ArrayDeque<>();
-        deque.offerFirst(new Cellcost(0, 0, 0));
-        cost[0][0] = 0;
+        deque.offerFirst(new Cellcost(0, 0, 0)); //starting cell
+        cost[0][0] = 0; //starting cell
         int[][] directions = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
 
         while(!deque.isEmpty()){
             Cellcost curr = deque.pollFirst();
+
+            //ignore stale/outdated states
+            if (curr.cost > cost[curr.row][curr.col]) {
+                continue;
+            }
 
             //early exit
             /*
@@ -47,6 +54,7 @@ public class MinimumObstacleRemovalToReachCorner {
 
                 if(x>=0 && x<m && y>=0 && y<n){
                     int newCost = curr.cost + grid[x][y]; // 0 or 1
+
                     if(newCost < cost[x][y]){ //cost[][] replaces visited set concept to avoid infinite loop
                         cost[x][y] = newCost; //relaxation
 
