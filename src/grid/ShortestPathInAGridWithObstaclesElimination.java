@@ -6,6 +6,11 @@ public class ShortestPathInAGridWithObstaclesElimination {
 
     //https://leetcode.com/problems/shortest-path-in-a-grid-with-obstacles-elimination/description/
 
+    /*
+    This is NOT 0-1 BFS as every move (up/down/left/right) costs exactly 1 step, irrespective of it being 0 cell or 1 cell.
+    Obstacle is not a cost, It is a limited resource (k budget)
+
+     */
     public int shortestPath(int[][] grid, int k)
     {
         int m = grid.length;
@@ -41,12 +46,12 @@ public class ShortestPathInAGridWithObstaclesElimination {
                 int x = dir[0] + curr.row;
                 int y = dir[1] + curr.col;
 
-                if (x < 0 || y < 0 || x >= m || y >= n) continue;
-
-                int newK = curr.k - grid[x][y];
-                if (newK >= 0 && !visited[x][y][newK]) {
-                    visited[x][y][newK] = true;
-                    queue.offer(new Coordinate(x, y, newK, curr.dist + 1));
+                if(x>=0 && x<m && y>=0 && y<n){
+                    int remainingK = curr.k - grid[x][y];
+                    if (remainingK >= 0 && !visited[x][y][remainingK]) {
+                        visited[x][y][remainingK] = true;
+                        queue.offer(new Coordinate(x, y, remainingK, curr.dist + 1));
+                    }
                 }
             }
         }
