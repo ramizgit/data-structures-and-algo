@@ -1,0 +1,28 @@
+Graph with “free edges” and “paid edges”
+
+Min edges to reverse to reach destination
+    Classic problem:
+    Original edges → cost 0
+    Reverse edges → cost 1
+    https://leetcode.com/problems/minimum-edge-reversals-so-every-node-is-reachable/description/
+
+
+Minimum number of operations (bit flip / transformation)
+    If operations cost 0 or 1 → 0-1 BFS applies
+
+
+Minimum Cost to Reach Node with Special Roads
+
+
+String / Transformation Type
+Word Transformation with Free Ops
+    Example twist:
+    Replace char → cost 1
+    Swap adjacent → cost 0
+
+
+Most important ones to practice (priority order)
+    1368 – Minimum Cost Grid Path ⭐⭐⭐⭐⭐
+    2290 – Minimum Obstacle Removal ⭐⭐⭐⭐
+    Edge Reversal Problem ⭐⭐⭐⭐⭐
+    Custom direction/grid problems ⭐⭐⭐⭐
