@@ -36,6 +36,11 @@ public class MinCostGridPath {
         while(!deque.isEmpty()){
             CellCost curr = deque.pollFirst();
 
+            //ignore stale/outdated states
+            if (curr.cost > cost[curr.row][curr.col]) {
+                continue;
+            }
+
             //early exit
             /*
             Early exit is safe here because 0-1 BFS processes nodes in increasing cost order, so this is the minimum cost to reach destination
