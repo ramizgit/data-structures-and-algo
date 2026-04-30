@@ -47,14 +47,14 @@ public class CheapestFlightsWithinKStops {
                 continue;
             }
 
+            //don't proceed if exceeds allowed stops
+            if(curr.stops > k) {
+                continue; //skip if exceeds allowed stops
+            }
+
             //early exit
             if(curr.node == dst){
                 return curr.price;
-            }
-
-            //don't proceed if exceeds allowed stops
-            if(curr.stops > k) {
-                continue;
             }
 
             //explore neighbours
@@ -63,12 +63,22 @@ public class CheapestFlightsWithinKStops {
                 int newCost = curr.price + neighbour.price;
                 int newStops = curr.stops + 1;
 
-                if(newCost < dist[nextNode][newStops]){
+                if(newCost < dist[nextNode][newStops]){ //Have I already reached this node with same stops but cheaper cost?
                     dist[nextNode][newStops] = newCost; //relaxation
                     pq.offer(new State(nextNode, newStops, newCost));
                 }
             }
         }
+
+        /*
+        if not early exit, then we need to iterate price for all stops (0 to k+1) for dest node and pick min price
+
+        int ans = Integer.MAX_VALUE;
+        for (int s = 0; s <= k + 1; s++) {
+            ans = Math.min(ans, dist[dst][s]);
+        }
+        return ans == Integer.MAX_VALUE ? -1 : ans;
+         */
 
         return -1;
     }
