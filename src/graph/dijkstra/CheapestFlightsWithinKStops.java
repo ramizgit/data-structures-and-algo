@@ -25,44 +25,75 @@ public class CheapestFlightsWithinKStops {
             int v = flight[1];
             int p = flight[2];
 
-            graph.get(u).add(new Edges(v, p, 0));
+            graph.get(u).add(new Edges(v, p));
         }
 
         //dijkstra algo
-        PriorityQueue<Edges> pq = new PriorityQueue<>( (a,b) -> a.price - b.price );
-        pq.offer(new Edges(src, 0, 0)); //source
+        PriorityQueue<State> pq = new PriorityQueue<>( (a,b) -> a.price - b.price );
+        pq.offer(new State(src, 0, 0)); //starting point
+
+        // Modified Dijkstra: state = (node, stops), using 2D dist to handle stop constraint, since cost depends on stops used
+        int[][] dist = new int[n][k + 2];
+        for(int i = 0; i < n; i++){
+            Arrays.fill(dist[i], Integer.MAX_VALUE);
+        }
+        dist[src][0] = 0; //starting point
 
         while(!pq.isEmpty()){
-            Edges curr = pq.poll();
+            State curr = pq.poll();
 
-            //breaking condition
+            //check stale/outdated records
+            if (curr.price > dist[curr.dst][curr.stops]) {
+                continue;
+            }
+
+            //early exit
             if(curr.dst == dst){
                 return curr.price;
             }
 
-            //exceed allowed stops
+            //don't proceed if exceeds allowed stops
             if(curr.stops > k) {
                 continue;
             }
 
             //explore neighbours
             for(Edges neighbour : graph.get(curr.dst)){
-                pq.offer(new Edges(neighbour.dst, curr.price + neighbour.price, curr.stops + 1));
+                int nextNode = neighbour.dst;
+                int newCost = curr.price + neighbour.price;
+                int newStops = curr.stops + 1;
+
+                if(newCost < dist[nextNode][newStops]){
+                    dist[nextNode][newStops] = newCost; //relaxation
+                    pq.offer(new State(nextNode, newCost, newStops));
+                }
             }
         }
 
         return -1;
     }
-}
 
-class Edges{
-    int dst;
-    int price;
-    int stops;
+    class Edges{
+        int dst;
+        int price;
 
-    public Edges(int dst, int price, int stops) {
-        this.dst = dst;
-        this.price = price;
-        this.stops = stops;
+        public Edges(int dst, int price) {
+            this.dst = dst;
+            this.price = price;
+        }
+    }
+
+    class State{
+        int dst;
+        int price;
+        int stops;
+
+        public State(int dst, int price, int stops) {
+            this.dst = dst;
+            this.price = price;
+            this.stops = stops;
+        }
     }
 }
+
+
