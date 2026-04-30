@@ -43,12 +43,12 @@ public class CheapestFlightsWithinKStops {
             State curr = pq.poll();
 
             //check stale/outdated records
-            if (curr.price > dist[curr.dst][curr.stops]) {
+            if (curr.price > dist[curr.node][curr.stops]) {
                 continue;
             }
 
             //early exit
-            if(curr.dst == dst){
+            if(curr.node == dst){
                 return curr.price;
             }
 
@@ -58,14 +58,14 @@ public class CheapestFlightsWithinKStops {
             }
 
             //explore neighbours
-            for(Edges neighbour : graph.get(curr.dst)){
+            for(Edges neighbour : graph.get(curr.node)){
                 int nextNode = neighbour.dst;
                 int newCost = curr.price + neighbour.price;
                 int newStops = curr.stops + 1;
 
                 if(newCost < dist[nextNode][newStops]){
                     dist[nextNode][newStops] = newCost; //relaxation
-                    pq.offer(new State(nextNode, newCost, newStops));
+                    pq.offer(new State(nextNode, newStops, newCost));
                 }
             }
         }
@@ -84,16 +84,14 @@ public class CheapestFlightsWithinKStops {
     }
 
     class State{
-        int dst;
-        int price;
+        int node;
         int stops;
+        int price;
 
-        public State(int dst, int price, int stops) {
-            this.dst = dst;
-            this.price = price;
+        public State(int node, int stops, int price) {
+            this.node = node;
             this.stops = stops;
+            this.price = price;
         }
     }
 }
-
-
