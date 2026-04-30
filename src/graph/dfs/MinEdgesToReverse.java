@@ -46,7 +46,7 @@ public class MinEdgesToReverse {
     {
         //explore neighbours
         for(Edge neighbour : graph.get(node)){
-            if(neighbour.v != parent){ //to avoid infinite loop, ensures recursion only goes to children, not parent
+            if(neighbour.v != parent){ //ensures recursion only goes to children, not back to parent to avoid infinite loop
                 cost[0] += neighbour.w;
                 dfsTotalRootCount(neighbour.v, node, cost, graph);
             }
