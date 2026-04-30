@@ -1,61 +1,63 @@
 package graph.dfs;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ReorderRoutes {
 
     //https://leetcode.com/problems/reorder-routes-to-make-all-paths-lead-to-the-city-zero/description/
 
-    public static void main(String[] args)
-    {
-        int[][] input = { {0,1},{1,3},{2,3},{4,0},{4,5} };
-        System.out.println(minReorder(6, input));
-    }
+    /*
+    Your task consists of reorienting some roads such that each city can visit the city 0.
+     Return the minimum number of edges changed.
+     */
 
-    private static int minReorder(int n, int[][] connections)
+    public int minReorder(int n, int[][] connections)
     {
-        //initialize graph as well as undirected neighbours graph
-        Map<Integer, List<Integer>> graph = new HashMap<>(); //acutal graph
-        Map<Integer, List<Integer>> neighbours = new HashMap<>(); //undirected graph representation
-
+        //initialize graph
+        Map<Integer, List<Edge>> graph = new HashMap<>();
         for(int i=0; i<n; i++){
             graph.put(i, new ArrayList<>());
-            neighbours.put(i, new ArrayList<>());
         }
 
-        //populate graph as input connections
-        for(int[] con : connections){
-            int src = con[0];
-            int des = con[1];
+        //populate edges as per inputs
+        for(int[] edge : connections){
+            int u = edge[0];
+            int v = edge[1];
 
-            //actual graph
-            graph.get(src).add(des);
-
-            //neighbour
-            neighbours.get(src).add(des);
-            neighbours.get(des).add(src);
+            graph.get(u).add(new Edge(v, 1)); //original edges with cost 1, needs reversal, wrong direction (away from 0)
+            graph.get(v).add(new Edge(u, 0)); //reverse edges with cost 0, correct direction (toward 0), hence cost 0
         }
 
-        //dfs
-        int[] result = new int[1];
-        dfs(graph, neighbours, 0, new HashSet<>(), result);
+        //run dfs from node 0
+        int[] cost = new int[1];
+        dfsRoot(0, -1, cost, graph);
 
-        return result[0];
+        return cost[0];
     }
 
-    private static void dfs(Map<Integer, List<Integer>> graph, Map<Integer, List<Integer>> neighbours, int src, Set<Integer> visited, int[] result)
+    private void dfsRoot(int node, int parent, int[] cost, Map<Integer, List<Edge>> graph)
     {
-        visited.add(src);
+        //explore neighborus
+        for(Edge neighbour : graph.get(node)){
+            int v = neighbour.v;
 
-        //explore neighbours
-        for(int neighbour : neighbours.get(src)){
-            //check if path exits fromm neighbour to this src
-            if(!visited.contains(neighbour)){
-                if(graph.get(src).contains(neighbour)){
-                    result[0]++; // count only when exploring forward
-                }
-                dfs(graph, neighbours, neighbour, visited, result);
+            if(v != parent){ //ensures recursion only goes to children, not back to parent to avoid infinite loop
+                cost[0] += neighbour.w;
+                dfsRoot(v, node, cost, graph);
             }
+        }
+    }
+
+    class Edge{
+        int v;
+        int w;
+
+        public Edge(int v, int w) {
+            this.v = v;
+            this.w = w;
         }
     }
 }
