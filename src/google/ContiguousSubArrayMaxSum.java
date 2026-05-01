@@ -30,9 +30,12 @@ public class ContiguousSubArrayMaxSum {
 
             Pair prev = prefixMap.get(arr[i]);
 
-            //Populate answer if condition  a[i] = a[j] where j > i is met
+            // populate answer if condition  a[i] = a[j] where j > i is met
             if(prev != null){
-                int sum = prefixSum - prev.prefix + arr[i]; //// sum from prev.idx to i using prefix sum
+
+                int sum = prefixSum - prev.prefixSum + arr[i]; // sum from prev.idx to i using prefix sum
+
+                //track max elements
                 if(sum > maxSum){
                     maxSum = sum;
                     start = prev.idx;
@@ -40,8 +43,9 @@ public class ContiguousSubArrayMaxSum {
                 }
             }
 
-            // Store best (minimum prefix) occurrence
-            if(prev == null || prev.prefix > prefixSum){
+            // override if smaller prefix sum found
+            // smaller prefix sum = better starting point = larger subarray sum
+            if(prev == null || prefixSum < prev.prefixSum){
                 prefixMap.put(arr[i], new Pair(i, prefixSum));
             }
 
@@ -54,10 +58,10 @@ public class ContiguousSubArrayMaxSum {
 
 class Pair {
     int idx;
-    int prefix;
+    int prefixSum;
 
-    public Pair(int idx, int prefix) {
+    public Pair(int idx, int prefixSum) {
         this.idx = idx;
-        this.prefix = prefix;
+        this.prefixSum = prefixSum;
     }
 }
