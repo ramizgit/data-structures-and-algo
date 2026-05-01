@@ -1,4 +1,4 @@
-package array;
+package google;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,49 +17,46 @@ public class ContiguousSubArrayMaxSum {
     /*
     hint : maintain a map of element to prefixSum till prev index
     */
-    public static void main(String[] args)
-    {
-        maxSum(new int[]{3, 2, 1, 2, 4, 3, 5}); //start = 0 end = 5, maxSum = 15
-        maxSum(new int[]{3, 2, 1, 2, 4, 3, 5,10,10,10}); //start = 7 end = 9, maxSum = 30
-    }
 
-        public static void maxSumSubarray(int[] arr)
+    public static void maxSumSubarray(int[] arr)
     {
-        Map<Integer, IdxPrefixPair> prefixMap = new HashMap<>();
+        Map<Integer, Pair> prefixMap = new HashMap<>();
         int maxSum = Integer.MIN_VALUE;
-        int start = 0;
-        int end = 0;
-        int currPrefix = 0;
+        int start = -1;
+        int end = -1;
+        int prefixSum = 0;
 
         for(int i=0; i<arr.length; i++){
 
+            Pair prev = prefixMap.get(arr[i]);
+
             //Populate answer if condition  a[i] = a[j] where j > i is met
-            if(prefixMap.containsKey(arr[i])){
-                int sum = currPrefix - prefixMap.get(arr[i]).prefix + arr[i];
+            if(prev != null){
+                int sum = prefixSum - prev.prefix + arr[i]; //// sum from prev.idx to i using prefix sum
                 if(sum > maxSum){
                     maxSum = sum;
-                    start = prefixMap.get(arr[i]).idx;
+                    start = prev.idx;
                     end = i;
                 }
             }
 
-            //Populate map
-            if(!prefixMap.containsKey(arr[i]) || prefixMap.get(arr[i]).prefix > currPrefix){
-                prefixMap.put(arr[i], new IdxPrefixPair(i, currPrefix));
+            // Store best (minimum prefix) occurrence
+            if(prev == null || prev.prefix > prefixSum){
+                prefixMap.put(arr[i], new Pair(i, prefixSum));
             }
 
-            currPrefix += arr[i];
+            prefixSum += arr[i];
         }
 
         System.out.println("max sum = " + maxSum + " start = " + start + " end = " + end);
     }
 }
 
-class IdxPrefixPair{
+class Pair {
     int idx;
     int prefix;
 
-    public IdxPrefixPair(int idx, int prefix) {
+    public Pair(int idx, int prefix) {
         this.idx = idx;
         this.prefix = prefix;
     }
