@@ -29,14 +29,16 @@ public class MinimumAreaRectangle {
 
         //iterate all pairs, check if rectangle feasbile, calculate area
         for(int i=0; i<n; i++){
-            for(int j=i+1; j<n; j++){
-                int[] p1 = points[i];
-                int[] p2 = points[j];
 
-                int x1 = p1[0];
-                int y1 = p1[1];
-                int x2 = p2[0];
-                int y2 = p2[1];
+            //point ith coordinates
+            int x1 = points[i][0];
+            int y1 = points[i][1];
+
+            for(int j=i+1; j<n; j++){
+
+                //point jth coordiantes
+                int x2 = points[j][0];
+                int y2 = points[j][1];
 
                 if (x1 == x2 || y1 == y2) {
                     continue; //ignore pairs that are not diagonals
@@ -47,8 +49,10 @@ public class MinimumAreaRectangle {
                 String diagonal2 = x2+","+y1;// {x2, y1};
 
                 if(pointsSet.contains(diagonal1) && pointsSet.contains(diagonal2)){
+                    //rectangle found, calculate area
                     int area = Math.abs(x1 - x2) * Math.abs(y1 - y2);
-                    minArea = Math.min(minArea, area);
+
+                    minArea = Math.min(minArea, area); //track minimum area
                 }
             }
         }
