@@ -16,13 +16,18 @@ public class MinimumAreaRectangleII {
     {
         int n = points.length;
 
-        //rectangles have diagonals with same length and midpoint, hence group all such diagonal together
+        //rectangles have diagonals with same length and same midpoint, hence group all such diagonal together
         Map<String, List<int[][]>> map = new HashMap<>();
 
         for(int i=0; i<n; i++){
+
+            //point i coordinates
+            int x1 = points[i][0];
+            int y1 = points[i][1];
+
             for(int j=i+1; j<n; j++){
-                int x1 = points[i][0];
-                int y1 = points[i][1];
+
+                //point j coordinates
                 int x2 = points[j][0];
                 int y2 = points[j][1];
 
@@ -30,7 +35,7 @@ public class MinimumAreaRectangleII {
                 double midX = (x1 + x2) / 2.0;
                 double midY = (y1 + y2) / 2.0;
 
-                //diagonal length
+                //diagonal length via pythagorean theorem
                 int len = (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2);
 
                 //map key : diagonal mid point + diagonal length
@@ -46,12 +51,16 @@ public class MinimumAreaRectangleII {
         //for each group, form rectangles
         for(List<int[][]> group : map.values()){
             for(int i=0; i<group.size(); i++){
-                for(int j=i+1; j<group.size(); j++){
-                    int[][] d1 = group.get(i);
-                    int[][] d2 = group.get(j);
 
-                    int[] A = d1[0];
-                    int[] B = d1[1];
+                //diagonal ith coordinates
+                int[][] d1 = group.get(i);
+                int[] A = d1[0];
+                int[] B = d1[1];
+
+                for(int j=i+1; j<group.size(); j++){
+
+                    //diagonal jth coordinates
+                    int[][] d2 = group.get(j);
                     int[] C = d2[0];
                     int[] D = d2[1];
 
