@@ -1,0 +1,39 @@
+SCC is needed to find nodes forming cycle in a graph.
+
+SCC definition:-
+----------------
+In a directed graph, an SCC is a maximal group of nodes in a directed graph where every node is reachable from every other node.
+
+How to find SCCs:-
+------------------
+Two standard algorithms: [Both Time Complexity: O(V + E)]
+    1. Kosaraju’s Algorithm
+        Two DFS passes
+        Uses graph reversal
+    2. Tarjan’s Algorithm
+        One DFS pass
+        Uses low-link values
+
+
+✅ Case 1: Just detect if a cycle exists
+✔️ Use simple DFS
+Undirected graph → your code is perfect ✅
+Directed graph → use DFS + recursion stack
+👉 No need for SCC
+
+✅ Case 2: Find which nodes are in cycles
+👉 Now you need SCC
+Because:
+Cycle nodes ≠ nodes detected during DFS
+🔥 Why DFS alone is NOT enough (important)
+DFS cycle detection only tells:
+"Cycle exists somewhere"
+It does NOT tell:
+"Which exact nodes form cycles"
+
+Kosaraju algo:-
+---------------
+First DFS pass, store nodes in stack in decreasing finishing time, then second DFS pass using stack pop order
+Stack ensures we always start from the "correct root" of SCC
+👉 The stack stores nodes in decreasing order of finishing time
+👉 This ensures we process SCCs in the correct order in the second pass
