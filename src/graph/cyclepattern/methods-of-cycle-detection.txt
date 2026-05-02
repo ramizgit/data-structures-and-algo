@@ -1,0 +1,7 @@
+| Method     | Undirected | Directed | Notes                           |
+| ---------- | ---------- | -------- | ------------------------------- |
+| DFS        | ✅          | ✅        | Most common                     |
+| BFS (Kahn) | ❌          | ✅        | Topological sort                |
+| DSU        | ✅          | ❌        | Fast for edges                  |
+| SCC        | ❌          | ✅        | Useful if already computing SCC |
+| Coloring   | ❌          | ✅        | Cleaner DFS variant             |
