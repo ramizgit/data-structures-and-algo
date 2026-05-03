@@ -37,11 +37,11 @@ public class LeakyBucketRateLimiter {
     {
         // lazy/on-demand leak using elapsed time, NOT processing at fixed intervals
         long now = System.nanoTime();
-        double elapsedSeconds = (now - lastLeakTime) / 1e9;
+        double elapsedSeconds = (now - this.lastLeakTime) / 1e9;
 
-        double requestsToProcess = elapsedSeconds * leakRate;
-        currentSize = Math.max(0, currentSize - requestsToProcess);
+        double requestsToProcess = elapsedSeconds * this.leakRate;
+        this.currentSize = Math.max(0, this.currentSize - requestsToProcess);
 
-        lastLeakTime = now;
+        this.lastLeakTime = now;
     }
 }
