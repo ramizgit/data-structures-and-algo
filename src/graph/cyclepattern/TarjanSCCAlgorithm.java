@@ -48,7 +48,7 @@ public class TarjanSCCAlgorithm {
         //set discovery and lowest discovery time
         disc[node] = timer[0];
         low[node] = timer[0];
-        timer[0]++; //increment time
+        timer[0]++; //increment timer
 
         //push in stack
         stack.push(node);
@@ -60,9 +60,12 @@ public class TarjanSCCAlgorithm {
             if(disc[neighbour] == -1){ //unvisited node
                 //tree edge [Edge used to first discover a new node]
                 dfs(neighbour, disc, low, stack, inStack, timer, graph, result);
-                low[node] = Math.min(low[node], low[neighbour]); //propagate lowest reachable discovery time from child to parent
+
+                //propagate lowest reachable discovery time from child to parent
+                low[node] = Math.min(low[node], low[neighbour]);
             }else if(inStack[neighbour]){
                 //back edge found [Edge pointing to an ancestor in DFS tree]
+                //back edge to an ancestor → update low[node] with neighbour's discovery time
                 low[node] = Math.min(low[node], disc[neighbour]);
             }
 
