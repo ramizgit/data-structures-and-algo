@@ -4,6 +4,7 @@ import graph.unionfindDSU.UnionFind;
 
 import java.util.*;
 
+//kruskal algo is edge driven while prim's is node driven
 public class KruskalMST {
 
     public int mstCost(int n, int[][] edges) {
