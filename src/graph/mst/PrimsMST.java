@@ -2,6 +2,7 @@ package graph.mst;
 
 import java.util.*;
 
+//Prim's algo is node driven, while Kruskal is edge driven
 public class PrimsMST {
 
     public int mstCost(int n, int[][] edges) {
@@ -22,12 +23,11 @@ public class PrimsMST {
             graph.get(v).add(new Edge(u, w)); //undirected graph
         }
 
-
+        //prims algo
         PriorityQueue<Edge> pq = new PriorityQueue<>((a, b) -> a.weight - b.weight); //minheap
         pq.offer(new Edge(0, 0)); //starting point
 
         boolean[] visited = new boolean[n];
-
         int totalCost = 0;
         int nodeCount = 0;
 
@@ -42,7 +42,7 @@ public class PrimsMST {
             //add to MST
             visited[curr.v] = true;
             totalCost += curr.weight;
-            nodeCount++;
+            nodeCount++; //increase node count, as prims is node-driven algorithm
 
             // explore neighbors
             for (Edge neighbour : graph.get(curr.v)) {
@@ -52,7 +52,7 @@ public class PrimsMST {
             }
         }
 
-        return totalCost;
+        return nodeCount == n ? totalCost : -1;
     }
 
     class Edge {
