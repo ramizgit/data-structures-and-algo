@@ -1,10 +1,13 @@
 package grid.binarysearchongrid;
 
+import java.util.*;
+
 public class SwimInRisingWater {
 
     //https://leetcode.com/problems/swim-in-rising-water/description/
 
-    //Time complexity :O(m*n) + O(m * n * log(max - min)) -----> O(m * n * log(max - min))
+    //BINARY SEARCH APPROACH, DIJKSTRA APPROACH IS FOLLOWED BY
+    //Time complexity :O(n*n) + O(n * n * logn) -----> O(n^2logn)
     public int swimInWater(int[][] grid)
     {
         int m = grid.length;
@@ -73,4 +76,75 @@ public class SwimInRisingWater {
 
         return false;
     }
+
+    //DIJKSTRA APPROACH
+    public int swimInWater2(int[][] grid) {
+
+        int n = grid.length;
+
+        int[][] dist = new int[n][n];
+        for (int i = 0; i < n; i++) {
+            Arrays.fill(dist[i], Integer.MAX_VALUE);
+        }
+
+        PriorityQueue<State> pq = new PriorityQueue<>(
+                (a, b) -> a.cost - b.cost
+        );
+
+        // starting point
+        dist[0][0] = grid[0][0];
+        pq.offer(new State(0, 0, dist[0][0]));
+
+        int[][] dirs = {{1,0},{-1,0},{0,1},{0,-1}};
+
+        while (!pq.isEmpty()) {
+            State curr = pq.poll();
+
+            int r = curr.row, c = curr.col;
+
+            // ⚠️ skip outdated entry
+            if (curr.cost > dist[r][c]) {
+                continue;
+            }
+
+            // early exit
+            if (r == n - 1 && c == n - 1) {
+                return curr.cost;
+            }
+
+            //explore neighbours
+            for (int[] d : dirs) {
+                int nr = r + d[0];
+                int nc = c + d[1];
+
+                if (nr < 0 || nc < 0 || nr >= n || nc >= n) continue;
+
+                int newCost = Math.max(curr.cost, grid[nr][nc]);
+
+                // relax
+                if (newCost < dist[nr][nc]) {
+                    dist[nr][nc] = newCost;
+                    pq.offer(new State(nr, nc, newCost));
+                }
+            }
+        }
+
+        return -1;
+    }
+
+    class State {
+        int row, col, cost;
+        State(int r, int c, int cost) {
+            this.row = r;
+            this.col = c;
+            this.cost = cost;
+        }
+    }
 }
+
+/*
+just a note, why plan DP won't work here.
+in this grid, we can go all four directions, hence we can revisit nodes, hence CYCLE exists. DP breaks for circular dependency.
+if movements were restricted only to right + down, grid becomes DAG, DP works
+ */
+
