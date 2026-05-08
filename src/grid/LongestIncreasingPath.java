@@ -1,49 +1,51 @@
 package grid;
 
-public class LongestIncreasingPath {
-    //https://leetcode.com/problems/number-of-increasing-paths-in-a-grid/description/
+public class LongestIncreasingPathInMatrix {
 
-    public static void main(String[] args)
+    //https://leetcode.com/problems/longest-increasing-path-in-a-matrix/
+    
+    //Time complexity : O(m * n)
+    public int longestIncreasingPath(int[][] grid)
     {
-        int[][] grid = { {1, 1}, {3, 4} };
-        System.out.println(countPaths(grid));
-    }
-
-    private static int countPaths(int[][] grid)
-    {
-        if(grid == null){
-            return -1;
+        if(grid == null || grid.length == 0 || grid[0].length == 0){
+            return 0;
         }
 
         int m = grid.length;
         int n = grid[0].length;
-        int maxLen = 0;
+
         int[][] dp = new int[m][n];
 
-        for(int i=0; i<m; i++){
-            for(int j=0; j<n; j++){
-                maxLen = Math.max(maxLen, dfs(grid, dp, m, n, i, j));
+        int maxLen = 0;
+
+        for(int i = 0; i < m; i++){
+            for(int j = 0; j < n; j++){
+                // longest increasing path starting from cell(i,j)
+                maxLen = Math.max(maxLen, dfs(grid, dp, i, j, m, n));
             }
         }
 
         return maxLen;
     }
 
-    private static int dfs(int[][] grid, int[][] dp, int m, int n, int i, int j)
+    private static final int[][] DIRECTIONS = {
+            {1, 0}, {-1, 0}, {0, 1}, {0, -1}
+    };
+
+    private static int dfs(int[][] grid, int[][] dp, int i, int j, int m, int n)
     {
         if(dp[i][j] != 0){
-            return dp[i][j];
+            return dp[i][j]; //already computed
         }
 
-        int[][] directions = { {1, 0}, {-1, 0}, {0, 1}, {0, -1} };
-        int max = 1; //every cell itself counts
+        int max = 1; //every cell itself forms path length 1
 
-        for(int[] dir : directions){
-            int x = dir[0] + i;
-            int y = dir[1] + j;
+        for(int[] dir : DIRECTIONS) {
+            int x = i + dir[0];
+            int y = j + dir[1];
 
-            if(x >= 0 && x < m && y >= 0 && y < n && grid[x][y] > grid[i][j]){
-                max = Math.max(max, 1 + dfs(grid, dp, m, n, x, y));
+            if(x >= 0 && x < m && y >= 0 && y < n && grid[x][y] > grid[i][j]) {
+                max = Math.max(max, 1 + dfs(grid, dp, x, y, m, n));
             }
         }
 
