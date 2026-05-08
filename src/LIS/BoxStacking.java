@@ -29,7 +29,7 @@ public class BoxStacking {
         int m = boxes.size();
 
         // Step 3: LIS on height
-        int[] dp = new int[m];
+        int[] dp = new int[m]; // dp[i] = maximum stack height achievable with cuboid i placed at the top of the stack
         for (int i = 0; i < m; i++) {
             dp[i] = boxes.get(i).h; //base case
         }
