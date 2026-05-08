@@ -33,7 +33,7 @@ public class MaximumHeightByStackingCuboids {
         int n = cuboids.length;
 
         // Step 3: LIS
-        int[] dp = new int[n];
+        int[] dp = new int[n]; // dp[i] = maximum stack height achievable with cuboid i placed at the top of the stack
         for (int i = 0; i < n; i++) {
             dp[i] = cuboids[i][2]; // initialize height, base case
         }
