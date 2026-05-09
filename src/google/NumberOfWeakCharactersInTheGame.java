@@ -2,9 +2,13 @@ package google;
 
 import java.util.*;
 
-public class NumberOfWeakCharactersInTheGame {
+//https://leetcode.com/problems/the-number-of-weak-characters-in-the-game/
 
-    //https://leetcode.com/problems/the-number-of-weak-characters-in-the-game/
+/*
+Trick : sort one dimension so the other dimension can be processed independently
+ */
+
+public class NumberOfWeakCharactersInTheGame {
 
     public int numberOfWeakCharacters(int[][] properties)
     {
@@ -25,8 +29,7 @@ public class NumberOfWeakCharactersInTheGame {
 
             int currDefense = properties[i][1];
             if(currDefense < maxDefense){
-                // some previous character has both:
-                // higher attack and higher defense
+                // some previous character has both higher attack and higher defense
                 weakCharacters ++;
             }
 
@@ -36,3 +39,13 @@ public class NumberOfWeakCharactersInTheGame {
         return weakCharacters ;
     }
 }
+
+/*
+similar : -
+https://leetcode.com/problems/most-beautiful-item-for-each-query/description/
+https://leetcode.com/problems/best-team-with-no-conflicts/
+https://leetcode.com/problems/count-number-of-teams/description/
+https://leetcode.com/problems/queue-reconstruction-by-height/description/
+https://leetcode.com/problems/car-fleet/description/
+
+ */
