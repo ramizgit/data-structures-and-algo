@@ -2,6 +2,10 @@ package longestIncreasingSubseqVariants;
 
 import java.util.*;
 
+/*
+Trick : sort one dimension so the other dimension can be processed independently
+ */
+
 public class RussianDollEnvelopes {
 
     public static void main(String[] args)
@@ -18,6 +22,7 @@ public class RussianDollEnvelopes {
 
     private static int maxEnvelopes(int[][] envelopes)
     {
+        //sort by ascending width, if tie, then sort by descending height
         Arrays.sort(envelopes, (a,b) -> {
            if(a[0] == b[0]){
                return b[1] - a[1]; //desc height for equals widths
