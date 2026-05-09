@@ -51,9 +51,9 @@ public class NumberOfGoodPaths {
                 }
             }
 
-            // important : separate union-building from component-counting because DSU parents stabilize 
+            // important : separate union-building from component-counting because DSU parents stabilize
             // only after all unions for the current value are complete
-            
+
             // count nodes with current value in each component
             Map<Integer, Integer> componentCount = new HashMap<>();
             for(int node : sameValueNodes) {
