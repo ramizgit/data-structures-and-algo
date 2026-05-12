@@ -20,7 +20,7 @@ public class KthElementOfTwoSortedArrays {
         int n = nums2.length;
 
         //run binary search on nums1 length (not index)
-        int low = Math.max(0, k - n); //[low tells minimum elements nums1 MUST contribute]
+        int low = 0; // OR // Math.max(0, k - n); //[low tells minimum elements nums1 MUST contribute]
         //if nums2 already has enough elements for left partition, A may contribute 0 elements
 
         int high = Math.min(k, m); //[high tells maximum elements nums1 CAN contribute]
