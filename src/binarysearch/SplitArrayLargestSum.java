@@ -1,20 +1,17 @@
 package binarysearch;
 
 public class SplitArrayLargestSum {
-    public static void main(String[] args)
-    {
-        //nums = [7,2,5,10,8], k = 2
-        System.out.println(splitArray(new int[]{7,2,5,10,8}, 2));
-    }
 
+    //https://leetcode.com/problems/split-array-largest-sum/description/
+    
     private static int splitArray(int[] nums, int k)
     {
         int max = 0;
         int total = 0;
 
-        for(int n : nums){
-            max = Math.max(max, n);
-            total += n;
+        for(int num : nums){
+            max = Math.max(max, num);
+            total += num;
         }
 
         //binary search
@@ -30,7 +27,7 @@ public class SplitArrayLargestSum {
                 answer = mid; //possible answer
                 high = mid - 1; //try lower to minimize max sum
             }else{
-                low = mid + 1;
+                low = mid + 1; //try higher
             }
         }
 
@@ -52,6 +49,11 @@ public class SplitArrayLargestSum {
                 sum = n;
             }
         }
+
+        // if we can split into <= k subarrays with max sum <= X,
+        // we can always further split to make exactly k subarrays,
+        // and the max sum will only stay same or decrease
+        // hence we check subarray <= k
 
         return subarray <= k;
     }
