@@ -23,7 +23,7 @@ public class MedianOfTwoSortedArrays {
 
         //run binary search on nums1 length (not index)
         int low = 0;
-        int high = m; //binary search on length, not index (important)
+        int high = m; //binary search on length, not index (important), hence high = m and NOT high = m-1
 
         while(low <= high){
             int mid1 = low + (high - low) / 2;
