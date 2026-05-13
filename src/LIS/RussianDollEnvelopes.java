@@ -3,22 +3,19 @@ package longestIncreasingSubseqVariants;
 import java.util.*;
 
 /*
+You are given a 2D array of integers envelopes where envelopes[i] = [wi, hi] represents the width and the height of an envelope.
+One envelope can fit into another if and only if both the width and height of one envelope are greater than the other
+envelope's width and height.
+Return the maximum number of envelopes you can Russian doll (i.e., put one inside the other).
+ */
+
+/*
 Trick : sort one dimension so the other dimension can be processed independently
  */
 
 public class RussianDollEnvelopes {
 
-    public static void main(String[] args)
-    {
-        int[][] envelopes = {
-                {5,4},
-                {6,4},
-                {6,7},
-                {2,3}
-        };
-
-        System.out.println(maxEnvelopes(envelopes)); // Expected: 3
-    }
+   //https://leetcode.com/problems/russian-doll-envelopes/description/
 
     private static int maxEnvelopes(int[][] envelopes)
     {
@@ -38,8 +35,10 @@ public class RussianDollEnvelopes {
         int maxLen = 1;
 
         for(int i=0; i<n; i++){
+            int currHeight = envelopes[i][1];
             for(int j=0; j<i; j++){
-                if(envelopes[j][1] < envelopes[i][1]){
+                int prevHeight = envelopes[j][1];
+                if(prevHeight < currHeight){
                     dp[i] = Math.max(dp[i], 1 + dp[j]);
                 }
             }
