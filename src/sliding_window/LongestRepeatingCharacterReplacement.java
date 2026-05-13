@@ -19,10 +19,10 @@ public class LongestRepeatingCharacterReplacement {
         while(right < s.length()){
             char ch = s.charAt(right);
             freq.put(ch, freq.getOrDefault(ch, 0) + 1);
-            maxFreq = Math.max(maxFreq, freq.get(ch));
+            maxFreq = Math.max(maxFreq, freq.get(ch)); //highest frequency of any single character in current window
 
             while( ((right - left + 1) - maxFreq) > k){
-                //shrink
+                //shrink window
                 char lch = s.charAt(left);
                 freq.put(lch, freq.get(lch) - 1);
                 left++;
