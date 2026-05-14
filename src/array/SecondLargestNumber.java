@@ -1,25 +1,14 @@
-package array;
+package arrays;
 
 import java.util.*;
 
 public class SecondLargestNumber {
 
-    public static void main(String[] args)
-    {
-        System.out.println(secondLargestNumber(new int[]{3,30,34,5,9}));
-    }
-
     private static String secondLargestNumber(int[] nums)
     {
-        String[] arr = new String[nums.length];
-
-        for(int i=0; i<nums.length; i++){
-            arr[i] = String.valueOf(nums[i]);
-        }
-
         Set<String> all = new TreeSet<>(Collections.reverseOrder());
 
-        backtrack(arr, 0, all);
+        backtrack(nums, 0, all);
 
         int count = 0;
 
@@ -33,12 +22,12 @@ public class SecondLargestNumber {
         return "";
     }
 
-    private static void backtrack(String[] arr, int index, Set<String> all)
+    private static void backtrack(int[] arr, int index, Set<String> all)
     {
         if(index == arr.length){
             StringBuilder sb = new StringBuilder();
-            for(String s : arr){
-                sb.append(s);
+            for(int num : arr){
+                sb.append(num);
             }
             all.add(sb.toString());
             return;
@@ -51,9 +40,9 @@ public class SecondLargestNumber {
         }
     }
 
-    private static void swap(String[] arr, int i, int j)
+    private static void swap(int[] arr, int i, int j)
     {
-        String temp = arr[i];
+        int temp = arr[i];
         arr[i] = arr[j];
         arr[j] = temp;
     }
