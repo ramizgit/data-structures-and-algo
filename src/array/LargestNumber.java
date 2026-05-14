@@ -3,26 +3,27 @@ package array;
 import java.util.*;
 
 public class LargestNumber {
-    //https://leetcode.com/problems/largest-number/description/
 
-    public static void main(String[] args)
-    {
-        System.out.println(largestNumber(new int[]{3,30,34,5,9}));
-        System.out.println(largestNumber(new int[]{0,0,0,0}));
-    }
+    //https://leetcode.com/problems/largest-number/description/
 
     private static String largestNumber(int[] nums)
     {
-        List<String> numList  = new ArrayList<>();
-        for(int num : nums){
-            numList.add(Integer.toString(num));
+        if(nums == null || nums.length == 0){
+            return "";
         }
 
-        Collections.sort(numList, (a, b) -> (b+a).compareTo(a+b));
+        int n = nums.length;
+
+        String[] numsStr = new String[n];
+        for(int i=0; i<n; i++){
+            numsStr[i] = String.valueOf(nums[i]);
+        }
+
+        Arrays.sort(numsStr, (a, b) -> (b+a).compareTo(a+b));
 
         StringBuilder sb = new StringBuilder();
-        for(String n : numList){
-            sb.append(n);
+        for(String s : numsStr){
+            sb.append(s);
         }
 
         if(sb.charAt(0) == '0'){
