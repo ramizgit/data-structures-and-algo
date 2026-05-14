@@ -1,0 +1,7 @@
+Russian Doll Envelope [done]
+https://leetcode.com/problems/the-number-of-weak-characters-in-the-game/ [done]
+https://leetcode.com/problems/most-beautiful-item-for-each-query/description/ [done]
+https://leetcode.com/problems/best-team-with-no-conflicts/ [done - LIS variant]
+https://leetcode.com/problems/count-number-of-teams/description/ [done]
+https://leetcode.com/problems/queue-reconstruction-by-height/description/ [done]
+https://leetcode.com/problems/car-fleet/description/ [done]
