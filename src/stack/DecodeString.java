@@ -1,61 +1,50 @@
 package stack;
 
-import java.util.Stack;
+import java.util.*;
 
 public class DecodeString {
+
     //https://leetcode.com/problems/decode-string/description/
 
-    public static void main(String[] args)
-    {
-        System.out.println(decodeString("3[a]2[bc]"));
-        System.out.println(decodeString("3[a2[cd]]"));
-    }
+    //todo:practice it
 
     private static String decodeString(String s)
     {
-        Stack<Character> stack = new Stack<>();
+        Stack<Integer> countStack = new Stack<>();
+        Stack<StringBuilder> strStack = new Stack<>();
+        StringBuilder curr = new StringBuilder();
+        int num = 0;
 
         for(char ch : s.toCharArray()){
-            if(ch != ']'){
-                stack.push(ch);
-            }else {
+            
+            if(Character.isDigit(ch)){
+                num = num * 10 + (ch - '0');
+            }
+            else if(ch == '['){
+                //save current state
+                countStack.push(num);
+                strStack.push(curr);
 
-                //step 1 : get char seq to repeat
-                StringBuilder sb = new StringBuilder();
-                while (stack.peek() != '['){
-                    sb.append(stack.pop());
-                }
-                String substr = sb.reverse().toString();
-                stack.pop();
+                //reset state for new sequence
+                num = 0;
+                curr = new StringBuilder();
+            }
+            else if(ch == ']'){
+                int repeat = countStack.pop();
+                StringBuilder prev = strStack.pop();
 
-                //step 2 : get count digit to repeat
-                StringBuilder countCh = new StringBuilder();
-                while (!stack.empty() && Character.isDigit(stack.peek())){
-                    countCh.append(stack.pop());
+                //append curr char seq repeat times
+                while(repeat > 0){
+                    prev.append(curr);
+                    repeat--;
                 }
-                int count = Integer.parseInt(countCh.reverse().toString());
-
-                //step 3 : create repeated sub string
-                StringBuilder repeatSubstr = new StringBuilder();
-                while (count >0){
-                    repeatSubstr.append(substr);
-                    count--;
-                }
-
-                //step 4 : push back repeated sub str to the stack
-                for(char ch2 : repeatSubstr.toString().toCharArray()){
-                    stack.push(ch2);
-                }
+                curr = prev;
+            }
+            else {
+                curr.append(ch);
             }
         }
-
-        //step 5 : collect final result
-        StringBuilder result = new StringBuilder();
-        while (!stack.empty()){
-            result.append(stack.pop());
-        }
-
-        return result.reverse().toString();
+        
+        return curr.toString();
     }
 }
-
