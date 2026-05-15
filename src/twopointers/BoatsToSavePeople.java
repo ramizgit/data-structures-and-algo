@@ -6,13 +6,6 @@ public class BoatsToSavePeople {
 
     //https://leetcode.com/problems/boats-to-save-people/description/
 
-    public static void main(String[] args)
-    {
-        System.out.println(numRescueBoats(new int[]{2,4,6,9}, 10)); //3
-        System.out.println(numRescueBoats(new int[]{1,4,6,9}, 10)); //2
-        System.out.println(numRescueBoats(new int[]{1,4,5,6,9}, 10)); //3
-    }
-
     private static int numRescueBoats(int[] people, int limit)
     {
         Arrays.sort(people);
@@ -23,11 +16,13 @@ public class BoatsToSavePeople {
 
         while (left <= right){
             if(people[right] + people[left] <= limit){
+                //both can share one boat
                 right--;
                 left++;
             }else {
-                right--;
+                right--; //heaviest person must go alone.
             }
+            
             numOfBoats++;
         }
 
