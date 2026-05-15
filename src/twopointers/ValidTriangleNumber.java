@@ -28,7 +28,7 @@ public class ValidTriangleNumber {
 
             while(left < right) {
 
-                if(nums[left] + nums[right] > nums[i]) {
+                if(nums[left] + nums[right] > nums[i]) { //a+b>c
 
                      /*
                 Valid triangle found.
@@ -36,6 +36,14 @@ public class ValidTriangleNumber {
                 therefore ALL pairs between: [left ... right-1] with current right will also satisfy:
                 nums[x] + nums[right] > nums[i]
                 Hence add all at once.
+
+                e.g.,
+                0 1 2 3 4 5
+                c = 5
+                a = 2
+                b = 4
+
+                right - left = 4 - 2 = 2
                 */
                     count += right - left; //valid triangle found
                     right--; //Move leftwards to try a smaller second side, because all pairs for current right are already counted.
