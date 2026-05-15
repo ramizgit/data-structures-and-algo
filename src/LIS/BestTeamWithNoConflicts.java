@@ -28,10 +28,10 @@ public class BestTeamWithNoConflicts {
         // sort by age asc, if same age, then sort by score asc
         players.sort((a, b) -> {
             if(a.age == b.age){
-                return a.score - b.score;
+                return a.score - b.score; //order by score in ascending order if same age, in order to maximize team score
             }
 
-            return a.age - b.age;
+            return a.age - b.age; //order by age in ascending order
         });
 
         //LIS style dp
