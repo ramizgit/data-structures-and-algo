@@ -6,8 +6,6 @@ public class DecodeString {
 
     //https://leetcode.com/problems/decode-string/description/
 
-    //todo:practice it
-
     private static String decodeString(String s)
     {
         Stack<Integer> countStack = new Stack<>();
@@ -16,7 +14,7 @@ public class DecodeString {
         int num = 0;
 
         for(char ch : s.toCharArray()){
-            
+
             if(Character.isDigit(ch)){
                 num = num * 10 + (ch - '0');
             }
@@ -44,7 +42,11 @@ public class DecodeString {
                 curr.append(ch);
             }
         }
-        
+
         return curr.toString();
+    }
+
+    public static void main(String[] args){
+        System.out.println(decodeString("2[a10[c]]"));
     }
 }
