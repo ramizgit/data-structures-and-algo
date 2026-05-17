@@ -13,14 +13,14 @@ public class ReverseBits {
     private static int reverseBits(int n)
     {
         int result = 0;
-        int idx=31;
-        while (n != 0){
-            int bit = n & 1;
-            result |= (bit << idx);
-            idx--;
-            n = n >>> 1;
-        }
 
+        for(int i = 0; i < 32; i++)
+        {
+            result <<= 1; //makes room for next bit.
+            result |= (n & 1); //appends current rightmost bit from n.
+            n >>>= 1; //moves to next source bit.
+        }
+    
         return result;
     }
 }
