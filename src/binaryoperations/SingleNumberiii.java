@@ -1,10 +1,8 @@
 package binary;
 
-import java.util.*;
-
 public class SingleNumberiii {
 
-    //https://leetcode.com/problems/single-number-iii/description/
+    //https://leetcode.com/problems/single-number-iii/
 
     /*
     Given an integer array nums, in which exactly two elements appear only once and all the other elements appear exactly twice.
@@ -12,27 +10,28 @@ public class SingleNumberiii {
     You must write an algorithm that runs in linear runtime complexity and uses only constant extra space.
      */
 
-    private static int[] singleNumber(int[] nums)
+    public int[] singleNumber(int[] nums)
     {
-        // 1. XOR all numbers -> a ^ b
+        //step1 : xor all numbers
         int xor = 0;
-        for (int num : nums) {
+        for(int num : nums){
             xor ^= num;
         }
 
-        // 2. Get rightmost set bit (where a and b differ)
+        //step2 : find right most set bit, as the two numbers differ at this bit position, dupes numbers cancel out
         int diffBit = xor & -xor;
 
-        // 3. Partition numbers and XOR separately
-        int a = 0, b = 0;
-        for (int num : nums) {
-            if ((num & diffBit) == 0) {
-                a ^= num;
-            } else {
-                b ^= num;
+        //step3 : partition numbers based on the diffBit and track xor separately
+        int xor1 = 0;
+        int xor2 = 0;
+        for(int num : nums){
+            if( (num & diffBit) == 0 ){
+                xor1 ^= num;
+            }else{
+                xor2 ^= num;
             }
         }
 
-        return new int[]{a, b};
+        return new int[]{xor1, xor2};
     }
 }
