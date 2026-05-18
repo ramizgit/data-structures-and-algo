@@ -19,7 +19,7 @@ public class ShortestPathToGetAllKeys {
         //find starting cell, and number of keys to collect
         int startRow = 0;
         int startCol = 0;
-        int numOfKeys = 0;
+        int expectedKeysMask = 0;
 
         for(int i=0; i<m; i++){
             for(int j=0; j<n; j++){
@@ -30,13 +30,10 @@ public class ShortestPathToGetAllKeys {
                 }
 
                 if(ch >= 'a' && ch <= 'f'){
-                    numOfKeys++;
+                    expectedKeysMask |= (1 << (ch - 'a'));
                 }
             }
         }
-
-        //all keys mask
-        int expectedKeysMask = (1 << numOfKeys) - 1;
 
         //bfs queue
         Queue<State> queue = new ArrayDeque<>();
