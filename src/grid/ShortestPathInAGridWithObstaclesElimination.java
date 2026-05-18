@@ -1,4 +1,4 @@
-package grid;
+package grid.bfsWithAugmentedSpace;
 
 import java.util.*;
 
@@ -8,9 +8,17 @@ public class ShortestPathInAGridWithObstaclesElimination {
 
     /*
     This is NOT 0-1 BFS as every move (up/down/left/right) costs exactly 1 step, irrespective of it being 0 cell or 1 cell.
-    Obstacle is not a cost, It is a limited resource (k budget)
-
+    Obstacle is not a cost, its a state, its a limited resource (k budget)
      */
+    
+    /*
+    The general idea is:
+    State = position + extra information
+    Whenever future decisions depend on “history”, position alone is insufficient.
+    So instead of:(row, col)
+    you track: (row, col, somethingElse)
+     */
+
     public int shortestPath(int[][] grid, int k)
     {
         int m = grid.length;
@@ -20,8 +28,8 @@ public class ShortestPathInAGridWithObstaclesElimination {
         //If I can eliminate at least as many obstacles as the shortest path length then I don’t care about obstacles at all.
         if (k >= m + n - 2) return m + n - 2;
 
-        Queue<Coordinate> queue = new ArrayDeque<>(); //bfs queue
-        queue.add(new Coordinate(0, 0, k, 0));
+        Queue<State> queue = new ArrayDeque<>(); //bfs queue
+        queue.add(new State(0, 0, k, 0));
 
         /*
         For intermediate cells, we care about future possibilities, hence need to track k as well in the visited state
@@ -30,7 +38,7 @@ public class ShortestPathInAGridWithObstaclesElimination {
         visited[0][0][k] = true;
 
         while(!queue.isEmpty()){
-            Coordinate curr = queue.poll();
+            State curr = queue.poll();
 
             //early exit
             /*
@@ -50,7 +58,7 @@ public class ShortestPathInAGridWithObstaclesElimination {
                     int remainingK = curr.k - grid[x][y];
                     if (remainingK >= 0 && !visited[x][y][remainingK]) {
                         visited[x][y][remainingK] = true;
-                        queue.offer(new Coordinate(x, y, remainingK, curr.dist + 1));
+                        queue.offer(new State(x, y, remainingK, curr.dist + 1));
                     }
                 }
             }
@@ -59,13 +67,13 @@ public class ShortestPathInAGridWithObstaclesElimination {
         return -1;
     }
 
-    class Coordinate{
+    class State{
         int row;
         int col;
         int k;
         int dist;
 
-        public Coordinate(int row, int col, int k, int dist) {
+        public State(int row, int col, int k, int dist) {
             this.row = row;
             this.col = col;
             this.k = k;
@@ -73,4 +81,5 @@ public class ShortestPathInAGridWithObstaclesElimination {
         }
     }
 }
+
 
