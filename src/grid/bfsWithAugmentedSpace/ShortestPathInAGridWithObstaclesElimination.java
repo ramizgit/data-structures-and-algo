@@ -35,6 +35,7 @@ public class ShortestPathInAGridWithObstaclesElimination {
         For intermediate cells, we care about future possibilities, hence need to track k as well in the visited state
          */
         //visited[row][col][k]
+        //important note : in Dijkstra/BFS, the PQ/BFS state and dist/visited state must represent the SAME state space.
         boolean[][][] visited = new boolean[m][n][k+1]; //keep track of visited cells
         visited[0][0][k] = true;
 
