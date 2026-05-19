@@ -63,10 +63,10 @@ public class ShortestPathInAGridWithObstaclesElimination {
                     continue;
                 }
 
-                int remainingK = curr.k - grid[x][y];
-                if (remainingK >= 0 && !visited[x][y][remainingK]) {
-                    visited[x][y][remainingK] = true; //save state for visited tracking
-                    queue.offer(new State(x, y, remainingK, curr.dist + 1)); //enqueue
+                int newRemainingK = curr.remainingK - grid[x][y];
+                if (newRemainingK >= 0 && !visited[x][y][newRemainingK]) {
+                    visited[x][y][newRemainingK] = true; //save state for visited tracking
+                    queue.offer(new State(x, y, newRemainingK, curr.dist + 1)); //enqueue
                 }
             }
         }
@@ -77,13 +77,13 @@ public class ShortestPathInAGridWithObstaclesElimination {
     class State{
         int row;
         int col;
-        int k;
+        int remainingK;
         int dist;
 
-        public State(int row, int col, int k, int dist) {
+        public State(int row, int col, int remainingK, int dist) {
             this.row = row;
             this.col = col;
-            this.k = k;
+            this.remainingK = remainingK;
             this.dist = dist;
         }
     }
