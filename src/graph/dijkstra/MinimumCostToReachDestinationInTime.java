@@ -33,6 +33,7 @@ public class MinimumCostToReachDestinationInTime {
         PriorityQueue<State> pq = new PriorityQueue<>( (a,b) -> a.cost - b.cost ); //minheap by cost
         pq.offer(new State(0, 0, passingFees[0])); //starting city
 
+        //important note : in Dijkstra/BFS, the PQ/BFS state and dist/visited state must represent the SAME state space.
         //distance array : {node, timeSpent}
         int[][] dist = new int[n][maxTime + 1];
         for(int i=0; i<dist.length; i++){
@@ -44,7 +45,7 @@ public class MinimumCostToReachDestinationInTime {
             State curr = pq.poll();
 
             //stale entry check
-            if(curr.cost > dist[curr.node][curr.time]){
+            if(curr.cost > dist[curr.node][curr.timeSpent]){
                 continue;
             }
 
@@ -56,7 +57,7 @@ public class MinimumCostToReachDestinationInTime {
             //explore neighbours
             for(Edge neighbour : graph.get(curr.node)){
                 int newCost = curr.cost + passingFees[neighbour.node];
-                int newTime = curr.time + neighbour.time;
+                int newTime = curr.timeSpent + neighbour.time;
 
                 if(newTime > maxTime){ //max time constraint
                     continue;
@@ -87,12 +88,12 @@ public class MinimumCostToReachDestinationInTime {
 
     class State{
         int node;
-        int time;
+        int timeSpent;
         int cost;
 
-        public State(int node, int time, int cost) {
+        public State(int node, int timeSpent, int cost) {
             this.node = node;
-            this.time = time;
+            this.timeSpent = timeSpent;
             this.cost = cost;
         }
     }
