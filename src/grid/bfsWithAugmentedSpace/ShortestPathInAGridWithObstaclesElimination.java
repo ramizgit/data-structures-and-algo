@@ -34,8 +34,12 @@ public class ShortestPathInAGridWithObstaclesElimination {
         /*
         For intermediate cells, we care about future possibilities, hence need to track k as well in the visited state
          */
+        //visited[row][col][k]
         boolean[][][] visited = new boolean[m][n][k+1]; //keep track of visited cells
         visited[0][0][k] = true;
+
+        //four directions
+        int[][] directions = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
 
         while(!queue.isEmpty()){
             State curr = queue.poll();
@@ -49,17 +53,19 @@ public class ShortestPathInAGridWithObstaclesElimination {
             }
 
             //explore all four directions
-            int[][] directions = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
             for(int[] dir : directions){
                 int x = dir[0] + curr.row;
                 int y = dir[1] + curr.col;
 
-                if(x>=0 && x<m && y>=0 && y<n){
-                    int remainingK = curr.k - grid[x][y];
-                    if (remainingK >= 0 && !visited[x][y][remainingK]) {
-                        visited[x][y][remainingK] = true;
-                        queue.offer(new State(x, y, remainingK, curr.dist + 1));
-                    }
+                //boundary check
+                if(x < 0 || x >= m || y < 0 || y >= n){
+                    continue;
+                }
+
+                int remainingK = curr.k - grid[x][y];
+                if (remainingK >= 0 && !visited[x][y][remainingK]) {
+                    visited[x][y][remainingK] = true; //save state for visited tracking
+                    queue.offer(new State(x, y, remainingK, curr.dist + 1)); //enqueue
                 }
             }
         }
