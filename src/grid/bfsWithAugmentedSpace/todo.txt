@@ -1,6 +1,15 @@
-Shortest Path in a Grid with Obstacles Elimination
-Shortest Path to Get All Keys
-Minimum Cost to Reach City With Discounts
+Shortest Path in a Grid with Obstacles Elimination [done]
+Cheapest Flights Within K Stops [done]
+Shortest Path to Get All Keys [done]
+Minimum Cost to Reach City With Discounts [done]
+
+Minimum Cost to Reach Destination in Time
+LeetCode 818 - Race Car
+LeetCode 752 - Open the Lock
+Minimum Fuel Cost to Report to the Capital
+Electric Car Plan (VERY relevant)
+
+
 
 BFS + Fuel / Battery
 State:(node, fuelLeft)
