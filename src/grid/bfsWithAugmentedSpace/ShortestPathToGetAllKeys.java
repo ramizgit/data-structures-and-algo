@@ -40,6 +40,7 @@ public class ShortestPathToGetAllKeys {
         queue.offer(new State(startRow, startCol, 0, 0));
 
         //visited tracking : visited[row][col][mask]
+        //important note : in Dijkstra/BFS, the PQ/BFS state and dist/visited state must represent the SAME state space.
         boolean[][][] visited = new boolean[m][n][64]; //maximum keys = 6, hence Number of possible masks : 2^6=64
         visited[startRow][startCol][0] = true;
 
