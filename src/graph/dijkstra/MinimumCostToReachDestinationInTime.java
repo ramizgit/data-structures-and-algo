@@ -38,7 +38,7 @@ public class MinimumCostToReachDestinationInTime {
         for(int i=0; i<dist.length; i++){
             Arrays.fill(dist[i], Integer.MAX_VALUE);
         }
-        dist[0][0] = passingFees[0];
+        dist[0][0] = passingFees[0]; //starting node 0 with 0 time and passingFees[0] cost
 
         while(!pq.isEmpty()){
             State curr = pq.poll();
