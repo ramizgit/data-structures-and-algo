@@ -53,6 +53,7 @@ public class MinimumCostToReachCityWithDiscounts {
 
             //explore neighbours
             for(Edge neighbour : graph.get(curr.node)){
+                
                 //option 1 : don't use discount
                 int normalCost = curr.cost + neighbour.w;
                 if(normalCost < dist[neighbour.v][curr.discountLeft]){
