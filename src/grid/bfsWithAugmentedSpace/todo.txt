@@ -1,0 +1,30 @@
+Shortest Path in a Grid with Obstacles Elimination
+Shortest Path to Get All Keys
+Minimum Cost to Reach City With Discounts
+
+BFS + Fuel / Battery
+State:(node, fuelLeft)
+Example:
+    electric vehicle routing
+    gas station problems
+    robot navigation
+
+
+BFS + Time
+State: (row, col, time) or (node, parity)
+Used when:
+    doors open periodically
+    traffic lights alternate
+    cells disappear over time
+
+
+Escape the Spreading Fire
+
+TSP / Visiting Nodes
+State: (node, visitedMask)
+    Shortest Path Visiting All Nodes
+
+
+BFS + Direction
+State: (row, col, direction) because turning has cost.
+    The Maze III
