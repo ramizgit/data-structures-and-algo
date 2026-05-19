@@ -26,12 +26,12 @@ public class MinimumCostToReachCityWithDiscounts {
         }
 
         //dijkstra algo
-
         //minheap
         PriorityQueue<State> pq = new PriorityQueue<>( (a,b) -> a.cost - b.cost );
-        pq.offer(new State(0, 0, discounts));
+        pq.offer(new State(0, discounts, 0));
 
         //distance array : dist[node][discountsLeft]
+        //important note : in Dijkstra/BFS, the PQ/BFS state and dist/visited state must represent the SAME state space.
         int[][] dist = new int[n][discounts+1];
         for(int i = 0; i < n; i++){
             Arrays.fill(dist[i], Integer.MAX_VALUE);
@@ -53,12 +53,12 @@ public class MinimumCostToReachCityWithDiscounts {
 
             //explore neighbours
             for(Edge neighbour : graph.get(curr.node)){
-                
+
                 //option 1 : don't use discount
                 int normalCost = curr.cost + neighbour.w;
                 if(normalCost < dist[neighbour.v][curr.discountLeft]){
                     dist[neighbour.v][curr.discountLeft] = normalCost;
-                    pq.offer(new State(neighbour.v, normalCost, curr.discountLeft));
+                    pq.offer(new State(neighbour.v, curr.discountLeft, normalCost));
                 }
 
                 //option 2 : use discount
@@ -66,7 +66,7 @@ public class MinimumCostToReachCityWithDiscounts {
                     int discountedCost = curr.cost + (neighbour.w / 2);
                     if(discountedCost < dist[neighbour.v][curr.discountLeft - 1]){
                         dist[neighbour.v][curr.discountLeft - 1] = discountedCost;
-                        pq.offer(new State(neighbour.v, discountedCost, curr.discountLeft - 1));
+                        pq.offer(new State(neighbour.v, curr.discountLeft - 1, discountedCost));
                     }
                 }
             }
@@ -87,13 +87,13 @@ public class MinimumCostToReachCityWithDiscounts {
 
     class State{
         int node;
-        int cost;
         int discountLeft;
+        int cost;
 
-        public State(int node, int cost, int discountLeft) {
+        public State(int node, int discountLeft, int cost) {
             this.node = node;
-            this.cost = cost;
             this.discountLeft = discountLeft;
+            this.cost = cost;
         }
     }
 }
