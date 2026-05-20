@@ -110,12 +110,12 @@ public class EscapeBeforeFlood {
         //bfs queue
         Queue<Cell> playerBfsQueue = new ArrayDeque<>();
         playerBfsQueue.offer(new Cell(startRow, startCol, 0));
-
-        //reset visited
-        visited = new boolean[m][n];
-        visited[startRow][startCol] = true;
+        
+        visited = new boolean[m][n]; //reset visited
+        visited[startRow][startCol] = true; //starting cell
 
         while(!playerBfsQueue.isEmpty()){
+            
             Cell curr = playerBfsQueue.poll();
 
             //exit condition
