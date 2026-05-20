@@ -19,7 +19,7 @@ public class DijkstraAlgorithm {
             int u = edge[0];
             int v = edge[1];
             int w = edge[2];
-            
+
             graph.get(u).add(new Edge(v, w));
             graph.get(v).add(new Edge(u, w)); //undirected graph, hence adding both
         }
@@ -28,7 +28,10 @@ public class DijkstraAlgorithm {
         PriorityQueue<Edge> pq = new PriorityQueue<>( (a,b) -> a.w - b.w ); //minheap
         pq.offer(new Edge(source, 0)); //starting point
 
-        int[] dist = new int[n]; //distance/cost array, our goal to minimize it
+        //distance/cost array, our goal to minimize it
+        //dist[i] = min cost to reach ith node
+        //important note : in Dijkstra/BFS, the PQ/BFS state and dist/visited state must represent the SAME state space.
+        int[] dist = new int[n];
         Arrays.fill(dist, Integer.MAX_VALUE); //initial values, to be relaxed later
         dist[source] = 0; //starting point
 
@@ -48,6 +51,8 @@ public class DijkstraAlgorithm {
                  */
                 continue;
             }
+
+            //early exit if applicable
 
             //explore neighbours
             List<Edge> neighbours = graph.get(curr.v);
