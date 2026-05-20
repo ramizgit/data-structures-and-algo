@@ -2,11 +2,7 @@ package dp.rangedp;
 
 public class BurstBalloons {
 
-    public static void main(String[] args)
-    {
-        maxCoins(new int[]{3,1,5,8});
-        maxCoins(new int[]{1,5});
-    }
+    //https://leetcode.com/problems/burst-balloons/description/
 
     /*
     ================2-D dp visualize===========
@@ -21,22 +17,33 @@ i ↓
      */
 
     public static int maxCoins(int[] nums) {
-        int n = nums.length;
-        int[][] dp = new int[n][n];
 
-        for (int len = 1; len <= n; len++) {
+        //input validation
+        if(nums == null || nums.length == 0){
+            return 0;
+        }
+
+        int n = nums.length;
+        int[][] dp = new int[n][n]; //dp[i][j] : max coins collected by bursting balloons from ith to jth index
+
+        for (int len = 1; len <= n; len++) { //burst balloons starting with length 1 till n
 
             for (int i = 0; i < n; i++) {
 
-                int j = i + len - 1;
-                if (j >= n) break;
+                int j = i + len - 1; //i - > j range tells how many balloons we want to process in current loop
+
+                if (j >= n) {
+                    break; //j goes out of the bound, cant proceed
+                }
 
                 for (int k = i; k <= j; k++) {
+
+                    //assume kth balloon is burst LAST in range i to j
 
                     int leftCoins  = (k == i) ? 0 : dp[i][k - 1];
                     int rightCoins = (k == j) ? 0 : dp[k + 1][j];
 
-                    //boundary condition
+                    //neighbors remaining when k is burst last
                     int leftVal  = (i == 0) ? 1 : nums[i - 1];
                     int rightVal = (j == n - 1) ? 1 : nums[j + 1];
 
@@ -47,6 +54,6 @@ i ↓
             }
         }
 
-        return dp[0][n - 1];
+        return dp[0][n - 1]; //max coins collected by bursting ALL balloons in the range 0 to n-1
     }
 }
