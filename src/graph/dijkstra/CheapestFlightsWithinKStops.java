@@ -32,7 +32,8 @@ public class CheapestFlightsWithinKStops {
         PriorityQueue<State> pq = new PriorityQueue<>( (a,b) -> a.price - b.price );
         pq.offer(new State(src, 0, 0)); //starting point
 
-        // Modified Dijkstra: state = (node, stops), using 2D dist to handle stop constraint, since cost depends on stops used
+        //modified Dijkstra: state = (node, stops), using 2D dist to handle stop constraint, since cost depends on stops used
+        //important note : in Dijkstra/BFS, the PQ/BFS state and dist/visited state must represent the SAME state space.
         int[][] dist = new int[n][k + 2];
         for(int i = 0; i < n; i++){
             Arrays.fill(dist[i], Integer.MAX_VALUE);
@@ -59,13 +60,12 @@ public class CheapestFlightsWithinKStops {
 
             //explore neighbours
             for(Edges neighbour : graph.get(curr.node)){
-                int nextNode = neighbour.dst;
                 int newCost = curr.price + neighbour.price;
                 int newStops = curr.stops + 1;
 
-                if(newCost < dist[nextNode][newStops]){ //Have I already reached this node with same stops but cheaper cost?
-                    dist[nextNode][newStops] = newCost; //relaxation
-                    pq.offer(new State(nextNode, newStops, newCost));
+                if(newCost < dist[neighbour.dst][newStops]){ //have I already reached this node with same stops but cheaper cost?
+                    dist[neighbour.dst][newStops] = newCost; //relaxation
+                    pq.offer(new State(neighbour.dst, newStops, newCost));
                 }
             }
         }
