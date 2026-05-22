@@ -4,6 +4,8 @@ import java.util.*;
 
 public class CourseSchedule {
 
+    //IMPORTANT : MENTION BOTH DFS AND TOPOLOGICAL SORT APPRAOCH. REFER CourseScheduleDfs FOR DFS APPRAOCH
+    
     /*
     Time Complexity = O(V + E)
     V = number of courses (numCourses)
