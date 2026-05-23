@@ -1,4 +1,4 @@
-package graph;
+package graph.topologicalsorting;
 
 import java.util.*;
 
@@ -7,12 +7,19 @@ public class CourseSchedule {
     //IMPORTANT : MENTION BOTH DFS AND TOPOLOGICAL SORT APPRAOCH. REFER CourseScheduleDfs FOR DFS APPRAOCH
     
     /*
+    Appraoch : its a cycle detection problem in graph. this can be solved vai both DFS and topological sorting approach.
+    this impl is via topological sorting
+    for DFS, follow "CourseScheduleDfs"
+    */
+
+    /*
     Time Complexity = O(V + E)
     V = number of courses (numCourses)
     E = number of prerequisites
 
     Space Complexity = O(V + E)
-     */
+    */
+
     public boolean canFinish(int numCourses, int[][] prerequisites) {
         //initialize graph and indegree map
         Map<Integer, List<Integer>> graph = new HashMap<>();
