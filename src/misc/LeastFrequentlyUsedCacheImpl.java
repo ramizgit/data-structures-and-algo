@@ -1,9 +1,6 @@
-package misc;
+package google.cache;
 
-import java.util.Deque;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
 
 public class LeastFrequentlyUsedCacheImpl {
 
@@ -52,7 +49,7 @@ public class LeastFrequentlyUsedCacheImpl {
 
             //populate map with new key val
             keyValueMap.put(key, new Node(val));
-            frequencyKeyListMap.computeIfAbsent(1, k -> new LinkedList<>()).addFirst(key);
+            frequencyKeyListMap.computeIfAbsent(1, k -> new ArrayDeque<>()).addFirst(key);
 
             //set least freq to 1
             leastFreq = 1;
