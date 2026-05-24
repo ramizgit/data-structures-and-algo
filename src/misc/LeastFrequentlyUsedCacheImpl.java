@@ -2,11 +2,19 @@ package google.cache;
 
 import java.util.*;
 
+/*
+this implementation is O(n) for get and put
+following "LeastFrequentlyUsedCacheImplOrderOfOne" for O(1) get and put
+ */
+
 public class LeastFrequentlyUsedCacheImpl {
 
     interface LFUCache {
+        //key functions
         void put(String key, String val);
         String get(String key);
+
+        //additional metadata functions
         int size();
         boolean isEmpty();
     }
@@ -40,7 +48,7 @@ public class LeastFrequentlyUsedCacheImpl {
             if(keyValueMap.size() == CAPACITY){
                 //remove LFU, if tie, LRU
                 Deque<String> deque = frequencyKeyListMap.get(leastFreq); //LFU
-                String lastKey = deque.removeLast(); //LRU
+                String lastKey = deque.removeLast(); //LRU tie-breaking
                 if (deque.isEmpty()) {
                     frequencyKeyListMap.remove(leastFreq);
                 }
@@ -69,7 +77,7 @@ public class LeastFrequentlyUsedCacheImpl {
 
             //remove from old entry and update least frequency
             Deque<String> currDeque = frequencyKeyListMap.get(oldFreq);
-            currDeque.remove(key);
+            currDeque.remove(key); //O(n)
 
             if (currDeque.isEmpty()) {
                 frequencyKeyListMap.remove(oldFreq);
