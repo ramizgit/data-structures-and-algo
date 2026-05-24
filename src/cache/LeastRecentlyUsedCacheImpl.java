@@ -4,6 +4,7 @@ import java.util.*;
 
 /*
 this implementation is O(n) for get and put
+refer "LeastRecentlyUsedCacheImplOrderOfOne" for O(1) get and put
  */
 
 public class LeastRecentlyUsedCacheImpl {
