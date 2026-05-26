@@ -8,12 +8,19 @@ public class MinimumTimeToCompleteTrips {
 
     public long minimumTime(int[] time, int totalTrips)
     {
+        /*
+        binary search approach :-
+        low = 0
+        high = either we can take slowest bus OR fastest bus. both works, later is little better though as its tighter
+        range for binary search.
+        */
+        
         int fastest = Integer.MAX_VALUE;
         for(int t : time){
             fastest = Math.min(fastest, t);
         }
 
-        int low = 1; //minimum meaningful time is 1 unit
+        int low = 0;
         int high = fastest * totalTrips; //even in the worst case (only fastest machine working), we can finish all trips.
         int answer = 0;
 
