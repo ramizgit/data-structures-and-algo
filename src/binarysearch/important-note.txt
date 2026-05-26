@@ -1,0 +1,11 @@
+pattern:-
+minimize maximum
+maximize minimum
+smallest feasible
+largest feasible
+
+→ which usually screams:
+
+Binary Search on Answer
++
+Greedy/Counting Feasibility
