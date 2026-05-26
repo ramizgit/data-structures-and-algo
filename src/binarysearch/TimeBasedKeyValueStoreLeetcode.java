@@ -59,7 +59,7 @@ class TimeMap{
 
         //handle edge cases
         if(timestamp <= values.get(0).time){
-            return values.get(0).value;
+            return ""; //no valid answer exists since requested timestamp is SMALLER than first timestamp
         }
         if(timestamp >= values.get(values.size()-1).time){
             return values.get(values.size()-1).value;
