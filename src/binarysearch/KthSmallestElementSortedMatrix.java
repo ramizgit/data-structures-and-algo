@@ -1,6 +1,4 @@
-package heap;
-
-import java.util.*;
+package binarySearch;
 
 public class KthSmallestElementSortedMatrix {
 
@@ -11,6 +9,11 @@ public class KthSmallestElementSortedMatrix {
     //Space complexity : O(1)
     public int kthSmallest(int[][] matrix, int k)
     {
+        //input validation
+        if(matrix == null || matrix.length == 0){
+            return -1;
+        }
+
         int n = matrix.length;
 
         int low = matrix[0][0];
@@ -18,9 +21,10 @@ public class KthSmallestElementSortedMatrix {
         int answer = 0;
 
         while(low <= high){
+
             int mid = low + (high - low)/2;
 
-            if(hasKElementsLessOrEqualToTarget(matrix, mid, k, n)){
+            if(countLessThanOrEqualTarget(matrix, mid, n) >= k){
                 answer = mid; //possible answer
                 high = mid - 1; //try lower
             }else{
@@ -32,7 +36,7 @@ public class KthSmallestElementSortedMatrix {
     }
 
     //this is O(n) time complexity
-    public boolean hasKElementsLessOrEqualToTarget(int[][] matrix, int target, int k, int n)
+    public int countLessThanOrEqualTarget(int[][] matrix, int target, int n)
     {
         int row = 0;
         int col = n-1;
@@ -47,47 +51,6 @@ public class KthSmallestElementSortedMatrix {
             }
         }
 
-        return count >= k;
-    }
-
-    //HEAP BASED APPROACH
-    //Time complexity : O(nlogn + klogn)
-    //Space complexity : O(n)
-    public int kthSmallestViaHeap(int[][] matrix, int k)
-    {
-        int n = matrix.length;
-
-        PriorityQueue<Elements> minheap = new PriorityQueue<>( (a, b) -> a.val - b.val ); //O(n) space
-
-        //O(nlogn) total for this for loop
-        for(int i=0; i<n; i++){
-            minheap.offer(new Elements(i, 0, matrix[i][0])); //each insert is O(logn)
-        }
-
-        int result = 0;
-
-        //O(klogn) for this while loop
-        while(k>0){
-            Elements curr = minheap.poll(); //each poll is O(logn)
-            result = curr.val;
-            if(curr.col + 1 < n){
-                minheap.offer(new Elements(curr.row, curr.col + 1, matrix[curr.row][curr.col + 1])); //each insert is O(logn)
-            }
-            k--;
-        }
-
-        return result;
-    }
-
-    class Elements{
-        int row;
-        int col;
-        int val;
-
-        public Elements(int row, int col, int val) {
-            this.row = row;
-            this.col = col;
-            this.val = val;
-        }
+        return count;
     }
 }
