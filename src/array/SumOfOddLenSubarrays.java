@@ -1,6 +1,7 @@
 package arrays;
 
 public class SumOfOddLenSubarrays {
+
     //https://leetcode.com/problems/sum-of-all-odd-length-subarrays/description/
 
     /*
@@ -9,6 +10,17 @@ public class SumOfOddLenSubarrays {
 
     public int sumOddLengthSubarrays(int[] arr)
     {
+        /*
+            Approach:
+            Instead of generating all subarrays (O(n²)),
+            compute "how many subarrays include arr[i]" and multiply contribution accordingly.
+
+            For every arr[i]:
+            - count how many subarrays include it
+            - among them, determine how many are odd length
+            - multiply contribution accordingly
+         */
+
         int n = arr.length;
         int sum = 0;
 
@@ -18,23 +30,22 @@ public class SumOfOddLenSubarrays {
             i = 2; //element 2
 
             how many choices do we have for the STARTING index of a subarray that includes i?
-            possible start = 0,1,2
+            possible start indices = 0,1,2
             hence start = i+1, because indices go from 0 to i.
              */
-            int start = i + 1;
-
+            int leftChoices = i + 1;
 
             /*
             how many choices do we have for the ENDING index of a subarray that includes i?
             possible ends 2,3,4
             hence end = n-i
              */
-            int end = n - i;
+            int rightChoices = n - i;
 
-            //every start can pair with every end, hence multiply
-            int totalSubarrayCount = start * end;
+            //every leftChoice can pair with every rightChoice, hence multiply
+            int totalSubarrayCount = leftChoices * rightChoices;
 
-            int oddSubarrayCount = (totalSubarrayCount + 1) / 2;
+            int oddSubarrayCount = (totalSubarrayCount + 1) / 2; //odd-length subarrays get one extra, hence +1
 
             sum += arr[i] * oddSubarrayCount;
         }
