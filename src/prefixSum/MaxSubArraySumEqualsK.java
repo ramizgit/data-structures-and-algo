@@ -10,7 +10,7 @@ public class MaxSubArraySumEqualsK {
     private static int maxSubArray(int[] arr, int target)
     {
        Map<Integer, Integer> sumIdxMap = new HashMap<>();
-        sumIdxMap.put(0, -1); //base case
+        sumIdxMap.put(0, -1); //base case - prefix sum 0 before array starts, helps compute length from index 0
         int sum = 0;
         int max = 0;
 
