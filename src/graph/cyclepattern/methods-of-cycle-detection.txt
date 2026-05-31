@@ -5,3 +5,7 @@
 | DSU        | ✅          | ❌        | Fast for edges                  |
 | SCC        | ❌          | ✅        | Useful if already computing SCC |
 | Coloring   | ❌          | ✅        | Cleaner DFS variant             |
+
+
+Undirected graph : DFS, DSU
+Directed graph : DFS, Topological sort
