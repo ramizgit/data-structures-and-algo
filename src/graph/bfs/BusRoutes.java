@@ -31,22 +31,22 @@ public class BusRoutes {
         visitedStops.add(source); //starting bus stop
 
         while(!bfsQueue.isEmpty()){
-            State curr = bfsQueue.poll();
+            State currStop = bfsQueue.poll();
 
             //exit condition
-            if(curr.stop == target){
-                return curr.dist;
+            if(currStop.stop == target){
+                return currStop.dist;
             }
 
             //explore neighbouring routes from the current stop
-            for(int route : stopToRoutesMap.getOrDefault(curr.stop, Collections.emptyList())){
+            for(int route : stopToRoutesMap.getOrDefault(currStop.stop, Collections.emptyList())){
                 if(!visitedRoutes.contains(route)){
                     visitedRoutes.add(route);//add to visited
 
                     //explore all routes in the current route
                     for(int stop : routes[route]){
                         if(!visitedStops.contains(stop)){
-                            bfsQueue.add(new State(stop, curr.dist + 1));
+                            bfsQueue.add(new State(stop, currStop.dist + 1));
                             visitedStops.add(stop);
                         }
                     }
