@@ -47,7 +47,7 @@ public class AlienDictionary {
             }
         }
 
-        //topological sort - standard Kahn's algorithm
+        //Start with all 0-indegree nodes, topological sort - standard Kahn's algorithm
         Queue<Character> queue = new ArrayDeque<>();
         for(char ch : indegree.keySet()){
             if(indegree.get(ch) == 0){
@@ -59,7 +59,7 @@ public class AlienDictionary {
 
         while(!queue.isEmpty()){
             char curr = queue.poll();
-            order.append(curr);
+            order.append(curr); //add to the answer
 
             //explore neighbours
             for(char neighbour : graph.get(curr)){

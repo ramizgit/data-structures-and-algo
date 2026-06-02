@@ -44,6 +44,7 @@ public class TopologicalSortingKahnAlgo {
             int node = queue.poll();
             result.add(node);
 
+            //explore neighbours
             for(int neighbor : graph.getOrDefault(node, new ArrayList<>())){
                 indegree.put(neighbor, indegree.get(neighbor) - 1);
                 if(indegree.get(neighbor) == 0){
