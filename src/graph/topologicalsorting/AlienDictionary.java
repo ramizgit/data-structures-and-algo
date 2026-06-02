@@ -6,9 +6,9 @@ public class AlienDictionary {
 
     //https://leetcode.com/problems/alien-dictionary/description/
 
-    public String foreignDictionary(String[] words)
+    public String alienOrder(String[] words)
     {
-        //initialize graph
+        //initialize graph and indegree
         Map<Character, List<Character>> graph = new HashMap<>();
         Map<Character, Integer> indegree = new HashMap<>();
         for(String word : words){
@@ -31,7 +31,7 @@ public class AlienDictionary {
                 char c2 = w2.charAt(j);
 
                 if(c1 != c2){
-                    // avoid duplicate edges
+                    //avoid duplicate edges, prevents indegree inflation (important)
                     if(!graph.get(c1).contains(c2)){
                         graph.get(c1).add(c2);
                         indegree.put(c2, indegree.get(c2) + 1);
@@ -47,7 +47,7 @@ public class AlienDictionary {
             }
         }
 
-        //topological sort
+        //topological sort - standard Kahn's algorithm
         Queue<Character> queue = new ArrayDeque<>();
         for(char ch : indegree.keySet()){
             if(indegree.get(ch) == 0){
@@ -61,6 +61,7 @@ public class AlienDictionary {
             char curr = queue.poll();
             order.append(curr);
 
+            //explore neighbours
             for(char neighbour : graph.get(curr)){
                 indegree.put(neighbour, indegree.get(neighbour) - 1);
                 if(indegree.get(neighbour) == 0){
@@ -71,7 +72,7 @@ public class AlienDictionary {
 
         // cycle detection
         if(order.length() != graph.size()){
-            return "";
+            return ""; //cycle found
         }
 
         return order.toString();
