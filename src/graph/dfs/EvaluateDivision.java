@@ -28,7 +28,7 @@ public class EvaluateDivision {
             String src = query.get(0);
             String dest = query.get(1);
 
-            //if missing variable handling
+            //edge case if missing variable handling
             if(!graph.containsKey(src) || !graph.containsKey(dest)){
                 result[idx++] = -1.0;
                 continue;
@@ -40,25 +40,25 @@ public class EvaluateDivision {
                 continue;
             }
 
-            Set<String> visited = new HashSet<>();
-            result[idx++] = evaluateDfs(src, dest, graph, 1.0, visited);
+            result[idx++] = dfsEvaluate(src, dest, graph, 1.0, new HashSet<>());
         }
 
         return result;
     }
 
-    public double evaluateDfs(String src, String dest, Map<String, List<Edge>> graph, double product, Set<String> visited)
+    public double dfsEvaluate(String src, String dest, Map<String, List<Edge>> graph, double product, Set<String> visited)
     {
+        //exit condition
         if(src.equals(dest)){
             return product;
         }
 
-        visited.add(src);
+        visited.add(src); //add to visited avoid cycles within this query
 
-        List<Edge> neighbours = graph.get(src);
-        for(Edge neighbour : neighbours){
+        //explore neighbours
+        for(Edge neighbour : graph.get(src)){
             if(!visited.contains(neighbour.v)){
-                double result = evaluateDfs(neighbour.v, dest, graph, product * neighbour.value, visited);
+                double result = dfsEvaluate(neighbour.v, dest, graph, product * neighbour.value, visited);
                 if (result != -1.0) {
                     return result; // early return, stop dfs once answer is found (only one path needed)
                 }
