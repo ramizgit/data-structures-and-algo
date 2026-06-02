@@ -5,14 +5,14 @@ import java.util.Set;
 
 public class LongestConsecutiveSequence {
 
-    public static void main(String[] args)
-    {
-        System.out.println(longestConsecutive(new int[]{2,20,4,10,3,3,4,5})); //4
-
-    }
-
     private static int longestConsecutive(int[] nums)
     {
+        //input validation
+        if(nums == null || nums.length == 0){
+            return 0;
+        }
+
+        //add numbers to set for O(1) lookup
         Set<Integer> set = new HashSet<>();
         for(int num : nums){
             set.add(num);
@@ -22,14 +22,15 @@ public class LongestConsecutiveSequence {
 
         for(int num : nums){
             if(!set.contains(num-1)){
-                int currNum = num;
-                int currMax = 1;
-                while(set.contains(currNum+1)){
-                    currNum++;
-                    currMax++;
+                //starting element found, track max length
+                int curr = num;
+                int len = 0;
+                while(set.contains(curr)){
+                    len++;
+                    curr++;
                 }
 
-                max = Math.max(max, currMax);
+                max = Math.max(max, len);
             }
         }
 
