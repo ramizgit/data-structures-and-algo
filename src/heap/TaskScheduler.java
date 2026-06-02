@@ -33,7 +33,7 @@ public class TaskScheduler {
                     time++;
                 }else {
                     if(used.isEmpty()){
-                        break;
+                        break; //early exit as all tasks completed; no need to add trailing idle slots
                     }
                     result.add("Idle");
                     time++;
