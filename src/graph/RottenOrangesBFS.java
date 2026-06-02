@@ -1,67 +1,58 @@
 package graph;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 public class RottenOrangesBFS {
 
-    public static void main(String[] args)
+    public int orangesRotting(int[][] grid)
     {
-        int[][] grid = {{2,1,1},{1,1,0},{0,1,1}};
-        System.out.println(orangesRotting(grid)); //4
-        
-        int[][] grid2 = {{2,1,1},{0,1,1},{1,0,1}};
-        System.out.println(orangesRotting(grid2)); //-1
+        //input validation
+        if(grid == null || grid.length == 0 || grid[0].length == 0){
+            return 0;
+        }
 
-        int[][] grid3 = { {0, 2} };
-        System.out.println(orangesRotting(grid3)); //0
+        int m = grid.length;
+        int n = grid[0].length;
 
-        int[][] grid4 = { {1,1,1,1}, {1,1,1,1}, {2,1,1,2}, {1,1,1,1}, {1,1,1,1} };
-        System.out.println(orangesRotting(grid4)); //3
-    }
-
-    public static int orangesRotting(int[][] grid)
-    {
-        int rows = grid.length;
-        int cols = grid[0].length;
         int numOfFreshOrange=0;
-        Queue<Coordinates> queue = new LinkedList<>();
+        Queue<State> bfsQueue = new ArrayDeque<>();
 
         //scan the grid and collect num of fresh oranges, as well as all rotten orange coordinates for bfs
-        for(int i=0; i<rows; i++){
-            for(int j=0; j<cols; j++){
+        for(int i=0; i<m; i++){
+            for(int j=0; j<n; j++){
                 if(grid[i][j] == 1){
                     numOfFreshOrange++;
                 }else if (grid[i][j] == 2){
-                    queue.add(new Coordinates(i, j, 0));
+                    bfsQueue.add(new State(i, j, 0));
                 }
             }
         }
 
+        //edge case
         if(numOfFreshOrange == 0){
             return 0;
         }
-        
-        return bfs(queue, numOfFreshOrange, grid, rows, cols);
-    }
 
-    public static int bfs(Queue<Coordinates> queue, int numOfFreshOrange, int[][] grid, int rows, int cols)
-    {
+        //bfs logic
         int[][] directions = { {1, 0}, {-1, 0}, {0, 1}, {0, -1} };
 
-        while (!queue.isEmpty()){
-            Coordinates poll = queue.poll();
+        while (!bfsQueue.isEmpty()){
 
+            State curr = bfsQueue.poll();
+
+            //explore all four directions
             for(int[] dir : directions){
-                int x = poll.row + dir[0];
-                int y = poll.col + dir[1];
+                int x = curr.row + dir[0];
+                int y = curr.col + dir[1];
 
-                if(x >= 0 && y >= 0 && x < rows && y < cols && grid[x][y] == 1){
-                    grid[x][y] = 2;
-                    queue.add(new Coordinates(x, y, poll.distance+1));
+                if(x >= 0 && x < m && y >= 0  && y < n && grid[x][y] == 1){
+                    grid[x][y] = 2; //mark orange as rotten
+                    bfsQueue.add(new State(x, y, curr.minutes +1)); //add to bfs queue
                     numOfFreshOrange--;
+
+                    //exit condition
                     if(numOfFreshOrange == 0){
-                        return poll.distance+1;
+                        return curr.minutes +1;
                     }
                 }
             }
@@ -69,16 +60,18 @@ public class RottenOrangesBFS {
 
         return -1;
     }
-}
 
-class Coordinates{
-    int row;
-    int col;
-    int distance;
+    class State {
+        int row;
+        int col;
+        int minutes;
 
-    public Coordinates(int row, int col, int distance) {
-        this.row = row;
-        this.col = col;
-        this.distance = distance;
+        public State(int row, int col, int minutes) {
+            this.row = row;
+            this.col = col;
+            this.minutes = minutes;
+        }
     }
 }
+
+
