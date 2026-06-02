@@ -11,19 +11,21 @@ public class OpenTheLock {
         String start = "0000";
 
         Set<String> deadSet = new HashSet<>(List.of(deadends));
+
+        //edge case
         if(deadSet.contains(start)){
             return -1;
         }
 
         //bfs logic
-        Queue<LockSeq> queue = new ArrayDeque<>();
-        queue.offer(new LockSeq(start, 0));
+        Queue<State> queue = new ArrayDeque<>();
+        queue.offer(new State(start, 0));
 
         Set<String> visited = new HashSet<>();
         visited.add(start);
 
         while(!queue.isEmpty()){
-            LockSeq curr = queue.poll();
+            State curr = queue.poll();
 
             //exit condition
             if(curr.lock.equals(target)){
@@ -34,8 +36,8 @@ public class OpenTheLock {
             List<String> neighbours = getNeighbours(curr.lock);
             for(String neighbour : neighbours){
                 if(!visited.contains(neighbour) && !deadSet.contains(neighbour)){
+                    queue.offer(new State(neighbour, curr.turns+1));
                     visited.add(neighbour);
-                    queue.offer(new LockSeq(neighbour, curr.turns+1));
                 }
             }
         }
@@ -66,14 +68,16 @@ public class OpenTheLock {
 
         return neighbours;
     }
-}
 
-class LockSeq{
-    String lock;
-    int turns;
+    class State {
+        String lock;
+        int turns;
 
-    public LockSeq(String lock, int turns) {
-        this.lock = lock;
-        this.turns = turns;
+        public State(String lock, int turns) {
+            this.lock = lock;
+            this.turns = turns;
+        }
     }
 }
+
+
