@@ -40,6 +40,7 @@ public class TaskScheduler {
                 }
             }
 
+            //add unfinished tasks back to heap
             for(char ch : used){
                 if(map.get(ch) > 0){
                     maxheap.add(ch);
