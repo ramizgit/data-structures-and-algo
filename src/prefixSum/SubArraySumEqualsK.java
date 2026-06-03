@@ -11,32 +11,25 @@ public class SubArraySumEqualsK {
     A subarray is a contiguous non-empty sequence of elements within an array.
      */
 
-    public static void main(String[] args)
+    //Time  : O(n)
+    //Space : O(n)
+    public int subarraySum(int[] nums, int k)
     {
-        // nums = [1,2,3], k = 3
-        //<sum, idx>
-        //0 - 1
-        //1 - 1
-        //3 - 1
-        //6 - 1
-        System.out.println(subarraySum(new int[]{1,2,3}, 3)); //2
-        System.out.println(subarraySum(new int[]{1,2,3,3}, 3)); //3
-        System.out.println(subarraySum(new int[]{1,-1,1,1,1,1}, 3)); //4
-    }
+        //create map to store {current sum -> freq}
+        Map<Integer, Integer> prefixSumFreqMap = new HashMap<>();
+        prefixSumFreqMap.put(0, 1); //base case to handle cases where a valid subarray starts at index 0. e.g., nums = [1, 2] for target 3
 
-    private static int subarraySum(int[] nums, int k)
-    {
-        Map<Integer, Integer> freq = new HashMap<>();
-        freq.put(0, 1); //base case
         int sum = 0;
         int count = 0;
 
         for(int num : nums){
             sum += num;
 
-            count += freq.getOrDefault(sum - k, 0);
+            //add num of subarrays ending at current index to the answer
+            //num of subarray ending at current index is prev subarrays with sum (sum-k)
+            count += prefixSumFreqMap.getOrDefault(sum - k, 0);
 
-            freq.put(sum, freq.getOrDefault(sum, 0) + 1);
+            prefixSumFreqMap.put(sum, prefixSumFreqMap.getOrDefault(sum, 0) + 1);
         }
 
         return count;
