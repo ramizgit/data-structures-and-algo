@@ -32,7 +32,6 @@ public class QuickSelect {
         int i = left;
 
         for(int j = left; j < right; j++){
-
             if(nums[j] <= pivot){
                 swap(nums, i, j);
                 i++;
