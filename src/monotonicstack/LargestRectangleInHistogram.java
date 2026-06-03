@@ -4,15 +4,17 @@ import java.util.Stack;
 
 public class LargestRectangleInHistogram {
 
-    public static void main(String[] args)
-    {
-        System.out.println("Max area is : "+getLargestRectangle(new int[]{2,1,5,6,2,3})); //10
-        System.out.println("Max area is : "+getLargestRectangle(new int[]{3, 2, 4, 5, 3, 6, 2})); //14
-        System.out.println("Max area is : "+getLargestRectangle(new int[]{6, 2, 5, 4, 5, 1, 6})); //12
-    }
-
     public static int getLargestRectangle(int[] arr)
     {
+        /*
+        Approach
+        For each bar:
+            find first smaller on left
+            find first smaller on right
+            width = rightBoundary - leftBoundary + 1
+            area = height * width
+         */
+
         int[] leftArray = computeLeftArray(arr);
         int[] rightArray = computeRightArray(arr);
 
@@ -29,7 +31,6 @@ public class LargestRectangleInHistogram {
 
     public static int[] computeLeftArray(int[] arr)
     {
-        //[2,1,5,6,2,3]
         //next smaller element in left direction, use monotonic increasing stack
         int[] leftArray = new int[arr.length];
         Stack<Integer> stack = new Stack<>();
