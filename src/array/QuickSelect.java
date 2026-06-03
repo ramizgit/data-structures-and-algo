@@ -2,44 +2,52 @@ package array;
 
 public class QuickSelect {
 
-    public static void main(String[] args)
+    public int findKthLargest(int[] nums, int k)
     {
+        int targetIndex = nums.length - k;
 
-    }
+        int left = 0;
+        int right = nums.length - 1;
 
-    private static int findKthLargest(int[] arr, int k)
-    {
-        k = arr.length - k;
-        return quickSelect(arr, 0, arr.length-1, k);
+        while(left <= right){
 
-    }
+            int pivotIndex = partition(nums, left, right);
 
-    private static int quickSelect(int[] arr, int left, int right, int k)
-    {
-        int p = left;
-
-        for(int i=left; i<right; i++){
-            if(arr[i] <= arr[right]){
-                //swap
-                int temp = arr[i];
-                arr[i] = arr[p];
-                arr[p] = temp;
-
-                p++;
+            if(pivotIndex == targetIndex){
+                return nums[pivotIndex];
+            }else if(pivotIndex < targetIndex){
+                left = pivotIndex + 1;
+            }else{
+                right = pivotIndex - 1;
             }
         }
 
-        //at the end swap pivot
-        int temp = arr[right];
-        arr[right] = arr[p];
-        arr[p] = temp;
+        return -1;
+    }
 
-        if(p == k){
-            return arr[p];
-        } else if (p < k) {
-            return quickSelect(arr, p+1, right, k);
-        }else {
-            return quickSelect(arr, left, p-1, k);
+    private int partition(int[] nums, int left, int right)
+    {
+        int pivot = nums[right];
+
+        int i = left;
+
+        for(int j = left; j < right; j++){
+
+            if(nums[j] <= pivot){
+                swap(nums, i, j);
+                i++;
+            }
         }
+
+        swap(nums, i, right);
+
+        return i;
+    }
+
+    private void swap(int[] nums, int i, int j)
+    {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
     }
 }
