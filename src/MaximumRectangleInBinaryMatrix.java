@@ -28,7 +28,7 @@ public class MaximumRectangleInBinaryMatrix {
                     tmparr[j] += matrix[i][j];
                 }
             }
-            int area = LargestRectangleInHistogram.getLargestRectangle(tmparr);
+            int area = monotonicstack.LargestRectangleInHistogram.getLargestRectangle(tmparr);
             maxRectangle = Math.max(maxRectangle, area);
         }
 
