@@ -2,6 +2,7 @@ package consistenthashing.graph.eulerianpath;
 
 import java.util.*;
 
+//Eulerian Path (Euler Trail)
 public class ReconstructItinerary {
 
     //https://leetcode.com/problems/reconstruct-itinerary/description/
