@@ -5,6 +5,8 @@ import java.util.Deque;
 
 public class MinimumStack {
 
+    //https://leetcode.com/problems/min-stack/description/
+
     class MinStack {
 
         //main stack that stores all values
