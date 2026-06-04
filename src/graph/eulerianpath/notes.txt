@@ -1,0 +1,43 @@
+The graph concept
+------------------
+The problem says: Use every ticket exactly once
+
+which translates to: Use every edge exactly once
+
+In graph theory, that's called an: Eulerian Path (Euler Trail)
+
+If it starts and ends at the same node, it's called an: Eulerian Circuit
+
+
+The algorithm
+-------------
+The standard algorithm for finding an Eulerian path is:
+
+Hierholzer's Algorithm
+
+Core idea:
+
+Keep walking unused edges.
+When you get stuck,
+add the current node to the answer.
+
+That's why the DFS looks unusual:
+
+{
+while(hasOutgoingEdges(node)){
+    dfs(next);
+}
+
+answer.add(node);
+}
+
+instead of:
+
+{
+answer.add(node);
+
+for(neighbour){
+    dfs(neighbour);
+}
+}
+
