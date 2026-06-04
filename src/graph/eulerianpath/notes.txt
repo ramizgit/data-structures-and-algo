@@ -31,13 +31,3 @@ while(hasOutgoingEdges(node)){
 answer.add(node);
 }
 
-instead of:
-
-{
-answer.add(node);
-
-for(neighbour){
-    dfs(neighbour);
-}
-}
-
