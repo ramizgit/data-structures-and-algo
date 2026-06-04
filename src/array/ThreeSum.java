@@ -1,51 +1,71 @@
 package array;
 
-import java.util.Arrays;
+import java.util.*;
 
 public class ThreeSum {
-    public static void main(String[] args)
-    {
-        printThreeSum(new int[]{-1,0,1,2,-1,-4}, 0);
-        printThreeSum(new int[]{-3,1,1,1,2,2,2,-5}, 0);
-        printThreeSum(new int[]{-4,1,1,1,2,2,2,3,-5}, 0);
-    }
 
-    public static void printThreeSum(int[] arr, int target)
-    {
-        Arrays.sort(arr);
+    /*
+    Sorting:      O(n log n)
+    Outer loop:   O(n)
+    Two pointers: O(n) per iteration (amortized)
 
-        for(int i=0; i<arr.length-1; i++)
+    Total:        O(n²)
+    Space:        O(1) excluding output
+     */
+    public List<List<Integer>> threeSum(int[] nums, int target)
+    {
+        //input validation
+        if(nums == null || nums.length < 3){
+            return Collections.emptyList();
+        }
+
+        Arrays.sort(nums); //sort the array so that we can use two pointer technique efficiently
+
+        int n = nums.length;
+        List<List<Integer>> result = new ArrayList<>();
+
+        for(int i=0; i<n-2; i++)
         {
-            if(i == 0 || arr[i] != arr[i-1]){
-                int sum = target - arr[i];
-                //now look for 'sum' in rest of the array
-                //since array is sorted, use left and right pointers
-                int left = i+1;
-                int right = arr.length-1;
+            //skip duplicate first elements
+            if(i > 0 && nums[i] == nums[i - 1]){
+                continue;
+            }
 
-                while(left < right){
-                    int tmpSum = arr[left] + arr[right];
-                    if( tmpSum == sum){
-                        System.out.println(arr[i]+ " "+ arr[left]+ " "+arr[right]);
+            int required = target - nums[i];
 
-                        //start : to avoid duplicates
-                        while(left < right && arr[left] == arr[left+1]){
-                            left++;
-                        }
-                        while(right > left && arr[right] == arr[right-1]){
-                            right--;
-                        }
-                        //end : to avoid duplicates
+            //look for required sum using two pointer technique on the sorted array
+            int left = i+1;
+            int right = n-1;
 
+            while(left < right){
+
+                int current = nums[left] + nums[right];
+
+                if(current == required){
+
+                    result.add(Arrays.asList(nums[i], nums[left], nums[right])); //collect result
+
+                    //skip duplicate second elements
+                    while(left < right && nums[left] == nums[left+1]){
                         left++;
-                        right--;
-                    }else if(tmpSum < sum){
-                        left++;
-                    }else {
+                    }
+
+                    //skip duplicate third elements
+                    while(left < right && nums[right] == nums[right-1]){
                         right--;
                     }
+
+                    left++;
+                    right--;
+
+                }else if(current < required){
+                    left++;
+                }else {
+                    right--;
                 }
             }
         }
+
+        return result;
     }
 }
