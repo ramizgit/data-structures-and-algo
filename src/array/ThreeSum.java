@@ -14,6 +14,13 @@ public class ThreeSum {
      */
     public List<List<Integer>> threeSum(int[] nums, int target)
     {
+        /*
+        Approach:-
+            Fix one number.
+            Convert to 2Sum.
+            Solve 2Sum with two pointers.
+         */
+
         //input validation
         if(nums == null || nums.length < 3){
             return Collections.emptyList();
