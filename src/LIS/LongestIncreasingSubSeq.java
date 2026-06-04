@@ -23,9 +23,15 @@ public class LongestIncreasingSubSeq {
     //Space : O(n)
     private static int longestIncreasingSubSeqViaDP(int[] nums)
     {
+        //input validation
+        if(nums == null || nums.length == 0){
+            return 0;
+        }
+
         int n = nums.length;
-        int[] dp = new int[n]; //dp array
-        Arrays.fill(dp, 1); //base case
+
+        int[] dp = new int[n]; // dp[i] is the max length of LIS ending at index i
+        Arrays.fill(dp, 1); // base case as each element is itself a sub seq
 
         int maxLen = 1; //base case, as min 1 length seq is possible
 
@@ -35,6 +41,7 @@ public class LongestIncreasingSubSeq {
                     dp[i] = Math.max(dp[i], 1 + dp[j]);
                 }
             }
+
             maxLen = Math.max(maxLen, dp[i]);
         }
 
@@ -45,31 +52,39 @@ public class LongestIncreasingSubSeq {
     //Space : O(n)
     private static int longestIncreasingSubSeqViaBinarySearch(int[] nums)
     {
-        List<Integer> list = new ArrayList<>();
-        list.add(nums[0]); //base case
+        //input validation
+        if(nums == null || nums.length == 0){
+            return 0;
+        }
+
+        int n = nums.length;
+
+        List<Integer> tails = new ArrayList<>();
+        tails.add(nums[0]);
 
         for(int i=1; i<nums.length; i++){
-            //do binary search on list
+            //binary search on list
             int low = 0;
-            int high = list.size()-1;
+            int high = tails.size()-1;
 
             while(low <= high){
                 int mid = low + (high - low) / 2;
-                if(nums[i] > list.get(mid)){
+
+                if(nums[i] > tails.get(mid)){
                     low = mid + 1;
                 }else{
                     high = mid - 1;
                 }
             }
 
-            if(low == list.size()){
-                list.add(nums[i]);
+            if(low == tails.size()){
+                tails.add(nums[i]);
             }else{
-                list.set(low, nums[i]);
+                tails.set(low, nums[i]);
             }
         }
 
-        return list.size();
+        return tails.size();
     }
 
     //Time : O(n^2)
@@ -77,8 +92,8 @@ public class LongestIncreasingSubSeq {
     private static List<Integer> printLISViaDP(int[] nums)
     {
         int n = nums.length;
-        int[] dp = new int[n]; //dp array to track max len
-        int[] prev = new int[n]; //prev array to keep track of chain
+        int[] dp = new int[n]; // dp[i] is the max length of LIS ending at index i
+        int[] prev = new int[n]; // prev array to keep track of chain
 
         Arrays.fill(dp, 1); //base case, as each element itself is LIS
         Arrays.fill(prev, -1);
