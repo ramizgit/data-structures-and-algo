@@ -53,19 +53,14 @@ public class ReconstructItinerary {
     private void dfs(String airport, Map<String, PriorityQueue<String>> graph, List<String> result)
     {
         /*
-        continue DFS only while there exists an unused outgoing edge.
+        continue DFS while there exists an outgoing edge.
          */
-        PriorityQueue<String> destinations = graph.get(airport);
+        PriorityQueue<String> destinations = graph.getOrDefault(airport, new PriorityQueue<>());
 
-        //airport might not exist as a source node in the graph, hence graph.get(airport) can be null
-        while(destinations != null && !destinations.isEmpty()){
-
-            /*
-            This is the key Hierholzer step - We're marking ticket used by removing it from the graph using poll() method
-             */
-            String next = destinations.poll(); // consume ticket
-
-            dfs(next, graph, result);
+        //process all unused outgoing tickets
+        while(!destinations.isEmpty()){
+            //this is the key Hierholzer step - We're marking ticket used by removing it from the graph using poll() method
+            dfs(destinations.poll(), graph, result);
         }
 
         //add to result once there are no unused tickets left
