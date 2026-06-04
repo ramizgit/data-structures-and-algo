@@ -4,8 +4,11 @@ import java.util.*;
 
 public class WordLadder {
 
+    //https://leetcode.com/problems/word-ladder/description/
+
     public int ladderLength(String beginWord, String endWord, List<String> wordList)
     {
+        //edge case
         if(!wordList.contains(endWord)){
             return 0;
         }
@@ -19,29 +22,33 @@ public class WordLadder {
             }
         }
 
-        //bfs
-        Queue<WordSeq> queue = new ArrayDeque<>();
-        queue.offer(new WordSeq(beginWord, 1));
+        //bfs logic
+        Queue<State> bfsQueue = new ArrayDeque<>();
+        bfsQueue.offer(new State(beginWord, 1)); //starting word
 
-        Set<String> visited = new HashSet<>();
+        Set<String> visited = new HashSet<>(); //to avoid going in cycle
         visited.add(beginWord);
 
-        while(!queue.isEmpty()){
-            WordSeq curr = queue.poll();
+        while(!bfsQueue.isEmpty()){
 
-            //breaking condition
+            State curr = bfsQueue.poll();
+
+            //exit condition
             if(curr.word.equals(endWord)){
-                return curr.seq;
+                return curr.steps;
             }
 
             //explore neighbours
             for(int i=0; i<curr.word.length(); i++){
+
                 String pattern = curr.word.substring(0, i) + "*" + curr.word.substring(i+1);
+
                 List<String> neighbours = patternMap.getOrDefault(pattern, Collections.emptyList());
+
                 for(String neighbour : neighbours){
                     if(!visited.contains(neighbour)){
+                        bfsQueue.offer(new State(neighbour, curr.steps +1));
                         visited.add(neighbour);
-                        queue.offer(new WordSeq(neighbour, curr.seq+1));
                     }
                 }
             }
@@ -49,14 +56,16 @@ public class WordLadder {
 
         return 0;
     }
-}
 
-class WordSeq{
-    String word;
-    int seq;
+    class State {
+        String word;
+        int steps;
 
-    public WordSeq(String word, int seq) {
-        this.word = word;
-        this.seq = seq;
+        public State(String word, int steps) {
+            this.word = word;
+            this.steps = steps;
+        }
     }
 }
+
+
