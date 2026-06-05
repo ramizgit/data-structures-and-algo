@@ -35,12 +35,13 @@ public class GraphValidTree {
             graph.get(des).add(src);
         }
 
-        //dfs logic
+        //dfs logic to detect cycle as well check one single component in the graph
         Set<Integer> visited = new HashSet<>();
         if(hasCycle(0, -1, graph, visited)){
             return false;
         }
 
+        //if visited is same size as graph vertices, then all componts are reachable from 0, hence connected
         return visited.size() == n;
     }
 
