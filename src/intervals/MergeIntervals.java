@@ -22,18 +22,18 @@ public class MergeIntervals {
         Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
 
         List<int[]> result = new ArrayList<>();
-        result.add(intervals[0]); //first interval
+        result.add(intervals[0]); //add first interval
 
         for(int i=1; i<intervals.length; i++){
-            int[] curr = intervals[i];
+            int[] current = intervals[i];
             int[] last = result.getLast(); // 🔥 important
 
-            if(curr[0] <= last[1]){ //if current starts before previous ends, then merge
-                // merge → update last interval
-                last[1] = Math.max(last[1], curr[1]);
+            if(current[0] <= last[1]){
+                //overlap found as current intervals starts before last one ends, merge them
+                last[1] = Math.max(last[1], current[1]);
             }else{
                 //no overlap, add new interval
-                result.add(curr);
+                result.add(current);
             }
         }
 
