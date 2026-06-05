@@ -1,41 +1,46 @@
 package graph;
 
 public class NumberOfIslands {
-    public static void main(String[] args)
-    {
-        int[][] grid = {{0,1,0,0},
-                        {1,0,1,0},
-                        {0,0,0,0},
-                        {1,1,0,0}};
-        System.out.println(numOfIslands(grid)); //4
-    }
 
-    private static int numOfIslands(int[][] grid)
+    private static final int[][] DIRECTIONS = {
+            {1,0},
+            {-1,0},
+            {0,1},
+            {0,-1}
+    };
+
+    public int numOfIslands(int[][] grid)
     {
+        //input validation
+        if(grid == null || grid.length == 0){
+            return 0;
+        }
+
         int m = grid.length;
         int n = grid[0].length;
+
+        //dfs logic
         boolean[][] visited = new boolean[m][n];
-        int result = 0;
+        int count = 0;
 
         for(int i=0; i<m; i++){
             for(int j=0; j<n; j++){
                 if(grid[i][j] == 1 && !visited[i][j]){
-                    result++;
+                    count++;
                     dfs(grid, visited, i, j, m, n);
                 }
             }
         }
 
-        return result;
+        return count;
     }
 
-    private static void dfs(int[][] grid, boolean[][] visited, int i, int j, int m, int n)
+    private void dfs(int[][] grid, boolean[][] visited, int i, int j, int m, int n)
     {
         visited[i][j] = true;
 
-        int[][] directions = { {1, 0}, {-1, 0}, {0, 1}, {0, -1} };
-
-        for(int[] dir : directions){
+        //explore all possible directions
+        for(int[] dir : DIRECTIONS){
             int x = i + dir[0];
             int y = j + dir[1];
 
