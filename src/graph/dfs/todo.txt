@@ -1,0 +1,22 @@
+Number of Islands
+Max Area of Island
+Number of Provinces
+Island Perimeter
+Number of Closed Islands
+Count Sub Islands
+
+Level 3: Multi-source BFS
+Rotting Oranges
+01 Matrix Find distance to nearest zero.
+As Far from Land as Possible
+
+
+Level 4: Shape / Transformation
+Surrounded Regions
+Number of Distinct Islands
+
+Level 5: Harder graph/grid thinking
+Making A Large Island - If you can flip one:
+Shortest Bridge
+Pacific Atlantic Water Flow
+

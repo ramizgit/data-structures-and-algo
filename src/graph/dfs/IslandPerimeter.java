@@ -1,18 +1,20 @@
-package graph;
+package consistenthashing.graph.dfs;
 
 public class IslandPerimeter {
+
     //https://leetcode.com/problems/island-perimeter/description/
-    public static void main(String[] args)
-    {
-        int[][] grid = {{0,1,0,0},{1,1,1,0},{0,1,0,0},{1,1,0,0}};
-        System.out.println(islandPerimeter(grid));
 
-    }
-
-    private static int islandPerimeter(int[][] grid)
+    public int islandPerimeter(int[][] grid)
     {
+        //input validation
+        if(grid == null || grid.length == 0){
+            return 0;
+        }
+
         int m = grid.length;
         int n = grid[0].length;
+
+        //dfs logic
         boolean[][] visited = new boolean[m][n];
         int[] perimeter = new int[1];
 
