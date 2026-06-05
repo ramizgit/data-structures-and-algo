@@ -3,7 +3,7 @@ package consistenthashing.graph.dfs;
 public class MaxAreaOfIsland {
     //https://leetcode.com/problems/max-area-of-island/description/
 
-    private static int[][] directions = { {1, 0}, {-1, 0}, {0, 1}, {0, -1} };
+    private static int[][] DIRECTIONS = { {1, 0}, {-1, 0}, {0, 1}, {0, -1} };
 
     public int maxAreaOfIsland(int[][] grid)
     {
@@ -38,7 +38,7 @@ public class MaxAreaOfIsland {
         count[0]++; //increment area counter
 
         //explore all feasible directions
-        for(int[] dir : directions){
+        for(int[] dir : DIRECTIONS){
             int x = i + dir[0];
             int y = j + dir[1];
 
