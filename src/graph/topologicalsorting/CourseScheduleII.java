@@ -2,7 +2,7 @@ package graph.topologicalsorting;
 
 import java.util.*;
 
-public class CourseScheduleII_topologicalsorting {
+public class CourseScheduleII {
 
     private static List<Integer> findOrder(int numCourses, int[][] prerequisites)
     {
@@ -14,7 +14,7 @@ public class CourseScheduleII_topologicalsorting {
             indegree.put(i, 0);
         }
 
-        //populate graph and indegree as per prerequisites
+        //populate graph and indegree as per input prerequisites
         for(int[] p : prerequisites){
             int src = p[1];
             int des = p[0];
@@ -25,7 +25,6 @@ public class CourseScheduleII_topologicalsorting {
 
         Queue<Integer> queue = new ArrayDeque<>(); //for bfs logic
         //Queue<Integer> queue = new PriorityQueue<>(); //NOTE(***) : USE PRIORITY QUEUE IF U NEED ANSWER IN SORTED ORDER WHEREVER POSSIBLE
-        List<Integer> result = new ArrayList<>();
 
         //collect all starting vertices with 0 indegree in the bfs queue
         for(int key : indegree.keySet()){ //Time : O(V)
@@ -34,11 +33,14 @@ public class CourseScheduleII_topologicalsorting {
             }
         }
 
+        List<Integer> topologicalOrder = new ArrayList<>();
+
         //bfs logic
         while(!queue.isEmpty()){
             int node = queue.poll();
-            result.add(node);
+            topologicalOrder.add(node);
 
+            //explore neighbours
             for(int neighbour : graph.get(node)){
                 indegree.put(neighbour, indegree.get(neighbour) - 1);
                 if(indegree.get(neighbour) == 0){
@@ -47,10 +49,10 @@ public class CourseScheduleII_topologicalsorting {
             }
         }
 
-        if(result.size() != numCourses){
-            return new ArrayList<>(); // return empty list as we couldn't schedule all courses, cycle detected
+        if(topologicalOrder.size() != numCourses){
+            return Collections.emptyList(); // cycle detected - return empty list as we couldn't schedule all courses
         }
 
-        return result;
+        return topologicalOrder;
     }
 }
