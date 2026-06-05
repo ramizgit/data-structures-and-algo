@@ -1,4 +1,4 @@
-package graph;
+package consistenthashing.graph.dfs;
 
 public class MaxAreaOfIsland {
     //https://leetcode.com/problems/max-area-of-island/description/

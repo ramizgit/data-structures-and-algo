@@ -1,4 +1,4 @@
-package graph;
+package consistenthashing.graph.dfs;
 
 public class NumberOfIslands {
 
