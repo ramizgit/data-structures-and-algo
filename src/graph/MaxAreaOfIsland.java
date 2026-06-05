@@ -2,42 +2,42 @@ package graph;
 
 public class MaxAreaOfIsland {
     //https://leetcode.com/problems/max-area-of-island/description/
-    public static void main(String[] args)
-    {
-        int[][] grid = {{0,1,0,0},
-                        {1,0,1,0},
-                        {0,0,0,1},
-                        {1,1,1,1}};
-        System.out.println(maxAreaOfIsland(grid)); //5
-    }
 
-    private static int maxAreaOfIsland(int[][] grid)
+    private static int[][] directions = { {1, 0}, {-1, 0}, {0, 1}, {0, -1} };
+
+    public int maxAreaOfIsland(int[][] grid)
     {
+        //input validation
+        if(grid == null || grid.length == 0){
+            return 0;
+        }
+
         int m = grid.length;
         int n = grid[0].length;
-        boolean[][] visited = new boolean[m][n];
-        int result = 0;
+
+        //dfs logic
+        boolean[][] visited = new boolean[m][n]; //to prevent revisiting same cells during dfs traversal
+        int maxArea = 0;
 
         for(int i=0; i<m; i++){
             for(int j=0; j<n; j++){
                 if(grid[i][j] == 1 && !visited[i][j]){
                     int[] count = new int[1];
                     dfs(grid, visited, i, j, m, n, count);
-                    result = Math.max(result, count[0]);
+                    maxArea = Math.max(maxArea, count[0]);
                 }
             }
         }
 
-        return result;
+        return maxArea;
     }
 
     private static void dfs(int[][] grid, boolean[][] visited, int i, int j, int m, int n, int[] count)
     {
         visited[i][j] = true;
-        count[0]++;
+        count[0]++; //increment area counter
 
-        int[][] directions = { {1, 0}, {-1, 0}, {0, 1}, {0, -1} };
-
+        //explore all feasible directions
         for(int[] dir : directions){
             int x = i + dir[0];
             int y = j + dir[1];
