@@ -1,12 +1,13 @@
 package stack;
 
-import java.util.Stack;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 public class DailyTemperatures {
 
     //https://leetcode.com/problems/daily-temperatures/description/
 
-    private static int[] dailyTemperatures(int[] temperatures)
+    public int[] dailyTemperatures(int[] temperatures)
     {
         //input validation
         if(temperatures == null || temperatures.length == 0){
@@ -14,20 +15,20 @@ public class DailyTemperatures {
         }
 
         int n = temperatures.length;
-        Stack<Integer> stack = new Stack<>();
-        int[] answer = new int[n];
+        Deque<Integer> stack = new ArrayDeque<>(); //monotonic decreasing stack
+        int[] result = new int[n];
 
         for(int i=n-1; i>=0; i--){
             //keep on popping from stack till warmer temp found
-            while (!stack.empty() && temperatures[i] > temperatures[stack.peek()]){
+            while (!stack.isEmpty() && temperatures[i] >= temperatures[stack.peek()]){
                 stack.pop();
             }
 
-            answer[i] = stack.isEmpty() ? 0 : stack.peek() - i; //num of days diff
+            result[i] = stack.isEmpty() ? 0 : stack.peek() - i; //num of days diff
 
             stack.push(i); //push current temp to stack
         }
 
-        return answer;
+        return result;
     }
 }
