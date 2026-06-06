@@ -57,7 +57,7 @@ public class MeetingRoomII {
             → that room is now free → reuse it
             */
             if (currStart >= minHeap.peek()) {
-                minHeap.poll(); // free that room
+                minHeap.poll(); // reuse room whose meeting ended earliest
             }
 
             /*
