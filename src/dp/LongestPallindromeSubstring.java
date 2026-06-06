@@ -10,22 +10,23 @@ public class LongestPallindromeSubstring {
 
     public static int getLongestPallindromeSubstringLen(String input)
     {
-        int len = input.length();
+        int n = input.length();
 
-        int[][] dp = new int[len][len];
+        int[][] dp = new int[n][n];
+
         int max = 0;
         int start=0;
         int end=0;
 
         //populate all cells zero, diagonal as 1 as single char is always a pallindrome
-        for(int i=0; i<len; i++){
-            for(int j=0; j<len; j++){
+        for(int i=0; i<n; i++){
+            for(int j=0; j<n; j++){
                 dp[i][j] = i == j ? 1 : 0;
             }
         }
 
         //populate two char pallindome also
-        for(int i=0; i<len-1; i++){
+        for(int i=0; i<n-1; i++){
             if(input.charAt(i) == input.charAt(i+1)){
                 dp[i][i+1] = 1;
             }else {
@@ -37,9 +38,9 @@ public class LongestPallindromeSubstring {
         //dp[i][j] == 1 if input[i]==input[j] && dp[i+1][j-1]==1
 
         int col=2;
-        while(col < len){
+        while(col < n){
             int j=col;
-            for(int i=0; i<len && j<len; i++,j++){
+            for(int i=0; i<n && j<n; i++,j++){
                 if(input.charAt(i) == input.charAt(j) && dp[i+1][j-1] == 1){
                     dp[i][j] = 1;
                     //max = Math.max(max, j-i+1);
