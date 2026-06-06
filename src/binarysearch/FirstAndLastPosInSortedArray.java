@@ -26,13 +26,13 @@ public class FirstAndLastPosInSortedArray {
     {
         int low = 0;
         int high = nums.length-1;
-        int idx = -1;
+        int answer = -1;
 
         while (low <= high){
             int mid = low + (high - low)/2;
 
             if(nums[mid] == target){
-                idx = mid;
+                answer = mid;
 
                 if(leftBias){
                     high = mid - 1;
@@ -47,6 +47,6 @@ public class FirstAndLastPosInSortedArray {
             }
         }
 
-        return idx;
+        return answer;
     }
 }
