@@ -46,10 +46,12 @@ public class LongestPalindromicSubstring {
             //even length pallindrome
             int even = Math.max(maxLen, expand(s, i, i+1));
 
-            int length = Math.max(odd, even);
+            int len = Math.max(odd, even);
 
-            if(length > maxLen){
-                start = i - (n-1)/2;
+            if(len > maxLen){
+                // take the center index i and move left by half of the palindrome length
+                // why (len-1)? : it works correctly for both odd and even lengths because of integer division.
+                start = i - (len-1)/2;
             }
         }
 
