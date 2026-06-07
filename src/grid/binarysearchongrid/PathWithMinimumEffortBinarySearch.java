@@ -2,7 +2,7 @@ package grid;
 
 import java.util.*;
 
-public class PathWithMinimumEffort {
+public class PathWithMinimumEffortBinarySearch {
 
     //https://leetcode.com/problems/path-with-minimum-effort/description/
 
