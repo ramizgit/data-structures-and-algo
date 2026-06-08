@@ -5,49 +5,34 @@ public class PathAfterReduction {
     problem asked in meta interview
      */
 
-    public static void main(String[] args)
-    {
-        int[][] grid = {
-                {5, 4, 3},
-                {6, 1, 2},
-                {7, 8, 9}
-        };
-        System.out.println(maxReduction(grid)); //4
+    private static final int[][] DIRECTIONS = {
+            {0, 1}, //right
+            {0, -1}, //left
+            {1, 0}, //down
+            {-1, 0} }; //up
 
-        int[][] grid2 = {
-                {3, 2},
-                {1, 4}
-        };
-        System.out.println(maxReduction(grid2)); //1
-    }
-
-    private static int maxReduction(int[][] grid)
+    public int maxReduction(int[][] grid)
     {
         int m = grid.length;
         int n = grid[0].length;
 
-        int low = 0;
-        int high = 0;
+        int max = 0;
 
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                high = Math.max(high, grid[i][j]);
+        for(int i = 0; i < m; i++) {
+            for(int j = 0; j < n; j++) {
+                max = Math.max(max, grid[i][j]);
             }
         }
 
+        int low = 0;
+        int high = max;
         int answer = 0;
 
         while(low <= high){
+
             int mid = low + (high - low)/2;
 
-            if (grid[0][0] - mid <= 0) { // cannot start
-                high = mid - 1; //try lower
-                continue;
-            }
-
-            boolean[][] visited = new boolean[m][n];
-
-            if(canExit(grid, m, n, 0, 0, visited, mid)){
+            if(canExit(grid, m, n, mid)){
                 answer = mid; //possible answer
                 low = mid + 1; //try higher
             }else{
@@ -58,8 +43,20 @@ public class PathAfterReduction {
         return answer;
     }
 
+    private boolean canExit(int[][] grid, int m, int n, int k)
+    {
+        if (grid[0][0] <= k || grid[m-1][n-1] <= k) { // cannot start or finish
+            return false;
+        }
+
+        boolean[][] visited = new boolean[m][n];
+
+        return dfs(grid, m, n, 0, 0, visited, k);
+    }
+
+    //todo:prefer bfs over dfs due to risk of stack overflow
     //dfs
-    private static boolean canExit(int[][] grid, int m, int n, int i, int j, boolean[][] visited, int k)
+    private boolean dfs(int[][] grid, int m, int n, int i, int j, boolean[][] visited, int k)
     {
         if(i == m-1 && j == n-1){
             return true;
@@ -67,14 +64,15 @@ public class PathAfterReduction {
 
         visited[i][j] = true;
 
-        int[][] directions = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
-
-        for(int[] dir : directions){
+        for(int[] dir : DIRECTIONS){
             int x = i + dir[0];
             int y = j + dir[1];
 
-            if(x >= 0 && y >= 0 && x < m && y < n && !visited[x][y] && grid[x][y] - k > 0){
-                if(canExit(grid, m, n, x, y, visited, k)){
+            if(x >= 0 && y >= 0 && x < m && y < n && //boundary check
+                    !visited[x][y] && //visited check
+                    grid[x][y] > k){ //constraint check
+
+                if(dfs(grid, m, n, x, y, visited, k)){
                     return true;
                 }
             }
