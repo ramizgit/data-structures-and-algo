@@ -11,14 +11,14 @@ public class AsFarFromLandAsPossible {
         int n = grid[0].length;
 
         //collect all 1s and do multi source bfs to populate dist for 0 cells
-        Queue<Coordinates> queue = new ArrayDeque<>(); //bfs queue
+        Queue<State> queue = new ArrayDeque<>(); //bfs queue
         boolean[][] visited = new boolean[m][n]; //to keep track of visited cells to avoid infinite loop
 
         //collect all 1 cells
         for(int i=0; i<m; i++){
             for(int j=0; j<n; j++){
                 if(grid[i][j] == 1){
-                    queue.add(new Coordinates(i, j, 0));
+                    queue.add(new State(i, j, 0));
                     visited[i][j] = true;
                 }
             }
@@ -34,7 +34,7 @@ public class AsFarFromLandAsPossible {
 
         //bfs logic
         while(!queue.isEmpty()){
-            Coordinates curr = queue.poll();
+            State curr = queue.poll();
 
             //explore all four directions
             for(int[] dir : directions){
@@ -43,7 +43,7 @@ public class AsFarFromLandAsPossible {
 
                 if(x>=0 && x<m && y>=0 && y<n && !visited[x][y]){
                     visited[x][y] = true;
-                    queue.add(new Coordinates(x, y, curr.dist + 1));
+                    queue.add(new State(x, y, curr.dist + 1));
 
                     maxDist = Math.max(maxDist, curr.dist + 1);
                 }
@@ -53,16 +53,18 @@ public class AsFarFromLandAsPossible {
 
         return maxDist;
     }
-}
 
-class Coordinates{
-    int row;
-    int col;
-    int dist;
+    class State {
+        int row;
+        int col;
+        int dist;
 
-    public Coordinates(int row, int col, int dist) {
-        this.row = row;
-        this.col = col;
-        this.dist = dist;
+        public State(int row, int col, int dist) {
+            this.row = row;
+            this.col = col;
+            this.dist = dist;
+        }
     }
 }
+
+
