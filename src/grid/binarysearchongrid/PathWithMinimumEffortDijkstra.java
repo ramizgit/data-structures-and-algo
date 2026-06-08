@@ -58,7 +58,7 @@ public class PathWithMinimumEffortDijkstra {
 
                 //boundary check
                 if(newRow < 0 || newRow >= m || newCol < 0 || newCol >= n){
-                    continue;
+                    continue; //out of boundary
                 }
 
                 int edgeDiff = Math.abs(heights[curr.row][curr.col] - heights[newRow][newCol]);

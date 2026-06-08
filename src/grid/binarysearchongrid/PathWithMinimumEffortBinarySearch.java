@@ -60,8 +60,8 @@ public class PathWithMinimumEffortBinarySearch {
         boolean[][] visited = new boolean[m][n];
         visited[0][0] = true; //starting position
 
-
         while(!bfsQueue.isEmpty()){
+
             int[] curr = bfsQueue.poll();
             int currRow = curr[0];
             int currCol = curr[1];
