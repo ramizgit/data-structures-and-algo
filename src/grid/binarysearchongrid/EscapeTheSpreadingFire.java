@@ -89,7 +89,11 @@ public class EscapeTheSpreadingFire {
 
         //now do binary search for feasibility check to get max wait time
         int low = 0;
-        int high = m * n;
+        /*
+        After m*n minutes, the fire has already done everything it can do. There are no new cells left to burn. The fire state becomes stable.
+        hence high = m * n
+         */
+        int high = m * n; //if we can survive for m*n minutes, then we can survive forever.
         int answer = -1;
 
         while(low <= high){
@@ -163,11 +167,8 @@ public class EscapeTheSpreadingFire {
                     }
                 }
 
-                //enqueue
-                playerBfsQueue.offer(new State(x, y, newTime));
-
-                //mark visited
-                visited[x][y] = true;
+                playerBfsQueue.offer(new State(x, y, newTime)); //enqueue
+                visited[x][y] = true; //mark visited
             }
         }
 
