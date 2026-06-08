@@ -1,4 +1,4 @@
-package grid;
+package consistenthashing.grid.bfs;
 
 import java.util.*;
 
@@ -36,12 +36,12 @@ public class LastDayWhereYouCanStillCross {
 
         //note : use bfs as we have multiple entry points, all cells in the first row where its 0
         //add starting points to bfs queue
-        Queue<Coordinates> queue = new ArrayDeque<>();
+        Queue<int[]> queue = new ArrayDeque<>();
         boolean[][] visited = new boolean[row][col]; //to avoid infinite loop
 
         for(int c=0; c<col; c++){
             if(grid[0][c] == 0){
-                queue.add(new Coordinates(0, c));
+                queue.add(new int[]{0, c});
                 visited[0][c] = true;
             }
         }
@@ -49,19 +49,23 @@ public class LastDayWhereYouCanStillCross {
         int[][] directions = { {1, 0}, {-1, 0}, {0, -1}, {0, 1} };
 
         while(!queue.isEmpty()){
-            Coordinates curr = queue.poll();
+
+            int[] curr = queue.poll();
+            int currRow = curr[0];
+            int currCol = curr[1];
 
             //exit condition
-            if(curr.row == row -1){
+            if(currRow == row -1){
                 return true;
             }
 
+            //explore neighbours
             for(int[] dir : directions){
-                int x = curr.row + dir[0];
-                int y = curr.col + dir[1];
+                int x = currRow + dir[0];
+                int y = currCol + dir[1];
 
                 if(x >= 0 && x < row && y >= 0 && y < col && grid[x][y] == 0 && !visited[x][y]){
-                    queue.add(new Coordinates(x, y));
+                    queue.add(new int[]{x, y});
                     visited[x][y] = true;
                 }
             }

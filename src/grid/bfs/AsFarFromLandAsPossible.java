@@ -1,4 +1,4 @@
-package grid;
+package consistenthashing.grid.bfs;
 
 import java.util.*;
 

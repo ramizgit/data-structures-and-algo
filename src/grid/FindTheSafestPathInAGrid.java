@@ -11,7 +11,7 @@ public class FindTheSafestPathInAGrid {
 
         //step1 : iterate grid and collect all thief cells in queue for bfs
         int[][] safe = new int[m][n]; //copy of grid with safety factor
-        Queue<Coordinates> queue = new ArrayDeque<>();
+        Queue<State> queue = new ArrayDeque<>();
 
         for(int i=0; i<m; i++){
             for(int j=0; j<n; j++){
@@ -19,7 +19,7 @@ public class FindTheSafestPathInAGrid {
 
                 if(grid[i][j] == 1){
                     safe[i][j] = 0; //manhattan dist is 0 for the thief cells itself
-                    queue.add(new Coordinates(i, j, 0)); //add to queue for bfs logic
+                    queue.add(new State(i, j, 0)); //add to queue for bfs logic
                 }
             }
         }
@@ -30,7 +30,7 @@ public class FindTheSafestPathInAGrid {
         int high = 0;
 
         while(!queue.isEmpty()){
-            Coordinates thief = queue.poll();
+            State thief = queue.poll();
 
             for(int[] dir : directions){
                 int x = dir[0] + thief.row;
@@ -38,7 +38,7 @@ public class FindTheSafestPathInAGrid {
 
                 if(x >= 0 && x < m && y >= 0 && y < n && safe[x][y] == -1){
                     safe[x][y] = thief.dist + 1; //relaxation
-                    queue.add(new Coordinates(x, y, safe[x][y]));
+                    queue.add(new State(x, y, safe[x][y]));
 
                     high = Math.max(high, safe[x][y]); //for binary search high
                 }
@@ -97,23 +97,16 @@ public class FindTheSafestPathInAGrid {
         }
         return false;
     }
-}
 
-/*
-class Coordinates{
-    int row;
-    int col;
-    int dist;
+    class State {
+        int row;
+        int col;
+        int dist;
 
-    public Coordinates(int row, int col, int dist) {
-        this.row = row;
-        this.col = col;
-        this.dist = dist;
-    }
-
-    public Coordinates(int row, int col) {
-        this.row = row;
-        this.col = col;
+        public State(int row, int col, int dist) {
+            this.row = row;
+            this.col = col;
+            this.dist = dist;
+        }
     }
 }
- */

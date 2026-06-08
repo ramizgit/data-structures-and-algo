@@ -1,4 +1,4 @@
-package grid;
+package consistenthashing.grid.bfs;
 
 import java.util.*;
 
@@ -41,7 +41,7 @@ public class EscapeBeforeFlood {
         //iterate grid to collect water sources as well as starting point
         int startRow = -1;
         int startCol = -1;
-        Queue<Cell> waterBfsQueue = new ArrayDeque<>(); //Queue of {row, col}
+        Queue<State> waterBfsQueue = new ArrayDeque<>(); //Queue of {row, col}
         boolean[][] visited = new boolean[m][n]; //needed for multi source visited tracking
 
         int[][] floodTime = new int[m][n];
@@ -57,7 +57,7 @@ public class EscapeBeforeFlood {
                    startRow = i;
                    startCol = j;
                 }else if(ch == 'W'){
-                    waterBfsQueue.offer(new Cell(i, j, 0));
+                    waterBfsQueue.offer(new State(i, j, 0));
                     visited[i][j] = true;
                     floodTime[i][j] = 0;
                 }
@@ -77,12 +77,12 @@ public class EscapeBeforeFlood {
 
         while(!waterBfsQueue.isEmpty()){
 
-            Cell currCell = waterBfsQueue.poll();
+            State curr = waterBfsQueue.poll();
 
             //explore neighbours
             for(int[] dir : directions){
-                int x = dir[0] + currCell.row;
-                int y = dir[1] + currCell.col;
+                int x = dir[0] + curr.row;
+                int y = dir[1] + curr.col;
 
                 //boundary check
                 if(x < 0 || x >= m || y < 0 || y >= n){
@@ -99,24 +99,24 @@ public class EscapeBeforeFlood {
                     continue; //already visited
                 }
 
-                waterBfsQueue.offer(new Cell(x, y, currCell.time + 1)); //enqueue
+                waterBfsQueue.offer(new State(x, y, curr.time + 1)); //enqueue
                 visited[x][y] = true; //mark visited
-                floodTime[x][y] = currCell.time + 1;
+                floodTime[x][y] = curr.time + 1;
             }
         }
 
         //second bfs to find min steps to reach target
 
         //bfs queue
-        Queue<Cell> playerBfsQueue = new ArrayDeque<>();
-        playerBfsQueue.offer(new Cell(startRow, startCol, 0));
+        Queue<State> playerBfsQueue = new ArrayDeque<>();
+        playerBfsQueue.offer(new State(startRow, startCol, 0));
         
         visited = new boolean[m][n]; //reset visited
         visited[startRow][startCol] = true; //starting cell
 
         while(!playerBfsQueue.isEmpty()){
             
-            Cell curr = playerBfsQueue.poll();
+            State curr = playerBfsQueue.poll();
 
             //exit condition
             if(grid[curr.row].charAt(curr.col) == 'E'){
@@ -150,7 +150,7 @@ public class EscapeBeforeFlood {
                     continue; //water moves first constraint
                 }
 
-                playerBfsQueue.offer(new Cell(x, y, arrivalTime)); //enqueue
+                playerBfsQueue.offer(new State(x, y, arrivalTime)); //enqueue
                 visited[x][y] = true; //mark visited
             }
         }
@@ -158,12 +158,12 @@ public class EscapeBeforeFlood {
         return -1;
     }
 
-    class Cell{
+    class State {
         int row;
         int col;
         int time;
 
-        public Cell(int row, int col, int time) {
+        public State(int row, int col, int time) {
             this.row = row;
             this.col = col;
             this.time = time;
