@@ -3,6 +3,8 @@ package grid;
 public class PathAfterReduction {
     /*
     problem asked in meta interview
+
+    this is exactly same as : //https://leetcode.com/problems/path-with-maximum-minimum-value/description/
      */
 
     private static final int[][] DIRECTIONS = {

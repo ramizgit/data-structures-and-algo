@@ -1,10 +1,26 @@
-package grid;
+package consistenthashing.grid.binarysearchongrid;
 
 import java.util.*;
 
 public class EscapeTheSpreadingFire {
 
     //https://leetcode.com/problems/escape-the-spreading-fire/description/
+
+    /*
+    Approach :-
+
+    Multi-source BFS
+    +
+    Binary Search on Answer
+    +
+    BFS feasibility check
+     */
+
+    private static final int[][] DIRECTIONS = {
+            {0, 1}, //right
+            {0, -1}, //left
+            {1, 0}, //down
+            {-1, 0} }; //up
 
     public int maximumMinutes(int[][] grid)
     {
@@ -35,16 +51,11 @@ public class EscapeTheSpreadingFire {
             }
         }
 
-        int[][] directions = { {0, 1}, //right
-                {0, -1}, //left
-                {1, 0}, //down
-                {-1, 0} }; //up
-
         while(!fireBfsQueue.isEmpty()){
             State curr = fireBfsQueue.poll();
 
             //explore neighbours
-            for(int[] dir : directions){
+            for(int[] dir : DIRECTIONS){
                 int x = dir[0] + curr.row;
                 int y = dir[1] + curr.col;
 
@@ -107,11 +118,6 @@ public class EscapeTheSpreadingFire {
         boolean[][] visited = new boolean[m][n];
         visited[0][0] = true; //starting cell
 
-        int[][] directions = { {0, 1}, //right
-                {0, -1}, //left
-                {1, 0}, //down
-                {-1, 0} }; //up
-
         while(!playerBfsQueue.isEmpty()){
             State curr = playerBfsQueue.poll();
 
@@ -121,7 +127,7 @@ public class EscapeTheSpreadingFire {
             }
 
             //explore neighbours
-            for(int[] dir : directions){
+            for(int[] dir : DIRECTIONS){
                 int x = dir[0] + curr.row;
                 int y = dir[1] + curr.col;
 
