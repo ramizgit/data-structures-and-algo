@@ -52,6 +52,27 @@ public class PathWithMinimumEffortBinarySearch {
     }
 
     //BFS avoids the stack overflow risk that recursive DFS can have on large grids
+
+    /*
+    BFS preferred over recursive DFS because both use O(m*n) space in the worst case,
+    but DFS may cause StackOverflowError on large grids due to deep recursion,
+    whereas BFS uses heap memory (queue), which is safer.
+
+    DFS:
+        Worst-case recursion depth = m*n
+        Uses call stack
+
+    BFS:
+        Worst-case queue size = m*n
+        Uses heap memory
+
+    For a 100x100 grid:
+        DFS recursion depth can reach 10,000
+        BFS queue can also hold ~10,000 cells
+        but Java's heap handles 10,000 queue entries much more comfortably than a recursion depth of 10,000.
+        "JVM stack is intentionally limited and the heap is usually much larger than the stack."
+     */
+
     private boolean canReachTarget(int[][] heights, int m, int n, int maxEffort)
     {
         Queue<int[]> bfsQueue = new ArrayDeque<>();
