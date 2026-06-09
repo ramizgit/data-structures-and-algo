@@ -67,4 +67,14 @@ public class NetworkDelayTime {
 
         return minTime;
     }
+
+    class Edge{
+        int v;
+        int w;
+
+        public Edge(int v, int w) {
+            this.v = v;
+            this.w = w;
+        }
+    }
 }
