@@ -56,6 +56,7 @@ public class MinimumCostToReachDestinationInTime {
 
             //explore neighbours
             for(Edge neighbour : graph.get(curr.node)){
+
                 int newCost = curr.cost + passingFees[neighbour.node];
                 int newTime = curr.timeSpent + neighbour.time;
 

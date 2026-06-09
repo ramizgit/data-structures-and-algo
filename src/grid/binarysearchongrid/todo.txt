@@ -1,8 +1,8 @@
 Pattern 1: Minimum Effort Path [done]
 Pattern 2: Swim in Rising Water [done]
 Pattern 3: Path With Maximum Minimum Value [done]
+Pattern 4: Minimum Maximum Edge Weight [done]
 
-Pattern 4: Minimum Maximum Edge Weight
 Pattern 5: Cheapest Route Under Fuel Capacity
 Pattern 6: Network Delay Style Variants
 Pattern 7: Last Day Where You Can Still Cross
