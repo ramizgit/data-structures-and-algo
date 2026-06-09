@@ -23,58 +23,70 @@ public class NetworkDelayTime {
         for(int[] time : times){
             int u = time[0];
             int v = time[1];
-            int w = time[2];
+            int t = time[2];
 
-            graph.get(u).add(new Edge(v, w));
+            graph.get(u).add(new Edge(v, t)); //directed edge u -> v (t)
         }
 
         //dijkstra algo
-        int[] dist = new int[n+1]; //to hold optimal min network dist
+        PriorityQueue<State> minheap = new PriorityQueue<>( (a,b) -> a.dist - b.dist); //always process the node with the smallest known distance first
+        minheap.offer(new State(k, 0)); //starting node
+
+        int[] dist = new int[n+1]; //dist[i] = shortest time for node i to receive signal
         Arrays.fill(dist, Integer.MAX_VALUE);
+        dist[k] = 0; //starting node
 
-        PriorityQueue<Edge> pq = new PriorityQueue<>( (a,b) -> a.w - b.w );
-        pq.offer(new Edge(k, 0)); //source
-        dist[k] = 0; //starting point
+        while(!minheap.isEmpty()){
 
-        while(!pq.isEmpty()){
-            Edge curr = pq.poll();
+            State curr = minheap.poll();
 
-            if(curr.w > dist[curr.v]){
-                //stale entry, ignore
-                continue;
+            //staleleness check
+            if(curr.dist > dist[curr.node]){
+                continue; //stale entry, ignore
             }
 
             //explore neighbours
-            List<Edge> neighbours = graph.get(curr.v);
-            for(Edge neighbour : neighbours){
-                int currDist = dist[neighbour.v];
-                int newDist = curr.w + neighbour.w;
-                if(newDist < currDist){
-                    dist[neighbour.v] = newDist;
-                    pq.offer(new Edge(neighbour.v, newDist));
+            for(Edge neighbour : graph.get(curr.node)){
+
+                int newDist = curr.dist + neighbour.time;
+
+                if(newDist < dist[neighbour.node]){
+                    dist[neighbour.node] = newDist;
+                    minheap.offer(new State(neighbour.node, newDist));
                 }
             }
         }
 
-        //collect min time to reach all nodes
-        int minTime = 0;
+        //get the max time to reach any node, this will be the minimum time it takes for all the n nodes to receive the signal.
+        int max = 0;
+
         for(int i=1; i<=n; i++){
             if(dist[i] == Integer.MAX_VALUE){
                 return -1; //cant reach all nodes
             }
-            minTime = Math.max(minTime, dist[i]);
+            max = Math.max(max, dist[i]);
         }
 
-        return minTime;
+        return max;
     }
 
     class Edge{
-        int v;
-        int w;
+        int node;
+        int time;
 
-        public Edge(int v, int w) {
-            this.v = v;
-            this.w = w;
+        public Edge(int node, int time) {
+            this.node = node;
+            this.time = time;
+        }
+    }
+
+    class State{
+        int node;
+        int dist;
+
+        public State(int node, int dist) {
+            this.node = node;
+            this.dist = dist;
         }
     }
 }
