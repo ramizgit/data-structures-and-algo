@@ -6,8 +6,18 @@ public class MinimizeTheMaximumEdgeWeightOfGraph {
 
     //https://leetcode.com/problems/minimize-the-maximum-edge-weight-of-graph/description/
 
-    //todo : incomplete code, use threshold feature to make it complete
+    /*
+    Time:
+    Build graph: O(E)
+    Binary search: O(log(maxWeight))
+    BFS check: O(V + E)
 
+    Total:
+    O((V + E) * log(maxWeight))
+
+    Space:
+    O(V + E)
+    */
     public int minMaxWeight(int n, int[][] edges, int threshold)
     {
         int min = Integer.MAX_VALUE;
@@ -20,7 +30,7 @@ public class MinimizeTheMaximumEdgeWeightOfGraph {
         }
 
         //populate reverse edges
-        for(int[] edge : edges){
+        for(int[] edge : edges){ //O(E)
             int u = edge[0];
             int v = edge[1];
             int w = edge[2];
@@ -43,16 +53,25 @@ public class MinimizeTheMaximumEdgeWeightOfGraph {
 
             if(canReachAllNodes(n, revGraph, mid)){
                 answer = mid; //possible answer
-                high = mid -1; //try an even smaller maximum weight.
+                high = mid -1; //try an even smaller maximum weight, as we can build graph with edges weight ≤ mid
             }else{
-                low = mid + 1;
+                low = mid + 1; //cant build graph with edges weight ≤ mid, try larger weight
             }
         }
+
+        /*
+        Important : Where are you checking threshold?
+
+        threshold is not explicitly used.
+        If all nodes can reach 0, we can keep only one outgoing edge per node,
+        which automatically satisfies threshold >= 1.
+         */
 
         return answer;
     }
 
-    private boolean canReachAllNodes(int n, Map<Integer, List<Edge>> revGraph, int weight)
+    // check if we can build a valid graph using only edges whose weight ≤ maxWeightAllowed
+    private boolean canReachAllNodes(int n, Map<Integer, List<Edge>> revGraph, int maxWeightAllowed)
     {
         //bfs logic
         Queue<Integer> bfsQueue = new ArrayDeque<>();
@@ -71,7 +90,7 @@ public class MinimizeTheMaximumEdgeWeightOfGraph {
 
             //explore neighbours
             for(Edge neighbour : revGraph.get(node)){
-                if(!visited[neighbour.v] && neighbour.w <= weight){
+                if(!visited[neighbour.v] && neighbour.w <= maxWeightAllowed){
                     bfsQueue.offer(neighbour.v);
                     visited[neighbour.v] = true;
                 }
