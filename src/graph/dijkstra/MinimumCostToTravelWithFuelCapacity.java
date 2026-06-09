@@ -55,8 +55,7 @@ public class MinimumCostToTravelWithFuelCapacity {
         PriorityQueue<State> minheap = new PriorityQueue<>( (a,b) -> a.cost - b.cost ); //minheap to get min cost state efficiently
         minheap.offer(new State(source, 0, 0)); // starting city with empty tank and zero cost incurred
 
-        //cost array {city, fuel} -> cost
-        // cost[city][fuel] = minimum cost to reach city with fuel units remaining
+        //cost array - cost[city][fuel] = minimum cost to reach city with fuel units remaining
         int[][] cost = new int[n][capacity+1];
         for(int i=0; i<n; i++){
             Arrays.fill(cost[i], Integer.MAX_VALUE); //start with max possible cost, will be relaxed later
