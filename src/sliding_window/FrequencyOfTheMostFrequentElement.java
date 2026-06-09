@@ -29,6 +29,60 @@ public class FrequencyOfTheMostFrequentElement {
 
         while(right < nums.length){
 
+            /*
+            Key idea
+
+            After sorting:
+
+            [1, 2, 4]
+
+            If right is at:
+
+            4
+
+            then we try to make the whole window:
+
+            [1, 2, 4]
+
+            equal to:
+
+            4
+
+            Cost needed:
+
+            (4-1) + (4-2) + (4-4)
+            =
+            3 + 2 + 0
+            =
+            5
+
+            Instead of computing that one-by-one, we use:
+
+            target * windowSize - windowSum
+
+            So:
+
+            4 * 3 - (1 + 2 + 4)
+            =
+            12 - 7
+            =
+            5
+
+            The validity condition is:
+
+            nums[right]⋅(right−left+1)−windowSum≤k
+
+            If it's invalid:
+
+            while(cost > k)
+
+            we move:
+
+            left++
+
+            until it becomes valid again.
+             */
+
             windowSum += nums[right]; //expand window
 
             // shrink window until it becomes valid
