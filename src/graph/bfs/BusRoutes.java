@@ -6,6 +6,8 @@ public class BusRoutes {
 
     //https://leetcode.com/problems/bus-routes/
 
+    //Approach : BFS
+
     public int numBusesToDestination(int[][] routes, int source, int target)
     {
         //edge case
