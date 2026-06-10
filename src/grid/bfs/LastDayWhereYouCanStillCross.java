@@ -8,49 +8,53 @@ public class LastDayWhereYouCanStillCross {
     
     public int latestDayToCross(int row, int col, int[][] cells)
     {
-        int low = 0;
-        int high = cells.length-1;
+        //binary search on cells array
+        int low = 0; //lowest cells index
+        int high = cells.length-1; //highest cells index
         int answer = 0;
 
         while(low <= high){
-            int day = low + (high - low) / 2;
 
-            if(canExit(row, col, cells, day)){
-                answer = day; //possible answer
-                low = day + 1; //try higher;
+            int mid = low + (high - low) / 2;
+
+            if(canReachTarget(row, col, cells, mid)){
+                answer = mid; //possible answer
+                low = mid + 1; //try higher
             }else{
-                high = day - 1; //cant exit, try lower
+                high = mid - 1; //cant exit, try lower
             }
         }
 
         return answer;
     }
 
-    public boolean canExit(int row, int col, int[][] cells, int day)
+    public boolean canReachTarget(int row, int col, int[][] cells, int day)
     {
         int[][] grid = new int[row][col]; //initially all cell as 0
+
+        //fill water in the grid
         for(int d=0; d<day; d++){
             int[] cell = cells[d];
-            grid[cell[0]][cell[1]] = 1; //fill water in the grid
+            grid[cell[0]][cell[1]] = 1;
         }
 
         //note : use bfs as we have multiple entry points, all cells in the first row where its 0
         //add starting points to bfs queue
-        Queue<int[]> queue = new ArrayDeque<>();
+        Queue<int[]> bfsQueue = new ArrayDeque<>();
         boolean[][] visited = new boolean[row][col]; //to avoid infinite loop
 
         for(int c=0; c<col; c++){
             if(grid[0][c] == 0){
-                queue.add(new int[]{0, c});
+                bfsQueue.offer(new int[]{0, c});
                 visited[0][c] = true;
             }
         }
 
         int[][] directions = { {1, 0}, {-1, 0}, {0, -1}, {0, 1} };
 
-        while(!queue.isEmpty()){
+        while(!bfsQueue.isEmpty()){
 
-            int[] curr = queue.poll();
+            int[] curr = bfsQueue.poll();
             int currRow = curr[0];
             int currCol = curr[1];
 
@@ -64,8 +68,11 @@ public class LastDayWhereYouCanStillCross {
                 int x = currRow + dir[0];
                 int y = currCol + dir[1];
 
-                if(x >= 0 && x < row && y >= 0 && y < col && grid[x][y] == 0 && !visited[x][y]){
-                    queue.add(new int[]{x, y});
+                if(x >= 0 && x < row && y >= 0 && y < col && //boundary check
+                        !visited[x][y] && //visited check
+                        grid[x][y] == 0 ){ //constraint check
+
+                    bfsQueue.offer(new int[]{x, y});
                     visited[x][y] = true;
                 }
             }
