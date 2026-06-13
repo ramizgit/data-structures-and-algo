@@ -1,0 +1,20 @@
+Grid + shortest path + no weights
+    => BFS
+
+Grid + multiple starts
+    => Multi-source BFS
+
+Grid + weights 0/1
+    => 0-1 BFS
+
+Grid + nonnegative weights
+    => Dijkstra
+
+Grid + shortest path + extra resource/state
+    => State-space BFS/Dijkstra
+
+Minimize maximum value
+    => Modified Dijkstra OR Binary Search + BFS
+
+Monotonic answer + feasibility check
+    => Binary Search on Answer
