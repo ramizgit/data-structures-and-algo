@@ -21,6 +21,11 @@ public class ShortestPathInAGridWithObstaclesElimination {
 
     public int shortestPath(int[][] grid, int k)
     {
+        //input validation
+        if(grid == null || grid.length == 0){
+            return -1;
+        }
+
         int m = grid.length;
         int n = grid[0].length;
 
@@ -28,8 +33,8 @@ public class ShortestPathInAGridWithObstaclesElimination {
         //If I can eliminate at least as many obstacles as the shortest path length then I don’t care about obstacles at all.
         if (k >= m + n - 2) return m + n - 2;
 
-        Queue<State> queue = new ArrayDeque<>(); //bfs queue
-        queue.add(new State(0, 0, k, 0));
+        Queue<State> bfsQueue = new ArrayDeque<>();
+        bfsQueue.add(new State(0, 0, k, 0)); //starting point
 
         /*
         For intermediate cells, we care about future possibilities, hence need to track k as well in the visited state
@@ -42,8 +47,9 @@ public class ShortestPathInAGridWithObstaclesElimination {
         //four directions
         int[][] directions = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
 
-        while(!queue.isEmpty()){
-            State curr = queue.poll();
+        while(!bfsQueue.isEmpty()){
+
+            State curr = bfsQueue.poll();
 
             //early exit
             /*
@@ -60,13 +66,14 @@ public class ShortestPathInAGridWithObstaclesElimination {
 
                 //boundary check
                 if(x < 0 || x >= m || y < 0 || y >= n){
-                    continue;
+                    continue; //out of boundary
                 }
 
-                int newRemainingK = curr.remainingK - grid[x][y];
+                int newRemainingK = curr.remainingK - grid[x][y]; //grid[x][y] is either 0 or 1 (obstacle)
+
                 if (newRemainingK >= 0 && !visited[x][y][newRemainingK]) {
                     visited[x][y][newRemainingK] = true; //save state for visited tracking
-                    queue.offer(new State(x, y, newRemainingK, curr.dist + 1)); //enqueue
+                    bfsQueue.offer(new State(x, y, newRemainingK, curr.dist + 1)); //enqueue
                 }
             }
         }
