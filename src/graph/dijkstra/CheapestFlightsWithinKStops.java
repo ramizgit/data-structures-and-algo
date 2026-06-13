@@ -29,19 +29,21 @@ public class CheapestFlightsWithinKStops {
         }
 
         //dijkstra algo
-        PriorityQueue<State> pq = new PriorityQueue<>( (a,b) -> a.price - b.price );
-        pq.offer(new State(src, 0, 0)); //starting point
+        PriorityQueue<State> minheap = new PriorityQueue<>( (a,b) -> a.price - b.price ); //always process flight with min price first
+        minheap.offer(new State(src, 0, 0)); //starting point
 
         //modified Dijkstra: state = (node, stops), using 2D dist to handle stop constraint, since cost depends on stops used
         //important note : in Dijkstra/BFS, the PQ/BFS state and dist/visited state must represent the SAME state space.
+        //cost array - dist[i][k] = min cost to reach node i with k stops
         int[][] dist = new int[n][k + 2];
         for(int i = 0; i < n; i++){
-            Arrays.fill(dist[i], Integer.MAX_VALUE);
+            Arrays.fill(dist[i], Integer.MAX_VALUE); //initially put max possible value, to be relaxed later
         }
         dist[src][0] = 0; //starting point
 
-        while(!pq.isEmpty()){
-            State curr = pq.poll();
+        while(!minheap.isEmpty()){
+
+            State curr = minheap.poll();
 
             //check stale/outdated records
             if (curr.price > dist[curr.node][curr.stops]) {
@@ -60,12 +62,13 @@ public class CheapestFlightsWithinKStops {
 
             //explore neighbours
             for(Edges neighbour : graph.get(curr.node)){
+
                 int newCost = curr.price + neighbour.price;
                 int newStops = curr.stops + 1;
 
                 if(newCost < dist[neighbour.dst][newStops]){ //have I already reached this node with same stops but cheaper cost?
                     dist[neighbour.dst][newStops] = newCost; //relaxation
-                    pq.offer(new State(neighbour.dst, newStops, newCost));
+                    minheap.offer(new State(neighbour.dst, newStops, newCost));//enqueue
                 }
             }
         }
