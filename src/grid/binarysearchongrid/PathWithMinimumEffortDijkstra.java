@@ -27,13 +27,13 @@ public class PathWithMinimumEffortDijkstra {
         int m = heights.length;
         int n = heights[0].length;
 
-        PriorityQueue<State> minheap = new PriorityQueue<>( (a, b) -> a.effort - b.effort );
+        PriorityQueue<State> minheap = new PriorityQueue<>( (a, b) -> a.effort - b.effort ); //always process path with min effort first
         minheap.offer(new State(0, 0, 0)); //starting position with zero effort
 
-        //cost array
+        //cost array - cost[i][j] = min effort to reach cell (i, j)
         int[][] cost = new int[m][n];
         for(int i=0; i<m; i++){
-            Arrays.fill(cost[i], Integer.MAX_VALUE);
+            Arrays.fill(cost[i], Integer.MAX_VALUE); //initialize with max possible value, to be relaxed later
         }
         cost[0][0] = 0; //starting position with zero effort
 
