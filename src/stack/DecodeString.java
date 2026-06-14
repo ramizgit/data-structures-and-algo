@@ -6,12 +6,15 @@ public class DecodeString {
 
     //https://leetcode.com/problems/decode-string/description/
 
+    //s = "3[a2[c]]"
+
     private static String decodeString(String s)
     {
         Stack<Integer> countStack = new Stack<>();
         Stack<StringBuilder> strStack = new Stack<>();
-        StringBuilder curr = new StringBuilder();
+
         int num = 0;
+        StringBuilder curr = new StringBuilder();
 
         for(char ch : s.toCharArray()){
 
