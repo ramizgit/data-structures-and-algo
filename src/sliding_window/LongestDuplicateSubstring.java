@@ -23,10 +23,12 @@ public class LongestDuplicateSubstring {
         int bestStart = 0;
 
         while(low <= high){
+
             int mid = low + (high - low)/2;
 
             //check all substring of length mid for dupe
             int start = hasDuplicateSubstring(s, mid);
+
             if(start != -1){
                 maxLength = mid; //possible answer
                 bestStart = start;
@@ -51,18 +53,17 @@ public class LongestDuplicateSubstring {
         }
 
         long base = 31;
-
-        // base^(len-1)
-        long highestPower = 1;
-        for(int i=1; i<len; i++){
-            highestPower *= base;
-        }
-
         long hash = 0;
 
         // hash of first window
         for(int i=0; i<len; i++){
             hash = hash * base + s.charAt(i);
+        }
+
+        // base^(len-1)
+        long highestPower = 1;
+        for(int i=1; i<len; i++){
+            highestPower *= base;
         }
 
         Set<Long> seen = new HashSet<>();
