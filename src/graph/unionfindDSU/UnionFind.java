@@ -37,12 +37,12 @@ public class UnionFind {
 
         // Union by size: attach the smaller component under the larger one
         // This keeps the tree shallow (avoids skewed trees) and ensures efficient find() operations
-        if (size[rootY] < size[rootX]) {
-            parent[rootY] = rootX;
-            size[rootX] += size[rootY];
-        } else {
+        if (size[rootX] < size[rootY]) {
             parent[rootX] = rootY;
             size[rootY] += size[rootX];
+        } else {
+            parent[rootY] = rootX;
+            size[rootX] += size[rootY];
         }
 
         return true;
