@@ -11,7 +11,7 @@ public class UnionFind {
 
         for(int i=0; i<n; i++){ //Time : O(n)
             this.parent[i] = i;
-            this.size[i] = i;
+            this.size[i] = 1;
         }
     }
 

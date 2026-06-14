@@ -1,4 +1,9 @@
-Group things together and quickly check if two things belong to the same group
+Intro:-
+Union-Find (DSU) is a data structure used to maintain groups of connected nodes.
+All nodes in the same group ultimately share the same root parent,
+which makes it very efficient to check whether two nodes belong to the same group and to merge two groups together.
+
+Union-Find is primarily used on "undirected graphs" because connectivity is symmetric:
 
 1. Find(x)
 👉 Returns:

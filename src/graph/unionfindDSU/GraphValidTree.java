@@ -18,7 +18,7 @@ public class GraphValidTree {
         }
 
         //use union find utility to detect cycle
-        UnionFind unionFind = new UnionFind(n);
+        graph.unionfindDSU.UnionFind unionFind = new graph.unionfindDSU.UnionFind(n);
 
         for(int[] edge : edges){
             int src = edge[0];
@@ -29,6 +29,6 @@ public class GraphValidTree {
             }
         }
 
-        return true; //if a graph has exactly n - 1 edges AND no cycles → it must be connected
+        return true; //if a graph has exactly n - 1 edges AND no cycles → it must be connected as one component
     }
 }
