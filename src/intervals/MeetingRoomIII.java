@@ -13,6 +13,7 @@ public class MeetingRoomIII {
         //minheap for unused rooms {roomId}
         PriorityQueue<Integer> unusedRooms = new PriorityQueue<>();
 
+        // initially all rooms are available
         for(int i=0; i<n; i++){ //Time : O(n)
             unusedRooms.add(i);
         }
@@ -23,9 +24,9 @@ public class MeetingRoomIII {
                 // bcz if two rooms free at same time, we must pick smaller room id.
                 (a, b) -> {
                     if(a[1] == b[1]){
-                        return a[0] - b[0];
+                        return a[0] - b[0]; //sort by smaller room id
                     }
-                    return a[1] - b[1];
+                    return a[1] - b[1]; //sort by end time
                 }
         );
 
