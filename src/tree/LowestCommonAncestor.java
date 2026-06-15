@@ -3,8 +3,8 @@ package tree;
 public class LowestCommonAncestor {
 
     //binary tree, nodes p and q are guranteed to be in the tree
-    public Node lowestCommonAncestor(Node root, Node p, Node q) {
-
+    public Node lowestCommonAncestor(Node root, Node p, Node q)
+    {
         if(root == null){
             return null;
         }
@@ -71,5 +71,17 @@ public class LowestCommonAncestor {
 
         //either root is the split point, or equals to one of them
         return root;
+    }
+
+    class Node{
+        Node left;
+        Node right;
+        int value;
+
+        public Node(Node left, int value, Node right) {
+            this.left = left;
+            this.value = value;
+            this.right = right;
+        }
     }
 }

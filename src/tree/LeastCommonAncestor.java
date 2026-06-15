@@ -49,4 +49,16 @@ public class LeastCommonAncestor {
 
         return left != null ? left : right;
     }
+
+    class Node{
+        Node left;
+        Node right;
+        int value;
+
+        public Node(Node left, int value, Node right) {
+            this.left = left;
+            this.value = value;
+            this.right = right;
+        }
+    }
 }
