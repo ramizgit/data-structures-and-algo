@@ -6,39 +6,45 @@ public class HouseRobberII {
 
     //https://leetcode.com/problems/house-robber-ii/description/
 
-    public static void main(String[] args)
+    public int rob(int[] nums)
     {
-        System.out.println(rob(new int[]{2,3,2})); //3
-        System.out.println(rob(new int[]{1,2,3,1})); //4
-        System.out.println(rob(new int[]{1,2,3})); //3
-    }
-
-    private static int rob(int[] nums)
-    {
+        //input validation
         if(nums == null || nums.length == 0){
             return 0;
         }
+
         if(nums.length == 1){
             return nums[0];
         }
+
         if(nums.length == 2){
-            return Math.min(nums[0], nums[1]);
+            return Math.max(nums[0], nums[1]);
         }
 
-        return Math.max(robberHelper(Arrays.copyOfRange(nums, 0, nums.length-1)),
-                        robberHelper(Arrays.copyOfRange(nums, 1, nums.length)));
+        return Math.max(
+                robberHelper(nums, 0, nums.length - 2), // include first house, exclude last house
+                robberHelper(nums, 1, nums.length - 1) // exclude first house, include last house
+        );
     }
 
-    private static int robberHelper(int[] arr)
+    private int robberHelper(int[] nums, int start, int end)
     {
-        int[] dp = new int[arr.length];
-        dp[0] = arr[0];
-        dp[1] = Math.max(arr[0], arr[1]);
+        int length = end - start + 1;
 
-        for(int i=2; i<arr.length; i++){
-            dp[i] = Math.max(dp[i-2] + arr[i], dp[i-1]);
+        int[] dp = new int[length];
+
+        // base cases
+        dp[0] = nums[start];
+        dp[1] = Math.max(nums[start], nums[start + 1]);
+
+        for(int i = 2; i < length; i++){
+
+            dp[i] = Math.max(
+                    nums[start + i] + dp[i - 2], // rob current house
+                    dp[i - 1]                    // skip current house
+            );
         }
 
-        return dp[dp.length-1];
+        return dp[length - 1];
     }
 }
