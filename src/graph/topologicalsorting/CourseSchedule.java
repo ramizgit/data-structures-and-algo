@@ -32,32 +32,34 @@ public class CourseSchedule {
 
         //populate graph and indegree as per prerequisites
         for(int[] p : prerequisites){ //Time : O(E)
-            int src = p[1];
-            int des = p[0];
+            int u = p[1];
+            int v = p[0];
 
-            graph.get(src).add(des);
-            indegree.put(des, indegree.get(des) + 1);
+            graph.get(u).add(v);
+            indegree.put(v, indegree.get(v) + 1);
         }
 
-        Queue<Integer> queue = new ArrayDeque<>(); //for bfs logic
+        Queue<Integer> bfsQueue = new ArrayDeque<>(); //for bfs logic
         int processed = 0;
 
         //collect all starting vertices with 0 indegree in the bfs queue
         for(int key : indegree.keySet()){ //Time : O(V)
             if(indegree.get(key) == 0){
-                queue.offer(key);
+                bfsQueue.offer(key);
             }
         }
 
         //bfs logic
-        while(!queue.isEmpty()){ //Time : O(V+E)
-            int node = queue.poll();
+        while(!bfsQueue.isEmpty()){ //Time : O(V+E)
+
+            int node = bfsQueue.poll();
             processed++;
 
+            //explore neighbours
             for(int neighbour : graph.get(node)){
                 indegree.put(neighbour, indegree.get(neighbour) - 1);
                 if(indegree.get(neighbour) == 0){
-                    queue.add(neighbour); //add to bfs queue once indegree becomes 0
+                    bfsQueue.add(neighbour); //add to bfs queue once indegree becomes 0
                 }
             }
         }

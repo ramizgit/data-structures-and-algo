@@ -16,35 +16,35 @@ public class CourseScheduleII {
 
         //populate graph and indegree as per input prerequisites
         for(int[] p : prerequisites){
-            int src = p[1];
-            int des = p[0];
+            int u = p[1];
+            int v = p[0];
 
-            graph.get(src).add(des);
-            indegree.put(des, indegree.get(des) + 1);
+            graph.get(u).add(v);
+            indegree.put(v, indegree.get(v) + 1);
         }
 
-        Queue<Integer> queue = new ArrayDeque<>(); //for bfs logic
+        Queue<Integer> bfsQueue = new ArrayDeque<>(); //for bfs logic
         //Queue<Integer> queue = new PriorityQueue<>(); //NOTE(***) : USE PRIORITY QUEUE IF U NEED ANSWER IN SORTED ORDER WHEREVER POSSIBLE
 
         //collect all starting vertices with 0 indegree in the bfs queue
         for(int key : indegree.keySet()){ //Time : O(V)
             if(indegree.get(key) == 0){
-                queue.offer(key);
+                bfsQueue.offer(key);
             }
         }
 
         List<Integer> topologicalOrder = new ArrayList<>();
 
         //bfs logic
-        while(!queue.isEmpty()){
-            int node = queue.poll();
+        while(!bfsQueue.isEmpty()){
+            int node = bfsQueue.poll();
             topologicalOrder.add(node);
 
             //explore neighbours
             for(int neighbour : graph.get(node)){
                 indegree.put(neighbour, indegree.get(neighbour) - 1);
                 if(indegree.get(neighbour) == 0){
-                    queue.add(neighbour); //add to bfs queue once indegree becomes 0
+                    bfsQueue.add(neighbour); //add to bfs queue once indegree becomes 0
                 }
             }
         }

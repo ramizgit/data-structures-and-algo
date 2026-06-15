@@ -46,44 +46,46 @@ public class SumOfDistancesInTree {
         //first dfs to compute subtree sizes and dist[0]
         int[] size = new int[n];
         int[] dist = new int[n];
-        dfsComputeSubTreeSize(0, 0, size, dist, new boolean[n], graph); //O(n)
+        dfsComputeSubTreeSizes(0, -1, 0, size, dist, graph); //O(n)
 
         //second dfs to compute answer for other nodes
-        dfsReroot(0, size, dist, new boolean[n], graph, n); //O(n)
+        dfsReroot(0, -1, size, dist, graph, n); //O(n)
 
         return dist;
     }
 
     //second dfs to compute answer for all other nodes
-    private void dfsReroot(int node, int[] size, int[] dist, boolean[] visited, Map<Integer, List<Integer>> graph, int n)
+    private void dfsReroot(int node, int parent, int[] size, int[] dist, Map<Integer, List<Integer>> graph, int n)
     {
-        visited[node] = true;
-
         for(int neighbour : graph.get(node)){
-            if(!visited[neighbour]){
 
-                dist[neighbour] = dist[node] // reuse the distance of parent node
-                        - size[neighbour] // nodes inside neighbour's subtree become 1 step closer
-                        + (n - size[neighbour]); // all other nodes become 1 step farther
-
-                dfsReroot(neighbour, size, dist, visited, graph, n);
+            if(neighbour == parent){
+                continue;
             }
+
+            dist[neighbour] = dist[node] // reuse the distance of parent node
+                    - size[neighbour] // number of nodes that become 1 step closer when rerooting to this neighbour node
+                    + (n - size[neighbour]); // all other nodes become 1 step farther
+
+            dfsReroot(neighbour, node, size, dist, graph, n);
         }
     }
 
     //first dfs to get subtree size of all nodes, and distance for 0th node
-    private void dfsComputeSubTreeSize(int node, int depth, int[] size, int[] dist, boolean[] visited, Map<Integer, List<Integer>> graph)
+    private void dfsComputeSubTreeSizes(int node, int parent, int depth, int[] size, int[] dist, Map<Integer, List<Integer>> graph)
     {
-        visited[node] = true;
         size[node] = 1;
         dist[0] += depth; // depth == distance from root node 0
 
         //explore neighbours
         for(int neighbour : graph.get(node)) {
-            if(!visited[neighbour]){
-                dfsComputeSubTreeSize(neighbour, depth + 1, size, dist, visited, graph);
-                size[node] += size[neighbour];
+
+            if(neighbour == parent){
+                continue;
             }
+
+            dfsComputeSubTreeSizes(neighbour, node, depth + 1, size, dist, graph);
+            size[node] += size[neighbour]; //add the size of the child subtree
         }
     }
 }

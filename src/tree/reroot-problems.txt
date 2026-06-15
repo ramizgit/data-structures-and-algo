@@ -1,0 +1,5 @@
+Sum of Distances in Tree = SumOfDistancesInTree [Done]
+Minimum Edge Reversals So Every Node Is Reachable = MinEdgesToReverse [Done]
+
+Longest distance from every node (tree diameter rerooting)
+Maximum White Subtree
