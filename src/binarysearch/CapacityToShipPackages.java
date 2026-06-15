@@ -1,7 +1,5 @@
 package binarysearch;
 
-package neetcode150.binarySearch;
-
 public class CapacityToShipPackages {
 
     public static void main(String[] args)
