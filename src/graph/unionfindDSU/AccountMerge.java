@@ -35,7 +35,7 @@ public class AccountMerge {
         }
 
         //iterate input and union email ids for the same user
-        UnionFind unionFind = new UnionFind(id);
+        graph.unionfindDSU.UnionFind unionFind = new graph.unionfindDSU.UnionFind(id);
         for(List<String> account : accounts){
             String firstEmail = account.get(1);
 
