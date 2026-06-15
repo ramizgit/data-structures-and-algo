@@ -45,16 +45,11 @@ public class KnapsackProblem {
     // using 1-D dp array
     private static void maximiseValue2(int[] values, int[] weights, int capacity)
     {
-        int m = weights.length;
-        int n = capacity;
-
-        // dp[c] = max value with capacity c
-        int[] dp = new int[n + 1];
+        int[] dp = new int[capacity + 1]; // dp[c] = max value achievable with capacity c
 
         // fill dp
-        for (int w = 0; w < m; w++) {
-            // BACKWARD loop for 0/1 knapsack
-            for (int c = capacity; c >= weights[w]; c--) {
+        for (int w = 0; w < weights.length; w++) {
+            for (int c = capacity; c >= weights[w]; c--) { // BACKWARD loop for 0/1 knapsack to ensure each num is used at most once
                 dp[c] = Math.max(
                         dp[c],                             // don't pick
                         values[w] + dp[c - weights[w]]     // pick
@@ -62,7 +57,7 @@ public class KnapsackProblem {
             }
         }
 
-        System.out.println("answer : " + dp[n]);
+        System.out.println("answer : " + dp[capacity]);
     }
 
     private static void print(int[][] dp)

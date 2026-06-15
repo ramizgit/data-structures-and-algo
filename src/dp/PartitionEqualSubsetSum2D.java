@@ -4,7 +4,7 @@ public class PartitionEqualSubsetSum2D {
 
     //https://leetcode.com/problems/partition-equal-subset-sum/description/
     
-    //usign 1-D array, 0/1 knapsack, using backward loop
+    //using 1-D array, 0/1 knapsack, using backward loop
     public static boolean canPartition1Ddp(int[] nums)
     {
         int total = 0;
