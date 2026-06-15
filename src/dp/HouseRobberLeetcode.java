@@ -1,20 +1,10 @@
 package dp;
 
 public class HouseRobberLeetcode {
-    public static void main(String[] args)
+
+    public int maxrobDp(int[] arr)
     {
-        System.out.println(maxrob(new int[]{1,2,3,1}));//4
-        System.out.println(maxrobDp(new int[]{1,2,3,1}));//4
-
-        System.out.println(maxrob(new int[]{2,7,9,3,1}));//12
-        System.out.println(maxrobDp(new int[]{2,7,9,3,1}));//12
-
-        System.out.println(maxrob(new int[]{10,1,12,50}));//60
-        System.out.println(maxrobDp(new int[]{10,1,12,50}));//60
-    }
-
-    private static int maxrobDp(int[] arr)
-    {
+        //input validation
         if(arr == null || arr.length == 0){
             return 0;
         }
@@ -27,15 +17,19 @@ public class HouseRobberLeetcode {
             return Math.max(arr[0], arr[1]);
         }
 
-        int[] dp = new int[arr.length];
-        dp[0] = arr[0];
+        int[] dp = new int[arr.length]; //dp[i] = max amount that can be robbed from houses 0..i
+        dp[0] = arr[0]; //base case
         dp[1] = Math.max(arr[0], arr[1]);
 
         for(int i=2; i<arr.length; i++){
-            dp[i] = Math.max(arr[i] + dp[i-2], dp[i-1]);
+
+            dp[i] = Math.max(
+                    arr[i] + dp[i-2], // rob current house
+                    dp[i-1] // skip current house
+            );
         }
 
-        return dp[arr.length-1];
+        return dp[dp.length-1];
     }
 
     private static int maxrob(int[] arr)
