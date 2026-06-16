@@ -33,7 +33,7 @@ public class PermutationSequence {
 
             int index = k / blockSize; //Chooses which digit's block contains the desired permutation.
 
-            answer.append(digits.get(index));
+            answer.append(digits.get(index)); //collect answer
 
             k %= blockSize; //Moves to the position within that chosen block.
 
