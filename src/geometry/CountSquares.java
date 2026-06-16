@@ -6,7 +6,7 @@ import java.util.Set;
 public class CountSquares {
 
     /*
-    axis-aligned squares when all input points are unique.
+    axis-aligned squares when all input points are "unique".
      */
 
     //APPROACH : PICK TWO VERTICAL POINTS AND CHECK IF CORRESPONDING OPP. POINTS EXIST OR NOT
@@ -27,22 +27,29 @@ public class CountSquares {
 
                 int x1 = points[i][0];
                 int y1 = points[i][1];
+
                 int x2 = points[j][0];
                 int y2 = points[j][1];
 
                 //check vertical
                 if(x1 == x2 && y1 != y2){
+
                     int d = Math.abs(y1 - y2);
 
                     //check right side
                     if(pointsSet.contains((x1+d) + "," + y1) && pointsSet.contains((x1+d) + "," + y2)){
                         sqCount++;
                     }
+
+                    //check left side
+                    if(pointsSet.contains((x1-d) + "," + y1) && pointsSet.contains((x1-d) + "," + y2)){
+                        sqCount++;
+                    }
                 }
             }
         }
 
-        return sqCount;
+        return sqCount/2;
     }
 
     /*
@@ -71,27 +78,34 @@ public class CountSquares {
         for (int i = 0; i < n; i++) {
             for (int j = i + 1; j < n; j++) {
 
-                int x1 = points[i][0], y1 = points[i][1];
-                int x2 = points[j][0], y2 = points[j][1];
+                int x1 = points[i][0];
+                int y1 = points[i][1];
+
+                int x2 = points[j][0];
+                int y2 = points[j][1];
 
                 int dx = x2 - x1;
                 int dy = y2 - y1;
 
                 // rotation 1
-                int x3 = x1 - dy, y3 = y1 + dx;
-                int x4 = x2 - dy, y4 = y2 + dx;
+                int x3 = x1 - dy;
+                int y3 = y1 + dx;
 
-                if (set.contains(x3 + "," + y3) &&
-                        set.contains(x4 + "," + y4)) {
+                int x4 = x2 - dy;
+                int y4 = y2 + dx;
+
+                if (set.contains(x3 + "," + y3) && set.contains(x4 + "," + y4)) {
                     count++;
                 }
 
                 // rotation 2
-                x3 = x1 + dy; y3 = y1 - dx;
-                x4 = x2 + dy; y4 = y2 - dx;
+                x3 = x1 + dy;
+                y3 = y1 - dx;
 
-                if (set.contains(x3 + "," + y3) &&
-                        set.contains(x4 + "," + y4)) {
+                x4 = x2 + dy;
+                y4 = y2 - dx;
+
+                if (set.contains(x3 + "," + y3) && set.contains(x4 + "," + y4)) {
                     count++;
                 }
             }

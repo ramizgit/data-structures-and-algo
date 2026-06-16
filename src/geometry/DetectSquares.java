@@ -3,9 +3,13 @@ package geometry;
 import java.util.HashMap;
 import java.util.Map;
 
-//https://leetcode.com/problems/detect-squares/description/
 public class DetectSquares {
 
+    //https://leetcode.com/problems/detect-squares/description/
+
+    /*
+    Duplicate points are allowed and should be treated as different points. hence Map of map being used to keep track of freq
+     */
     Map<Integer, Map<Integer, Integer>> map;
 
     public DetectSquares() {
@@ -21,6 +25,7 @@ public class DetectSquares {
     }
 
     public int count(int[] point) {
+
         int x = point[0];
         int y = point[1];
 
@@ -32,8 +37,9 @@ public class DetectSquares {
         int count = 0;
 
         for(int y2 : yMap.keySet()){
+
             if(y == y2){
-                continue;
+                continue; //skip the query point itself; a square side must have positive length
             }
 
             int d = Math.abs(y - y2);
