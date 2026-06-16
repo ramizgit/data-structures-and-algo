@@ -25,15 +25,20 @@ public class PermutationSequence {
 
         StringBuilder answer = new StringBuilder();
 
-        for (int remaining = n; remaining >= 1; remaining--) { // digits still available to place
+        int digitsAvailable = n;
 
-            int blockSize = factorial[remaining - 1]; // how many permutations start with the same digit?
-            int index = k / blockSize;
+        while (digitsAvailable >= 1) { // digits still available to place
+
+            int blockSize = factorial[digitsAvailable - 1]; // how many permutations start with the same digit?
+
+            int index = k / blockSize; //Chooses which digit's block contains the desired permutation.
 
             answer.append(digits.get(index));
 
-            k %= blockSize; // position within selected block
-            digits.remove(index);
+            k %= blockSize; //Moves to the position within that chosen block.
+
+            digits.remove(index); //Removes the chosen digit so it can't be reused.
+            digitsAvailable--; //one less digit available
         }
 
         return answer.toString();
