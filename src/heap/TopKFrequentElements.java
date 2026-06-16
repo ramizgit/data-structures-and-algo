@@ -39,7 +39,7 @@ public class TopKFrequentElements {
             buckets[freq].add(key);
         }
 
-        //now iterate buckets from end till end - k and collect result
+        //now iterate buckets from end and collect result
         int[] result = new int[k];
         int idx = 0;
         for(int i=n; i>=0; i--){
