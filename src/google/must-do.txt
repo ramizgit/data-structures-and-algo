@@ -45,6 +45,14 @@ https://leetcode.com/problems/top-k-frequent-elements/description/
 https://leetcode.com/problems/happy-number/description/
 
 -------------------------------------------------------------------------------------
+https://www.reddit.com/r/LowLevelDesign/comments/1suiy0h/google_coding_round_interview_questions/
+
 1. Compress String using Prefix Pattern
 
 2. Detect First Timed Out Job from Logs [Done]
+
+3. Count Visible People in Queue with Taller Observer Rule
+
+4. Maximum Sum Subarray with Equal First and Last Elements [Done]
+
+5. Design a rate limiter
