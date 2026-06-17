@@ -56,3 +56,7 @@ https://www.reddit.com/r/LowLevelDesign/comments/1suiy0h/google_coding_round_int
 4. Maximum Sum Subarray with Equal First and Last Elements [Done]
 
 5. Design a rate limiter
+
+8. Detect Squares Rotated along the XY Plane [Done]
+
+9. Sum of All Good Arithmetic Sequences [Done]

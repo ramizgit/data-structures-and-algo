@@ -33,14 +33,14 @@ public class SumOfOddLenSubarrays {
             possible start indices = 0,1,2
             hence start = i+1, because indices go from 0 to i.
              */
-            int leftChoices = i + 1;
+            int leftChoices = i + 1; //basically this is num of elements between index i and 0
 
             /*
             how many choices do we have for the ENDING index of a subarray that includes i?
             possible ends 2,3,4
             hence end = n-i
              */
-            int rightChoices = n - i;
+            int rightChoices = n - i; //basically this is num of elements between end index and i
 
             //every leftChoice can pair with every rightChoice, hence multiply
             int totalSubarrayCount = leftChoices * rightChoices;
