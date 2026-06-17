@@ -59,7 +59,7 @@ public class CountSquares {
     /*
     APPROACH:-
      Pick any 2 points as a potential side AB.
-     Compute vector (dx, dy). A square’s adjacent side is a perpendicular vector of same length.
+     Compute vector (dx, dy). A square’s adjacent side is a perpendicular vector (+- 90 degree) of same length.
      Rotate (dx, dy) by ±90° → (-dy, dx) and (dy, -dx) to get the only two possible squares on either side.
      Add this rotated vector to both A and B to get the other two points (C and D).
      If both points exist in the set → valid square.
@@ -78,41 +78,48 @@ public class CountSquares {
         for (int i = 0; i < n; i++) {
             for (int j = i + 1; j < n; j++) {
 
+                //point A
                 int x1 = points[i][0];
                 int y1 = points[i][1];
 
+                //point B
                 int x2 = points[j][0];
                 int y2 = points[j][1];
 
-                int dx = x2 - x1;
-                int dy = y2 - y1;
+                int dx = x2 - x1; //delta x
+                int dy = y2 - y1; //delta y
 
-                // rotation 1
-                int x3 = x1 - dy;
-                int y3 = y1 + dx;
+                // rotation 1 in + 90 degree angle to get point C and D
+                // get point D from point A
+                int x3 = x1 - dy; //go left dy
+                int y3 = y1 + dx; //then up dx
 
-                int x4 = x2 - dy;
-                int y4 = y2 + dx;
+                // get point C from point B
+                int x4 = x2 - dy; //go left dy
+                int y4 = y2 + dx; //then up dx
 
+                //check if A->B-C->D is a square
                 if (set.contains(x3 + "," + y3) && set.contains(x4 + "," + y4)) {
                     count++;
                 }
 
-                // rotation 2
-                x3 = x1 + dy;
-                y3 = y1 - dx;
+                // rotation 2 in - 90 degree angle to get point C and D
+                // get point D from point A
+                x3 = x1 + dy; //go right dy
+                y3 = y1 - dx; //go down dx
 
-                x4 = x2 + dy;
-                y4 = y2 - dx;
+                // get point C from point B
+                x4 = x2 + dy; //go right dy
+                y4 = y2 - dx; //go down dx
 
+                //check if A->B-C->D is a square
                 if (set.contains(x3 + "," + y3) && set.contains(x4 + "," + y4)) {
                     count++;
                 }
             }
         }
 
-        // each square counted 4 times (each side)
-        return count / 4;
+        return count / 4; // each square counted 4 times (each side), hence divide by 4
     }
 
 }
