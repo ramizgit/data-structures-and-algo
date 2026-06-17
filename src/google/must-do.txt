@@ -60,3 +60,9 @@ https://www.reddit.com/r/LowLevelDesign/comments/1suiy0h/google_coding_round_int
 8. Detect Squares Rotated along the XY Plane [Done]
 
 9. Sum of All Good Arithmetic Sequences [Done]
+
+10. Compile Packages with Dependencies in a Multi-Threaded Environment [Done]
+
+12.  Undirected Graph Path Queries [Done]
+
+14. Router Reachability on Broadcast and Shutdown Message [Done]
