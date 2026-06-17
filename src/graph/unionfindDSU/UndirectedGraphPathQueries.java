@@ -50,16 +50,15 @@ If you sort internally to solve the problem efficiently, queries must still refe
     //Time complexity : O(N log N + Q α(N))
     boolean[] pathQueries(int[] arr, int diff, String[] queries)
     {
-        List<int[]> valueIdxList = new ArrayList<>();
+        List<int[]> valueIdxList = new ArrayList<>(); //list of pair {value, index} from original array
         int n = arr.length;
 
         for(int i=0; i<n; i++){ //O(n)
             valueIdxList.add(new int[]{arr[i], i});
         }
 
-        //sort input array
+        //sort input array so that we can create edge of adj. pairs only
         Collections.sort(valueIdxList, (a, b) -> Integer.compare(a[0], b[0])); //O(nlog n)
-
 
         graph.unionfindDSU.UnionFind uf = new graph.unionfindDSU.UnionFind(n);
 
