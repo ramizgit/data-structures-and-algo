@@ -70,7 +70,9 @@ public class RouterReachabilityOnBroadcastsAndShutdownMsg {
     {
         //build buckets
         Map<Cell, List<Router>> buckets = new HashMap<>();
-        Map<String, Router> routerById = new HashMap<>();
+        //Map<String, Router> routerById = new HashMap<>();
+        Router sourceRouter = null;
+        boolean destinationWorking = false;
 
         for(String router : routers){
 
@@ -91,16 +93,28 @@ public class RouterReachabilityOnBroadcastsAndShutdownMsg {
             Router routerObj = new Router(id, x, y);
 
             buckets.computeIfAbsent(new Cell(cellX, cellY), key -> new ArrayList<>()).add(routerObj);
-            routerById.put(id, routerObj);
+            //routerById.put(id, routerObj);
+
+            if(id.equals(source)) {
+                sourceRouter = routerObj;
+            }
+
+            if(id.equals(destination)) {
+                destinationWorking = true;
+            }
         }
 
-        if (!routerById.containsKey(source) || !routerById.containsKey(destination)){
+        /*if (!routerById.containsKey(source) || !routerById.containsKey(destination)){
             return false; //either source or destination is DEFECTIVE
+        }*/
+
+        if(sourceRouter == null || !destinationWorking) {
+            return false;
         }
 
         //BFS
         Queue<Router> bfsQueue = new ArrayDeque<>();
-        bfsQueue.offer(routerById.get(source)); //starting point
+        bfsQueue.offer(sourceRouter); //starting point
 
         Set<String> visitedRouters = new HashSet<>();
         visitedRouters.add(source); //starting point
