@@ -35,8 +35,10 @@ public class MinimumAreaRectangleII {
                 double midX = (x1 + x2) / 2.0;
                 double midY = (y1 + y2) / 2.0;
 
-                //diagonal length via pythagorean theorem
-                int len = (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2);
+                // diagonal length squared via Pythagorean theorem
+                int dx = x1 - x2;
+                int dy = y1 - y2;
+                int len = dx * dx + dy * dy;
 
                 //map key : diagonal mid point + diagonal length
                 String key = midX + "," + midY + "," + len;
@@ -50,28 +52,28 @@ public class MinimumAreaRectangleII {
 
         //for each group, form rectangles
         for(List<int[][]> group : map.values()){
+
+            //try every pair of diagonals to compute area
             for(int i=0; i<group.size(); i++){
 
                 //diagonal ith coordinates
                 int[][] d1 = group.get(i);
                 int[] A = d1[0];
-                int[] B = d1[1];
+                int[] C = d1[1];
 
                 for(int j=i+1; j<group.size(); j++){
 
                     //diagonal jth coordinates
                     int[][] d2 = group.get(j);
-                    int[] C = d2[0];
+                    int[] B = d2[0];
                     int[] D = d2[1];
 
-                    // compute area using A as common point
-                    double side1 = distance(A, C);
+                    // A,B,D are three rectangle corners; AB and AD are adjacent sides
+                    double side1 = distance(A, B);
                     double side2 = distance(A, D);
                     double area = side1 * side2;
 
-                    if (area > 0) {
-                        minArea = Math.min(minArea, area);
-                    }
+                    minArea = Math.min(minArea, area);
                 }
             }
         }
