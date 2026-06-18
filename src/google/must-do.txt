@@ -71,7 +71,7 @@ https://www.reddit.com/r/LowLevelDesign/comments/1suiy0h/google_coding_round_int
 
 12.  Undirected Graph Path Queries [Done]
 
-13. Array Range Update Queries
+13. Array Range Update Queries [Partially done]
 
 14. Router Reachability on Broadcast and Shutdown Message [Done]
 
@@ -81,9 +81,9 @@ https://www.reddit.com/r/LowLevelDesign/comments/1suiy0h/google_coding_round_int
 
 17. Longest Path in Grid
 
-18. Merge Working Hour Intervals Timeline
+18. Merge Working Hour Intervals Timeline [Done]
 
-19. Days When Everyone is Free
+19. Days When Everyone is Free [Done]
 
 20. Size of Unpainted Segments
 

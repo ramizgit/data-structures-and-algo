@@ -47,7 +47,7 @@ Return true if it is possible to pick up and drop off all passengers for all the
         //sort input trips by start location
         Arrays.sort(trips, (a, b) -> a[1] - b[1]);
 
-        PriorityQueue<int[]> minheap = new PriorityQueue<>( (a, b) -> a[2] - b[2] );
+        PriorityQueue<int[]> minheap = new PriorityQueue<>( (a, b) -> a[2] - b[2] ); //always process earliest finished location first
         int currentPassengers = 0;
 
         for(int[] trip : trips){
@@ -56,7 +56,7 @@ Return true if it is possible to pick up and drop off all passengers for all the
 
             //remove finished trips before adding new one
             while(!minheap.isEmpty() && minheap.peek()[2] <= from){
-                currentPassengers -= minheap.poll()[0];
+                currentPassengers -= minheap.poll()[0]; //offboard passengers
             }
 
             currentPassengers += passengers; //pick up current passengers
