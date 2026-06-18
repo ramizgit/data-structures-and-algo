@@ -1,0 +1,34 @@
+General rule
+
+Ask yourself these two questions:
+
+1. Is the operation additive?
+
+Examples:
+
++passengers
++bookings
++meetings
++brightness
++coverage
+
+If yes, difference arrays are a candidate.
+
+2. Is the coordinate range reasonably small?
+
+If yes:
+
+Difference Array
+
+Otherwise:
+
+Heap
+Sweep Line
+TreeMap
+A nice comparison
+Problem	Difference Array?	Heap?	Standard
+Car Pooling	✅ Yes	✅ Yes	Difference Array (small coordinate range)
+Meeting Rooms II	✅ If time range is small	✅ Yes	Heap
+Corporate Flight Bookings	✅ Yes	❌	Difference Array
+Range Addition	✅ Yes	❌	Difference Array
+Employee Free Time	❌	✅	Heap / Sweep Line
