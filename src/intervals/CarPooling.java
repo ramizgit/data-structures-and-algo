@@ -12,7 +12,37 @@ the ith trip has numPassengersi passengers and the locations to pick them up and
 Return true if it is possible to pick up and drop off all passengers for all the given trips, or false otherwise.
      */
 
+    //Time : O(n)
     public boolean carPooling(int[][] trips, int capacity)
+    {
+        //diff array
+        int[] diff = new int[1001]; //important : the difference array should be indexed by location, not by trip index.
+
+        for(int[] trip : trips){
+            int passengers = trip[0];
+            int from = trip[1];
+            int to = trip[2];
+
+            diff[from] += passengers; //pickup at from
+            diff[to] -= passengers; //drop at to
+        }
+
+        //prefix sum
+        int currentPassengers = 0;
+
+        for(int i=0; i<diff.length; i++){
+            currentPassengers += diff[i];
+
+            if(currentPassengers > capacity) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    //Time : O(n log n)
+    public boolean carPoolingViaHeapMethod(int[][] trips, int capacity)
     {
         //sort input trips by start location
         Arrays.sort(trips, (a, b) -> a[1] - b[1]);
@@ -29,16 +59,14 @@ Return true if it is possible to pick up and drop off all passengers for all the
                 currentPassengers -= minheap.poll()[0];
             }
 
-            //pick up current passengers
-            currentPassengers += passengers;
+            currentPassengers += passengers; //pick up current passengers
 
             //early exit
             if(currentPassengers > capacity){
                 return false;
             }
 
-            //add current trip to heap
-            minheap.offer(trip);
+            minheap.offer(trip); //add current trip to the heap
         }
 
         return true;
