@@ -70,7 +70,6 @@ public class RouterReachabilityOnBroadcastsAndShutdownMsg {
     {
         //build buckets
         Map<Cell, List<Router>> buckets = new HashMap<>();
-        //Map<String, Router> routerById = new HashMap<>();
         Router sourceRouter = null;
         boolean destinationWorking = false;
 
@@ -93,7 +92,6 @@ public class RouterReachabilityOnBroadcastsAndShutdownMsg {
             Router routerObj = new Router(id, x, y);
 
             buckets.computeIfAbsent(new Cell(cellX, cellY), key -> new ArrayList<>()).add(routerObj);
-            //routerById.put(id, routerObj);
 
             if(id.equals(source)) {
                 sourceRouter = routerObj;
@@ -103,10 +101,6 @@ public class RouterReachabilityOnBroadcastsAndShutdownMsg {
                 destinationWorking = true;
             }
         }
-
-        /*if (!routerById.containsKey(source) || !routerById.containsKey(destination)){
-            return false; //either source or destination is DEFECTIVE
-        }*/
 
         if(sourceRouter == null || !destinationWorking) {
             return false;
