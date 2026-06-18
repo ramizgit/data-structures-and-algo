@@ -67,11 +67,9 @@ public class RookPlacement {
 
             if(rookCount < expectedRookCount){
                 answer = mid; //possible answer
-                //shrink upper rectangle
-                high = mid - 1;
+                high = mid - 1; //shrink upper rectangle
             }else{
-                //move to lower rectangle
-                low = mid + 1;
+                low = mid + 1; //move to lower rectangle
             }
 
         }
@@ -88,19 +86,16 @@ public class RookPlacement {
         while(low <= high){
             int mid = low + (high - low)/2; //middle col
 
-            //check upper rectangle in the row range of low -> mid
+            //check left rectangle in the column range of low -> mid
             int rookCount = countRook(0, low, n-1, mid);
             int expectedRookCount = mid - low + 1;
 
             if(rookCount < expectedRookCount){
                 answer = mid; //possible answer
-                //shrink upper rectangle
-                high = mid - 1;
+                high = mid - 1; //shrink left rectangle
             }else{
-                //move to lower rectangle
-                low = mid + 1;
+                low = mid + 1; //move to right rectangle
             }
-
         }
 
         return answer;
