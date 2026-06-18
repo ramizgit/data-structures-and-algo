@@ -1,0 +1,11 @@
+Range Addition
+Corporate Flight Bookings
+Car Pooling
+Meeting room occupancy by day
+Number of active users over time
+Coverage / brightness problems
+This blocked-days problem
+
+https://codezym.com/question/154
+https://codezym.com/question/148
+

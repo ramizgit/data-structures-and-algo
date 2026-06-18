@@ -1,0 +1,86 @@
+Yes. Difference Array is a standard DSA term/pattern, although it's not as famous as BFS, DFS, or Union-Find.
+
+You'll often hear it called:
+
+Difference Array
+Range Update + Prefix Sum
+Prefix Difference Technique
+Imos Method (especially in competitive programming)
+The core idea
+
+Definition:-
+-------------
+A difference array lets you apply range updates in O(1) by marking only the start and end+1 of each range, then using a prefix sum to reconstruct the final values.
+"Difference Array = fast range updates; Prefix Sum = recover the final array."
+
+Suppose you have:
+
+int[] arr = new int[10];
+
+and want to perform:
+
+Add +1 to range [2,5]
+Add +1 to range [4,8]
+Add +1 to range [1,3]
+
+The naive way:
+
+for(i=2; i<=5; i++) arr[i]++;
+for(i=4; i<=8; i++) arr[i]++;
+for(i=1; i<=3; i++) arr[i]++;
+
+takes:
+
+O(length of ranges)
+
+Difference Array trick:-
+
+Instead of updating every element:
+
+For range:
+
+[l,r]
+
+do:
+
+diff[l] += 1;
+diff[r+1] -= 1;
+
+That's it.
+
+Example:
+
+Add +1 to:
+
+[2,5]
+
+Initial:
+
+index: 0 1 2 3 4 5 6
+diff : 0 0 0 0 0 0 0
+
+Update:
+
+diff[2] += 1;
+diff[6] -= 1;
+
+Result:
+
+index: 0 1 2 3 4 5 6
+diff : 0 0 1 0 0 0 -1
+
+Now compute prefix sums:
+
+0
+0
+1
+1
+1
+1
+0
+
+Which means:
+
+[2,5] got +1
+
+exactly as desired.
