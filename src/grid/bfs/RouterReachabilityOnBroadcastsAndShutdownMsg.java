@@ -87,8 +87,8 @@ public class RouterReachabilityOnBroadcastsAndShutdownMsg {
             int x = Integer.parseInt(entry[1]);
             int y = Integer.parseInt(entry[2]);
 
-            int cellX = Math.floorDiv(x, range);
-            int cellY = Math.floorDiv(y, range);
+            int cellX = Math.floorDiv(x, range); // = x / range;
+            int cellY = Math.floorDiv(y, range); // = y / range
 
             Router routerObj = new Router(id, x, y);
 
@@ -131,8 +131,10 @@ public class RouterReachabilityOnBroadcastsAndShutdownMsg {
             }
 
             //explore neighbours
-            int currCellX = Math.floorDiv(curr.x, range);
-            int currCellY = Math.floorDiv(curr.y, range);
+
+            //get current block
+            int currCellX = Math.floorDiv(curr.x, range); // = curr.x / range
+            int currCellY = Math.floorDiv(curr.y, range); // = curr.y / range
 
             for(int[] dir : directions){
                 int newCellX = currCellX + dir[0];
@@ -141,10 +143,12 @@ public class RouterReachabilityOnBroadcastsAndShutdownMsg {
                 Cell neighbourCell = new Cell(newCellX, newCellY);
 
                 for(Router neighbour : buckets.getOrDefault(neighbourCell, Collections.emptyList())){
+
                     if(visitedRouters.contains(neighbour.id)){
                        continue;
                     }
 
+                    // verify if negihour falls within the given range, via euclidean distance (pythagorean formula)
                     long dx = (long) curr.x - neighbour.x;
                     long dy = (long) curr.y - neighbour.y;
 
