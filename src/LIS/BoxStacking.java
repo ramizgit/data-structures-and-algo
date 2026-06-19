@@ -8,7 +8,7 @@ public class BoxStacking {
 
     public int maxHeight(int[] height, int[] width, int[] length, int n) {
 
-        // Step 1: generate all rotations as it is also allowable to use multiple instances of the same type of box.
+        // Step 1 [dimension sort]: generate all rotations as it is also allowable to use multiple instances of the same type of box.
         List<Box> boxes = new ArrayList<>();
 
         for (int i = 0; i < n; i++) {
@@ -22,7 +22,7 @@ public class BoxStacking {
             boxes.add(createBox(height[i], width[i], length[i]));
         }
 
-        // Step 2: sort by base (l, w) ascending (LIS style)
+        // Step 2 [re-arrange to put smaller cuboids first]: sort by base (l, w) ascending (LIS style)
         //this ensures when we process a box, all possible boxes that can go above it are already processed, primarily for DP concept
         Collections.sort(boxes);
 
