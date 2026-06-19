@@ -91,8 +91,8 @@ https://www.reddit.com/r/LowLevelDesign/comments/1suiy0h/google_coding_round_int
 
 22. Minimum CPUs Needed for Earliest Tasks Completion
 
-23. Total Scores of Leaf Domains
+23. Total Scores of Leaf Domains [Done]
 
-24. Place Nth Rook
+24. Place Nth Rook [Done]
 
 

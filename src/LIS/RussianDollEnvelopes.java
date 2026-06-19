@@ -30,8 +30,8 @@ public class RussianDollEnvelopes {
 
         int n = envelopes.length;
 
-        int[] dp = new int[n];
-        Arrays.fill(dp, 1); //base case
+        int[] dp = new int[n]; //dp[i] = longest valid chain that ends at envelope i
+        Arrays.fill(dp, 1); //base case as each envelope forms a valid chain by itself
         int maxLen = 1;
 
         for(int i=0; i<n; i++){
