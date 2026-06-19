@@ -14,16 +14,18 @@ public class MaximumHeightByStackingCuboids {
 
     public int maxHeight(int[][] cuboids) {
         // Step 1: sort each cuboid for normalization
+        //sort cuboids in asc order dimension so that height becomes max
         /*
         If a cuboid can be rotated to fit somewhere, then its sorted version will also fit in that same position.
         Always use the smallest sides as base, largest as height. If stacking is possible in any rotation, it will also be possible in this normalized form.
          */
         for (int[] c : cuboids) {
-            Arrays.sort(c);
+            Arrays.sort(c); //width <= length <= height
         }
 
-        // Step 2: sort all cuboids
+        // Step 2: rearragne to sort all cuboids lexicographically
         //this ensures when we process a box, all possible boxes that can go above it are already processed, primarily for DP concept
+        //This guarantees that when processing cuboid i, every possible predecessor has already been processed.
         Arrays.sort(cuboids, (a, b) -> {
             if (a[0] != b[0]) return a[0] - b[0]; //width
             if (a[1] != b[1]) return a[1] - b[1]; //length
@@ -38,7 +40,7 @@ public class MaximumHeightByStackingCuboids {
             dp[i] = cuboids[i][2]; // initialize height, base case
         }
 
-        int max = 0;
+        int maxHeight = 0;
 
         for (int i = 0; i < n; i++) {
             int[] curr = cuboids[i];
@@ -53,9 +55,9 @@ public class MaximumHeightByStackingCuboids {
                 }
             }
 
-            max = Math.max(max, dp[i]);
+            maxHeight = Math.max(maxHeight, dp[i]);
         }
 
-        return max;
+        return maxHeight;
     }
 }
