@@ -16,8 +16,10 @@ public class LongestBitonicSubsequence {
     public static int longestBitonicSubsequence(int[] nums)
     {
         int n = nums.length;
-        int[] lis = new int[n];
-        int[] lds = new int[n];
+
+        //dp arrays for every index i (considered as the peak of a bitonic subsequence):
+        int[] lis = new int[n]; // lis[i] = longest increasing subsequence ending at i
+        int[] lds = new int[n]; // lds[i] = longest decreasing subsequence starting from i
 
         //base case
         Arrays.fill(lis, 1);
@@ -43,7 +45,7 @@ public class LongestBitonicSubsequence {
 
         int maxBitonic = 0;
         for(int i=0; i<n; i++) {
-            int len = lis[i] + lds[i] - 1;
+            int len = lis[i] + lds[i] - 1; //-1 as middle/peak element gets counted twice
             maxBitonic = Math.max(maxBitonic, len);
         }
 
