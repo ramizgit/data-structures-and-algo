@@ -52,6 +52,6 @@ public class LongestStringChain {
             }
         }
 
-        return s == shorter.length();
+        return s == shorter.length(); //to ensure every char of the shorter string was matched
     }
 }
