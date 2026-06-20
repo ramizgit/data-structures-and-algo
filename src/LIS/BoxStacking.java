@@ -11,7 +11,7 @@ public class BoxStacking {
     public int maxHeight(int[] height, int[] width, int[] length, int n) {
 
         // generate all rotations as it is also allowable to use multiple instances of the same type of box.
-        // also do dimension sort for consistency
+        // also do dimension sort for consistency so base dimensions satisfy L >= W
         List<int[]> boxes = new ArrayList<>();
 
         for (int i = 0; i < n; i++) {
