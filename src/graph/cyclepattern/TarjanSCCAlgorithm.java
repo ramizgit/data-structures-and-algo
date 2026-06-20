@@ -21,19 +21,18 @@ public class TarjanSCCAlgorithm {
         }
 
         //Tarjan algo
-        int[] disc = new int[n]; //discovery time of each node
-        int[] low = new int[n]; //lowest discovery time reachable
+        int[] disc = new int[n]; //discovery time of each node - when was this node first discovered?
+        int[] low = new int[n]; //lowest discovery time reachable - the lowest/smallest discovery time reachable from u
         Stack<Integer> stack = new Stack<>();
         boolean[] inStack = new boolean[n];
 
-        Arrays.fill(disc, -1);
+        Arrays.fill(disc, -1); //no node is discovered initially
         Arrays.fill(low, -1);
 
         List<List<Integer>> result = new ArrayList<>();
         int[] timer = new int[1];
 
         for(int i=0; i<n; i++){
-            //dfs
             if(disc[i] == -1){
                 dfs(i, disc, low, stack, inStack, timer, graph, result);
             }
@@ -89,10 +88,10 @@ public class TarjanSCCAlgorithm {
             List<Integer> scc = new ArrayList<>();
 
             while(true){
-                int u = stack.pop();
-                inStack[u] = false;
-                scc.add(u);
-                if(u == node){
+                int top = stack.pop();
+                inStack[top] = false;
+                scc.add(top);
+                if(top == node){
                     break;
                 }
             }
@@ -101,3 +100,32 @@ public class TarjanSCCAlgorithm {
         }
     }
 }
+
+/*
+Example:-
+
+0
+|
+1
+|
+2
+
+No back edge.
+
+low[2] = 2
+low[1] = 1
+low[0] = 0
+
+disc : 0 1 2
+low  : 0 1 2
+
+-------------------------------------------
+
+0 → 1 → 2
+↑       |
+└───────┘
+
+
+disc : 0 1 2
+low  : 0 0 0
+ */

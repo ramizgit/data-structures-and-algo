@@ -31,7 +31,6 @@ public class KosarajuAlgorithm {
         //kosaraju algorithm
 
         // Step 1 : First pass DFS in finish order, populating stack with nodes in decreasing order of finishing time
-        //Stack<Integer> stack = new Stack<>(); //Stack is legacy + synchronized (slow, outdated), use deque instead
         Deque<Integer> stack = new ArrayDeque<>();
         boolean[] visited = new boolean[n];
 
