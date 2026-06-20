@@ -18,26 +18,26 @@ public class OpenTheLock {
         }
 
         //bfs logic
-        Queue<State> queue = new ArrayDeque<>();
-        queue.offer(new State(start, 0));
+        Queue<State> bfsQueue = new ArrayDeque<>();
+        bfsQueue.offer(new State(start, 0));
 
         Set<String> visited = new HashSet<>();
         visited.add(start);
 
-        while(!queue.isEmpty()){
-            State curr = queue.poll();
+        while(!bfsQueue.isEmpty()){
+
+            State curr = bfsQueue.poll();
 
             //exit condition
             if(curr.lock.equals(target)){
                 return curr.turns;
             }
 
-            //explore nieghbours
-            List<String> neighbours = getNeighbours(curr.lock);
-            for(String neighbour : neighbours){
+            //explore neighbours
+            for(String neighbour : getNeighbours(curr.lock)){
                 if(!visited.contains(neighbour) && !deadSet.contains(neighbour)){
-                    queue.offer(new State(neighbour, curr.turns+1));
                     visited.add(neighbour);
+                    bfsQueue.offer(new State(neighbour, curr.turns+1));
                 }
             }
         }
