@@ -36,18 +36,20 @@ i ↓
                     break; //j goes out of the bound, cant proceed
                 }
 
+                //try every k in [i...j] as the last balloon to burst
                 for (int k = i; k <= j; k++) {
 
-                    //assume kth balloon is burst LAST in range i to j
+                    //subproblems
+                    int leftCoins  = (k == i) ? 0 : dp[i][k - 1]; //left interval
+                    int rightCoins = (k == j) ? 0 : dp[k + 1][j]; //right interval
 
-                    int leftCoins  = (k == i) ? 0 : dp[i][k - 1];
-                    int rightCoins = (k == j) ? 0 : dp[k + 1][j];
-
-                    //neighbors remaining when k is burst last
+                    //neighbors remaining when k is burst last in the range [i..j]
                     int leftVal  = (i == 0) ? 1 : nums[i - 1];
                     int rightVal = (j == n - 1) ? 1 : nums[j + 1];
 
-                    int curr = leftCoins + rightCoins + leftVal * nums[k] * rightVal;
+                    int curr = leftCoins //burst left side first
+                            + rightCoins //burst right side frist
+                            + leftVal * nums[k] * rightVal; //coins from bursting k last
 
                     dp[i][j] = Math.max(dp[i][j], curr);
                 }
