@@ -4,16 +4,29 @@ import java.util.*;
 
 public class TarjanSCCAlgorithm {
 
+    /*
+    Time Complexity:
+    - Graph construction : O(V + E)
+    - Tarjan DFS         : O(V + E)
+    Overall              : O(V + E)
+
+    Space Complexity:
+    - Graph              : O(V + E)
+    - disc[], low[]      : O(V)
+    - Stack              : O(V)
+    - Recursion stack    : O(V)
+    Overall              : O(V + E)
+    */
     public List<List<Integer>> findSCCs(int n, int[][] edges)
     {
         //initialize graph
         Map<Integer, List<Integer>> graph = new HashMap<>();
-        for(int i=0; i<n; i++){
+        for(int i=0; i<n; i++){ //O(V)
             graph.put(i, new ArrayList<>());
         }
 
         //populate edges
-        for(int[] edge : edges){
+        for(int[] edge : edges){ //O(E)
             int u = edge[0];
             int v = edge[1];
 
@@ -32,7 +45,7 @@ public class TarjanSCCAlgorithm {
         List<List<Integer>> result = new ArrayList<>();
         int[] timer = new int[1];
 
-        for(int i=0; i<n; i++){
+        for(int i=0; i<n; i++){ // O(V) iterations; total DFS across all calls is O(V + E)
             if(disc[i] == -1){
                 dfs(i, disc, low, stack, inStack, timer, graph, result);
             }
@@ -54,7 +67,7 @@ public class TarjanSCCAlgorithm {
         inStack[node] = true;
 
         //explore neighbours
-        for(int neighbour : graph.get(node)){
+        for(int neighbour : graph.get(node)){ //O(E) - Every directed edge is examined exactly once
 
             if(disc[neighbour] == -1){ //unvisited node
                 //tree edge [Edge used to first discover a new node]
@@ -87,7 +100,7 @@ public class TarjanSCCAlgorithm {
 
             List<Integer> scc = new ArrayList<>();
 
-            while(true){
+            while(true){ // Each node is popped exactly once across the algorithm => amortized O(V) total
                 int top = stack.pop();
                 inStack[top] = false;
                 scc.add(top);
