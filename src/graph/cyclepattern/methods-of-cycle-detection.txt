@@ -7,5 +7,5 @@
 | Coloring   | ❌          | ✅        | Cleaner DFS variant             |
 
 
-Undirected graph : DFS, DSU
+Undirected graph : DFS, DSU (Union Find)
 Directed graph : DFS, Topological sort
