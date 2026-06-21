@@ -29,11 +29,8 @@ public class MinEdgesToReverse {
         }
 
         //compute answer for root which is ans[0] using dfs
-        int[] total  = new int[1];
-        dfsTotalRootCount(0, -1, total, graph);
-
         int[] ans = new int[n];
-        ans[0] = total[0];
+        dfsTotalRootCount(0, -1, ans, graph);
 
         // run re-root dfs logic to compute answer for all other nodes
         dfsReroot(0, -1, ans, graph);
@@ -57,15 +54,17 @@ public class MinEdgesToReverse {
     {
         //explore neighbours
         for(Edge neighbour : graph.get(node)){
-            int v = neighbour.v;
-            if(v != parent){ //to avoid infinite loop, ensures recursion only goes to children, not parent
+            //int v = neighbour.v;
+            if(neighbour.v != parent){ //to avoid infinite loop, ensures recursion only goes to children, not parent
                 if(neighbour.w == 0){
-                    ans[v] = ans[node] + 1; //parent node didnt pay to come to v as original edge exists, hence we need to add +1 to go from v to node via reverse edge
+                    // Original edge: node -> child. When child becomes the root, this edge must be reversed. hence +1
+                    ans[neighbour.v] = ans[node] + 1; //parent node didnt pay to come to v as original edge exists, hence we need to add +1 to go from v to node via reverse edge
                 }else{
-                    ans[v] = ans[node] - 1; //parent node had paid extra +1 to come to v via reverse edge, hence we need to reduce it by 1 to go from v to node via original edge
+                    // Reverse edge: child -> node. This reversal was needed for the parent root, but becomes unnecessary when the child becomes the root. hence -1
+                    ans[neighbour.v] = ans[node] - 1; //parent node had paid extra +1 to come to v via reverse edge, hence we need to reduce it by 1 to go from v to node via original edge
                 }
 
-                dfsReroot(v, node, ans, graph);
+                dfsReroot(neighbour.v, node, ans, graph);
             }
         }
     }
