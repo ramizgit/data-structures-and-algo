@@ -8,6 +8,7 @@ public class RedundantConnection {
 
     /*
     Return an edge that can be removed so that the resulting graph is a tree of n nodes.
+    Important : Union find is better approach than DFS.
      */
 
     //Time complexity : O(E * (V + E))

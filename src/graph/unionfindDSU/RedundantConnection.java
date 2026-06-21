@@ -13,7 +13,7 @@ public class RedundantConnection {
     public int[] findRedundantConnection(int[][] edges) {
 
         //check cycle before adding edge
-        UnionFind unionFind = new UnionFind(edges.length + 1);
+        graph.unionfindDSU.UnionFind unionFind = new graph.unionfindDSU.UnionFind(edges.length + 1);
 
         for(int[] edge : edges){
             int src = edge[0];
