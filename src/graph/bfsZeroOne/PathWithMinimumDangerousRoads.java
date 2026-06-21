@@ -40,7 +40,9 @@ Hence answer is 3
 
 /*
 APPROACH:-
-binary search on X → convert edges to 0/1 → run 0-1 BFS minimizing 1’s
+✅ Binary search on the answer (X)
+✅ Convert each edge into cost 0/1 depending on X
+✅ Use 0-1 BFS to find the minimum number of dangerous edges
 
 For a fixed threshold X:
 If w ≤ X → edge cost = 0 (safe)
@@ -88,34 +90,34 @@ public class PathWithMinimumDangerousRoads {
         If edge cost = 1 → push back
          */
 
-        int low = 0;
-        int high = maxWeight;
-        int X = -1;
+        int low = 0; //lowest possible value of X
+        int high = maxWeight; //highest possible value of X
+        int answer = -1;
 
         while(low <= high){
 
             int mid = low + (high - low)/2;
 
             if(canTravel(graph, n, k, mid)){
-                X = mid; //possible answer
+                answer = mid; //possible answer
                 high = mid - 1; //try lower
             }else{
                 low = mid + 1; //try higher
             }
         }
 
-        return X;
+        return answer;
     }
 
     public boolean canTravel(Map<Integer, List<Edge>> graph, int n, int k, int threshold)
     {
         //0-1 BFS from 1 to N
         Deque<State> deque = new ArrayDeque<>();
-        deque.offerFirst(new State(1, 0));
+        deque.offerFirst(new State(1, 0)); //starting position
 
         int[] cost = new int[n+1];
         Arrays.fill(cost, Integer.MAX_VALUE);
-        cost[1] = 0; //starting point cost is 0
+        cost[1] = 0; //starting position cost is 0
 
         while(!deque.isEmpty()){
 
@@ -134,11 +136,12 @@ public class PathWithMinimumDangerousRoads {
             //explore neighbours
             for(Edge neighbour : graph.get(curr.node)){
 
-                int newCost = curr.cost + (neighbour.w > threshold ? 1 : 0);
+                int newCost = curr.cost + (neighbour.w > threshold ? 1 : 0); //safe edge -> +0,  dangerous edge -> +1
 
                 if (newCost < cost[neighbour.v]) {
                     //relaxation
                     cost[neighbour.v] = newCost;
+
                     if (neighbour.w <= threshold) {
                         deque.offerFirst(new State(neighbour.v,  newCost)); //safe road, cost=0
                     } else {
