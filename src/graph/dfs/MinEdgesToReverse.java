@@ -25,7 +25,15 @@ public class MinEdgesToReverse {
             int v = edge[1];
 
             graph.get(u).add(new Edge(v, 0)); //Original edges with cost 0
-            graph.get(v).add(new Edge(u, 1)); //Reverse edges with cost 1
+            graph.get(v).add(new Edge(u, 1)); //Artificial reverse edges with cost 1
+            /*
+            important : Notice this is opposite of Problem ReorderRoutes
+            Problem 1466 asks
+            every node should reach 0
+            Problem 2858 asks
+            0 should reach every node
+            The meaning of "good" and "bad" directions flips.
+             */
         }
 
         //compute answer for root which is ans[0] using dfs
