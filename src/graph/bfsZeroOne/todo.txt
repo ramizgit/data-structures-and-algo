@@ -26,3 +26,15 @@ Most important ones to practice (priority order)
     2290 – Minimum Obstacle Removal ⭐⭐⭐⭐
     Edge Reversal Problem ⭐⭐⭐⭐⭐
     Custom direction/grid problems ⭐⭐⭐⭐
+
+----------------------------------------------
+Shortest Path in Binary Matrix (BFS refresher)
+Minimum Cost to Make at Least One Valid Path in a Grid
+Minimum Obstacle Removal to Reach Corner
+Grid with Teleporters (your custom problem)
+Minimum Dangerous Roads (Binary Search + 0-1 BFS)
+Chef and Reversing
+KATHTHI
+Robot Turning Cost
+One-Time Portals with bitmask
+Direction Change Cost
