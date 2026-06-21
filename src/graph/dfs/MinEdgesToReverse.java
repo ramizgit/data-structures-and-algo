@@ -77,7 +77,7 @@ public class MinEdgesToReverse {
         }
     }
 
-    class Edge{
+    static class Edge{
         int v;
         int w;
 
