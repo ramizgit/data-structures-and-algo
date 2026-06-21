@@ -87,7 +87,7 @@ public class MinMoveInGridWithTeleporter {
     public int minCost(char[][] grid)
     {
         //input validation
-        if(grid == null || grid.length == 0){
+        if(grid == null || grid.length == 0 || grid[0].length == 0){
             return -1;
         }
 
@@ -111,8 +111,13 @@ public class MinMoveInGridWithTeleporter {
             }
         }
 
-        Deque<State> deque = new ArrayDeque<>();
-        deque.offerFirst(new State(startRow, startCol, 0)); //starting cell
+        //edge case missing start location
+        if (startRow == -1) {
+            return -1;
+        }
+
+        Deque<State> bfsDeque = new ArrayDeque<>();
+        bfsDeque.offerFirst(new State(startRow, startCol, 0)); //starting cell
 
         //cost array cost[i][j] = min cost to reach cell (i, j)
         int[][] cost = new int[m][n];
@@ -123,32 +128,33 @@ public class MinMoveInGridWithTeleporter {
 
         int[][] directions = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
 
-        while(!deque.isEmpty()){
+        while(!bfsDeque.isEmpty()){
 
-            State curr = deque.pollFirst();
+            State curr = bfsDeque.pollFirst();
 
             //staleness check
-            if(curr.move > cost[curr.row][curr.col]){
+            if(curr.cost > cost[curr.row][curr.col]){
                 continue; //stale entry
             }
 
-            //exit condition
             char currChar = grid[curr.row][curr.col];
 
+            //exit condition
             if(currChar == 'T'){
-                return curr.move;
+                return curr.cost; //target reached
             }
 
             //teleporter
-
+            //note : The teleport edge is just another edge in the graph.
             if(currChar >= 'a' && currChar <= 'z'){
 
                 //enqueue all other teleporters of same char
+                // Process teleport edges
                 for(int[] cell : teleporters.getOrDefault(currChar, Collections.emptyList())){
 
-                    if(curr.move < cost[cell[0]][cell[1]]){
-                        cost[cell[0]][cell[1]] = curr.move;
-                        deque.offerFirst(new State(cell[0], cell[1], curr.move)); //no additional cost incurred
+                    if(curr.cost < cost[cell[0]][cell[1]]){ //since there may be multiple ways to reach the same teleporter cell.
+                        cost[cell[0]][cell[1]] = curr.cost;
+                        bfsDeque.offerFirst(new State(cell[0], cell[1], curr.cost)); //no additional cost incurred, teleport costs 0
                     }
                 }
 
@@ -156,8 +162,9 @@ public class MinMoveInGridWithTeleporter {
                 teleporters.remove(currChar);
             }
 
-            //explore neighbours
+            //explore neighbours, Teleportation is optional; continue exploring normal moves as well.
             for(int[] dir : directions){
+
                 int newRow = curr.row + dir[0];
                 int newCol = curr.col + dir[1];
 
@@ -171,12 +178,12 @@ public class MinMoveInGridWithTeleporter {
                     continue; //hit a wall
                 }
 
-                int newMove = curr.move + 1;
+                int newCost = curr.cost + 1; //normal move costs 1
 
-                if(newMove < cost[newRow][newCol]){
+                if(newCost < cost[newRow][newCol]){
                     //relaxation
-                    cost[newRow][newCol] = newMove;
-                    deque.offerLast(new State(newRow, newCol, newMove));
+                    cost[newRow][newCol] = newCost;
+                    bfsDeque.offerLast(new State(newRow, newCol, newCost));
                 }
             }
         }
@@ -187,12 +194,12 @@ public class MinMoveInGridWithTeleporter {
     class State{
         int row;
         int col;
-        int move;
+        int cost;
 
-        public State(int row, int col, int move) {
+        public State(int row, int col, int cost) {
             this.row = row;
             this.col = col;
-            this.move = move;
+            this.cost = cost;
         }
     }
 }
