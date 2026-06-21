@@ -20,6 +20,9 @@ public class ReorderRoutes {
     DFS will traverse the artificial reverse edge with cost 0, meaning no reversal is needed.
     If the original road points away from city 0 (an "unfriendly" edge), DFS will traverse the original edge with cost 1, meaning this road must be reversed.
     By summing the costs of all traversed edges, we get the minimum number of reversals.
+
+    😊 Friendly edge = original road already points toward city 0 → DFS traverses the artificial reverse edge → cost = 0.
+    😞 Unfriendly edge = original road points away from city 0 → DFS traverses the original edge → cost = 1.
      */
 
     public int minReorder(int n, int[][] connections)
