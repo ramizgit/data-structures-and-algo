@@ -93,6 +93,7 @@ public class PathWithMinimumDangerousRoads {
         int X = -1;
 
         while(low <= high){
+
             int mid = low + (high - low)/2;
 
             if(canTravel(graph, n, k, mid)){
@@ -117,6 +118,7 @@ public class PathWithMinimumDangerousRoads {
         cost[1] = 0; //starting point cost is 0
 
         while(!deque.isEmpty()){
+
             State curr = deque.pollFirst();
 
             //ignore stale/outdated states
@@ -131,7 +133,9 @@ public class PathWithMinimumDangerousRoads {
 
             //explore neighbours
             for(Edge neighbour : graph.get(curr.node)){
+
                 int newCost = curr.cost + (neighbour.w > threshold ? 1 : 0);
+
                 if (newCost < cost[neighbour.v]) {
                     //relaxation
                     cost[neighbour.v] = newCost;
