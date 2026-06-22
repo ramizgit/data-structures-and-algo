@@ -62,7 +62,6 @@ public class MinEdgesToReverse {
     {
         //explore neighbours
         for(Edge neighbour : graph.get(node)){
-            //int v = neighbour.v;
             if(neighbour.v != parent){ //to avoid infinite loop, ensures recursion only goes to children, not parent
                 if(neighbour.w == 0){
                     // Original edge: node -> child. When child becomes the root, this edge must be reversed. hence +1
