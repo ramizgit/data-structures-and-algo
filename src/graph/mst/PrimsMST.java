@@ -5,6 +5,13 @@ import java.util.*;
 //Prim's algo is node driven, while Kruskal is edge driven
 public class PrimsMST {
 
+    /*
+    similar to dijkstra : uses PQ
+    BUT
+    1. no relaxation as pq sotres edge cost not path code
+    2. prims uses visited array but dijksrta does not (which uses cost array instread)
+    3.
+     */
     public int mstCost(int n, int[][] edges) {
 
         // initialize graph
@@ -24,43 +31,59 @@ public class PrimsMST {
         }
 
         //prims algo
-        PriorityQueue<Edge> pq = new PriorityQueue<>((a, b) -> a.weight - b.weight); //minheap
-        pq.offer(new Edge(0, 0)); //starting point
+        PriorityQueue<State> pq = new PriorityQueue<>((a, b) -> a.weight - b.weight); // Always process the node that can be connected to the MST with minimum edge cost.
+        pq.offer(new State(0, 0)); //starting point
 
         boolean[] visited = new boolean[n];
         int totalCost = 0;
         int nodeCount = 0;
 
         while (!pq.isEmpty()) {
-            Edge curr = pq.poll();
+            //find cheapest edge that reaches an unvisited node.
+            State curr = pq.poll();
 
             // skip if already part of MST
-            if (visited[curr.v]) {
+            if (visited[curr.node]) {
                 continue;
             }
 
             //add to MST
-            visited[curr.v] = true;
+            visited[curr.node] = true; //prims marks visited only when the minimum-cost entry is extracted from the priority queue (dequeued), in contrary to normal bfs which mark visited when discovered (enqueued).
             totalCost += curr.weight;
             nodeCount++; //increase node count, as prims is node-driven algorithm
 
+            //early exit
+            if (nodeCount == n) {
+                return totalCost;
+            }
+
             // explore neighbors
-            for (Edge neighbour : graph.get(curr.v)) {
-                if (!visited[neighbour.v]) {
-                    pq.offer(new Edge(neighbour.v, neighbour.weight));
+            for (Edge neighbour : graph.get(curr.node)) {
+                if (!visited[neighbour.node]) {
+                    pq.offer(new State(neighbour.node, neighbour.weight));
                 }
             }
         }
 
-        return nodeCount == n ? totalCost : -1;
+        return -1;
     }
 
     class Edge {
-        int v;
+        int node;
         int weight;
 
-        Edge(int v, int weight) {
-            this.v = v;
+        Edge(int node, int weight) {
+            this.node = node;
+            this.weight = weight;
+        }
+    }
+
+    static class State{
+        int node;
+        int weight;
+
+        State(int node, int weight) {
+            this.node = node;
             this.weight = weight;
         }
     }
