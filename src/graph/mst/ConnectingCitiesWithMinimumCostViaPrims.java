@@ -2,11 +2,13 @@ package graph.mst;
 
 import java.util.*;
 
-public class ConnectingCitiesWithMinimumCost {
+public class ConnectingCitiesWithMinimumCostViaPrims {
 
     //https://leetcode.com/problems/connecting-cities-with-minimum-cost/description/
 
-    public int getMinimumCost(int n, int m, int[][] connections)
+    //todo : kruskal is better for this, refer ConnectingCitiesWithMinimumCostViaKruskal
+
+    public int getMinimumCost(int n, int[][] connections)
     {
         //initialize graph
         Map<Integer, List<Edge>> graph = new HashMap<>();
