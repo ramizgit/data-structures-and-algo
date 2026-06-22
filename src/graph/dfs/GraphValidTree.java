@@ -15,6 +15,11 @@ public class GraphValidTree {
 
     public boolean validTree(int n, int[][] edges)
     {
+        //input validation
+        if (n <= 0 || edges == null) {
+            return false;
+        }
+
         if(edges.length != n-1){
             return false; //a tree with n nodes must have exactly n - 1 edges.
         }
