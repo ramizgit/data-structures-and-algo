@@ -9,7 +9,7 @@ public class KruskalMST {
 
     public int mstCost(int n, int[][] edges) {
 
-        // sort edges by weight
+        // Kruskal processes edges in increasing order of weight, hence sorting
         Arrays.sort(edges, (a, b) -> Integer.compare(a[2], b[2]));
 
         UnionFind dsu = new UnionFind(n);
@@ -26,14 +26,13 @@ public class KruskalMST {
                 totalCost += w; //add to MST
                 edgeCount++; //increase edge count, as kruskal is edge-driven algorithm
 
-                // MST has (n - 1) edges
                 if (edgeCount == n - 1) {
-                    break;
+                    return totalCost; // A spanning tree with n nodes always contains exactly (n - 1) edges.
                 }
             }
         }
 
-        // if not all nodes connected
-        return edgeCount == n - 1 ? totalCost : -1;
+
+        return -1; // Graph is disconnected, so MST cannot be formed.
     }
 }

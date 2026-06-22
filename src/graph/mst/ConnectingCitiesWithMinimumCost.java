@@ -25,44 +25,60 @@ public class ConnectingCitiesWithMinimumCost {
         }
 
         //prims algo
-        PriorityQueue<Edge> pq = new PriorityQueue<>( (a, b) -> Integer.compare(a.w, b.w) ); //minheap
-        pq.offer(new Edge(1, 0)); //starting point
+        PriorityQueue<State> pq = new PriorityQueue<>( (a, b) -> Integer.compare(a.weight, b.weight) ); //minheap
+        pq.offer(new State(1, 0)); //starting point
 
         boolean[] visited = new boolean[n+1];
         int totalCost = 0;
         int nodeCount = 0;
 
         while(!pq.isEmpty()){
-            Edge curr = pq.poll();
 
-            if(visited[curr.v]){
+            State curr = pq.poll();
+
+            if(visited[curr.node]){
                 continue;
             }
 
             //add to MST
-            visited[curr.v] = true;
-            totalCost += curr.w;
+            visited[curr.node] = true;
+            totalCost += curr.weight;
             nodeCount++;
 
+            //early exit
+            if (nodeCount == n) {
+                return totalCost;
+            }
+
             //explore neighbours
-            List<Edge> neighbours = graph.get(curr.v);
+            List<Edge> neighbours = graph.get(curr.node);
             for(Edge neighbour : neighbours){
                 if(!visited[neighbour.v]){
-                    pq.offer(new Edge(neighbour.v, neighbour.w));
+                    pq.offer(new State(neighbour.v, neighbour.w));
                 }
             }
         }
 
-        return nodeCount == n ? totalCost : -1;
+        return -1;
     }
 
-    class Edge{
+    static class Edge{
         int v;
         int w;
 
         public Edge(int v, int w) {
             this.v = v;
             this.w = w;
+        }
+    }
+
+    static class State{
+        int node;
+        int weight;
+
+        State(int node, int weight) {
+            this.node = node;
+            this.weight = weight;
         }
     }
 }
