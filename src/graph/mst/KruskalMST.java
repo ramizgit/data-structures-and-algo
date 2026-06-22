@@ -13,9 +13,11 @@ public class KruskalMST {
      */
     public int mstCost(int n, int[][] edges) {
 
-        // Kruskal processes edges in increasing order of weight, hence sorting
-        Arrays.sort(edges, (a, b) -> Integer.compare(a[2], b[2])); //O(Elog E)
+        //Kruskal processes edges in increasing order of weight, hence sorting
+        //sort edges by increasing cost - O(E log E)
+        Arrays.sort(edges, (a, b) -> Integer.compare(a[2], b[2]));
 
+        //initialize DSU - O(V)
         UnionFind dsu = new UnionFind(n);
 
         int totalCost = 0;
@@ -26,7 +28,7 @@ public class KruskalMST {
             int v = e[1];
             int w = e[2];
 
-            if (dsu.union(u, v)) {
+            if (dsu.union(u, v)) { // Amortized α(V) ≈ O(1)
                 totalCost += w; //add to MST
                 edgeCount++; //increase edge count, as kruskal is edge-driven algorithm
 
