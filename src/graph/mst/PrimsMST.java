@@ -12,16 +12,26 @@ public class PrimsMST {
     2. prims uses visited array but dijksrta does not (which uses cost array instread)
     3.
      */
+
+    /*
+    Time complexity:
+    Build graph      O(E)
+    PQ operations    O(E log E)
+    DFS neighbors    O(E)
+    Total : O(E + Elog E) ~ O(ElogE)
+
+    Space : O(V+E)
+     */
     public int mstCost(int n, int[][] edges) {
 
         // initialize graph
         Map<Integer, List<Edge>> graph = new HashMap<>();
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++) { //O(V)
             graph.put(i, new ArrayList<>());
         }
 
         //populate graph with input edges
-        for (int[] e : edges) {
+        for (int[] e : edges) { //O(E)
             int u = e[0];
             int v = e[1];
             int w = e[2];
@@ -40,7 +50,7 @@ public class PrimsMST {
 
         while (!pq.isEmpty()) {
             //find cheapest edge that reaches an unvisited node.
-            State curr = pq.poll();
+            State curr = pq.poll(); //O(logE) as PQ can contain up to O(E)
 
             // skip if already part of MST
             if (visited[curr.node]) {
@@ -58,9 +68,9 @@ public class PrimsMST {
             }
 
             // explore neighbors
-            for (Edge neighbour : graph.get(curr.node)) {
+            for (Edge neighbour : graph.get(curr.node)) { //O(E)
                 if (!visited[neighbour.node]) {
-                    pq.offer(new State(neighbour.node, neighbour.weight));
+                    pq.offer(new State(neighbour.node, neighbour.weight)); //O(log E)
                 }
             }
         }

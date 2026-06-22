@@ -1,0 +1,17 @@
+| Step               | Prim (Your Code)                   | Kruskal (Your Code) |
+| ------------------ | ---------------------------------- | ------------------- |
+| Graph construction | `O(E)`                             | Not needed          |
+| Sorting            | Not needed                         | `O(E log E)`        |
+| PQ operations      | `O(E log E)`                       | Not needed          |
+| Union-Find         | Not needed                         | `O(E α(V)) ≈ O(E)`  |
+| Overall Time       | **`O(E log E)`** (or `O(E log V)`) | **`O(E log E)`**    |
+| Space              | `O(V + E)`                         | `O(V)`              |
+
+
+Both have almost the same asymptotic complexity. Which one would you choose?
+
+A good answer is:
+
+Kruskal: Better when the input is an edge list. Simpler to implement using sorting and Union-Find, and uses less auxiliary space since no adjacency list is required.
+Prim: Better when the graph is already given as an adjacency list or is dense, because it naturally grows the MST from a starting node without sorting all edges.
+

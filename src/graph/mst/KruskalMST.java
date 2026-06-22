@@ -7,17 +7,21 @@ import java.util.*;
 //kruskal algo is edge driven while prim's is node driven
 public class KruskalMST {
 
+    /*
+    Time : O(E log E)
+    Space : O(V)
+     */
     public int mstCost(int n, int[][] edges) {
 
         // Kruskal processes edges in increasing order of weight, hence sorting
-        Arrays.sort(edges, (a, b) -> Integer.compare(a[2], b[2]));
+        Arrays.sort(edges, (a, b) -> Integer.compare(a[2], b[2])); //O(Elog E)
 
         UnionFind dsu = new UnionFind(n);
 
         int totalCost = 0;
         int edgeCount = 0;
 
-        for (int[] e : edges) {
+        for (int[] e : edges) { //O(E)
             int u = e[0];
             int v = e[1];
             int w = e[2];
