@@ -55,7 +55,7 @@ public class IsGraphBipartite {
         //explore neighbours
         for(int neighbour : graph[node]){
             if(nodeColor[neighbour] == -1){
-                int neighbourColor = color == 0 ? 1 : 0;
+                int neighbourColor = color == 0 ? 1 : 0; //same as "1-color"
                 if(!dfs(neighbour, neighbourColor, graph, nodeColor)){
                     return false;
                 }
