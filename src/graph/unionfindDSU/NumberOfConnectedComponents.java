@@ -14,10 +14,11 @@ public class NumberOfConnectedComponents {
         int components = n; //start with n isolated components for each n nodes
 
         for(int[] edge : edges){
-            int src = edge[0];
-            int des = edge[1];
 
-            if(unionFind.union(src, des)){
+            int u = edge[0];
+            int v = edge[1];
+
+            if(unionFind.union(u, v)){
                 components--; // if union succeeds, merge two components, hence count reduced
             }
         }

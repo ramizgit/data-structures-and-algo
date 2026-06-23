@@ -19,10 +19,11 @@ public class NumberOfConnectedComponents {
         }
 
         //dfs to count connected componets
-        Set<Integer> visited = new HashSet<>();
+        boolean[] visited = new boolean[n];
         int connectedComponents = 0;
+
         for(int i=0; i<n; i++){
-            if(!visited.contains(i)){
+            if(!visited[i]){
                 connectedComponents++;
                 dfs(i, graph, visited);
             }
@@ -31,13 +32,13 @@ public class NumberOfConnectedComponents {
         return connectedComponents;
     }
 
-    private static void dfs(int start, Map<Integer, List<Integer>> graph, Set<Integer> visited)
+    private static void dfs(int node, Map<Integer, List<Integer>> graph, boolean[] visited)
     {
-        visited.add(start);
+        visited[node] = true;
 
         //explore neighbours
-        for(int neighbour : graph.get(start)){
-            if(!visited.contains(neighbour)){
+        for(int neighbour : graph.get(node)){
+            if(!visited[neighbour]){
                 dfs(neighbour, graph, visited);
             }
         }
