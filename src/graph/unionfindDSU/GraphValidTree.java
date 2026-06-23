@@ -6,9 +6,9 @@ public class GraphValidTree {
 
     /*
     criteria:
-    1. no loop
-    2. all vertices connected as one component
-    3. a tree with n nodes must have exactly n - 1 edges
+    1. a tree with n nodes must have exactly n - 1 edges
+    2. no cycle
+    3. all vertices connected as one component
      */
 
     public boolean validTree(int n, int[][] edges)
@@ -26,10 +26,11 @@ public class GraphValidTree {
         graph.unionfindDSU.UnionFind unionFind = new graph.unionfindDSU.UnionFind(n);
 
         for(int[] edge : edges){
-            int src = edge[0];
-            int des = edge[1];
 
-            if(!unionFind.union(src, des)){
+            int u = edge[0];
+            int v = edge[1];
+
+            if(!unionFind.union(u, v)){
                 return false; //detects cycle
             }
         }
