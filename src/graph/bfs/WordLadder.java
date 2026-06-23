@@ -47,8 +47,8 @@ public class WordLadder {
 
                 for(String neighbour : neighbours){
                     if(!visited.contains(neighbour)){
-                        bfsQueue.offer(new State(neighbour, curr.steps +1));
                         visited.add(neighbour);
+                        bfsQueue.offer(new State(neighbour, curr.steps +1));
                     }
                 }
             }

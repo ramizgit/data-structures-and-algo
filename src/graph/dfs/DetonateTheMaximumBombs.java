@@ -41,13 +41,15 @@ public class DetonateTheMaximumBombs {
                 int r2 = bombs[j][2];
 
                 //distance between the coordinates, via pythogorean theorem
-                int dist = (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2);
+                long dx = x1 - x2;
+                long dy = y1 - y2;
+                long dist = dx * dx + dy * dy;
 
-                if(dist <= r1 * r1){
+                if(dist <= (long) r1 * r1){
                     graph.get(i).add(j); //j falls under radius range of i bomb
                 }
 
-                if(dist <= r2 * r2){
+                if(dist <= (long) r2 * r2){
                     graph.get(j).add(i); //i falls under radius range of j bomb
                 }
             }
@@ -57,7 +59,7 @@ public class DetonateTheMaximumBombs {
         int max = 0;
         for(int i=0; i<n; i++){
             int[] count = new int[1];
-            Set<Integer> visited = new HashSet<>();
+            boolean[] visited = new boolean[n];
             dfs(i, count, visited, graph);
             max = Math.max(max, count[0]);
         }
@@ -65,14 +67,14 @@ public class DetonateTheMaximumBombs {
         return max;
     }
 
-    private void dfs(int node, int[] count, Set<Integer> visited, Map<Integer, List<Integer>> graph)
+    private void dfs(int node, int[] count, boolean[] visited, Map<Integer, List<Integer>> graph)
     {
-        visited.add(node);
+        visited[node] = true;
         count[0]++;
 
         //explore neighbours
         for(int neighbour : graph.get(node)){
-            if(!visited.contains(neighbour)){
+            if(!visited[neighbour]){
                 dfs(neighbour, count, visited, graph);
             }
         }
