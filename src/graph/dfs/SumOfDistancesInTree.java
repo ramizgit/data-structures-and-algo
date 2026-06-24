@@ -74,7 +74,7 @@ public class SumOfDistancesInTree {
     //first dfs to get subtree size of all nodes, and distance for 0th node
     private void dfsComputeSubTreeSizes(int node, int parent, int depth, int[] size, int[] dist, Map<Integer, List<Integer>> graph)
     {
-        size[node] = 1;
+        size[node] = 1; //size of the node itself
         dist[0] += depth; // depth == distance from root node 0
 
         //explore neighbours
@@ -85,6 +85,7 @@ public class SumOfDistancesInTree {
             }
 
             dfsComputeSubTreeSizes(neighbour, node, depth + 1, size, dist, graph);
+
             size[node] += size[neighbour]; //add the size of the child subtree
         }
     }
