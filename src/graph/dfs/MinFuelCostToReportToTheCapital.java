@@ -12,8 +12,7 @@ public class MinFuelCostToReportToTheCapital {
         Postorder DFS:
         - Each city contributes one representative.
         - subtreeSize[node] = total representatives in its subtree.
-        - To move representatives from a child subtree to its parent,
-          we need ceil(subtreeSize[child] / seats) cars.
+        - To move representatives from a child subtree to its parent, we need ceil(subtreeSize[child] / seats) cars.
         - Each car crossing one edge costs 1 fuel.
         - Sum the fuel contribution of every non-root subtree.
         */
