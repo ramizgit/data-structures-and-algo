@@ -61,7 +61,7 @@ public class MinFuelCostToReportToTheCapital {
 
             dfs(neighbour, node, graph, seats, subtreeSize, fuel);
 
-
+            //Charge the fuel needed to move everyone in this child subtree across exactly one edge (child → parent).
             fuel[0] += (long) Math.ceil((double) subtreeSize[neighbour] / seats); // every representative from child subtree must cross edge (child -> node)
             //fuel[0] += (subtreeSize[neighbour] + seats - 1) / seats; // could be written like this as well
 
