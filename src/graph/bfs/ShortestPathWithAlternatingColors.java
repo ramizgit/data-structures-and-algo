@@ -77,7 +77,7 @@ public class ShortestPathWithAlternatingColors {
                 }
 
                 visited[neighbour.node][neighbour.color] = true; //mark visited
-                bfsQueue.offer(new State(neighbour.node, neighbour.color, curr.distance+1));
+                bfsQueue.offer(new State(neighbour.node, neighbour.color, curr.distance+1)); //enqueue
             }
         }
 
