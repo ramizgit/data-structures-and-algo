@@ -54,12 +54,13 @@ public class IsGraphBipartite {
 
         //explore neighbours
         for(int neighbour : graph[node]){
-            if(nodeColor[neighbour] == -1){
+            if(nodeColor[neighbour] == -1){ //unvisited neighbour
                 int neighbourColor = color == 0 ? 1 : 0; //same as "1-color"
                 if(!dfs(neighbour, neighbourColor, graph, nodeColor)){
                     return false;
                 }
             }else{
+                //already visited neighbour, compare color
                 if(nodeColor[neighbour] == color){
                     return false; // Conflict: adjacent nodes have the same color.
                 }
