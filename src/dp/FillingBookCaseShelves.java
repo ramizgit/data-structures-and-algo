@@ -19,7 +19,7 @@ public class FillingBookCaseShelves {
         for(int i=0; i<n; i++){
             //for each book try both approach
             //1. start with separate shelf
-            //2. keep on combining with prev books as long as width constrant permits
+            //2. keep on combining with prev books as long as width constraint permits
 
             //1. place current book on new shelf
             int currWidth = books[i][0];
@@ -27,7 +27,7 @@ public class FillingBookCaseShelves {
             dp[i] = currHeight  + (i > 0 ? dp[i - 1] : 0);
 
             //2. try placing previous books on same shelf
-            for(int j=i-1; j>=0; j--){ //since books need to be places in order
+            for(int j=i-1; j>=0; j--){ //since books need to be placed in order
 
                 currWidth += books[j][0];
 
