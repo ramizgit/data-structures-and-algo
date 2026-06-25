@@ -29,28 +29,30 @@ public class FindEventualSafeStates {
 
         //initialize graph and indegree
         Map<Integer, List<Integer>> revGraph = new HashMap<>();
-        Map<Integer, Integer> indegree = new HashMap<>();
 
         for(int i=0; i<n; i++){ //O(V)
             revGraph.put(i, new ArrayList<>());
-            indegree.put(i, 0);
         }
+
+        //indegree for kahn's algo
+        int[] indegree = new int[n];
 
         // build reversed graph.
         // indegree in reversed graph == outdegree in original graph.
         for(int i=0; i<n; i++){ //O(V)
-            int[] neighbours = graph[i];
-            for(int neighbour : neighbours){ //O(E)
+            for(int neighbour : graph[i]){ //O(E)
                 revGraph.get(neighbour).add(i); //rever order
-                indegree.put(i, indegree.get(i) + 1);
+                indegree[i]++;
             }
         }
 
         //kahn algo
         Queue<Integer> bfsQueue = new ArrayDeque<>();
-        for(int node : indegree.keySet()){
-            if(indegree.get(node) == 0){
-                bfsQueue.offer(node);
+
+        //add all 0 indegree nodes to start with
+        for(int i=0; i<n; i++){
+            if(indegree[i] == 0){
+                bfsQueue.offer(i);
             }
         }
 
@@ -64,9 +66,9 @@ public class FindEventualSafeStates {
 
             //explore neighbours and add to bfs queue if indegree = 0
             for(int neighbour : revGraph.get(curr)){
-                indegree.put(neighbour, indegree.get(neighbour) - 1);
+                indegree[neighbour]--;
 
-                if(indegree.get(neighbour) == 0){
+                if(indegree[neighbour] == 0){
                     bfsQueue.offer(neighbour);
                 }
             }
