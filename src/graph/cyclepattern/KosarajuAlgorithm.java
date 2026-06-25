@@ -4,7 +4,8 @@ import java.util.*;
 
 /*
     Kosaraju’s Algorithm finds all Strongly Connected Components (SCCs) in a "directed graph"
-    using two DFS passes—one to order nodes by finishing time and another on the reversed graph to extract each component.
+    using two DFS passes — first DFS pass (postorder) to order nodes by finishing time and another DFS pass on the reversed graph using stack order
+    to extract each component.
 
     A Strongly Connected Component (SCC) is a maximal group of nodes in a directed graph where every node is reachable
     from every other node; such components contain cycles if their size is greater than one (or if a node has a self-loop).
@@ -14,7 +15,7 @@ public class KosarajuAlgorithm {
 
     public List<List<Integer>> getAllStronglyConnectedComponents(int n, int[][] edges)
     {
-        //initialize graph
+        //initialize graph as adjacency list
         Map<Integer, List<Integer>> graph = new HashMap<>();
         for(int i=0; i<n; i++){
             graph.put(i, new ArrayList<>());
@@ -67,6 +68,7 @@ public class KosarajuAlgorithm {
         List<List<Integer>> allSCCs = new ArrayList<>();
 
         while(!stack.isEmpty()){
+
             int node = stack.pop();
 
             if(!visited[node]){
@@ -79,6 +81,7 @@ public class KosarajuAlgorithm {
         return allSCCs;
     }
 
+    //postorder DFS
     private void dfsFirstPass(int node, boolean[] visited, Map<Integer, List<Integer>> graph, Deque<Integer> stack)
     {
         visited[node] = true; //mark visited

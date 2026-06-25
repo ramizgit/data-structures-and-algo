@@ -19,7 +19,7 @@ public class TarjanSCCAlgorithm {
     */
     public List<List<Integer>> findSCCs(int n, int[][] edges)
     {
-        //initialize graph
+        //initialize graph ad adjacency list
         Map<Integer, List<Integer>> graph = new HashMap<>();
         for(int i=0; i<n; i++){ //O(V)
             graph.put(i, new ArrayList<>());
