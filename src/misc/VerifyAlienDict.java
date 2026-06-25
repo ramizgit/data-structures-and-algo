@@ -1,16 +1,10 @@
 package meta;
 
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class VerifyAlienDict {
-    public static void main(String[] args)
-    {
-        System.out.println(isAlienSorted(Arrays.asList("hello", "leetcode"), "hlabcdefgijkmnopqrstuvwxyz")); //true
-        System.out.println(isAlienSorted(Arrays.asList("word", "world", "row"), "worldabcefghijkmnpqstuvxyz"));//false
-    }
+
+    //https://leetcode.com/problems/verifying-an-alien-dictionary/description/
 
     private static boolean isAlienSorted(List<String> words, String order)
     {
@@ -19,34 +13,48 @@ public class VerifyAlienDict {
             return true;
         }
 
-        //alphebet order weight
-        Map<Character, Integer> weight = new HashMap<>();
-        int w = 1;
-        for(char ch : order.toCharArray()){
-            weight.put(ch, w++);
+        //alphabet order rank
+        int[] rank = new int[26];
+
+        for(int i=0; i<order.length(); i++){
+            rank[order.charAt(i) - 'a'] = i;
         }
 
         for(int i=0; i<words.size()-1; i++){
+
             String word1 = words.get(i);
             String word2 = words.get(i+1);
 
+            int minLen = Math.min(word1.length(), word2.length());
+            boolean diff = false;
+
             //compare the two words
-            for(int j=0; j<word1.length(); j++){
-                //if we reach end of word2 before word1, return false
-                if(j == word2.length()){
+            for(int j=0; j<minLen; j++){
+
+                char ch1 = word1.charAt(j);
+                char ch2 = word2.charAt(j);
+
+                if(ch1 == ch2){
+                    continue;
+                }
+
+                diff = true;
+
+                if (rank[ch1 - 'a'] > rank[ch2 - 'a']) {
                     return false;
                 }
 
-                //compare char by char
-                if(word1.charAt(j) != word2.charAt(j)){
-                    if(weight.get(word1.charAt(j)) > weight.get(word2.charAt(j))){
-                        return false;
-                    }else {
-                        break;
-                    }
-                }
+                // words are in correct order, move to next pair
+                break;
+            }
+
+            // prefix case
+            if (!diff && word1.length() > word2.length()) {
+                return false;
             }
         }
+
         return true;
     }
 }
+
