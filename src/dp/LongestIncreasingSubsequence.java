@@ -2,7 +2,7 @@ package dp;
 
 import java.util.*;
 
-public class LongestIncreasingSubSeq {
+public class LongestIncreasingSubsequence {
 
     public static void main(String[] args)
     {
