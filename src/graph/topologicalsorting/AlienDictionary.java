@@ -8,64 +8,76 @@ public class AlienDictionary {
 
     public String alienOrder(String[] words)
     {
-        //initialize graph and indegree
+        //initialize graph as adjacency list
         Map<Character, List<Character>> graph = new HashMap<>();
-        Map<Character, Integer> indegree = new HashMap<>();
+
         for(String word : words){
             for(char ch : word.toCharArray()){
                 graph.putIfAbsent(ch, new ArrayList<>());
-                indegree.putIfAbsent(ch, 0);
             }
         }
 
+        //indegree of each 26 letters
+        int[] indegree = new int[26];
+
         //populate graph and indegree as per the input
-        for(int i = 1; i < words.length; i++){
-            String w1 = words[i - 1];
-            String w2 = words[i];
+        for(int i = 0; i < words.length - 1; i++){
 
-            int len = Math.min(w1.length(), w2.length());
-            boolean foundDiff = false;
+            String word1 = words[i];
+            String word2 = words[i+1];
 
-            for(int j = 0; j < len; j++){
-                char c1 = w1.charAt(j);
-                char c2 = w2.charAt(j);
+            int minLen = Math.min(word1.length(), word2.length());
+            boolean diff = false;
 
-                if(c1 != c2){
-                    //avoid duplicate edges, prevents indegree inflation (important)
-                    if(!graph.get(c1).contains(c2)){
-                        graph.get(c1).add(c2);
-                        indegree.put(c2, indegree.get(c2) + 1);
-                    }
-                    foundDiff = true;
-                    break; // IMPORTANT
+            for(int j = 0; j < minLen; j++){
+
+                char ch1 = word1.charAt(j);
+                char ch2 = word2.charAt(j);
+
+                if(ch1 == ch2){
+                    continue;
                 }
+
+                diff = true;
+
+                //avoid duplicate edges, prevents indegree inflation (important)
+                if(!graph.get(ch1).contains(ch2)){
+                    graph.get(ch1).add(ch2);
+                    indegree[ch2 - 'a']++;
+                }
+
+                break; // IMPORTANT : first differing character uniquely determines the ordering
             }
 
-            // invalid case: prefix
-            if(!foundDiff && w1.length() > w2.length()){
+            // invalid prefix case: longer word appears before its prefix, example: ["apple", "app"]
+            if(!diff && word1.length() > word2.length()){
                 return "";
             }
         }
 
-        //Start with all 0-indegree nodes, topological sort - standard Kahn's algorithm
-        Queue<Character> queue = new ArrayDeque<>();
-        for(char ch : indegree.keySet()){
-            if(indegree.get(ch) == 0){
-                queue.offer(ch);
+        //Start with all 0-indegree nodes from the graph, topological sort - standard Kahn's algorithm
+        Queue<Character> bfsQueue = new ArrayDeque<>();
+
+        for(char ch : graph.keySet()){
+            if(indegree[ch - 'a'] == 0){
+                bfsQueue.offer(ch);
             }
         }
 
         StringBuilder order = new StringBuilder();
 
-        while(!queue.isEmpty()){
-            char curr = queue.poll();
+        while(!bfsQueue.isEmpty()){
+
+            char curr = bfsQueue.poll();
             order.append(curr); //add to the answer
 
             //explore neighbours
             for(char neighbour : graph.get(curr)){
-                indegree.put(neighbour, indegree.get(neighbour) - 1);
-                if(indegree.get(neighbour) == 0){
-                    queue.offer(neighbour);
+
+                indegree[neighbour - 'a']--;
+
+                if(indegree[neighbour - 'a'] == 0){
+                    bfsQueue.offer(neighbour);
                 }
             }
         }
