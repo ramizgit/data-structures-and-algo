@@ -9,11 +9,11 @@ public class AlienDictionary {
     public String alienOrder(String[] words)
     {
         //initialize graph as adjacency list
-        Map<Character, List<Character>> graph = new HashMap<>();
+        Map<Character, Set<Character>> graph = new HashMap<>(); //set for efficient lookup later
 
         for(String word : words){
             for(char ch : word.toCharArray()){
-                graph.putIfAbsent(ch, new ArrayList<>());
+                graph.putIfAbsent(ch, new HashSet<>());
             }
         }
 
@@ -58,7 +58,7 @@ public class AlienDictionary {
         //Start with all 0-indegree nodes from the graph, topological sort - standard Kahn's algorithm
         Queue<Character> bfsQueue = new ArrayDeque<>();
 
-        for(char ch : graph.keySet()){
+        for(char ch : graph.keySet()){ //important : do not iterate whole indegree array, as it will add all letters a-z but not all supposed to be in the graph
             if(indegree[ch - 'a'] == 0){
                 bfsQueue.offer(ch);
             }
