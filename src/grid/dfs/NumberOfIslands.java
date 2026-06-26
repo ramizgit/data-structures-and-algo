@@ -44,7 +44,10 @@ public class NumberOfIslands {
             int x = i + dir[0];
             int y = j + dir[1];
 
-            if(x >= 0 && x < m && y >= 0 && y < n && grid[x][y] == 1 && !visited[x][y]){
+            if(x >= 0 && x < m && y >= 0 && y < n //boundary check
+                    && grid[x][y] == 1 //land check
+                    && !visited[x][y]) //visited check
+            {
                 dfs(grid, visited, x, y, m, n);
             }
         }

@@ -42,7 +42,9 @@ public class MaxAreaOfIsland {
             int x = i + dir[0];
             int y = j + dir[1];
 
-            if(x >= 0 && x < m && y >= 0 && y < n && !visited[x][y] && grid[x][y] == 1){
+            if(x >= 0 && x < m && y >= 0 && y < n //boundary check
+                    && !visited[x][y] //visited check
+                    && grid[x][y] == 1){ //land check
                 dfs(grid, visited, x, y, m, n, count);
             }
         }
