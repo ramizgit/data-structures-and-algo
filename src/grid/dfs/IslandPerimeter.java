@@ -4,7 +4,7 @@ public class IslandPerimeter {
 
     //https://leetcode.com/problems/island-perimeter/description/
 
-    private static int[][] DIRECTIONS = { {1, 0}, {-1, 0}, {0, 1}, {0, -1} };
+    private static final int[][] DIRECTIONS = { {1, 0}, {-1, 0}, {0, 1}, {0, -1} };
 
     public int islandPerimeter(int[][] grid)
     {
@@ -41,11 +41,14 @@ public class IslandPerimeter {
             int x = i + dir[0];
             int y = j + dir[1];
 
-            // If out of bounds or water, it's a perimeter edge
+            // if out of bounds or water, it's a perimeter edge
             if (x < 0 || x >= m || y < 0 || y >= n || grid[x][y] == 0) {
                 // this side of the land cell touches either boundary or the water, hence increment perimeter
-                perimeter[0]++; //water or out of bound → contributes to perimeter
-            } else if (!visited[x][y]) {
+                perimeter[0]++;
+                continue;
+            }
+
+            if (!visited[x][y]) {
                 dfs(grid, visited, x, y, m, n, perimeter); //else if land and not visited, keep exploring
             }
         }
