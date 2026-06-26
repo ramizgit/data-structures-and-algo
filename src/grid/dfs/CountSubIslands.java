@@ -39,6 +39,10 @@ public class CountSubIslands {
 
     private boolean isSubIsland(int[][] grid1, int[][] grid2, int m, int n, int i, int j, boolean[][] visited)
     {
+        // Trick: Even if we find a mismatch, continue DFS to visit the entire island in grid2.
+        // Otherwise, the remaining cells of the same island stay unvisited and the outer loop
+        // will start another DFS from them, treating them as a new island.
+
         visited[i][j] = true;
 
         // assume current island is a sub-island only if current cell is also land in grid1
