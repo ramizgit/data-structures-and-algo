@@ -21,7 +21,9 @@ public class BinarySearchInMatrix {
         int right = m * n - 1; //15
 
         while (left <= right){
-            int mid = (left + right) / 2; // (0+15)/2 = 7
+
+            int mid = left + (right - left) / 2; // (0+15)/2 = 7
+
             int row = mid / n; // 7 / 4 = 1
             int col = mid % n; // 7 % 4 = 3
 
