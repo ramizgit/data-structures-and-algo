@@ -1,4 +1,4 @@
-package matrix;
+package consistenthashing.grid.dfs;
 
 public class SurroundedRegionsDFS {
 
