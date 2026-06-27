@@ -12,7 +12,7 @@ public class CorporateFlightBookings {
     // Space : O(n)
     public int[] corpFlightBookings(int[][] bookings, int n)
     {
-        int[] diff = new int[n+1];
+        int[] diff = new int[n+1]; //note : the extra cell is a sentinel to avoid boundary check
 
         // Convert bookings into difference array updates.
         for(int[] booking : bookings){
