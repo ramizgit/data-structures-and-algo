@@ -24,9 +24,7 @@ public class MeetingRoomsII {
             events.add(new Event(interval[1], -1)); //end
         }
 
-        // Sort events by time.
-        // If two events occur at the same time, process END (-1) before START (+1).
-        // Time: O(n log n)
+        // sort events by time asc order. If two events occur at the same time, process END (-1) before START (+1).
         events.sort( (a, b) -> {
 
             if(a.time != b.time){
@@ -34,7 +32,7 @@ public class MeetingRoomsII {
             }
 
             return Integer.compare(a.delta, b.delta); // -1 before +1
-        } );
+        } ); // Time: O(n log n)
 
         int activeMeetings = 0;
         int maxConcurrentMeetings = 0;
