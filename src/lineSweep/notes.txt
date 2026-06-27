@@ -1,0 +1,31 @@
+General steps:-
+--------------
+1. Convert each interval/range into events.
+   - Start event (+)
+   - End event (-)
+
+2. Order the events.
+   - Sort by coordinate/time, this is O(nlog n)
+   - OR use a difference array if coordinates are small and bounded to avoid sorting, this is O(n)
+
+3. Sweep from left to right.
+   - Maintain the current active state.
+   - Update the answer at each event.
+
+
+
+
+
+Sweep Line
+    │
+    ├── Small coordinate range → Difference Array
+    │
+    └── Large coordinate range → Sort Events
+
+
+                Sweep Line
+                    │
+         ┌──────────┴──────────┐
+         │                     │
+    Event Sorting         Difference Array
+ (sort arbitrary events)  (locations are bounded)
