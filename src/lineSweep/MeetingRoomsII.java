@@ -6,7 +6,7 @@ public class MeetingRoomsII {
 
     //https://leetcode.com/problems/meeting-rooms-ii/description/
 
-    //IMPORTANT : this can be solved via both heap and line sweep.
+    //IMPORTANT : this can be solved via both heap and line sweep. for heap approach, look inside intervals package
 
     // Time  : O(n log n)
     // Space : O(n)
@@ -23,7 +23,6 @@ public class MeetingRoomsII {
             events.add(new Event(interval[0], 1)); //start
             events.add(new Event(interval[1], -1)); //end
         }
-
 
         // Sort events by time.
         // If two events occur at the same time, process END (-1) before START (+1).
