@@ -39,13 +39,13 @@ public class MyCalendariii {
 
     public int book(int startTime, int endTime)
     {
-        this.events.put(startTime, this.events.getOrDefault(startTime, 0) + 1);
-        this.events.put(endTime, this.events.getOrDefault(endTime, 0) - 1);
+        this.events.put(startTime, this.events.getOrDefault(startTime, 0) + 1); //O(log n)
+        this.events.put(endTime, this.events.getOrDefault(endTime, 0) - 1); //O(log n)
 
         int active = 0;
         int maxActive = 0;
 
-        for(int delta : events.values()){
+        for(int delta : events.values()){ //O(n)
             active += delta;
             maxActive = Math.max(maxActive, active);
         }
