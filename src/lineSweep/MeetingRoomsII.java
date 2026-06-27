@@ -8,6 +8,9 @@ public class MeetingRoomsII {
 
     //IMPORTANT : this can be solved via both heap and line sweep. for heap approach, look inside intervals package
 
+    private static final int START = 1;
+    private static final int END = -1;
+
     // Time  : O(n log n)
     // Space : O(n)
     public int minMeetingRooms(int[][] intervals)
@@ -20,8 +23,8 @@ public class MeetingRoomsII {
         List<Event> events = new ArrayList<>();
 
         for(int[] interval : intervals){ //O(n)
-            events.add(new Event(interval[0], 1)); //start
-            events.add(new Event(interval[1], -1)); //end
+            events.add(new Event(interval[0], START)); //start
+            events.add(new Event(interval[1], END)); //end
         }
 
         // sort events by time asc order. If two events occur at the same time, process END (-1) before START (+1).
@@ -31,7 +34,7 @@ public class MeetingRoomsII {
                 return Integer.compare(a.time, b.time);
             }
 
-            return Integer.compare(a.delta, b.delta); // -1 before +1
+            return Integer.compare(a.delta, b.delta); // END (-1) before START (+1)
         } ); // Time: O(n log n)
 
         int activeMeetings = 0;
