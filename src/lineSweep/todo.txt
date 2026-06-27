@@ -1,7 +1,7 @@
 Level 1 (Must Know)
 | Problem                                    | Difficulty | Trick                               |
 | ------------------------------------------ | ---------- | ----------------------------------- |
-| Meeting Rooms II                           | Medium     | Sort start/end separately or events |
+| Meeting Rooms II                           | Medium     | Sort start/end separately or events | [Done]
 | Minimum Number of Arrows to Burst Balloons | Medium     | Interval greedy (related concept)   |
 | Merge Intervals                            | Medium     | Interval sorting                    |
 | Insert Interval                            | Medium     | Sweep merged intervals              |
@@ -11,7 +11,7 @@ Level 1 (Must Know)
 Level 2 (Classic Sweep Line)
 | Problem             | Difficulty | Pattern            |
 | ------------------- | ---------- | ------------------ |
-| The Skyline Problem | Hard       | Events + Max Heap  |
+| The Skyline Problem | Hard       | Events + Max Heap  | [Done]
 | Employee Free Time  | Hard       | Merge intervals    |
 | My Calendar I       | Medium     | Ordered map        |
 | My Calendar II      | Medium     | Difference map     |
@@ -21,8 +21,8 @@ Level 2 (Classic Sweep Line)
 Level 3 (Difference Array + Sweep)
 | Problem                                          | Difficulty | Trick                                    |
 | ------------------------------------------------ | ---------- | ---------------------------------------- |
-| Car Pooling                                      | Medium     | +passengers at start, -passengers at end |
-| Corporate Flight Bookings                        | Medium     | Difference array                         |
+| Car Pooling                                      | Medium     | +passengers at start, -passengers at end | [Done]
+| Corporate Flight Bookings                        | Medium     | Difference array                         | [Done]
 | Describe the Painting                            | Medium     | Coordinate sweep                         |
 | Check if All the Integers in a Range Are Covered | Easy       | Difference array                         |
 
