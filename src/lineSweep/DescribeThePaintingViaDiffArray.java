@@ -2,7 +2,7 @@ package consistenthashing.lineSweep;
 
 import java.util.*;
 
-public class DescribeThePainting {
+public class DescribeThePaintingViaDiffArray {
 
     //https://leetcode.com/problems/describe-the-painting/description/
 
@@ -10,9 +10,8 @@ public class DescribeThePainting {
     {
         /*
         Approach:-
-        its offline, treemap is ruled out
-        now its diff. array vs event list with sorting
         coordinate range is "1 <= starti < endi <= 105" which is small, hence go with diff. array approach
+        this can also be solved via treemap approach which is actually preferred, follow DescribeThePaintingViaTreeMap
          */
 
         //input validation

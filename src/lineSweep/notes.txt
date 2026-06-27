@@ -14,27 +14,25 @@ General steps:-
 
 
 
-
-
 Sweep Line
-    │
-    ├── Small, dense coordinate range
-    │      ↓
-    │   Difference Array
-    │
-    ├── Large/sparse coordinates + offline problem
-    │      (all events known upfront)
-    │      ↓
-    │   Event List + Sort
-    │
-    └── Large/sparse coordinates + online problem
-           (events arrive incrementally)
-           ↓
-        TreeMap (ordered map)
 
-
-Reasoning in simple words (my own wordings):-
---------------------------------------------
-1. if the problem is offline, i.e., intervals/segments are given before hand, then TreeMap approach is ruled out
-2. if Coordinate range is bounded, then go with diff. array, no sorting needed
-3. but if range is sparse/too large (10^9 or so) go with event list and sorting approach
+│
+├── Small dense coordinates?
+│       │
+│       ├── YES → Difference Array
+│       │
+│       └── NO
+│
+├── Need incremental (online) updates?
+│       │
+│       ├── YES → TreeMap
+│       │
+│       └── NO
+│
+└── Offline
+        │
+        ├── Need individual events?
+        │       │
+        │       ├── YES → Event List + Sort
+        │       │
+        │       └── NO → TreeMap Difference Map
