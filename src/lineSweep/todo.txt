@@ -12,10 +12,10 @@ Level 2 (Classic Sweep Line)
 | Problem             | Difficulty | Pattern            |
 | ------------------- | ---------- | ------------------ |
 | The Skyline Problem | Hard       | Events + Max Heap  | [Done]
-| Employee Free Time  | Hard       | Merge intervals    |
+| Employee Free Time  | Hard       | Merge intervals    | [Done]
 | My Calendar I       | Medium     | Ordered map        |
 | My Calendar II      | Medium     | Difference map     |
-| My Calendar III     | Hard       | Sweep + Prefix Sum |
+| My Calendar III     | Hard       | Sweep + Prefix Sum | [Done]
 
 
 Level 3 (Difference Array + Sweep)
@@ -34,3 +34,9 @@ Level 4 (Advanced Sweep)
 | Rectangle Area II                   | Hard       | Vertical sweep                     |
 | Perfect Rectangle                   | Hard       | Geometry + sweep ideas             |
 | Maximum Population Year             | Easy       | Difference array                   |
+
+Next
+My Calendar II ⭐⭐⭐⭐⭐
+Describe the Painting ⭐⭐⭐⭐⭐
+Maximum Population Year ⭐⭐⭐
+Brightest Position on Street ⭐⭐⭐
