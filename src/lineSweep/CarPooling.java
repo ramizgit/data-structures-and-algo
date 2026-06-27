@@ -1,16 +1,12 @@
-package intervals;
+package consistenthashing.lineSweep;
 
 import java.util.*;
 
 public class CarPooling {
 
-    /*
-    There is a car with capacity empty seats. The vehicle only drives east (i.e., it cannot turn around and drive west).
-    You are given the integer capacity and an array trips where trips[i] = [numPassengersi, fromi, toi] indicates that
-    the ith trip has numPassengersi passengers and the locations to pick them up and drop them off are from i and toi respectively.
-     The locations are given as the number of kilometers due east from the car's initial location.
-    Return true if it is possible to pick up and drop off all passengers for all the given trips, or false otherwise.
-     */
+    //https://leetcode.com/problems/car-pooling/description/
+
+    //diff. array is specialized form of line sweep when small coordinate range (locations are bounded)
 
     //Time : O(n)
     public boolean carPooling(int[][] trips, int capacity)
