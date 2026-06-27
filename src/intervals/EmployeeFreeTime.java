@@ -14,14 +14,27 @@ public class EmployeeFreeTime {
 
     public List<int[]> employeeFreeTime(List<List<int[]>> schedule)
     {
+        /*
+        Approach:-
+        Flatten all employee schedules.
+        Sort by start time.
+        Merge all busy intervals.
+        The gaps between merged intervals are the common free times.
+         */
+
+        //input validation
+        if (schedule == null || schedule.isEmpty()) {
+            return new ArrayList<>();
+        }
+
         //flatten input schedules
         List<int[]> flattenSchedule = new ArrayList<>();
         for(List<int[]> s : schedule){
             flattenSchedule.addAll(s);
         }
 
-        //global sort by start time
-        Collections.sort(flattenSchedule, (a, b) -> a[0] - b[0]);
+        //global sort by start time in asc order
+        Collections.sort(flattenSchedule, (a, b) -> Integer.compare(a[0], b[0]));
 
         //merge schedules
         List<int[]> mergeSchedule = new ArrayList<>();
