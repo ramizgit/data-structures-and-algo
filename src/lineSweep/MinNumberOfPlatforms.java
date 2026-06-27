@@ -49,7 +49,7 @@ public class MinNumberOfPlatforms {
             maxConcurrentTrains = Math.max(maxConcurrentTrains, currTrains);
         }
 
-        return maxConcurrentTrains;
+        return maxConcurrentTrains; //min number of platforms needed to host maxConcurrentTrains without waiting
     }
 
     static class Event{
