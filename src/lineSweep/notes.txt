@@ -18,14 +18,16 @@ General steps:-
 
 Sweep Line
     │
-    ├── Small coordinate range → Difference Array
+    ├── Small, dense coordinate range
+    │      ↓
+    │   Difference Array
     │
-    └── Large coordinate range → Sort Events
-
-
-                Sweep Line
-                    │
-         ┌──────────┴──────────┐
-         │                     │
-    Event Sorting         Difference Array
- (sort arbitrary events)  (locations are bounded)
+    ├── Large/sparse coordinates + offline problem
+    │      (all events known upfront)
+    │      ↓
+    │   Event List + Sort
+    │
+    └── Large/sparse coordinates + online problem
+           (events arrive incrementally)
+           ↓
+        TreeMap (ordered map)
