@@ -24,7 +24,7 @@ Level 3 (Difference Array + Sweep)
 | Car Pooling                                      | Medium     | +passengers at start, -passengers at end | [Done]
 | Corporate Flight Bookings                        | Medium     | Difference array                         | [Done]
 | Describe the Painting                            | Medium     | Coordinate sweep                         | [Done]
-| Check if All the Integers in a Range Are Covered | Easy       | Difference array                         |
+| Check if All the Integers in a Range Are Covered | Easy       | Difference array                         | [Done]
 
 
 Level 4 (Advanced Sweep)
@@ -40,3 +40,13 @@ My Calendar II ⭐⭐⭐⭐⭐ [done]
 Describe the Painting ⭐⭐⭐⭐⭐ [Done]
 Maximum Population Year ⭐⭐⭐ [Done]
 Brightest Position on Street ⭐⭐⭐ [Done]
+
+
+https://leetcode.com/problem-list/line-sweep/
+https://leetcode.com/problems/rectangle-area/description/
+https://leetcode.com/problems/perfect-rectangle/description/?envType=problem-list-v2&envId=line-sweep
+https://leetcode.com/problems/rectangle-area-ii/description/?envType=problem-list-v2&envId=line-sweep
+https://leetcode.com/problems/minimum-interval-to-include-each-query/description/?envType=problem-list-v2&envId=line-sweep
+https://leetcode.com/problems/interval-list-intersections/description/?envType=problem-list-v2&envId=line-sweep
+https://leetcode.com/problems/maximum-number-of-intersections-on-the-chart/?envType=problem-list-v2&envId=line-sweep
+https://leetcode.com/problems/separate-squares-ii/description/?envType=problem-list-v2&envId=line-sweep
