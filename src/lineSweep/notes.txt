@@ -12,27 +12,72 @@ General steps:-
    - Maintain the current active state.
    - Update the answer at each event.
 
-
-
 Sweep Line
+│
+├── Small coordinate range
+│      ↓
+│   Difference Array
+│
+└── Large / sparse coordinate range
+       │
+       ├── Need event ordering at same coordinate?
+       │      ↓
+       │   YES → Event List + Sort [Need to distinguish events occurring at the same coordinate? e.g., Meeting Rooms II (END before START), Skyline (START before END, taller before shorter)]
+       │
+       └── NO  → TreeMap (Difference Map)
 
-│
-├── Small dense coordinates?
-│       │
-│       ├── YES → Difference Array
-│       │
-│       └── NO
-│
-├── Need incremental (online) updates?
-│       │
-│       ├── YES → TreeMap
-│       │
-│       └── NO
-│
-└── Offline
-        │
-        ├── Need individual events?
-        │       │
-        │       ├── YES → Event List + Sort
-        │       │
-        │       └── NO → TreeMap Difference Map
+
+
+### Sweep Line: Event List vs. TreeMap
+
+After ruling out a **Difference Array** (because the coordinate range is too large), choose between an **Event List** and a **TreeMap (difference map)** based on whether the **order of individual events at the same coordinate matters**.
+
+#### Use an Event List + Sorting when:
+
+* Individual events at the same coordinate must be processed in a specific order.
+* A custom comparator is required (e.g., START before END, taller before shorter).
+* Events cannot be merged because each one affects the answer independently.
+
+Examples:
+
+* Meeting Rooms II
+* The Skyline Problem
+* Minimum Number of Platforms
+
+---
+
+#### Use a TreeMap (Sparse Difference Map) when:
+
+* Only the **net change** at each coordinate matters.
+* Multiple updates at the same coordinate can be combined (summed).
+* The sweep only needs the accumulated value (prefix sum), not the order of individual events.
+
+Examples:
+
+* My Calendar II
+* My Calendar III
+* Describe the Painting
+* Brightest Position on Street
+
+---
+
+### Quick Rule
+
+Need to distinguish the order of events at the same coordinate?
+
+**YES** → Event List + Custom Sort
+
+**NO** → TreeMap (Sparse Difference Map)
+
+===========================================
+
+| Pattern                         | Representative Problem       |
+| ------------------------------- | ---------------------------- |
+| Difference Array                | Corporate Flight Bookings    |
+| Sparse Difference Map           | Brightest Position on Street |
+| Sparse Difference Map           | Describe the Painting        |
+| Sparse Difference Map           | My Calendar II               |
+| Sparse Difference Map           | My Calendar III              |
+| Event List + Sorting            | Meeting Rooms II             |
+| Event List + Sorting + Multiset | Skyline                      |
+| Difference Array                | Maximum Population Year      |
