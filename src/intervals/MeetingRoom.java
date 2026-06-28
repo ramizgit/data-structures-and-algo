@@ -14,7 +14,7 @@ public class MeetingRoom {
         }
 
         //sort input intervals by start time in asc order
-        Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
+        Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));
 
         //check adjacent intervals for any overlap
         for(int i=1; i<intervals.length; i++){
