@@ -3,9 +3,9 @@ Level 1 (Must Know)
 | ------------------------------------------ | ---------- | ----------------------------------- |
 | Meeting Rooms II                           | Medium     | Sort start/end separately or events | [Done]
 | Minimum Number of Arrows to Burst Balloons | Medium     | Interval greedy (related concept)   |
-| Merge Intervals                            | Medium     | Interval sorting                    |
-| Insert Interval                            | Medium     | Sweep merged intervals              |
-| Non-overlapping Intervals                  | Medium     | Interval overlap                    |
+| Merge Intervals                            | Medium     | Interval sorting                    | [Done]
+| Insert Interval                            | Medium     | Sweep merged intervals              | [Done]
+| Non-overlapping Intervals                  | Medium     | Interval overlap                    | [Done]
 
 
 Level 2 (Classic Sweep Line)
@@ -13,7 +13,7 @@ Level 2 (Classic Sweep Line)
 | ------------------- | ---------- | ------------------ |
 | The Skyline Problem | Hard       | Events + Max Heap  | [Done]
 | Employee Free Time  | Hard       | Merge intervals    | [Done]
-| My Calendar I       | Medium     | Ordered map        |
+| My Calendar I       | Medium     | Ordered map        | [Done]
 | My Calendar II      | Medium     | Difference map     | [Done]
 | My Calendar III     | Hard       | Sweep + Prefix Sum | [Done]
 
@@ -23,7 +23,7 @@ Level 3 (Difference Array + Sweep)
 | ------------------------------------------------ | ---------- | ---------------------------------------- |
 | Car Pooling                                      | Medium     | +passengers at start, -passengers at end | [Done]
 | Corporate Flight Bookings                        | Medium     | Difference array                         | [Done]
-| Describe the Painting                            | Medium     | Coordinate sweep                         |
+| Describe the Painting                            | Medium     | Coordinate sweep                         | [Done]
 | Check if All the Integers in a Range Are Covered | Easy       | Difference array                         |
 
 
@@ -39,4 +39,4 @@ Next
 My Calendar II ⭐⭐⭐⭐⭐ [done]
 Describe the Painting ⭐⭐⭐⭐⭐ [Done]
 Maximum Population Year ⭐⭐⭐ [Done]
-Brightest Position on Street ⭐⭐⭐
+Brightest Position on Street ⭐⭐⭐ [Done]
