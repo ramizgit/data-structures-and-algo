@@ -19,7 +19,7 @@ public class CheckIfAllIntegersInRangeAreCovered {
             return false;
         }
 
-        //conver each range into difference array update using start (+1) and end (-1)
+        //convert each range into difference array update using start (+1) and end (-1)
         int[] diff = new int[52];
 
         for(int[] range : ranges){
