@@ -23,10 +23,22 @@ public class MinimumIntervalToIncludeEachQuery {
     Write answer into original index
     */
 
+    // Time : O((n + q) log n)
+    // Space: O(n + q)
     public int[] minInterval(int[][] intervals, int[] queries)
     {
+        //create interval list along with interval size, precompute interval lengths for efficient heap ordering
+        List<Interval> intervalList = new ArrayList<>();
+
+        for(int[] interval : intervals){
+            int start = interval[0];
+            int end = interval[1];
+
+            intervalList.add(new Interval(start, end));
+        }
+
         //sort interval by start
-        Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));
+        intervalList.sort( (a, b) -> Integer.compare(a.start, b.start) );
 
         //store queries along with index, so that we dont lose ordering while sorting
         List<int[]> queriesWithIdx = new ArrayList<>();
@@ -38,26 +50,24 @@ public class MinimumIntervalToIncludeEachQuery {
         queriesWithIdx.sort( (a, b) -> Integer.compare(a[0], b[0]));
 
         // Sweep queries from left to right while maintaining all active intervals in a min-heap ordered by interval length.
-        PriorityQueue<int[]> minHeap = new PriorityQueue<>( (a, b) -> {
-            int size1 = a[1] - a[0] + 1;
-            int size2 = b[1] - b[0] + 1;
-
-            return Integer.compare(size1, size2); //order by interval size asc order
-        });
+        PriorityQueue<Interval> minHeap = new PriorityQueue<>( (a, b) -> Integer.compare(a.size, b.size));
 
         int[] result = new int[queries.length];
-        int lastIntervalIdx = 0;
+        int intervalIndex = 0;
 
         for(int[] query : queriesWithIdx){
 
+            int queryValue = query[0];
+            int queryIndex = query[1];
+
             //add all intervals whose start <= query
-            while(lastIntervalIdx < intervals.length && intervals[lastIntervalIdx][0] <= query[0]){
-                minHeap.offer(intervals[lastIntervalIdx]);
-                lastIntervalIdx++;
+            while(intervalIndex < intervalList.size() && intervalList.get(intervalIndex).start <= queryValue){
+                minHeap.offer(intervalList.get(intervalIndex));
+                intervalIndex++;
             }
 
             //remove all expired intervals whose end < query
-            while(!minHeap.isEmpty() && minHeap.peek()[1] < query[0]){
+            while(!minHeap.isEmpty() && minHeap.peek().end < queryValue){
                 minHeap.poll();
             }
 
@@ -68,16 +78,28 @@ public class MinimumIntervalToIncludeEachQuery {
             When an expired interval eventually reaches the top, it gets removed.
              */
 
-            //take min and add to result
+            //heap top is the smallest interval that contains the current query.
             if(!minHeap.isEmpty()){
                 //Heap top is the smallest valid interval
-                int[] minSizeInterval = minHeap.peek();
-                result[query[1]] = minSizeInterval[1] - minSizeInterval[0] + 1;
+                Interval minSizeInterval = minHeap.peek();
+                result[queryIndex] = minSizeInterval.size;
             }else{
-                result[query[1]] = -1;
+                result[queryIndex] = -1;
             }
         }
 
         return result;
+    }
+
+    static class Interval{
+        int start;
+        int end;
+        int size;
+
+        public Interval(int start, int end) {
+            this.start = start;
+            this.end = end;
+            this.size = end - start + 1;
+        }
     }
 }
