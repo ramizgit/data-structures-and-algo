@@ -9,17 +9,28 @@ public class SubsetSumDp {
     }
 
     //-------repetation allowd, unbounded knapsack, similar to coin change
+    /*
+    nums = [2]
+    target = 4
+
+    Initially:
+    dp = [T F F F F]
+
+    Process 2:
+    t = 2 -> dp[2] = dp[0] = T
+    t = 3 -> dp[3] = dp[1] = F
+    t = 4 -> dp[4] = dp[2] = T   // dp[2] was updated earlier in this iteration
+    Result: dp = [T F T F T]
+     */
     private static boolean subsetSum(int[] nums, int target)
     {
         boolean[] dp = new boolean[target+1];
         dp[0] = true; //base case
 
-        for(int t=1; t<=target; t++){
-            for(int n : nums){
-                if(t >= n){
-                    dp[t] = dp[t] //dont pick
-                            || dp[t - n]; //pick
-                }
+        for (int n : nums) {
+            for (int t = n; t <= target; t++) {
+                dp[t] = dp[t] //dont pick
+                        || dp[t - n]; //pick
             }
         }
 
@@ -27,6 +38,21 @@ public class SubsetSumDp {
     }
 
     //-------repetation not allowd, 0/1 knapsack
+    /*
+    Example:-
+
+    nums = [2]
+    target = 4
+
+    Initially:
+    dp = [T F F F F]
+
+    Process 2:
+    t = 4 -> dp[4] = dp[2] = F   // dp[2] hasn't been updated yet
+    t = 3 -> dp[3] = dp[1] = F
+    t = 2 -> dp[2] = dp[0] = T
+    Result: dp = [T F T F F]
+     */
     private static boolean subsetSumNoRepetation(int[] nums, int target)
     {
         boolean[] dp = new boolean[target+1];
