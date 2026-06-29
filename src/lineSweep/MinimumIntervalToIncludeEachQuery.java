@@ -7,18 +7,23 @@ public class MinimumIntervalToIncludeEachQuery {
     //https://leetcode.com/problems/minimum-interval-to-include-each-query/description/
 
     /*
-    Sort intervals
-        ↓
+    Sort intervals by start
+    ↓
+    Store queries as
+    (value, originalIndex)
+    ↓
     Sort queries
-            ↓
-    Sweep queries left to right
-            ↓
-    Add newly eligible intervals
-            ↓
+    ↓
+    Sweep queries
+    ↓
     Remove expired intervals
-            ↓
+    ↓
+    Add newly eligible intervals
+    ↓
     Top of heap = answer
-     */
+    ↓
+    Write answer into original index
+    */
 
     public int[] minInterval(int[][] intervals, int[] queries)
     {
