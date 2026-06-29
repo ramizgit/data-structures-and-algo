@@ -12,13 +12,11 @@ public class MinimumIntervalToIncludeEachQuery {
     Store queries as
     (value, originalIndex)
     ↓
-    Sort queries
-    ↓
     Sweep queries
     ↓
-    Remove expired intervals
-    ↓
     Add newly eligible intervals
+    ↓
+    Remove expired intervals
     ↓
     Top of heap = answer
     ↓
@@ -58,7 +56,7 @@ public class MinimumIntervalToIncludeEachQuery {
                 lastIntervalIdx++;
             }
 
-            //remove all intervals whose end < query
+            //remove all expired intervals whose end < query
             while(!minHeap.isEmpty() && minHeap.peek()[1] < query[0]){
                 minHeap.poll();
             }
