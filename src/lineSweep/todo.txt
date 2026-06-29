@@ -43,10 +43,15 @@ Brightest Position on Street ⭐⭐⭐ [Done]
 
 
 https://leetcode.com/problem-list/line-sweep/
+
 https://leetcode.com/problems/rectangle-area/description/ [not a line sweep though] [Done]
+
 https://leetcode.com/problems/perfect-rectangle/description/?envType=problem-list-v2&envId=line-sweep
+
 https://leetcode.com/problems/rectangle-area-ii/description/?envType=problem-list-v2&envId=line-sweep
+
 https://leetcode.com/problems/minimum-interval-to-include-each-query/description/?envType=problem-list-v2&envId=line-sweep
+
 https://leetcode.com/problems/interval-list-intersections/description/?envType=problem-list-v2&envId=line-sweep
 https://leetcode.com/problems/maximum-number-of-intersections-on-the-chart/?envType=problem-list-v2&envId=line-sweep
 https://leetcode.com/problems/separate-squares-ii/description/?envType=problem-list-v2&envId=line-sweep
