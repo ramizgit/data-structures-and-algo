@@ -1,0 +1,19 @@
+dp[0] = true
+
+for i = 1 to n
+
+    for every valid previous cut j
+
+        if current partition (j...i-1) is valid
+            dp[i] |= dp[j]
+
+return dp[n]
+
+
+
+Many DP problems fit this exact template:
+✅ Word Break
+✅ Check if There Is a Valid Partition for the Array
+✅ Palindrome Partitioning
+✅ Extra Characters in a String
+✅ Minimum Cuts for Palindrome Partitioning (with a different DP value)
