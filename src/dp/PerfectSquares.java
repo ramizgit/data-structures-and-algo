@@ -3,36 +3,30 @@ package dp;
 import java.util.Arrays;
 
 public class PerfectSquares {
+
     //https://leetcode.com/problems/perfect-squares/description/
 
-    public static void main(String[] args)
-    {
-        System.out.println(numSquares(12));
-        System.out.println(numSquares(13));
-        System.out.println(numSquares(1));
-    }
-
-    //// SAME AS COIN CHANGE PROBLEM
+    // SAME AS COIN CHANGE PROBLEM
+    // Unbounded Knapsack (Coin Change): each perfect square can be used unlimited times.
     private static int numSquares(int n)
     {
-        //populate array of perfect squares
-        int[] squares = new int[n+1];
-        for(int i=1; i<=n; i++){
-            squares[i-1] = i * i;
-        }
-
-        int[] dp = new int[n+1];
-        Arrays.fill(dp, Integer.MAX_VALUE);
+        int[] dp = new int[n+1]; // dp[t] = minimum number of perfect squares that sum to t
+        Arrays.fill(dp, n+1); //infinity
         dp[0] = 0; //base case
 
-        for(int i=1; i<=n; i++){
-            for(int s : squares){
-                if(i >= s){
-                    dp[i] = Math.min(dp[i], 1 + dp[i-s]);
-                }
+        for (int i = 1; i * i <= n; i++) { //iterate all valid squares
+
+            int square = i * i;
+
+            for(int t=square; t<=n; t++){ //forward loop - unbounded knapsack
+
+                dp[t] = Math.min(
+                        dp[t], //dont pick
+                        1 + dp[t - square] //pick
+                );
             }
         }
 
-        return dp[n] == Integer.MAX_VALUE ? -1 : dp[n];
+        return dp[n] == n+1 ? -1 : dp[n];
     }
 }
