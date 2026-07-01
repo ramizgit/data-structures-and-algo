@@ -1,4 +1,4 @@
-package dp;
+package consistenthashing.dp.griddp;
 
 public class MinimumFallingPathSum {
 

@@ -4,21 +4,6 @@ import java.util.*;
 
 public class LongestIncreasingSubSeq {
 
-    public static void main(String[] args)
-    {
-        //nums = [0, 8, 4, 12, 2]
-
-        //---------print just length of LIS
-        System.out.println(longestIncreasingSubSeqViaDP(new int[]{0, 8, 4, 12, 2})); //3
-        System.out.println(longestIncreasingSubSeqViaBinarySearch(new int[]{0, 8, 4, 12, 2})); //3
-
-        //----------print actual LIS
-        System.out.println(printLISViaDP(new int[]{0, 8, 4, 12, 2})); //[0, 8, 12]
-
-        //---------min deletion to sort array
-        System.out.println(minDeletionsToSortArr(new int[]{0, 8, 4, 12, 2}));
-    }
-
     //Time : O(n^2)
     //Space : O(n)
     private static int longestIncreasingSubSeqViaDP(int[] nums)

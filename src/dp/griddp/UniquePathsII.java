@@ -1,4 +1,4 @@
-package dp;
+package consistenthashing.dp.griddp;
 
 public class UniquePathsII {
     //https://leetcode.com/problems/unique-paths-ii/

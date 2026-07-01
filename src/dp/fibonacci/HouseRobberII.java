@@ -1,6 +1,4 @@
-package dp;
-
-import java.util.Arrays;
+package consistenthashing.dp.fibonacci;
 
 public class HouseRobberII {
 

@@ -1,4 +1,4 @@
-package dp;
+package consistenthashing.dp.griddp;
 
 public class TriangleMinPathSum {
     //https://leetcode.com/problems/triangle/description/

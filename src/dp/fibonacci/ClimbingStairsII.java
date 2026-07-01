@@ -1,4 +1,4 @@
-package dp;
+package consistenthashing.dp.fibonacci;
 
 public class ClimbingStairsII {
     //https://leetcode.com/problems/climbing-stairs-ii/description/

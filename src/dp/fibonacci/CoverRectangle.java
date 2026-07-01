@@ -1,4 +1,4 @@
-package dp;
+package consistenthashing.dp.fibonacci;
 
 public class CoverRectangle {
 

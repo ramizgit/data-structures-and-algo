@@ -1,4 +1,4 @@
-package dp;
+package consistenthashing.dp.lineardp;
 
 import java.util.HashSet;
 import java.util.Set;

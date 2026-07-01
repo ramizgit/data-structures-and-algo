@@ -1,4 +1,4 @@
-package dp;
+package consistenthashing.dp.lineardp;
 
 public class DecodeWays {
 

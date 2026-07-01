@@ -1,4 +1,4 @@
-package dp;
+package consistenthashing.dp.fibonacci;
 
 public class ClimbingStairs {
     public static void main(String[] args)

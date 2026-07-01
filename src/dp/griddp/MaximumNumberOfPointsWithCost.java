@@ -1,4 +1,4 @@
-package google;
+package consistenthashing.dp.griddp;
 
 public class MaximumNumberOfPointsWithCost {
 
