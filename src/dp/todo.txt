@@ -1,0 +1,73 @@
+1. 0/1 Knapsack Family (must know) : These all use a backward loop because each item can be used at most once.
+
+| Problem                       | Pattern                             |
+| ----------------------------- | ----------------------------------- |
+| Partition Equal Subset Sum    | Boolean DP                          |
+| Last Stone Weight II          | Boolean DP                          |
+| Ones and Zeroes               | 2D Knapsack                         |
+| Target Sum                    | Count DP (or subset transformation) |
+| Count of Subsets With Sum K   | Count DP                            |
+| Minimum Subset Sum Difference | Boolean DP                          |
+
+
+2. Unbounded Knapsack Family (must know) : These use a forward loop because each item can be reused.
+| Problem            | Pattern                 |
+| ------------------ | ----------------------- |
+| Coin Change        | Min DP                  |
+| Coin Change II     | Count DP                |
+| Perfect Squares    | Min DP                  |
+| Combination Sum IV | Count DP (permutations) |
+| Integer Break      | Max DP                  |
+| Rod Cutting        | Max DP                  |
+
+
+3. House Robber Family
+Different pattern but equally common.
+House Robber
+House Robber II
+Delete and Earn
+Massage Therapist (same DP)
+
+
+4. LIS Family
+Longest Increasing Subsequence
+Number of LIS
+Russian Doll Envelopes
+Maximum Length of Pair Chain
+
+5. Grid DP
+Unique Paths
+Unique Paths II
+Minimum Path Sum
+Triangle
+Dungeon Game
+Cherry Pickup
+Minimum Falling Path Sum
+
+
+6. String DP
+| Problem                    | Pattern    |
+| -------------------------- | ---------- |
+| Longest Common Subsequence | Classic DP |
+| Edit Distance              | Classic DP |
+| Distinct Subsequences      | Count DP   |
+| Interleaving String        | Boolean DP |
+| Word Break                 | Boolean DP |
+| Decode Ways                | 1D DP      |
+
+
+7. Interval DP
+Burst Balloons
+Minimum Cost to Cut a Stick
+Strange Printer
+Matrix Chain Multiplication (classic)
+
+
+8. Stock DP
+Excellent interview questions.
+Best Time to Buy and Sell Stock
+II
+III
+IV
+With Cooldown
+With Transaction Fee
