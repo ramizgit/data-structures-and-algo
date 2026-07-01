@@ -62,15 +62,15 @@ public class TriangleMaxPathSum {
 
         // reconstruct path
         List<Integer> path = new ArrayList<>();
-        int j = 0; //Start at (0,0)
+        int col = 0; //Start at (0,0)
 
-        for (int i = 0; i < n-1; i++) {
-            path.add(triangle[i][j]);
-            j = j + direction[i][j];
+        for (int row = 0; row < n-1; row++) {
+            path.add(triangle[row][col]);
+            col += direction[row][col];
         }
 
         // add the last row element
-        path.add(triangle[n - 1][j]);
+        path.add(triangle[n - 1][col]);
 
         System.out.println("Path: " + path);
 
