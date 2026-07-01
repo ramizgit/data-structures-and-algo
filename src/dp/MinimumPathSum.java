@@ -1,15 +1,10 @@
 package dp;
 
 public class MinimumPathSum {
+
     //https://leetcode.com/problems/minimum-path-sum/description/
 
-    public static void main(String[] args)
-    {
-        System.out.println(minPathSum(new int[][]{ {1,3,1}, {1,5,1}, {4,2,1} })); //7
-        System.out.println(minPathSum(new int[][]{ {1,2,3}, {4,5,6} })); //12
-    }
-
-    private static int minPathSum(int[][] grid)
+    public int minPathSum(int[][] grid)
     {
         int m = grid.length;
         int n = grid[0].length;
@@ -19,12 +14,12 @@ public class MinimumPathSum {
 
         //populate first row
         for(int i=1; i<n; i++){
-            dp[0][i] = dp[0][i-1] + grid[0][i];
+            dp[0][i] = grid[0][i] + dp[0][i-1];
         }
 
         //populate first col
         for(int i=1; i<m; i++){
-            dp[i][0] = dp[i-1][0] + grid[i][0];
+            dp[i][0] = grid[i][0] + dp[i-1][0];
         }
 
         //populate rest
