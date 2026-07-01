@@ -55,11 +55,11 @@ public class SubsetSumDp {
      */
     private static boolean subsetSumNoRepetation(int[] nums, int target)
     {
-        boolean[] dp = new boolean[target+1];
-        dp[0] = true; //base case
+        boolean[] dp = new boolean[target+1]; // dp[t] = true if some subset forms sum t
+        dp[0] = true; //base case, 0 sum is always possible by picking no element
 
         for(int n : nums){
-            for(int t=target; t>=n; t--){
+            for(int t=target; t>=n; t--){ //backward loop to avoid reusing same number since 0/1 knspsack, it ensures each number is used at most once
                 dp[t] = dp[t] //dont pick
                         || dp[t - n]; //pick
             }
