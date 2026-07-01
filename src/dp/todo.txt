@@ -2,47 +2,46 @@
 
 | Problem                       | Pattern                             |
 | ----------------------------- | ----------------------------------- |
-| Partition Equal Subset Sum    | Boolean DP                          |
-| Last Stone Weight II          | Boolean DP                          |
+| Partition Equal Subset Sum    | Boolean DP                          | [Done]
+| Last Stone Weight II          | Boolean DP                          | [Done]
 | Ones and Zeroes               | 2D Knapsack                         |
-| Target Sum                    | Count DP (or subset transformation) |
-| Count of Subsets With Sum K   | Count DP                            |
-| Minimum Subset Sum Difference | Boolean DP                          |
+| Target Sum                    | Count DP (or subset transformation) | [Done]
+| Count of Subsets With Sum K   | Count DP                            | [Done]
+| Minimum Subset Sum Difference | Boolean DP                          | [Done]
 
 
 2. Unbounded Knapsack Family (must know) : These use a forward loop because each item can be reused.
 | Problem            | Pattern                 |
 | ------------------ | ----------------------- |
-| Coin Change        | Min DP                  |
-| Coin Change II     | Count DP                |
-| Perfect Squares    | Min DP                  |
+| Coin Change        | Min DP                  | [Done]
+| Coin Change II     | Count DP                | [Done]
+| Perfect Squares    | Min DP                  | [Done]
 | Combination Sum IV | Count DP (permutations) |
-| Integer Break      | Max DP                  |
+| Integer Break      | Max DP                  | [Done]
 | Rod Cutting        | Max DP                  |
 
 
 3. House Robber Family
-Different pattern but equally common.
-House Robber
-House Robber II
+House Robber [Done]
+House Robber II [Done]
 Delete and Earn
 Massage Therapist (same DP)
 
 
 4. LIS Family
-Longest Increasing Subsequence
-Number of LIS
-Russian Doll Envelopes
-Maximum Length of Pair Chain
+Longest Increasing Subsequence [Done]
+Number of LIS [Done]
+Russian Doll Envelopes [Done]
+Maximum Length of Pair Chain [Done]
 
 5. Grid DP
-Unique Paths
-Unique Paths II
-Minimum Path Sum
-Triangle
+Unique Paths [Done]
+Unique Paths II [Done]
+Minimum Path Sum [Done]
+Triangle [Done]
 Dungeon Game
 Cherry Pickup
-Minimum Falling Path Sum
+Minimum Falling Path Sum [Done]
 
 
 6. String DP
