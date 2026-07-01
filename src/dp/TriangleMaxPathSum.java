@@ -37,19 +37,22 @@ public class TriangleMaxPathSum {
 
         int[] dp = triangle[n-1].clone();
 
-        // to store choices
-        int[][] choice = new int[n][n];
+        // direction[i][j] stores which child gives the optimal path:
+        // 0 -> down      (i+1, j)
+        // 1 -> down-right (i+1, j+1)
+        int[][] direction = new int[n][n];
 
         for(int i=n-2; i>=0; i--){
+
             int[] curr = triangle[i];
 
             for(int j=0; j<curr.length; j++){
                 if (dp[j] >= dp[j + 1]) {
                     dp[j] = curr[j] + dp[j];
-                    choice[i][j] = 0; // down
+                    direction[i][j] = 0; // down
                 } else {
                     dp[j] = curr[j] + dp[j + 1];
-                    choice[i][j] = 1; // down-right
+                    direction[i][j] = 1; // down-right
                 }
             }
         }
@@ -59,15 +62,15 @@ public class TriangleMaxPathSum {
 
         // reconstruct path
         List<Integer> path = new ArrayList<>();
-        int j = 0;
+        int j = 0; //Start at (0,0)
 
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < n-1; i++) {
             path.add(triangle[i][j]);
-
-            if (i < n - 1) {
-                j = j + choice[i][j];
-            }
+            j = j + direction[i][j];
         }
+
+        // add the last row element
+        path.add(triangle[n - 1][j]);
 
         System.out.println("Path: " + path);
 
