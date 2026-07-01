@@ -41,11 +41,12 @@ public class TargetSum {
     {
         int[] dp = new int[target + 1];
 
-        dp[0] = 1; // One way to make sum 0: choose no elements
+        dp[0] = 1; // base case : 1 way to make sum 0 by choosing no elements
 
         for (int n : nums) {
-            for (int t = target; t >= n; t--) { // Backward loop since each element can be used at most once
-                dp[t] += dp[t - n];
+            for (int t = target; t >= n; t--) { //backward loop since each element can be used at most once
+                dp[t] = dp[t] //existing ways (without current number)
+                        + dp[t - n]; //new ways created by taking the current number
             }
         }
 
