@@ -22,8 +22,6 @@ public class IntegerBreak {
                 int firstPart = j;
                 int remainingPart = i - j;
 
-
-
                 int bestRemaining = Math.max(
                         remainingPart,  //either keep the remaining part intact,
                         dp[remainingPart] //or break it further if that gives a better product.
