@@ -1,4 +1,4 @@
-package dp;
+package consistenthashing.dp.knapsack;
 
 import java.util.*;
 

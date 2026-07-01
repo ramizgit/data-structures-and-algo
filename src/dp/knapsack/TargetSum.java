@@ -1,4 +1,4 @@
-package consistenthashing.dp;
+package consistenthashing.dp.knapsack;
 
 public class TargetSum {
 
