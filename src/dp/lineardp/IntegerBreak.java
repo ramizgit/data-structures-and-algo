@@ -8,6 +8,10 @@ public class IntegerBreak {
 
     public int integerBreak(int n)
     {
+        // DP Idea:
+        // For every integer i, try every possible first cut j + (i - j).
+        // Keep the first part fixed and decide whether breaking the remaining part further gives a better product.
+
         int[] dp = new int[n + 1]; //dp[i] = max product obtainable by breaking integer i
 
         //base case for 0 and 1 - cant break them into at least two positive integers
