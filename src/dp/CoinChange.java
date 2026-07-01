@@ -7,7 +7,7 @@ public class CoinChange {
 
     private static int minCoinChange(int[] coins, int amount)
     {
-        int[] dp = new int[amount+1]; // dp[i] = minimum coins needed to make amount i
+        int[] dp = new int[amount+1]; // dp[t] = minimum coins needed to make amount t
 
         Arrays.fill(dp,amount+1); //initialize with some large value
 
