@@ -5,16 +5,24 @@ import java.util.*;
 public class TriangleMaxPathSum {
 
     //just calculates max sum collected
+    //Time : O(n^2)
+    //Space : O(n)
     public int maxPathSum(int[][] triangle)
     {
+        //input validation
+        if(triangle == null || triangle.length == 0){
+            return -1;
+        }
+
         int n = triangle.length;
 
-        int[] dp = triangle[n-1].clone(); //O(n) space
+        int[] dp = triangle[n-1].clone(); // DP starts as the last row, base case: max path sum from the last row is the value itself
 
-        for(int i=n-2; i>=0; i--){
+        for(int i=n-2; i>=0; i--){ //compute best path sum for each row from bottom to top
+
             int[] curr = triangle[i];
 
-            for(int j=0; j<curr.length; j++){ //O(n^2) time complexity
+            for(int j=0; j<curr.length; j++){
                 dp[j] = curr[j] + Math.max(dp[j], dp[j+1]);
             }
         }
