@@ -14,11 +14,11 @@ public class MaxSubArraySumEqualsK {
         int sum = 0;
         int max = 0;
 
-        for(int i=0; i<nums.length; i++){
-            sum += nums[i];
+        for(int i=0; i<arr.length; i++){
+            sum += arr[i];
 
-            if(sumIdxMap.containsKey(sum - k)){
-                max = Math.max(max, i - sumIdxMap.get(sum - k));
+            if(sumIdxMap.containsKey(sum - target)){
+                max = Math.max(max, i - sumIdxMap.get(sum - target));
             }
 
             // store "first" occurrence only for maximum sub array length

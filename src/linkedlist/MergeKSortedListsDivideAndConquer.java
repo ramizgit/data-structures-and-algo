@@ -3,7 +3,7 @@ package linkedlist;
 import java.util.*;
 
 public class MergeKSortedListsDivideAndConquer {
-    public static void main(String[] args)
+    /*public static void main(String[] args)
     {
         //Via divide and conquer in "O(nlogk)"
 
@@ -88,7 +88,7 @@ public class MergeKSortedListsDivideAndConquer {
             node = node.next;
         }
         System.out.println();
-    }
+    }*/
 }
 
 

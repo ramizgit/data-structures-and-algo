@@ -1,6 +1,6 @@
 package tree;
 
-public class BSTFromPreorder {
+public class BSTFromPreOrderTravesal {
 
     private static Node buildBST(int[] preorder)
     {

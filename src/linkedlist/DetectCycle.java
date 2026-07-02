@@ -2,7 +2,7 @@ package linkedlist;
 
 public class DetectCycle {
 
-    public static void main(String[] args)
+    /*public static void main(String[] args)
     {
         Node node6 = new Node(6, null);
         Node node5 = new Node(5, node6);
@@ -63,5 +63,5 @@ public class DetectCycle {
         }
 
         return node;
-    }
+    }*/
 }

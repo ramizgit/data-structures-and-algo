@@ -1,13 +1,11 @@
 package meta;
 
-import tree.Node;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class BinaryTreeAllPaths {
 
-    public static void main(String[] args)
+    /*public static void main(String[] args)
     {
         //note : nodes are guaranteed to be found in the tree
 
@@ -22,13 +20,13 @@ public class BinaryTreeAllPaths {
         Node node2 = new Node(2, node4, node5);
         Node node = new Node(1, node2, node3);
 
-        /*
+        *//*
               1
            2     3
         4    5  6    7
                    10   11
                       12
-         */
+         *//*
 
         System.out.println(allPaths(node));
 
@@ -108,5 +106,5 @@ public class BinaryTreeAllPaths {
         }
 
         return dfs(node.left, curr) + dfs(node.right, curr);
-    }
+    }*/
 }

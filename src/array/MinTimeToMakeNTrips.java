@@ -1,12 +1,11 @@
 package array;
 
-import javafx.util.Pair;
 
 import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class MinTimeToMakeNTrips {
-    public static void main(String[] args)
+   /* public static void main(String[] args)
     {
         //System.out.println(findMinTime(new int[]{1, 2}, 3));
         System.out.println(findMinTime(new int[]{1,3,5,7,8}, 10));
@@ -34,5 +33,5 @@ public class MinTimeToMakeNTrips {
         }
 
         return minTime;
-    }
+    }*/
 }

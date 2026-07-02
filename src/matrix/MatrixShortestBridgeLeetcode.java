@@ -1,7 +1,5 @@
 package matrix;
 
-import javafx.util.Pair;
-
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -9,7 +7,7 @@ import java.util.Set;
 
 public class MatrixShortestBridgeLeetcode {
 
-    public static int[][] directions = {{0,-1},{0,1}, {-1,0}, {1,0} };
+    /*public static int[][] directions = {{0,-1},{0,1}, {-1,0}, {1,0} };
 
     public static void main(String[] args)
     {
@@ -128,7 +126,7 @@ public class MatrixShortestBridgeLeetcode {
             this.col = col;
             this.weight = weight;
         }
-    }
+    }*/
 }
 
 

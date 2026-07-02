@@ -1,11 +1,9 @@
 package tree;
 
-import javafx.util.Pair;
-
 import java.util.*;
 
 public class MinTimeToBurnTree {
-    public static void main(String[] args)
+    /*public static void main(String[] args)
     {
         Node node12 = new Node(12, null, null);
         Node node10 = new Node(10, null, null);
@@ -18,13 +16,13 @@ public class MinTimeToBurnTree {
         Node node2 = new Node(2, node4, node5);
         Node node = new Node(1, node2, node3);
 
-        /*
+        *//*
               1
            2     3
         4    5  6    7
                    10   11
                       12
-         */
+         *//*
 
         System.out.println(minTimeToBurnTree(node, 4));
 
@@ -41,33 +39,33 @@ public class MinTimeToBurnTree {
 
     private static int bfs(Node leaf, Map<Node, Node> childToParentMap)
     {
-        Queue<Pair<Node, Integer>> queue = new LinkedList<>();
+        Queue<Pair> queue = new LinkedList<>();
         Set<Integer> visited = new HashSet<>();
-        queue.add(new Pair<>(leaf, 0));
+        queue.add(new Pair(leaf, 0));
         visited.add(leaf.value);
         int count=0;
 
         while (!queue.isEmpty())
         {
             Pair<Node, Integer> poll = queue.poll();
-            Node node = poll.getKey();
-            count = poll.getValue();
+            Node node = poll.node;
+            count = poll.count;
 
             //left child
             if(node.left != null && !visited.contains(node.left.value)){
-                queue.add(new Pair<>(node.left, poll.getValue()+1));
+                queue.add(new Pair(node.left, poll.count+1));
                 visited.add(node.left.value);
             }
 
             //right child
             if(node.right != null && !visited.contains(node.right.value)){
-                queue.add(new Pair<>(node.right, poll.getValue()+1));
+                queue.add(new Pair(node.right, poll.count+1));
                 visited.add(node.right.value);
             }
 
             //parent
             if(childToParentMap.get(node) != null && !visited.contains(childToParentMap.get(node).value)){
-                queue.add(new Pair<>(childToParentMap.get(node), poll.getValue()+1));
+                queue.add(new Pair(childToParentMap.get(node), poll.count+1));
                 visited.add(childToParentMap.get(node).value);
             }
         }
@@ -115,4 +113,14 @@ public class MinTimeToBurnTree {
 
         return childToParentMap;
     }
+
+    static class Pair{
+        Node node;
+        int count;
+
+        public Pair(Node node, int count) {
+            this.node = node;
+            this.count = count;
+        }
+    }*/
 }

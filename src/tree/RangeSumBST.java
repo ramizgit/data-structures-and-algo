@@ -1,10 +1,8 @@
 package meta;
 
-import tree.Node;
-
 public class RangeSumBST {
 
-    public static void main(String[] args)
+    /*public static void main(String[] args)
     {
         Node node7 = new Node(18, null, null);
         Node node5 = new Node(7, null, null);
@@ -30,5 +28,5 @@ public class RangeSumBST {
         }
 
         return node.value + dfs(node.left, low, high) + dfs(node.right, low, high);
-    }
+    }*/
 }

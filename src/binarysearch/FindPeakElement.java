@@ -33,7 +33,7 @@ public class FindPeakElement {
         return low; // or high (both will be same)
     }
 
-     private static int findPeakElement(int[] nums)
+     private static int findPeakElement2(int[] nums)
     {
         int low = 0;
         int high = nums.length-1;

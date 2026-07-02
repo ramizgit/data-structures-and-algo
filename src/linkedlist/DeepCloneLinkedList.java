@@ -1,7 +1,7 @@
 package linkedlist;
 
 public class DeepCloneLinkedList {
-    public static void main(String[] args)
+    /*public static void main(String[] args)
     {
         Node node5 = new Node(5, null);
         Node node4 = new Node(4, node5);
@@ -34,5 +34,5 @@ public class DeepCloneLinkedList {
             node = node.next;
         }
         System.out.println();
-    }
+    }*/
 }

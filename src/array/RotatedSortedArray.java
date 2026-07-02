@@ -1,23 +1,6 @@
 package array;
 
 public class RotatedSortedArray {
-    public static void main(String[] args)
-    {
-        System.out.println("=========PIVOT============");
-        System.out.println(getPivotElement(new int[]{10,11,12,2,3,5,6,8,9})); //2
-        System.out.println(getPivotElement(new int[]{10,1,2,3,4,5,6,7,8,9})); //1
-        System.out.println(getPivotElement(new int[]{10,11,12,13,14,15,16,17,5})); //5
-        System.out.println(getPivotElement(new int[]{10,11,12,13,14,15,16,17,5,6})); //5
-
-        System.out.println("=========FIND============");
-        System.out.println(findElement(new int[]{10,11,12,2,3,5,6,8,9}, 8)); //7
-        System.out.println(findElement(new int[]{10,1,2,3,4,5,6,7,8,9}, 1)); //1
-        System.out.println(findElement(new int[]{10,11,12,13,14,15,16,17,5}, 14)); //4
-        System.out.println(findElement(new int[]{10,11,12,13,14,15,16,17,5,6}, 5)); //8
-        System.out.println(findElement(new int[]{10,11,12,13,14,15,16,17,5,6}, 6)); //9
-        System.out.println(findElement(new int[]{10,11,12,13,14,15,16,17,5,6}, 10)); //0
-        System.out.println(findElement(new int[]{10,11,12,13,14,15,16,17,5,6}, 26)); //-1
-    }
 
     private static int findPivotElement(int[] arr)
     {

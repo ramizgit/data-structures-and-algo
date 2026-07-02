@@ -1,9 +1,7 @@
 package tree;
 
-import javafx.util.Pair;
-
 public class HouseRobberIIILeetcode {
-    public static void main(String[] args)
+    /*public static void main(String[] args)
     {
         Node node4 = new Node(100, null, null);
         Node node3 = new Node(1, null, null);
@@ -33,5 +31,5 @@ public class HouseRobberIIILeetcode {
         int maxWithoutRoot = Math.max(left.getKey(), left.getValue()) + Math.max(right.getKey(), right.getValue());
 
         return new Pair(maxWithRoot, maxWithoutRoot);
-    }
+    }*/
 }
