@@ -1,33 +1,26 @@
 package array;
 
 public class JumpGameII {
-    public static void main(String[] args)
+
+    //https://leetcode.com/problems/jump-game-ii/description/
+
+    public int jump(int[] nums)
     {
-        System.out.println(minJump(new int[]{2,3,1,1,4})); //2
-        System.out.println(minJump(new int[]{2,3,0,1,4})); //2
-        System.out.println(minJump(new int[]{1,1,1,1,4})); //4
-        System.out.println(minJump(new int[]{1,2,1,1,4})); //3
+        int jumps = 0;
+        int boundary = 0;
+        int farthest = 0;
 
-    }
+        for (int i = 0; i < nums.length - 1; i++) { //why till n-2? we iterate over indices that we might jump from, not indices that we might jump to
 
-    private static int minJump(int[] arr)
-    {
-        int count=0;
-        int left=0;
-        int right=0;
+            farthest = Math.max(farthest, i + nums[i]); //find the maximum (farthest) while scanning the current range
 
-        while (right < arr.length - 1){
-            int farthest=0;
-            while (left <= right){
-                farthest = Math.max(farthest, arr[left] + left);
-                left++;
+            // End of current jump range.
+            if (i == boundary) {
+                jumps++; //take one jump
+                boundary = farthest; //new range ends at farthest
             }
-
-            left = right+1;
-            right = farthest;
-            count++;
         }
 
-        return count;
+        return jumps;
     }
 }
