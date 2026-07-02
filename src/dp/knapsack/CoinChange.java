@@ -67,5 +67,6 @@ public class CoinChange {
     public static void main(String[] args)
     {
         System.out.println("hi");
+        minCoinChangeAlongWithCoinsUsed(new int[]{1, 3 ,5}, 10);
     }
 }
