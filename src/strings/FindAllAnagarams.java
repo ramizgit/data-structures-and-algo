@@ -2,7 +2,7 @@ package google;
 
 import java.util.*;
 
-public class FindAllAnagrams {
+public class FindAllAnagarams {
 
     public static void main(String[] args) {
         System.out.println(findAllAnagrams("cbaebabacd", "abc")); // [0, 6]

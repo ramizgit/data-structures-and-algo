@@ -1,6 +1,6 @@
 package matrix;
 
-public class SetMatrixZeroes {
+public class SetMatrixZero {
 
     //https://leetcode.com/problems/set-matrix-zeroes/
     /*

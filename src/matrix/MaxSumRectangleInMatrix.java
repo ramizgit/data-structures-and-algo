@@ -1,6 +1,6 @@
 package matrix;
 
-public class MaximumSumRectangle {
+public class MaxSumRectangleInMatrix {
 
     /*
     Given a 2D matrix mat[][] of integers, find the maximum sum among all possible submatrices.

@@ -1,4 +1,5 @@
-public class LastNumInACircle {
+
+public class LastNumberInACircle {
 
     public static void main(String[] args)
     {

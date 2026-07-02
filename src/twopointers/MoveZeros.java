@@ -1,4 +1,4 @@
-package google;
+package twopointers;
 
 public class MoveZeros {
 
