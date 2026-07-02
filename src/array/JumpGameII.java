@@ -16,6 +16,12 @@ public class JumpGameII {
 
             // End of current jump range.
             if (i == boundary) {
+
+                //important : we would need this check if the problem does not guarantee that you can reach nums[n - 1].
+                /*if (farthest == boundary) {
+                    return -1; // cannot move forward
+                }*/
+
                 jumps++; //take one jump
                 boundary = farthest; //new range ends at farthest
             }
