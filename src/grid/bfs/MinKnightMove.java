@@ -72,10 +72,10 @@ public class MinKnightMove {
                 { 2,  1},
 
                 {-1, -2},
-                { 1, -2},
-
                 {-1,  2},
-                { 1,  2}
+
+                { 1,  2},
+                { 1, -2},
         };
 
         while(!bfsQueue.isEmpty()){
