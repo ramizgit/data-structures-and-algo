@@ -2,9 +2,7 @@ package stack;
 
 import java.util.*;
 
-public class StackWithIncrement {
-
-    //todo : practice
+public class StackWithIncrement{
 
     List<Integer> stack;
     List<Integer> increment;
@@ -15,22 +13,20 @@ public class StackWithIncrement {
     }
 
     public void push(int value) {
-        // push onto stack
-        this.stack.addLast(value);
-        this.increment.addLast(0);
+        this.stack.addLast(value); // push onto stack
+        this.increment.addLast(0); //push into increment array also to keep size same
     }
 
     public int pop() {
-        // return top element
-        // return -1 if empty
+
         if(this.stack.isEmpty()){
-            return -1;
+            return -1; //return -1 if empty
         }
 
-        // Pending increment for the top element
+        //pending increment for the top element
         int topIncrement = increment.removeLast();
 
-        // Propagate it to the element below (if any)
+        //propagate it to the element below (if any)
         if (!increment.isEmpty()) {
             int lastIndex = increment.size() - 1;
             increment.set(lastIndex, increment.get(lastIndex) + topIncrement);
@@ -40,10 +36,9 @@ public class StackWithIncrement {
     }
 
     public int peek() {
-        // return top element
-        // return -1 if empty
+
         if(this.stack.isEmpty()){
-            return -1;
+            return -1;  //return -1 if empty
         }
 
         return this.stack.getLast() + this.increment.getLast();
@@ -55,9 +50,10 @@ public class StackWithIncrement {
             return;
         }
 
-        // If k > size, increment all elements
-        int index = Math.min(k, stack.size()) - 1;
+        //if k > size, increment all elements
+        int index = Math.min(k, stack.size()) - 1; //-1 due to zero-based index
+        int existingVal = increment.get(index);
 
-        increment.set(index, increment.get(index) + val);
+        increment.set(index, existingVal + val);
     }
 }
