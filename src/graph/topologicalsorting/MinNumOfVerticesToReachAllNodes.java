@@ -1,4 +1,4 @@
-package consistenthashing.graph;
+package graph.topologicalsorting;
 
 import java.util.*;
 
@@ -32,7 +32,7 @@ public class MinNumOfVerticesToReachAllNodes {
 
         for(int i=0; i<n; i++){ //O(V)
             if(indegree[i] == 0){
-                result.add(i);
+                result.add(i); //Nodes with indegree = 0 cannot be reached from any other node, so they must be included.
             }
         }
 
