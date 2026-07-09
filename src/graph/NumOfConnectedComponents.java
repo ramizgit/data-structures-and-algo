@@ -87,7 +87,7 @@ public class NumOfConnectedComponents {
     //*** JUST COUNT NUM OF CONNECTED COMPONENTS, NOT RATLED TO COMPLETE COMPONETS
     private static int countConnectedComponents(int n, int[][] edges)
     {
-        //initialize graph
+        //initialize graph ad adjacency list
         Map<Integer, List<Integer>> graph = new HashMap<>();
         for(int i=0; i<n; i++){
             graph.put(i, new ArrayList<>());
@@ -95,15 +95,20 @@ public class NumOfConnectedComponents {
 
         //populate edges
         for(int[] edge : edges){
-            graph.get(edge[0]).add(edge[1]);
-            graph.get(edge[1]).add(edge[0]); //since undirected graph, hence adding both ways
+            int u = edge[0];
+            int v = edge[1];
+
+            graph.get(u).add(v);
+            graph.get(v).add(u); //since undirected graph, hence adding both ways
         }
 
         //dfs to count connected componets
-        Set<Integer> visited = new HashSet<>();
+        //Set<Integer> visited = new HashSet<>();
+        boolean[] visited = new boolean[n];
         int connectedComponents = 0;
+
         for(int i=0; i<n; i++){
-            if(!visited.contains(i)){
+            if(!visited[i]){
                 connectedComponents++;
                 dfs(i, graph, visited);
             }
@@ -112,13 +117,13 @@ public class NumOfConnectedComponents {
         return connectedComponents;
     }
 
-    private static void dfs(int start, Map<Integer, List<Integer>> graph, Set<Integer> visited)
+    private static void dfs(int node, Map<Integer, List<Integer>> graph, boolean[] visited)
     {
-        visited.add(start);
+        visited[node] = true;
 
         //explore neighbours
-        for(int neighbour : graph.get(start)){
-            if(!visited.contains(neighbour)){
+        for(int neighbour : graph.get(node)){
+            if(!visited[neighbour]){
                 dfs(neighbour, graph, visited);
             }
         }

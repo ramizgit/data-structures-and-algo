@@ -10,7 +10,9 @@ public class NumberOfConnectedComponents {
 
     private static int countConnectedComponents(int n, int[][] edges)
     {
+        //initialize union find - O(n)
         graph.unionfindDSU.UnionFind unionFind = new graph.unionfindDSU.UnionFind(n);
+
         int components = n; //start with n isolated components for each n nodes
 
         for(int[] edge : edges){
