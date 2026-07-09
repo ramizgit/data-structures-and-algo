@@ -53,12 +53,13 @@ public class InsertDeleteGetrandomO1 {
             6. Remove last element from list
              */
 
-            //get index from map
             int index = this.valueToIdx.get(val);
-            int last = this.values.getLast();
+            int lastValue = this.values.getLast();
 
-            this.values.set(index, last);
-            this.valueToIdx.put(last, index);
+            if (index != values.size() - 1) {
+                values.set(index, lastValue);
+                valueToIdx.put(lastValue, index);
+            }
 
             this.values.removeLast();
             this.valueToIdx.remove(val);
