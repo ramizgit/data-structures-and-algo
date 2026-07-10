@@ -55,16 +55,19 @@ public class MinCostToConnectAllPoints {
 
             //early exit
             if(nodeCount == n){
-                return totalCost;
+                return totalCost; //all points connected
             }
 
             //explore neighbours
             //the graph is implicit and complete, so every unvisited point is a neighboring vertex
             for(int neighbour=0; neighbour<n; neighbour++){
+
                 if(!visited[neighbour]){
+
                     //manhattan distance
                     int edgeCost = Math.abs(points[curr.node][0] - points[neighbour][0]) + Math.abs(points[curr.node][1] - points[neighbour][1]);
-                    minheap.offer(new State(neighbour, edgeCost)); //enqueue O(log n)
+
+                    minheap.offer(new State(neighbour, edgeCost)); //enqueue - O(log n)
                 }
             }
         }
