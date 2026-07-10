@@ -1,13 +1,10 @@
-package graph;
+package graph.dfs;
 
 import java.util.*;
 
 public class AirportConnections {
-    //https://www.youtube.com/watch?v=qz9tKlF431k
-    public static void main(String[] args)
-    {
 
-    }
+    //https://www.youtube.com/watch?v=qz9tKlF431k
 
     private static int minNewConnections(List<String> airports, List<List<String>> connections, String start)
     {
@@ -19,14 +16,18 @@ public class AirportConnections {
 
         //populate edges
         for(List<String> connection : connections){
-            graph.get(connection.get(0)).add(connection.get(1));
+
+            String u = connection.get(0);
+            String v = connection.get(1);
+
+            graph.get(u).add(v);
         }
 
         //find reachable airports from the start point
         Set<String> reachable = new HashSet<>();
         dfs(graph, start, reachable);
 
-        //find unreachable airprots
+        //find unreachable airports
         List<String> unreachable = new ArrayList<>();
         for(String airport : airports){
             if(!reachable.contains(airport)){
@@ -55,8 +56,11 @@ public class AirportConnections {
 
         //greedily add connections
         int newConnections = 0;
+
         for(String airport : unreachable){
+
             if(!reachable.contains(airport)){
+
                 newConnections++;
 
                 //add new edge to this unreachable airprot
@@ -69,12 +73,12 @@ public class AirportConnections {
     }
 
     //dfs
-    private static void dfs(Map<String, List<String>> graph, String start, Set<String> visited)
+    private static void dfs(Map<String, List<String>> graph, String airport, Set<String> visited)
     {
-        visited.add(start);
+        visited.add(airport); //mark visited
 
-        List<String> neighbours = graph.get(start);
-        for(String neighbour : neighbours){
+        //explore neighbours
+        for(String neighbour : graph.get(airport)){
             if(!visited.contains(neighbour)){
                 dfs(graph, neighbour, visited);
             }
