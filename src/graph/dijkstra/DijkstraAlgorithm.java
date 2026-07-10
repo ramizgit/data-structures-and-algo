@@ -5,7 +5,7 @@ import java.util.*;
 public class DijkstraAlgorithm {
 
     //undirected weighted graph
-    //O((V+E)logE)
+    //O((V+E)logV)
     private int[] dijkstra(int n, int[][] edges, int source) {
 
         //initialize graph
