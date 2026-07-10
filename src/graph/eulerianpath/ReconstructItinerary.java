@@ -16,6 +16,18 @@ public class ReconstructItinerary {
     add node in postorder
      */
 
+    /*
+    Many people initially try
+    DFS + visited[]
+    That doesn't work.
+    Why?
+    Because in graphs we usually mark vertices as visited.
+    Here we need to mark edges (tickets) as used.
+    In fact, the optimal solution uses Hierholzer's Algorithm, which is specifically designed to construct an Eulerian path.
+    The lexicographical requirement is handled by always choosing the smallest available destination first
+     (often using a min-heap or sorted adjacency list).
+     */
+
     public List<String> findItinerary(String[][] tickets)
     {
         /*
