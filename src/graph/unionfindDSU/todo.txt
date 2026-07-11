@@ -1,0 +1,34 @@
+| Problem                        | Difficulty | Pattern                        |
+| ------------------------------ | ---------- | ------------------------------ |
+| Number of Provinces            | Medium     | Basic connected components     |
+| Redundant Connection           | Medium     | Cycle detection                |
+| Accounts Merge                 | Medium     | Grouping by shared identifiers |
+| Number of Islands II           | Hard       | Dynamic connectivity           |
+| Min Cost to Connect All Points | Medium     | Kruskal's MST                  |
+
+| Problem                                     | Difficulty | Pattern                 |
+| ------------------------------------------- | ---------- | ----------------------- |
+| Graph Valid Tree                            | Medium     | Tree validation         |
+| Sentence Similarity II                      | Medium     | String-based DSU        |
+| Most Stones Removed with Same Row or Column | Medium     | Union by row/column     |
+| Regions Cut By Slashes                      | Medium     | Grid transformation     |
+| Satisfiability of Equality Equations        | Medium     | Constraint satisfaction |
+
+
+| Problem                                         | Difficulty | Pattern                   |
+| ----------------------------------------------- | ---------- | ------------------------- |
+| Number of Good Paths                            | Hard       | DSU + sorting             |
+| Making A Large Island                           | Hard       | DSU on grids              |
+| Bricks Falling When Hit                         | Hard       | Reverse processing + DSU  |
+| Checking Existence of Edge Length Limited Paths | Hard       | Offline queries + sorting |
+| Optimize Water Distribution in a Village        | Hard       | Kruskal variation         |
+
+
+| Problem                                                    | Difficulty | Pattern              |
+| ---------------------------------------------------------- | ---------- | -------------------- |
+| GCD Sort of an Array                                       | Hard       | Number theory + DSU  |
+| Process Restricted Friend Requests                         | Hard       | DSU with constraints |
+| Couples Holding Hands                                      | Hard       | Graph modeling       |
+| Remove Max Number of Edges to Keep Graph Fully Traversable | Hard       | Multiple DSUs        |
+
+

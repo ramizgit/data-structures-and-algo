@@ -4,6 +4,8 @@ public class NumberOfProvinces {
 
     //https://leetcode.com/problems/number-of-provinces/description/
 
+    //IMPORTANT : this is both DFS and DSU problem
+
     public int findCircleNum(int[][] isConnected)
     {
         //input validation

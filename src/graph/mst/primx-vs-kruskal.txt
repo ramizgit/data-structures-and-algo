@@ -8,6 +8,16 @@
 | Space              | `O(V + E)`                         | `O(V)`              |
 
 
+Rule of thumb:-
+=============
+| Graph Type                                         | Preferred MST Algorithm |
+| -------------------------------------------------- | ----------------------- |
+| Sparse graph (`E ≈ V`)                             | **Kruskal**             |
+| Dense graph (`E ≈ V²`)                             | **Prim**                |
+| Need cycle detection while processing sorted edges | **Kruskal**             |
+| Already have adjacency lists                       | **Prim**                |
+
+
 Both have almost the same asymptotic complexity. Which one would you choose?
 
 A good answer is:
