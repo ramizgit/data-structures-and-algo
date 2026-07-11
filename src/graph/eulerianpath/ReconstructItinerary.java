@@ -63,6 +63,9 @@ public class ReconstructItinerary {
         return result;
     }
 
+    /*
+    In Hierholzer's algorithm, you don't have a visited[] array. Instead, removing the edge is what marks it as used.
+     */
     private void dfs(String airport, Map<String, PriorityQueue<String>> graph, List<String> result)
     {
         /*
@@ -73,7 +76,7 @@ public class ReconstructItinerary {
         //process all unused outgoing tickets
         while(!destinations.isEmpty()){
             //this is the key Hierholzer step - We're marking ticket used by removing it from the graph using poll() method
-            dfs(destinations.poll(), graph, result);
+            dfs(destinations.poll(), graph, result); //Removing the edge = marking the ticket as used
         }
 
         //add to result once there are no unused tickets left
