@@ -9,7 +9,7 @@
 | ------------------------------------------- | ---------- | ----------------------- |
 | Graph Valid Tree                            | Medium     | Tree validation         | [Done]
 | Sentence Similarity II                      | Medium     | String-based DSU        |
-| Most Stones Removed with Same Row or Column | Medium     | Union by row/column     |
+| Most Stones Removed with Same Row or Column | Medium     | Union by row/column     | [Done]
 | Regions Cut By Slashes                      | Medium     | Grid transformation     |
 | Satisfiability of Equality Equations        | Medium     | Constraint satisfaction |
 
