@@ -4,45 +4,70 @@ import java.util.*;
 
 public class NumberOfIslandsII {
 
+    //https://github.com/doocs/leetcode/blob/main/solution/0300-0399/0305.Number%20of%20Islands%20II/README_EN.md
+
+    /*
+    Approach:
+    1. Treat every new land cell as a new island.
+    2. Increment island count.
+    3. Union with all neighbouring land cells.
+    4. Every successful union merges two islands, so decrement the count.
+    5. Record the island count after each operation.
+
+    Time : O(k * α(m * n))
+    Space: O(m * n)
+
+    where k = positions.length
+    */
+
     public List<Integer> numIslands2(int m, int n, int[][] positions)
     {
-        //conver 2D to 1D for union find to work
-        boolean[] islands = new boolean[m * n];
+        boolean[][] land = new boolean[m][n];
         UnionFind unionFind = new UnionFind(m * n);
         List<Integer> result = new ArrayList<>();
-        int count = 0;
+        int islands = 0;
+
         int[][] directions = { {1, 0}, {-1, 0}, {0, 1}, {0, -1} }; //neighbours
 
-        for(int[] pos : positions){
-            int r = pos[0];
-            int c = pos[1];
+        for(int[] position : positions){
 
-            int id = r * n + c;
+            int row = position[0];
+            int col = position[1];
 
-            if(islands[id]){ //dupe, already island
-                result.add(count);
+            if(land[row][col]){ //dupe, already land, nothing should change
+                result.add(islands);
                 continue;
             }
 
-            islands[id] = true; //mark island
-            count++; //increment island count
+            land[row][col] = true;  //mark current cell as land
+            islands++; //increment island count, new land initially forms a new island
+
+            int currentId = row * n + col; //union-find operates on 1D ids, so map each (row, col) to a unique id.
 
             //explore neighbours
             for(int[] dir : directions){
-                int x = r + dir[0];
-                int y = c + dir[1];
 
-                if(x>=0 && x<m && y>=0 && y<n){ // boundary check
-                    int neighbourId = x * n + y;
-                    if(islands[neighbourId]){
-                        if(unionFind.union(id, neighbourId)){
-                            count--; // if union succeeds → merge islands
-                        }
-                    }
+                int newRow = row + dir[0];
+                int newCol = col + dir[1];
+
+                //boundary check
+                if(newRow < 0 || newRow >= m || newCol < 0 || newCol >= n){
+                    continue; //out of boundary
+                }
+
+                //land check
+                if(!land[newRow][newCol]){
+                    continue; //no land
+                }
+
+                int neighbourId = newRow * n + newCol;
+
+                if(unionFind.union(currentId, neighbourId)){
+                    islands--; // if union succeeds → merge islands, as successful union merges two previously separate islands
                 }
             }
 
-            result.add(count);
+            result.add(islands);
         }
 
         return result;
