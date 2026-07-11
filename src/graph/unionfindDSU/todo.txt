@@ -1,14 +1,13 @@
 | Problem                        | Difficulty | Pattern                        |
 | ------------------------------ | ---------- | ------------------------------ |
-| Number of Provinces            | Medium     | Basic connected components     |
-| Redundant Connection           | Medium     | Cycle detection                |
-| Accounts Merge                 | Medium     | Grouping by shared identifiers |
-| Number of Islands II           | Hard       | Dynamic connectivity           |
-| Min Cost to Connect All Points | Medium     | Kruskal's MST                  |
+| Number of Provinces            | Medium     | Basic connected components     | [Done]
+| Redundant Connection           | Medium     | Cycle detection                | [Done]
+| Accounts Merge                 | Medium     | Grouping by shared identifiers | [Done]
+| Number of Islands II           | Hard       | Dynamic connectivity           | [Done]
 
 | Problem                                     | Difficulty | Pattern                 |
 | ------------------------------------------- | ---------- | ----------------------- |
-| Graph Valid Tree                            | Medium     | Tree validation         |
+| Graph Valid Tree                            | Medium     | Tree validation         | [Done]
 | Sentence Similarity II                      | Medium     | String-based DSU        |
 | Most Stones Removed with Same Row or Column | Medium     | Union by row/column     |
 | Regions Cut By Slashes                      | Medium     | Grid transformation     |
