@@ -22,7 +22,8 @@ public class NumberOfIslandsII {
 
     public List<Integer> numIslands2(int m, int n, int[][] positions)
     {
-        boolean[][] land = new boolean[m][n];
+        boolean[][] land = new boolean[m][n]; //initially starts with all water cells
+
         UnionFind unionFind = new UnionFind(m * n);
         List<Integer> result = new ArrayList<>();
         int islands = 0;
