@@ -26,7 +26,7 @@
 | Problem                                                    | Difficulty | Pattern              |
 | ---------------------------------------------------------- | ---------- | -------------------- |
 | GCD Sort of an Array                                       | Hard       | Number theory + DSU  |
-| Process Restricted Friend Requests                         | Hard       | DSU with constraints |
+| Process Restricted Friend Requests                         | Hard       | DSU with constraints | [Done]
 | Couples Holding Hands                                      | Hard       | Graph modeling       |
 | Remove Max Number of Edges to Keep Graph Fully Traversable | Hard       | Multiple DSUs        |
 
