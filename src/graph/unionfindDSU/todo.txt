@@ -3,7 +3,7 @@
 | Number of Provinces            | Medium     | Basic connected components     | [Done]
 | Redundant Connection           | Medium     | Cycle detection                | [Done]
 | Accounts Merge                 | Medium     | Grouping by shared identifiers | [Done]
-| Number of Islands II           | Hard       | Dynamic connectivity           | [Done]
+| Number of Islands II           | Hard       | Dynamic connectivity Grid       | [Done]
 
 | Problem                                     | Difficulty | Pattern                 |
 | ------------------------------------------- | ---------- | ----------------------- |
