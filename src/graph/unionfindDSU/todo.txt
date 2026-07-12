@@ -11,13 +11,13 @@
 | Sentence Similarity II                      | Medium     | String-based DSU        | [Done]
 | Most Stones Removed with Same Row or Column | Medium     | Union by row/column     | [Done]
 | Regions Cut By Slashes                      | Medium     | Grid transformation     |
-| Satisfiability of Equality Equations        | Medium     | Constraint satisfaction |
+| Satisfiability of Equality Equations        | Medium     | Constraint satisfaction | [Done]
 
 
 | Problem                                         | Difficulty | Pattern                   |
 | ----------------------------------------------- | ---------- | ------------------------- |
 | Number of Good Paths                            | Hard       | DSU + sorting             |
-| Making A Large Island                           | Hard       | DSU on grids              |
+| Making A Large Island                           | Hard       | DSU on grids              | [Done]
 | Bricks Falling When Hit                         | Hard       | Reverse processing + DSU  |
 | Checking Existence of Edge Length Limited Paths | Hard       | Offline queries + sorting |
 | Optimize Water Distribution in a Village        | Hard       | Kruskal variation         |
