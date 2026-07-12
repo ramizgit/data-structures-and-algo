@@ -1,4 +1,6 @@
-package graph.unionfindDSU;
+package graph.unionfindDSU.gridDSU;
+
+import graph.unionfindDSU.UnionFind;
 
 import java.util.*;
 
@@ -83,7 +85,7 @@ public class MakingALargeIsland {
 
                     if (!visited.contains(parent)) {
                         visited.add(parent);
-                        area += uf.size[parent];
+                        area += uf.getNodeSize()[parent];
                     }
                 }
 

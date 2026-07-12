@@ -47,4 +47,8 @@ public class UnionFind {
 
         return true;
     }
+
+    public int[] getNodeSize() {
+        return size;
+    }
 }

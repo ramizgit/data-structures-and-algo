@@ -1,4 +1,6 @@
-package graph.unionfindDSU;
+package graph.unionfindDSU.gridDSU;
+
+import graph.unionfindDSU.UnionFind;
 
 import java.util.*;
 
