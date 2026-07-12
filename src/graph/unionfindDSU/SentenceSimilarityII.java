@@ -33,7 +33,7 @@ public class SentenceSimilarityII {
             return false;
         }
 
-        //give every word an ID, as DSU works with integers.
+        //first make one pass over similar words and give every word an ID, as DSU works with integers.
         Map<String, Integer> wordId = new HashMap<>();
         int id = 0;
 
@@ -50,6 +50,7 @@ public class SentenceSimilarityII {
             }
         }
 
+        //now we know all unique words
         //initialize DSU for all unique words, time: O(unique words) = O(w)
         UnionFind uf = new UnionFind(wordId.size());
 
