@@ -55,8 +55,9 @@ public class ProcessRestrictedFriendRequests {
                 int rootB = uf.find(b);
 
                 //check if merging u and v will also merge a and b?
-                if ((rootA == rootU && rootB == rootV) ||
-                        (rootA == rootV && rootB == rootU)) {
+                if ((rootA == rootU && rootB == rootV)
+                        || (rootA == rootV && rootB == rootU)
+                ) {
                     merge = false;
                     break;
                 }
