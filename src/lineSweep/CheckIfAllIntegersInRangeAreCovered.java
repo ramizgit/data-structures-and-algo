@@ -1,4 +1,4 @@
-package consistenthashing.lineSweep;
+package lineSweep;
 
 public class CheckIfAllIntegersInRangeAreCovered {
 
