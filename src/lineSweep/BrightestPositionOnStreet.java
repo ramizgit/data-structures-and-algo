@@ -12,7 +12,6 @@ public class BrightestPositionOnStreet {
     // Space: O(n)
     public int brightestPosition(int[][] lights)
     {
-
         //convert each range into difference map using start (+1) and end (-1)
         TreeMap<Integer, Integer> diffMap = new TreeMap<>();
 
@@ -21,11 +20,11 @@ public class BrightestPositionOnStreet {
             int pos = light[0];
             int range = light[1];
 
-            int left = pos - range;
-            int right = pos + range;
+            int start = pos - range;
+            int end = pos + range;
 
-            diffMap.put(left, diffMap.getOrDefault(left, 0) + 1);
-            diffMap.put(right+1, diffMap.getOrDefault(right+1, 0) - 1); //right range in inclusive, hence right+!
+            diffMap.put(start, diffMap.getOrDefault(start, 0) + 1);
+            diffMap.put(end+1, diffMap.getOrDefault(end+1, 0) - 1); //range in inclusive, hence end + 1
         }
 
         //sweep through the difference map using prefix sum
