@@ -3,13 +3,32 @@ The graph concept
 An Euler path is a continuous route in a graph that visits every edge exactly once, without repeating any edge.
 If this path begins and ends at the exact same vertex, it is called an Euler circuit
 
+Rules:-
+UNDIRECTED
+-----------
+0 odd  -> Euler Circuit
+2 odd  -> Euler Path
+>2 odd -> No Euler Path
+
+DIRECTED
+---------
+Circuit:
+    For every vertex:
+    indegree == outdegree
+
+Path:
+    Exactly one vertex:
+    outdegree = indegree + 1   // Start
+
+    Exactly one vertex:
+    indegree = outdegree + 1   // End
+
+    All other vertices:
+    indegree == outdegree
+
+
 The problem says: Use every ticket exactly once which translates to: Use every edge exactly once.
 In graph theory, that's called an: Eulerian Path (Euler Trail)
-
-Rules:-
-Euler Path exists: If exactly two vertices have an odd degree, a path exists. You must start at one of the odd-degree vertices and end at the other.
-Euler Circuit exists: If every vertex has an even degree, the graph has at least one circuit. You can start and end at the same spot.
-
 
 The algorithm
 -------------
