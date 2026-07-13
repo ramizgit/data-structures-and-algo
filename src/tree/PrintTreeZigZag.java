@@ -1,3 +1,5 @@
+package tree;
+
 import java.util.Stack;
 
 public class PrintTreeZigZag {
@@ -58,6 +60,18 @@ public class PrintTreeZigZag {
                     oddLevelStack.push(tmpnode.left);
                 }
             }
+        }
+    }
+
+    static class Node{
+        int value;
+        Node left;
+        Node right;
+
+        public Node(int value, Node left, Node right) {
+            this.value = value;
+            this.left = left;
+            this.right = right;
         }
     }
 }

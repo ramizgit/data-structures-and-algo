@@ -1,4 +1,4 @@
-package consistenthashing;
+package misc;
 
 import java.util.HashMap;
 import java.util.Map;

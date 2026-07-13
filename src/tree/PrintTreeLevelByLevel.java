@@ -1,3 +1,5 @@
+package tree;
+
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -42,16 +44,18 @@ public class PrintTreeLevelByLevel {
             }
         }
     }
-}
 
-class Node{
-    int value;
-    Node left;
-    Node right;
+    static class Node{
+        int value;
+        Node left;
+        Node right;
 
-    public Node(int value, Node left, Node right) {
-        this.value = value;
-        this.left = left;
-        this.right = right;
+        public Node(int value, Node left, Node right) {
+            this.value = value;
+            this.left = left;
+            this.right = right;
+        }
     }
 }
+
+

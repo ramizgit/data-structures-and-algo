@@ -1,3 +1,5 @@
+package tree;
+
 public class IsBinaryTreeBalanced {
     public static void main(String[] args)
     {
@@ -67,6 +69,19 @@ public class IsBinaryTreeBalanced {
         int right = depth(node.right);
 
         return 1 + Math.max(left, right);
+    }
+
+
+    static class Node{
+        int value;
+        Node left;
+        Node right;
+
+        public Node(int value, Node left, Node right) {
+            this.value = value;
+            this.left = left;
+            this.right = right;
+        }
     }
 
 

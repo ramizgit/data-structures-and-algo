@@ -1,3 +1,5 @@
+package twopointers;
+
 public class MaxWaterContainer {
     public static void main(String[] args)
     {

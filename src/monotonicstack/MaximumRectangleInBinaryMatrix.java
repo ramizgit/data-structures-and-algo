@@ -1,3 +1,5 @@
+package monotonicstack;
+
 public class MaximumRectangleInBinaryMatrix {
 
     public static void main(String[] args)

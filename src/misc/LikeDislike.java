@@ -1,3 +1,5 @@
+package misc;
+
 public class LikeDislike {
     public static void main(String[] args)
     {
