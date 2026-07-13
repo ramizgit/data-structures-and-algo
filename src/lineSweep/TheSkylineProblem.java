@@ -60,16 +60,31 @@ public class TheSkylineProblem {
             }
 
             // START vs START
+            /*
+            Insert taller buildings first.
+            A shorter building starting underneath a taller one doesn't change the skyline.
+            Processing the taller building first avoids creating temporary, incorrect skyline points.
+             */
             if (a.type == START && b.type == START) {
                 return Integer.compare(b.height, a.height); //taller first - height desc
             }
 
             // END vs END
+            /*
+            Remove shorter buildings first.
+            Removing a shorter building doesn't affect the visible skyline because a taller building is still covering it.
+            Removing the tallest building too early creates a temporary, artificial skyline.
+             */
             if (a.type == END && b.type == END) {
                 return Integer.compare(a.height, b.height); //smaller first - height asc
             }
 
             // START before END
+            /*
+            Buildings starting at x are already visible at that position, while buildings ending at x
+            remain visible up to that position. Therefore, process START events before END events
+            so the skyline reflects the correct height at x.
+             */
             return Integer.compare(b.type, a.type); //At the same x-coordinate, buildings that start already exist, and buildings that end are still visible up to that x. Therefore, process START events before END events.
         } );
 
