@@ -20,6 +20,7 @@ public class MeetingRoomsII {
             return 0;
         }
 
+        //create events list
         List<Event> events = new ArrayList<>();
 
         for(int[] interval : intervals){ //O(n)
@@ -27,7 +28,7 @@ public class MeetingRoomsII {
             events.add(new Event(interval[1], END_DELTA)); //end
         }
 
-        // sort events by time asc order. If two events occur at the same time, process END (-1) before START (+1).
+        //sort events by time asc order. If two events occur at the same time, process END (-1) before START (+1).
         events.sort( (a, b) -> {
 
             if(a.time != b.time){
@@ -40,6 +41,7 @@ public class MeetingRoomsII {
         int activeMeetings = 0;
         int maxConcurrentMeetings = 0;
 
+        //sweep events
         for(Event event : events){ //O(n)
             activeMeetings += event.delta;
             maxConcurrentMeetings = Math.max(maxConcurrentMeetings, activeMeetings);
