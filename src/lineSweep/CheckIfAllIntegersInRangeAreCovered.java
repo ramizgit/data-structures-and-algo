@@ -28,7 +28,7 @@ public class CheckIfAllIntegersInRangeAreCovered {
             int end = range[1];
 
             diff[start] += 1;
-            diff[end+1] -= 1;
+            diff[end+1] -= 1; //end is inclusive
         }
 
         //sweep through the difference array using prefix sum
@@ -36,6 +36,7 @@ public class CheckIfAllIntegersInRangeAreCovered {
             diff[i] += diff[i-1];
         }
 
+        //check if each integer in the inclusive range [left, right] is covered or not
         for(int i=left; i<=right; i++){
             if(diff[i] == 0){
                 return false;
