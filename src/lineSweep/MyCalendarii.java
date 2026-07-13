@@ -13,16 +13,29 @@ public class MyCalendarii {
     and roll back if the active booking count reaches 3."
      */
 
+    /*
+    Approach: Line Sweep + TreeMap
+
+    Store +1 at booking start and -1 at booking end in a TreeMap.
+    For each booking, temporarily add its events and sweep the map in sorted order.
+    The prefix sum gives the number of active bookings.
+    If it ever reaches 3, rollback the changes and return false; otherwise keep the booking.
+
+    Time: O(n) per booking
+    Space: O(n)
+    */
+
     private static final int START_DELTA = 1;
     private static final int END_DELTA = -1;
 
     // Difference map : +1 at booking start and -1 at booking end
-    TreeMap<Integer, Integer> events;
+    TreeMap<Integer, Integer> events; //TreeMap<time, delta>
 
     public MyCalendarii() {
         this.events = new TreeMap<>();
     }
 
+    //time : O(n)
     public boolean book(int startTime, int endTime)
     {
         this.events.put(startTime, this.events.getOrDefault(startTime, 0) + START_DELTA); //O(log n)
@@ -30,6 +43,7 @@ public class MyCalendarii {
 
         int currActive = 0;
 
+        //sweep events
         for(int delta : events.values()){ //O(n)
 
             currActive += delta;

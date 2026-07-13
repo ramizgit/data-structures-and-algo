@@ -30,21 +30,27 @@ public class MyCalendariii {
     It's the same sweep-line idea with a different data structure. This is a great pattern to remember.
      */
 
-    // Difference map : +1 at booking start and -1 at booking end
-    TreeMap<Integer, Integer> events;
+    //difference map : +1 at booking start and -1 at booking end
+    TreeMap<Integer, Integer> events; //TreeMap<time, delta>
+
+    private static final int START_DELTA = 1;
+    private static final int END_DELTA = -1;
 
     public MyCalendariii() {
         this.events = new TreeMap<>();
     }
 
+    //Time : O(n)
     public int book(int startTime, int endTime)
     {
-        this.events.put(startTime, this.events.getOrDefault(startTime, 0) + 1); //O(log n)
-        this.events.put(endTime, this.events.getOrDefault(endTime, 0) - 1); //O(log n)
+        //add event
+        this.events.put(startTime, this.events.getOrDefault(startTime, 0) + START_DELTA); //O(log n)
+        this.events.put(endTime, this.events.getOrDefault(endTime, 0) + END_DELTA); //O(log n)
 
         int active = 0;
         int maxActive = 0;
 
+        //sweep events in chronological order
         for(int delta : events.values()){ //O(n)
             active += delta;
             maxActive = Math.max(maxActive, active);

@@ -14,10 +14,10 @@ public class MyCalendar {
     which is unnecessary for My Calendar I.
      */
 
-    private TreeMap<Integer, Integer> bookings;
+    private TreeMap<Integer, Integer> events; //TreeMap<start, end>
 
     public MyCalendar() {
-        bookings = new TreeMap<>();
+        this.events = new TreeMap<>();
     }
 
     //time : O(log n)
@@ -26,18 +26,18 @@ public class MyCalendar {
         //check intervals immediately before and after the new interval
 
         //check floor for immediately before interval
-        Map.Entry<Integer, Integer> floorEntry = bookings.floorEntry(start);
+        Map.Entry<Integer, Integer> floorEntry = events.floorEntry(start);
         if( floorEntry != null && start < floorEntry.getValue() ){
             return false; //overlap found
         }
 
         //check ceiling for immediately after interval
-        Map.Entry<Integer, Integer> ceilingEntry = bookings.ceilingEntry(start);
+        Map.Entry<Integer, Integer> ceilingEntry = events.ceilingEntry(start);
         if( ceilingEntry != null && end > ceilingEntry.getKey()){
             return false; //overlap found
         }
 
-        bookings.put(start, end); //populate booking if no overlap
+        events.put(start, end); //populate booking if no overlap
 
         return true; //no overlap found
     }
