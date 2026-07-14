@@ -28,10 +28,44 @@ Task:
 Write a function that takes this matrix as input and returns the path so you stay as far as possible from zombie.
      */
 
+    /*
+    Approach:
+
+    1. Multi-source BFS from all zombie cells to compute the minimum distance
+       (safety factor) of every reachable cell from the nearest zombie.
+       - Zombie cells have safety = 0.
+       - Walls are marked as -1 (impassable).
+
+    2. Binary search on the answer (minimum allowed safety factor).
+       - For a candidate safety K, check if a path exists from S to G
+         using only cells with safety >= K.
+       - Reachability is monotonic:
+           If a path exists for K, it also exists for all smaller values.
+         Hence binary search is applicable.
+
+    3. After finding the maximum possible safety factor, run one final BFS
+       restricted to cells with safety >= maxSafety to obtain the shortest
+       path satisfying that maximum safety.
+
+    Time Complexity:
+    - Multi-source BFS      : O(m * n)
+    - Binary Search         : O(log(maxSafety))
+    - Reachability check    : O(m * n) per iteration
+    - Final BFS             : O(m * n)
+
+    Overall: O(m * n * log(maxSafety))
+    Space:   O(m * n)
+    */
+
     int[][] DIRECTIONS = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
 
     public void minPathWithMaxSafety(char[][] grid)
     {
+        //input validation
+        if(grid == null || grid.length == 0) {
+            return;
+        }
+
         //step1 - multi source bfs from zombie cells to calculate all other cells safety factor
         int m = grid.length;
         int n = grid[0].length;
