@@ -107,9 +107,7 @@ public class FindBusyIntervals {
 
         //sweep
         List<int[]> result = new ArrayList<>();
-
         long activePassengers = 0;
-
         Integer prevTime = null;
 
         for (Map.Entry<Integer, Integer> entry : events.entrySet()) {
@@ -122,19 +120,22 @@ public class FindBusyIntervals {
 
             int currTime = entry.getKey();
 
-            // Interval [prevTime, currTime) has the previous active passenger count
+            //remember we are evaluating the interval [prevTime, currTime)
+
+            //interval [prevTime, currTime) has the previous active passenger count
             if (prevTime != null && activePassengers >= P) {
 
                 // Merge with previous interval if adjacent
                 if (!result.isEmpty() && result.getLast()[1] == prevTime) {
+                    //does this new interval start where the previous one ended?
                     result.getLast()[1] = currTime; //extend last result end time
                 } else {
                     result.add(new int[]{prevTime, currTime});
                 }
             }
 
-            // Apply all passenger changes at currTime
-            activePassengers += entry.getValue();
+            //apply all passenger changes at currTime
+            activePassengers += entry.getValue(); //important : this active count is valid from curr time till nex interval time
 
             prevTime = currTime;
         }
