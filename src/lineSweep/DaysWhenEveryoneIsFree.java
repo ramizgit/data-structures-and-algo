@@ -1,4 +1,4 @@
-package consistenthashing.differenceArray;
+package lineSweep;
 
 /*
 You are given a list of records and an integer d representing the range of days from 1 to d.
