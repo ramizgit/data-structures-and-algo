@@ -29,6 +29,7 @@ public class SubsetSumDp {
 
         for (int n : nums) {
             for (int t = n; t <= target; t++) {
+
                 dp[t] = dp[t] //dont pick
                         || dp[t - n]; //pick
             }

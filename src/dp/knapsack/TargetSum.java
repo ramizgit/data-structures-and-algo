@@ -45,6 +45,7 @@ public class TargetSum {
 
         for (int n : nums) {
             for (int t = target; t >= n; t--) { //backward loop since each element can be used at most once
+
                 dp[t] = dp[t] //existing ways (without current number)
                         + dp[t - n]; //new ways created by taking the current number
             }

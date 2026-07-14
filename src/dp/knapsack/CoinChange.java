@@ -1,4 +1,4 @@
-package consistenthashing.dp.knapsack;
+package dp.knapsack;
 
 import java.util.*;
 
@@ -13,11 +13,12 @@ public class CoinChange {
 
         dp[0] = 0; //base case - 0 coins needed to make amount 0
 
-        for(int c : coins){
-            for(int i=c; i<=amount; i++){ //forward loop as coins can be reused
+        for(int coin : coins){
+            for(int i=coin; i<=amount; i++){ //forward loop as coins can be reused
+
                 dp[i] = Math.min(
                         dp[i], //dont pick
-                        1 + dp[i-c] //pick
+                        1 + dp[i-coin] //pick
                 );
             }
         }
@@ -35,11 +36,12 @@ public class CoinChange {
         int[] choice = new int[amount+1]; // choice[i] stores the last coin used to form amount i
 
         // Unbounded Knapsack
-        for(int c : coins){
-            for(int i=c; i<=amount; i++){ //forward loop as coins can be reused
-                if( (1 + dp[i-c]) < dp[i]){
-                    dp[i] = 1 + dp[i-c];
-                    choice[i] = c;
+        for(int coin : coins){
+            for(int i=coin; i<=amount; i++){ //forward loop as coins can be reused
+
+                if( (1 + dp[i-coin]) < dp[i]){
+                    dp[i] = 1 + dp[i-coin];
+                    choice[i] = coin;
                 }
             }
         }

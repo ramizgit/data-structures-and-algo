@@ -1,4 +1,4 @@
-package consistenthashing.dp.knapsack;
+package dp.knapsack;
 
 public class CoinChangeii {
 

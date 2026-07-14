@@ -1,4 +1,4 @@
-package consistenthashing.dp.knapsack;
+package dp.knapsack;
 
 public class CountSubsetsWithSumK {
 
@@ -14,7 +14,9 @@ public class CountSubsetsWithSumK {
 
         for (int n : nums) {
             for (int t = target; t >= n; t--) { // Backward loop since each element can be used at most once
-                dp[t] += dp[t - n];
+
+                dp[t] = dp[t] //existing ways
+                        + dp[t - n]; //new ways by taking the current num
             }
         }
 
