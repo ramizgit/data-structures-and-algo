@@ -62,14 +62,14 @@ Write a function that takes this matrix as input and returns the path so you sta
 
     private static int shortestPathWithSafetyK(int[][] zombie, int k, int sr, int sc, int gr, int gc, int m, int n)
     {
-        Queue<Coordinates> queue = new ArrayDeque<>();
+        Queue<State> queue = new ArrayDeque<>();
         boolean[][] visited = new boolean[m][n];
-        queue.add(new Coordinates(sr, sc, 0));
+        queue.add(new State(sr, sc, 0));
 
-        Coordinates[][] parent = new Coordinates[m][n]; //to track parent cells
+        State[][] parent = new State[m][n]; //to track parent cells
 
         while(!queue.isEmpty()){
-            Coordinates curr = queue.poll();
+            State curr = queue.poll();
 
             if(curr.row == gr && curr.col == gc){
                 return curr.dist; //shortest path dist
@@ -82,9 +82,9 @@ Write a function that takes this matrix as input and returns the path so you sta
                 int y = curr.col + dir[1];
 
                 if(x >= 0 && x < m && y >= 0 && y < n && !visited[x][y] && zombie[x][y] >= k){
-                    queue.add(new Coordinates(x, y, curr.dist + 1));
+                    queue.add(new State(x, y, curr.dist + 1));
                     visited[x][y] = true;
-                    parent[x][y] = new Coordinates(curr.row, curr.col); //track parent
+                    parent[x][y] = new State(curr.row, curr.col); //track parent
                 }
             }
         }
@@ -97,7 +97,7 @@ Write a function that takes this matrix as input and returns the path so you sta
         while (r != sr || c != sc) {
             path.add(new int[]{r, c});
 
-            Coordinates p = parent[r][c];
+            State p = parent[r][c];
             r = p.row;
             c = p.col;
         }
@@ -113,14 +113,14 @@ Write a function that takes this matrix as input and returns the path so you sta
     private static int[][] getGridWithZombieFactor(char[][] grid, int m, int n)
     {
         int[][] zombie = new int[m][n];
-        Queue<Coordinates> queue = new ArrayDeque<>();
+        Queue<State> queue = new ArrayDeque<>();
         boolean[][] visited = new boolean[m][n];
 
         for(int i=0; i<m; i++){
             for(int j=0; j<n; j++){
                 if(grid[i][j] == 'Z'){
                     zombie[i][j] = 0; //zombie cells are least safe, hence 0
-                    queue.add(new Coordinates(i, j, 0)); //also collect cells for bfs
+                    queue.add(new State(i, j, 0)); //also collect cells for bfs
                     visited[i][j] = true; //mark them visited for bfs
                 }else if(grid[i][j] == 'W'){
                     zombie[i][j] = -1; //no entry, hence putting -1 to mark walls
@@ -132,7 +132,7 @@ Write a function that takes this matrix as input and returns the path so you sta
 
         //bfs logic
         while(!queue.isEmpty()){
-            Coordinates curr = queue.poll();
+            State curr = queue.poll();
             int[][] directions = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
 
             for(int[] dir : directions){
@@ -141,7 +141,7 @@ Write a function that takes this matrix as input and returns the path so you sta
 
                 if(x >= 0 && x < m && y >= 0 && y < n && !visited[x][y] && grid[x][y] != 'W'){
                     zombie[x][y] = curr.dist + 1;
-                    queue.add(new Coordinates(x, y, curr.dist + 1)); //add to queue for bfs
+                    queue.add(new State(x, y, curr.dist + 1)); //add to queue for bfs
                     visited[x][y] = true; //mark visited
                 }
             }
@@ -208,21 +208,23 @@ Write a function that takes this matrix as input and returns the path so you sta
 
         return false;
     }
+
+    static class State {
+        int row;
+        int col;
+        int dist;
+
+        public State(int row, int col, int dist) {
+            this.row = row;
+            this.col = col;
+            this.dist = dist;
+        }
+
+        public State(int row, int col) {
+            this.row = row;
+            this.col = col;
+        }
+    }
 }
 
-class Coordinates{
-    int row;
-    int col;
-    int dist;
 
-    public Coordinates(int row, int col, int dist) {
-        this.row = row;
-        this.col = col;
-        this.dist = dist;
-    }
-
-    public Coordinates(int row, int col) {
-        this.row = row;
-        this.col = col;
-    }
-}
