@@ -28,7 +28,9 @@ Task:
 Write a function that takes this matrix as input and returns the path so you stay as far as possible from zombie.
      */
 
-    public static void minPathWithMaxSafety(char[][] grid)
+    int[][] DIRECTIONS = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
+
+    public void minPathWithMaxSafety(char[][] grid)
     {
         //step1 - multi source bfs from zombie cells to calculate all other cells safety factor
         int m = grid.length;
@@ -60,30 +62,35 @@ Write a function that takes this matrix as input and returns the path so you sta
         System.out.println("shortest path len = " + shortest);
     }
 
-    private static int shortestPathWithSafetyK(int[][] zombie, int k, int sr, int sc, int gr, int gc, int m, int n)
+    private int shortestPathWithSafetyK(int[][] zombie, int k, int sr, int sc, int gr, int gc, int m, int n)
     {
         Queue<State> queue = new ArrayDeque<>();
-        boolean[][] visited = new boolean[m][n];
-        queue.add(new State(sr, sc, 0));
+        queue.add(new State(sr, sc, 0)); //starting position
 
-        State[][] parent = new State[m][n]; //to track parent cells
+        boolean[][] visited = new boolean[m][n];
+        visited[sr][sc] = true; //starting position
+
+        State[][] parent = new State[m][n]; //to track parent cells to reconstruct path
 
         while(!queue.isEmpty()){
+
             State curr = queue.poll();
 
             if(curr.row == gr && curr.col == gc){
                 return curr.dist; //shortest path dist
             }
 
-            int[][] directions = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
+            for(int[] dir : DIRECTIONS){
 
-            for(int[] dir : directions){
                 int x = curr.row + dir[0];
                 int y = curr.col + dir[1];
 
-                if(x >= 0 && x < m && y >= 0 && y < n && !visited[x][y] && zombie[x][y] >= k){
-                    queue.add(new State(x, y, curr.dist + 1));
+                if(x >= 0 && x < m && y >= 0 && y < n //boundary check
+                        && !visited[x][y] //visited check
+                        && zombie[x][y] >= k) //constraint check
+                {
                     visited[x][y] = true;
+                    queue.add(new State(x, y, curr.dist + 1));
                     parent[x][y] = new State(curr.row, curr.col); //track parent
                 }
             }
@@ -110,7 +117,7 @@ Write a function that takes this matrix as input and returns the path so you sta
         return -1;
     }
 
-    private static int[][] getGridWithZombieFactor(char[][] grid, int m, int n)
+    private int[][] getGridWithZombieFactor(char[][] grid, int m, int n)
     {
         int[][] zombie = new int[m][n];
         Queue<State> queue = new ArrayDeque<>();
@@ -132,14 +139,17 @@ Write a function that takes this matrix as input and returns the path so you sta
 
         //bfs logic
         while(!queue.isEmpty()){
-            State curr = queue.poll();
-            int[][] directions = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
 
-            for(int[] dir : directions){
+            State curr = queue.poll();
+
+            for(int[] dir : DIRECTIONS){
                 int x = curr.row + dir[0];
                 int y = curr.col + dir[1];
 
-                if(x >= 0 && x < m && y >= 0 && y < n && !visited[x][y] && grid[x][y] != 'W'){
+                if(x >= 0 && x < m && y >= 0 && y < n //boundary check
+                        && !visited[x][y] //visited check
+                        && grid[x][y] != 'W') //wall constraint check
+                {
                     zombie[x][y] = curr.dist + 1;
                     queue.add(new State(x, y, curr.dist + 1)); //add to queue for bfs
                     visited[x][y] = true; //mark visited
@@ -150,7 +160,7 @@ Write a function that takes this matrix as input and returns the path so you sta
         return zombie;
     }
 
-    private static int maxSafetyFactor(int[][] zombie, int m, int n, char[][] grid, int sr, int sc, int gr, int gc)
+    private int maxSafetyFactor(int[][] zombie, int m, int n, char[][] grid, int sr, int sc, int gr, int gc)
     {
         int low = 0;
         int high = 0;
@@ -178,14 +188,14 @@ Write a function that takes this matrix as input and returns the path so you sta
         return maxSafety;
     }
 
-    private static boolean canExit(int[][] zombie, int safety, int sr, int sc, int gr, int gc, int m, int n)
+    private boolean canExit(int[][] zombie, int safety, int sr, int sc, int gr, int gc, int m, int n)
     {
         //dfs logic
         boolean[][] visited = new boolean[m][n];
         return dfs(zombie, safety, sr, sc, gr, gc, m, n, visited);
     }
 
-    private static boolean dfs(int[][] zombie, int safety, int i, int j, int gr, int gc, int m, int n, boolean[][] visited)
+    private boolean dfs(int[][] zombie, int safety, int i, int j, int gr, int gc, int m, int n, boolean[][] visited)
     {
         if(i == gr && j == gc){
             return true;
@@ -193,13 +203,14 @@ Write a function that takes this matrix as input and returns the path so you sta
 
         visited[i][j] = true;
 
-        int[][] directions = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
-
-        for(int[] dir : directions){
+        for(int[] dir : DIRECTIONS){
             int x = i + dir[0];
             int y = j + dir[1];
 
-            if(x >= 0 && x < m && y >= 0 && y < n && !visited[x][y] && zombie[x][y] >= safety){
+            if(x >= 0 && x < m && y >= 0 && y < n //boundary check
+                    && !visited[x][y] //visited check
+                    && zombie[x][y] >= safety) //constraint check
+            {
                 if(dfs(zombie, safety, x, y, gr, gc, m, n, visited)){
                     return true;
                 }
