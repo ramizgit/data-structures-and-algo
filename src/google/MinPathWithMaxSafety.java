@@ -77,7 +77,8 @@ Write a function that takes this matrix as input and returns the path so you sta
             State curr = queue.poll();
 
             if(curr.row == gr && curr.col == gc){
-                return curr.dist; //shortest path dist
+                //return curr.dist; //shortest path dist
+                break; //After BFS reconstruct the path.
             }
 
             for(int[] dir : DIRECTIONS){
