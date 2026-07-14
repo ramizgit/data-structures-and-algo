@@ -129,3 +129,25 @@ public class PeakMemoryUsageIntervals {
         return result;
     }
 }
+
+/*
+TEMPLATE:-
+
+build events
+
+↓
+
+(optional) first sweep to compute threshold
+
+↓
+
+second sweep
+
+    inspect [prevTime, currTime)
+
+    merge if adjacent
+
+    apply delta
+
+    prevTime = currTime
+ */
