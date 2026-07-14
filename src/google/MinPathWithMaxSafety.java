@@ -133,18 +133,13 @@ Write a function that takes this matrix as input and returns the path so you sta
 
         //path construction logic
         List<int[]> path = new ArrayList<>();
+        State curr = new State(gr, gc);
 
-        int r = gr, c = gc;
-
-        while (r != sr || c != sc) {
-            path.add(new int[]{r, c});
-
-            State p = parent[r][c];
-            r = p.row;
-            c = p.col;
+        while (curr != null) {
+            path.add(new int[]{curr.row, curr.col});
+            curr = parent[curr.row][curr.col];
         }
 
-        path.add(new int[]{sr, sc});
         Collections.reverse(path);
 
         System.out.println("shortest path = " + path);
