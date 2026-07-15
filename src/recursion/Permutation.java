@@ -17,21 +17,34 @@ public class Permutation {
 
     }
 
-    public static void permute(List<Character> input, List<Character> output, Set<Character> visited)
+    //recommended
+    public static void permute(List<Character> input, List<Character> output, boolean[] visited)
     {
-        if(output.size() == input.size()){
+        //recursion end condition
+        if (output.size() == input.size()) {
             System.out.println(output);
             return;
         }
 
-        for(int i=0; i< input.size(); i++){
-            if(!visited.contains(input.get(i))){
-                visited.add(input.get(i));
-                output.add(input.get(i));
-                permute(input, output, visited);
-                visited.remove(input.get(i));
-                output.remove(output.size()-1);
+        //Recursion = move to the next decision (next position/level).
+        //For loop = enumerate all possible choices at the current decision.
+        for (int i = 0; i < input.size(); i++) {
+
+            // Skip if current element is already used
+            if (visited[i]) {
+                continue;
             }
+
+            // Choose
+            visited[i] = true;
+            output.add(input.get(i));
+
+            // Explore
+            permute(input, output, visited);
+
+            // Undo (Backtrack)
+            output.removeLast();
+            visited[i] = false;
         }
     }
 
