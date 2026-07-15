@@ -8,7 +8,7 @@ public class Permutation {
         List<Character> input = Arrays.asList('a', 'b', 'c');
         List<Character> output = new ArrayList<>();
 
-        permute(input, output, new HashSet<>());
+        permute(input, output, new boolean[input.size()]);
 
         //------------via swap method
         System.out.println("=============via swap===============");
