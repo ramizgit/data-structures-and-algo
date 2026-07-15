@@ -9,7 +9,7 @@ public class CoinChangeii {
     public int change(int amount, int[] coins)
     {
 
-        int[] dp = new int[amount + 1]; //dp[t] = number of combinations that make up amount t, initially all zero
+        int[] dp = new int[amount + 1]; //dp[t] = number of combinations that make up amount t
 
         dp[0] = 1; //base case : 1 way to make amount 0 by choosing none
 
