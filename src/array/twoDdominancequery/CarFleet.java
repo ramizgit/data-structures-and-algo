@@ -1,4 +1,4 @@
-package arrays.twoDdominancequery;
+package array.twoDdominancequery;
 
 import java.util.*;
 
