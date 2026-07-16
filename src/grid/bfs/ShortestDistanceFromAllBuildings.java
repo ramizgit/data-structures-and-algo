@@ -59,8 +59,6 @@ import java.util.*;
 
 public class ShortestDistanceFromAllBuildings {
 
-    //todo : implement
-
     /*
     /*
      * Hints:
