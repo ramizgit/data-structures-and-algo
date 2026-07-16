@@ -178,6 +178,7 @@ public class ShortestDistanceFromAllBuildings {
                     continue;
                 }
 
+                //process empty cell
                 dist[newRow][newCol] += curr.dist + 1; //increment dist
                 reachCount[newRow][newCol]++; //increment reach count
                 visited[newRow][newCol] = true;
