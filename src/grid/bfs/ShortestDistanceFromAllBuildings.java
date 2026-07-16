@@ -55,6 +55,8 @@ The chosen empty land must be able to reach every building.
 Return -1 if no such empty land exists.
  */
 
+import java.util.*;
+
 public class ShortestDistanceFromAllBuildings {
 
     //todo : implement
@@ -94,11 +96,131 @@ public class ShortestDistanceFromAllBuildings {
      *      whereas this problem requires the sum of distances to all buildings.
      */
 
+    final int[][] DIRECTIONS = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
+
     public int shortestDistance(int[][] grid)
     {
+        //input vadliation
+        if(grid == null || grid.length == 0){
+            return -1;
+        }
 
+        int m = grid.length;
+        int n = grid[0].length;
 
+        //populate dist grid
+        int[][] distanceSum = new int[m][n];
+        int[][] reachCount = new int[m][n];
+        int totalBuildings = 0;
 
-        return 0;
+        for(int i=0; i<m; i++){
+            for(int j=0; j<n; j++){
+                if(grid[i][j] == 1){
+                    totalBuildings++; //buildings
+                }
+            }
+        }
+
+        //bfs from each building and accumulate dist for empty cells
+        for(int i=0; i<m; i++){
+            for(int j=0; j<n; j++){
+                if(grid[i][j] == 1){
+                    bfs(i, j, grid, distanceSum, reachCount, m, n);
+                }
+            }
+        }
+
+        //find min dist
+        int minDist = Integer.MAX_VALUE;
+
+        for(int i=0; i<m; i++){
+            for(int j=0; j<n; j++){
+                if (grid[i][j] == 0 && reachCount[i][j] == totalBuildings) {
+                    minDist = Math.min(minDist, distanceSum[i][j]);
+                }
+            }
+        }
+
+        return minDist == Integer.MAX_VALUE ? -1 : minDist;
+    }
+
+    private void bfs(int startRow, int startCol, int[][] grid, int[][] dist, int[][] reachCount, int m, int n)
+    {
+        Queue<State> bfsQueue = new ArrayDeque<>();
+        bfsQueue.offer(new State(startRow, startCol, 0)); //starting building
+
+        boolean[][] visited = new boolean[m][n];
+        visited[startRow][startCol] = true;
+
+        while(!bfsQueue.isEmpty()){
+
+            State curr = bfsQueue.poll();
+
+            //explore neighborus
+            for(int[] dir : DIRECTIONS){
+
+                int newRow = curr.row + dir[0];
+                int newCol = curr.col + dir[1];
+
+                //boundary check
+                if(newRow < 0 || newRow >= m || newCol < 0 || newCol >= n){
+                    continue; //out of boundary
+                }
+
+                if(visited[newRow][newCol]){
+                    continue; //already visited
+                }
+
+                if(grid[newRow][newCol] == 2  //obstacle
+                        || grid[newRow][newCol] == 1 //another building
+                )
+                {
+                    continue;
+                }
+
+                dist[newRow][newCol] += curr.dist + 1; //increment dist
+                reachCount[newRow][newCol]++; //increment reach count
+                visited[newRow][newCol] = true;
+                bfsQueue.offer(new State(newRow, newCol, curr.dist + 1));
+            }
+        }
+    }
+
+    static class State{
+        int row;
+        int col;
+        int dist;
+
+        public State(int row, int col, int dist) {
+            this.row = row;
+            this.col = col;
+            this.dist = dist;
+        }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
