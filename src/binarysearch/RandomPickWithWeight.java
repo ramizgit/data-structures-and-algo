@@ -27,8 +27,8 @@ public class RandomPickWithWeight {
 
     public int pickIndex()
     {
-        int total = prefixSum[prefixSum.length - 1];
-        int rand = random.nextInt(total) + 1;
+        int range = prefixSum[prefixSum.length - 1];
+        int rand = random.nextInt(range) + 1;
 
         //binary search
         int low = 0;
@@ -36,6 +36,7 @@ public class RandomPickWithWeight {
         int answer = -1;
 
         while(low <= high){
+
             int mid = low + (high - low) / 2;
 
             if(this.prefixSum[mid] >= rand){
