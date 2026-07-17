@@ -1,12 +1,11 @@
 package binarysearch;
 
+import java.util.*;
+
 public class NumberOfMatchingSubsequences {
 
     //https://leetcode.com/problems/number-of-matching-subsequences/description/
 
-    //todo : implement
-
-    /*
     /*
     Approach:
     1. Preprocess the target string 't' by storing all indices of each character.
@@ -34,60 +33,71 @@ public class NumberOfMatchingSubsequences {
     O(t.length())
     */
 
-    /*
-    buildIndexMap(t)
-
-    map<Character, List<Integer>> indexMap
-
-    for each index i in t
-        indexMap[t[i]].add(i)
-
-
-    isSubsequence(word)
-
-        previousMatchedIndex = -1
-
-        for each character c in word
-
-            if c not present in indexMap
-                return false
-
-            positions = indexMap.get(c)
-
-            nextIndex = first position in positions
-                        that is > previousMatchedIndex
-                        (using binary search)
-
-            if nextIndex does not exist
-                return false
-
-            previousMatchedIndex = nextIndex
-
-        return true
-
-
-            firstGreaterThan(list, target)
-
-        low = 0
-        high = list.size() - 1
-        answer = -1
-
-        while low <= high
-
-            mid = low + (high - low) / 2
-
-            if list[mid] > target
-                answer = list[mid]
-                high = mid - 1      // look for a smaller valid index
-            else
-                low = mid + 1
-
-        return answer
-     */
-
     public int numMatchingSubseq(String s, String[] words)
     {
+        //preprocess s and store char -> indices map
+        Map<Character, List<Integer>> charToIdxMap = new HashMap<>();
 
-        return 0;
+        for(int i=0; i<s.length(); i++){
+            char ch = s.charAt(i);
+            charToIdxMap.computeIfAbsent(ch, key -> new ArrayList<>()).add(i);
+        }
+
+        int result = 0;
+
+        for(String word : words){
+            if(isSubSeq(word, charToIdxMap)){
+                result++;
+            }
+        }
+
+        return result;
+    }
+
+    private boolean isSubSeq(String word, Map<Character, List<Integer>> charToIdxMap)
+    {
+        int prevIdx = -1;
+
+        for(int i=0; i<word.length(); i++){
+
+            char ch = word.charAt(i);
+
+            if(!charToIdxMap.containsKey(ch)){
+                return false;
+            }
+
+            List<Integer> idxList = charToIdxMap.get(ch);
+
+            int index = binarySearch(idxList, prevIdx);
+
+            if(index == -1){
+                return false; //not a subseq, try next word
+            }
+
+            prevIdx = index;
+        }
+
+        return true;
+    }
+
+    private int binarySearch(List<Integer> idxList, int prevIdx)
+    {
+        //binary search to find the first index > prevIdx
+        int left = 0;
+        int right = idxList.size()-1;
+        int answer = -1;
+
+        while(left <= right){
+            int mid = left + (right - left)/2;
+
+            if(idxList.get(mid) > prevIdx){
+                answer = idxList.get(mid); //possible answer
+                right = mid - 1; //try lower
+            }else{
+                left = mid + 1; //try higher
+            }
+        }
+
+        return answer;
     }
 }
