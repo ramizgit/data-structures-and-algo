@@ -51,6 +51,7 @@ public class MaxNumOfEventsThatCanBeAttended {
                 minheap.poll();
             }
 
+            //by this time, heap should have all valid events for today
             if(!minheap.isEmpty()){
                 //attend event
                 answer++;
