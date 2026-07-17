@@ -6,6 +6,15 @@ public class MinimumNumberOfRefuelingStops {
 
     public int minRefuelStops(int target, int startFuel, int[][] stations)
     {
+        /*
+        Stations: (position, fuel)
+          ↓
+        Process stations in order
+                  ↓
+        Store available fuel in max heap
+                  ↓
+        Refuel only when necessary
+         */
 
         //todo : implement
 
