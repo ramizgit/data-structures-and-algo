@@ -31,7 +31,7 @@ public class FurthestBuildingYouCanReach {
 
                 ladders--; //consume ladder for the current climb
 
-                //use ladder on whichever climb is larger
+                //use ladder on whichever climb is larger (can i exchange ladder for a prev max bricks i have used?)
                 if(!maxHeap.isEmpty() && maxHeap.peek() > bricksNeeded) {
 
                     //reassign ladder to previous largest climb
