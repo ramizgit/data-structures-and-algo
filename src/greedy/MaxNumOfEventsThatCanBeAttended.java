@@ -1,4 +1,4 @@
-package intervals;
+package greedy;
 
 import java.util.*;
 

@@ -1,0 +1,8 @@
+| Problem                           | Greedy choice                    | Heap                                              |
+| --------------------------------- | -------------------------------- | ------------------------------------------------- |
+| Maximum Number of Events          | Attend event that ends earliest  | Min-heap (end times)                              | [Done]
+| Minimum Number of Refueling Stops | Refuel at station with most fuel | Max-heap (fuel)                                   | [Done]
+| Course Schedule III               | Remove longest course            | Max-heap (durations)                              | [Done]
+| Furthest Building You Can Reach   | Use ladder on largest climb      | Max-heap (refund) or Min-heap (official approach) |
+| Task Scheduler                    | Execute most frequent task       | Max-heap (frequencies)                            |
+| Connect Sticks                    | Merge two smallest sticks        | Min-heap                                          |
