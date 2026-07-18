@@ -11,7 +11,7 @@ public class MinimumNumberOfRefuelingStops {
     public int minRefuelStops(int target, int startFuel, int[][] stations) {
 
         /*
-        Greedy Idea:
+        Greedy Idea: When you're stuck, take the largest fuel available.
 
         Stations are processed in increasing order of position.
 
