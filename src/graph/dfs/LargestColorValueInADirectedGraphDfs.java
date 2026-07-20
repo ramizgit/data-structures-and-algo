@@ -85,8 +85,8 @@ public class LargestColorValueInADirectedGraphDfs {
                 return -1;
             }
 
-            // Merge child's DP into current node.
-            // For every color, keep the best count among all outgoing paths.
+            //merge/pro-pagate child's DP into current node.
+            //for every color, keep the best count among all outgoing paths.
             for (int c = 0; c < 26; c++) {
                 dp[node][c] = Math.max(dp[node][c], dp[neighbour][c]);
             }
