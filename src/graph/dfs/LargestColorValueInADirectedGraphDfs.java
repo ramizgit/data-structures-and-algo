@@ -2,7 +2,7 @@ package graph.dfs;
 
 import java.util.*;
 
-public class LargestColorValueInADirectedGraph {
+public class LargestColorValueInADirectedGraphDfs {
 
     //https://leetcode.com/problems/largest-color-value-in-a-directed-graph/description/
 
