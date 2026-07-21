@@ -6,6 +6,13 @@ public class HandOfStraights {
 
     //https://leetcode.com/problems/hand-of-straights/description/
 
+    /*
+    Constraints:
+        1 <= hand.length <= 1000
+        0 <= hand[i] <= 1000
+        1 <= groupSize <= hand.length
+     */
+
     public boolean isNStraightHand(int[] hand, int groupSize)
     {
 
