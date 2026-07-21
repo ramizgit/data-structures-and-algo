@@ -3,11 +3,8 @@ package array;
 import java.util.*;
 
 public class PartitionArrayOntoKDistinctGroups {
-    //https://leetcode.com/problems/partition-array-into-k-distinct-groups/description/
-    public static void main(String[] args)
-    {
 
-    }
+    //https://leetcode.com/problems/partition-array-into-k-distinct-groups/description/
 
     //0(nlogn)
     private static boolean partitionArray(int[] nums, int k)
