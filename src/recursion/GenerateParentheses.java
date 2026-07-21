@@ -23,6 +23,17 @@ public class GenerateParentheses {
         System.out.println(output4);
     }
 
+    /*
+    Time Complexity:
+    - O(Cn * n), where Cn is the nth Catalan number.
+    - There are Cn valid parentheses combinations, and each combination has length 2n.
+    - Using StringBuilder ensures append/delete operations are O(1), so each valid string takes O(n) to construct.
+
+    Space Complexity:
+    - O(n) auxiliary space for the recursion stack and StringBuilder.
+    - O(Cn * n) space for storing the final output list (not counted as auxiliary space).
+    */
+
     public static void generateParantheses(int input, int open, int close, String currentState, List<String> output)
     {
         //if current parantheses string has reached max limit of 2*input, add to final output list
