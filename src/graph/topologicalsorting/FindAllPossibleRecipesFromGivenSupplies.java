@@ -4,6 +4,8 @@ import java.util.*;
 
 public class FindAllPossibleRecipesFromGivenSupplies {
 
+    //https://leetcode.com/problems/find-all-possible-recipes-from-given-supplies/description/
+
     /*
     recipes = ["bread","sandwich"], ingredients = [["yeast","flour"],["bread","meat"]]
     supplies = ["yeast","flour","meat"]
@@ -28,24 +30,27 @@ public class FindAllPossibleRecipesFromGivenSupplies {
         }
 
         //run BFS logic, start with supply
-        Queue<String> queue = new ArrayDeque<>();
+        Queue<String> bfsQueue = new ArrayDeque<>();
+
         for(String ingredient : supplies){
-            queue.offer(ingredient);
+            bfsQueue.offer(ingredient);
         }
 
         List<String> result = new ArrayList<>();
 
-        while(!queue.isEmpty()){
-            String curr = queue.poll();
+        while(!bfsQueue.isEmpty()){
+
+            String curr = bfsQueue.poll();
 
             //explore neighbours
             for(String recipe : graph.getOrDefault(curr, new ArrayList<>())){
+
                 //reduce indegree
                 indegree.put(recipe, indegree.getOrDefault(recipe, 0) - 1);
 
                 if(indegree.get(recipe) == 0){
                     result.add(recipe); //add to result as all ingredients for this recipe is available
-                    queue.offer(recipe); //also add back to queue to be used as ingredient for other recipes if needed
+                    bfsQueue.offer(recipe); //also add back to queue to be used as ingredient for other recipes if needed
                 }
             }
         }
