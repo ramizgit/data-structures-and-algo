@@ -17,30 +17,29 @@ public class FruitIntoBaskets {
 
         Map<Integer, Integer> freq = new HashMap<>(); //map to track frequency of picked fruits
 
-        int left = 0;
-        int right = 0;
+        int windowStart = 0;
         int maxFruits = 0;
 
-        while(right < fruits.length){
+        for (int windowEnd = 0; windowEnd < fruits.length; windowEnd++) {
 
             //pick current fruit and increase its freq
-            int currentFruit = fruits[right];
+            int currentFruit = fruits[windowEnd];
             freq.put(currentFruit, freq.getOrDefault(currentFruit, 0) + 1);
 
+            //shrink until the window contains at most 2 fruit types
             while(freq.size() > 2){
-                int leftFruit = fruits[left];
-                freq.put(leftFruit, freq.get(leftFruit) - 1);
 
+                int leftFruit = fruits[windowStart];
+
+                freq.put(leftFruit, freq.get(leftFruit) - 1);
                 if(freq.get(leftFruit) == 0){
                     freq.remove(leftFruit);
                 }
 
-                left++;
+                windowStart++;
             }
 
-            maxFruits = Math.max(maxFruits, right - left + 1);
-
-            right++;
+            maxFruits = Math.max(maxFruits, windowEnd - windowStart + 1);
         }
 
         return maxFruits;

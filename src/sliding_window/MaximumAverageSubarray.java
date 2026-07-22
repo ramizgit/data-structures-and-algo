@@ -1,4 +1,4 @@
-package slidingwindow;
+package sliding_window;
 
 public class MaximumAverageSubarray {
 
