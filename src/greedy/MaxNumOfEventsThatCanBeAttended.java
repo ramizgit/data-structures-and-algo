@@ -26,6 +26,7 @@ public class MaxNumOfEventsThatCanBeAttended {
         }
 
         //sort events asc order of start days
+        //why sort by start day ? We sort by start day because we need to know when an event becomes available.
         Arrays.sort(events, (a, b) -> Integer.compare(a[0], b[0]));
 
         //minheap by end days
