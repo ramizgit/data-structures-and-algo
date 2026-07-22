@@ -29,6 +29,7 @@ public class PartitionArrayOntoKDistinctGroups {
         }
 
         //build max heap
+        //why max heap? : always use the number with the highest remaining frequency first. Otherwise it may become impossible later.
         PriorityQueue<Integer> pq = new PriorityQueue<>( (a, b) -> b - a );
         pq.addAll(freq.keySet()); //0(dlogd)
 
