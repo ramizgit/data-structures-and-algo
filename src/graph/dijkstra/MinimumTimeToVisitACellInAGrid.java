@@ -1,4 +1,4 @@
-package consistenthashing.graph.dijkstra;
+package graph.dijkstra;
 
 import java.util.*;
 
@@ -8,26 +8,39 @@ public class MinimumTimeToVisitACellInAGrid {
 
     public int minimumTime(int[][] grid)
     {
+        //input validation
+        if(grid == null || grid.length == 0){
+            return -1;
+        }
 
         int m = grid.length;
         int n = grid[0].length;
 
         // Edge case : At time 1 you must move. If both neighbors require time > 1, you are stuck forever.
-        if(m > 1 && n > 1 && grid[0][1] > 1 && grid[1][0] > 1){
+        if (m == 1 && n == 1) {
+            return 0;
+        }
+
+        if (m == 1) {
+            if (grid[0][1] > 1) return -1;
+        }
+        else if (n == 1) {
+            if (grid[1][0] > 1) return -1;
+        }
+        else if (grid[0][1] > 1 && grid[1][0] > 1) {
             return -1;
         }
 
         //minheap
         PriorityQueue<State> minheap = new PriorityQueue<>( (a, b) -> a.time - b.time );
-        minheap.offer(new State(0, 0, 0));
-
+        minheap.offer(new State(0, 0, 0)); //starting cell at time 0
 
         //cost array dist[i][j] = min time to reach cell (i, j)
         int[][] dist = new int[m][n];
         for(int i=0; i<m; i++){
             Arrays.fill(dist[i], Integer.MAX_VALUE);
         }
-        dist[0][0] = 0;
+        dist[0][0] = 0; //starting cell at time 0
 
         int[][] directions = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
 
@@ -47,6 +60,7 @@ public class MinimumTimeToVisitACellInAGrid {
 
             //explore nieghbours and do relaxation
             for(int[] dir : directions){
+
                 int newRow = curr.row + dir[0];
                 int newCol = curr.col + dir[1];
 
@@ -60,8 +74,12 @@ public class MinimumTimeToVisitACellInAGrid {
                 int arrivalTime;
 
                 if(t + 1 >= unlock){
-                    arrivalTime = t + 1;
+                    arrivalTime = t + 1; //neighbour cell is reachable immediately
                 }else{
+                    //neighbour cell is NOT reachable immediately
+                    //need to waste time by moving between cells.
+                    //adjust arrival time based on parity.
+
                     int wait = unlock - (t + 1);
 
                     if(wait % 2 == 0){
