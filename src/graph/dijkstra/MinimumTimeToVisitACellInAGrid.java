@@ -6,6 +6,8 @@ public class MinimumTimeToVisitACellInAGrid {
 
     //https://leetcode.com/problems/minimum-time-to-visit-a-cell-in-a-grid/description/
 
+    //important : waiting is NOT allowed, we must make a move every second
+
     public int minimumTime(int[][] grid)
     {
         //input validation
@@ -20,7 +22,6 @@ public class MinimumTimeToVisitACellInAGrid {
         if (m == 1 && n == 1) {
             return 0;
         }
-
         if (m == 1) {
             if (grid[0][1] > 1) return -1;
         }
@@ -88,6 +89,11 @@ public class MinimumTimeToVisitACellInAGrid {
                         arrivalTime = unlock + 1;
                     }
                 }
+
+                /*
+                IMPORTANT: IF WAITING IS ALLOWED, THEN SIMPLY DO FOLLOWING
+                arrivalTime = Math.max(t + 1, unlock);
+                 */
 
                 if(arrivalTime < dist[newRow][newCol]){
                     //relaxation
