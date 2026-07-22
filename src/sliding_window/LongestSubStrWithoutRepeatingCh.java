@@ -1,4 +1,4 @@
-package slidingwindow;
+package sliding_window;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -15,26 +15,22 @@ public class LongestSubStrWithoutRepeatingCh {
         }
 
         //sliding window
-        int left = 0;
-        int right = 0;
+        int windowStart = 0;
         int maxLen = 0;
-        Set<Character> windowSet = new HashSet<>();
+        Set<Character> window = new HashSet<>();
 
-        while(right < s.length()){
+        for (int windowEnd = 0; windowEnd < s.length(); windowEnd++) {
 
-            char current = s.charAt(right);
+            char current = s.charAt(windowEnd);
 
-            while(windowSet.contains(current)){
-                //shrink window
-                windowSet.remove(s.charAt(left));
-                left++;
+            //shrink window till we don't have any repeating char
+            while(window.contains(current)){
+                window.remove(s.charAt(windowStart++));
             }
 
-            windowSet.add(current); //expand window
+            window.add(current); //expand window
 
-            maxLen = Math.max(maxLen, right - left + 1); //capture max window length
-
-            right++;
+            maxLen = Math.max(maxLen, windowEnd - windowStart + 1); //capture max window length
         }
 
         return maxLen;
