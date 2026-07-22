@@ -4,38 +4,40 @@ import java.util.*;
 
 public class LongestSubstrWithKDistinctChar {
 
+    //https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/description/
+
+    //Longest Substring with At Most K Distinct Characters
+
     public int lengthOfLongestSubstring(String s, int k)
     {
-        if(s == null || s.isEmpty()){
+        //input validation
+        if (s == null || s.isEmpty() || k == 0) {
             return 0;
         }
 
-        Map<Character, Integer> freq = new HashMap<>();
-        int left = 0;
-        int right = 0;
-        int maxLen = -1;
+        Map<Character, Integer> freqMap = new HashMap<>();
+        int windowStart = 0;
+        int maxLen = 0;
 
-        while(right < s.length()){
-            char ch = s.charAt(right);
-            freq.put(ch, freq.getOrDefault(ch, 0) + 1);
+        for (int windowEnd = 0; windowEnd < s.length(); windowEnd++) {
 
-            while(freq.size() > k){
-                char lch = s.charAt(left);
-                freq.put(lch, freq.get(lch) - 1);
+            char ch = s.charAt(windowEnd);
+            freqMap.put(ch, freqMap.getOrDefault(ch, 0) + 1);
 
-                if(freq.get(lch) == 0){
-                    freq.remove(lch);
+            //keep on shrinking window till we have at most k distinct chars
+            while(freqMap.size() > k){
+
+                char lch = s.charAt(windowStart++);
+                freqMap.put(lch, freqMap.get(lch) - 1);
+
+                if(freqMap.get(lch) == 0){
+                    freqMap.remove(lch);
                 }
-
-                left++;
             }
 
-            if (freq.size() == k) {
-                maxLen = Math.max(maxLen, right - left + 1);
-            }
-
-            right++;
+            maxLen = Math.max(maxLen, windowEnd - windowStart + 1);
         }
+
         return maxLen;
     }
 }
