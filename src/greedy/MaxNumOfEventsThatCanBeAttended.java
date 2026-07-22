@@ -6,13 +6,16 @@ public class MaxNumOfEventsThatCanBeAttended {
 
     //https://leetcode.com/problems/maximum-number-of-events-that-can-be-attended/description/
 
+    //important point : You can attend one day (/any-day) of an event
+
     /*
     Greedy Idea:
 
-    1. Process the calendar one day at a time.
-    2. Keep all currently available events in a min-heap ordered by end day.
-    3. Each day, attend the event that finishes the earliest.
-    4. This minimizes the chance of missing events that expire sooner.
+    1. sort by start day asc order
+    2. Process the calendar one day at a time.
+    3. Keep all currently available events in a min-heap ordered by end day.
+    4. Each day, attend the event that finishes the earliest.
+    5. This minimizes the chance of missing events that expire sooner.
     */
 
     public int maxEvents(int[][] events)
