@@ -4,6 +4,8 @@ import java.util.*;
 
 public class CourseSchedule {
 
+    //https://leetcode.com/problems/course-schedule/description/
+
     //IMPORTANT : MENTION BOTH DFS AND TOPOLOGICAL SORT APPRAOCH. REFER CourseScheduleDfs FOR DFS APPRAOCH
     
     /*
@@ -21,14 +23,15 @@ public class CourseSchedule {
     */
 
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-        //initialize graph and indegree map
+
+        //build graph as adjacency list
         Map<Integer, List<Integer>> graph = new HashMap<>();
-        Map<Integer, Integer> indegree = new HashMap<>();
 
         for(int i=0; i<numCourses; i++){ //Time : O(V)
             graph.put(i, new ArrayList<>());
-            indegree.put(i, 0);
         }
+
+        int[] indegree = new int[numCourses]; //initialize indegree as zero for all nodes
 
         //populate graph and indegree as per prerequisites
         for(int[] p : prerequisites){ //Time : O(E)
@@ -36,20 +39,21 @@ public class CourseSchedule {
             int v = p[0];
 
             graph.get(u).add(v);
-            indegree.put(v, indegree.get(v) + 1);
+            indegree[v]++;
         }
 
         Queue<Integer> bfsQueue = new ArrayDeque<>(); //for bfs logic
-        int processed = 0;
 
-        //collect all starting vertices with 0 indegree in the bfs queue
-        for(int key : indegree.keySet()){ //Time : O(V)
-            if(indegree.get(key) == 0){
-                bfsQueue.offer(key);
+        //add all vertices with indegree 0.
+        //these courses have no prerequisites and can be taken first.
+        for(int i=0; i<numCourses; i++){ //Time : O(V)
+            if(indegree[i] == 0){
+                bfsQueue.offer(i);
             }
         }
 
-        //bfs logic
+        int processed = 0; //counts courses that can be completed
+
         while(!bfsQueue.isEmpty()){ //Time : O(V+E)
 
             int node = bfsQueue.poll();
@@ -57,14 +61,16 @@ public class CourseSchedule {
 
             //explore neighbours
             for(int neighbour : graph.get(node)){
-                indegree.put(neighbour, indegree.get(neighbour) - 1);
-                if(indegree.get(neighbour) == 0){
+
+                indegree[neighbour]--;
+
+                if(indegree[neighbour] == 0){
                     bfsQueue.add(neighbour); //add to bfs queue once indegree becomes 0
                 }
             }
         }
 
-        // if all nodes processed → no cycle
+        //if all nodes processed → no cycle
         return processed == numCourses;
     }
 }
