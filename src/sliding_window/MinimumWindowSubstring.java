@@ -1,10 +1,12 @@
-package slidingWindow;
+package sliding_window;
 
 import java.util.*;
 
 public class MinimumWindowSubstring {
 
     //https://leetcode.com/problems/minimum-window-substring/description/
+
+    //*** important : simpler version is available at MinimumWindowSubstringv2 ***
 
     public String minWindow(String s, String t)
     {
