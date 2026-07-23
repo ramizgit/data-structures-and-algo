@@ -26,11 +26,15 @@ public class TargetSum {
             totalSum += num;
         }
 
-        if (Math.abs(target) > totalSum)
-            return 0;
+        // Target cannot exceed the total sum of all numbers.
+        if (Math.abs(target) > totalSum) {
+            return 0; // Impossible if the target lies outside the range [-totalSum, totalSum].
+        }
 
-        if ((totalSum + target) % 2 != 0)
+        // P = (totalSum + target) / 2 must be an integer.
+        if ((totalSum + target) % 2 != 0) {
             return 0;
+        }
 
         int requiredSum = (totalSum + target) / 2;
 
