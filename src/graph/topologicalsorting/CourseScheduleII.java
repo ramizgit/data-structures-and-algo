@@ -4,15 +4,25 @@ import java.util.*;
 
 public class CourseScheduleII {
 
-    private static List<Integer> findOrder(int numCourses, int[][] prerequisites)
+    //https://leetcode.com/problems/course-schedule-ii/description/
+
+    /*
+    Time Complexity : O(V + E)
+    Space Complexity : O(V + E)
+
+    V = numCourses
+    E = prerequisites.length
+    */
+    public List<Integer> findOrder(int numCourses, int[][] prerequisites)
     {
-        //initialize graph and indegree map
+        //build graph as adjacency list
         Map<Integer, List<Integer>> graph = new HashMap<>();
-        Map<Integer, Integer> indegree = new HashMap<>();
+
         for(int i=0; i<numCourses; i++){
             graph.put(i, new ArrayList<>());
-            indegree.put(i, 0);
         }
+
+        int[] indegree = new int[numCourses]; //initialize indegree as zero for all nodes
 
         //populate graph and indegree as per input prerequisites
         for(int[] p : prerequisites){
@@ -20,16 +30,17 @@ public class CourseScheduleII {
             int v = p[0];
 
             graph.get(u).add(v);
-            indegree.put(v, indegree.get(v) + 1);
+            indegree[v]++;
         }
 
         Queue<Integer> bfsQueue = new ArrayDeque<>(); //for bfs logic
         //Queue<Integer> queue = new PriorityQueue<>(); //NOTE(***) : USE PRIORITY QUEUE IF U NEED ANSWER IN SORTED ORDER WHEREVER POSSIBLE
 
-        //collect all starting vertices with 0 indegree in the bfs queue
-        for(int key : indegree.keySet()){ //Time : O(V)
-            if(indegree.get(key) == 0){
-                bfsQueue.offer(key);
+        //add all vertices with indegree 0.
+        //these courses have no prerequisites and can be taken first.
+        for(int i=0; i<numCourses; i++){ //Time : O(V)
+            if(indegree[i] == 0){
+                bfsQueue.offer(i);
             }
         }
 
@@ -37,14 +48,17 @@ public class CourseScheduleII {
 
         //bfs logic
         while(!bfsQueue.isEmpty()){
+
             int node = bfsQueue.poll();
             topologicalOrder.add(node);
 
             //explore neighbours
             for(int neighbour : graph.get(node)){
-                indegree.put(neighbour, indegree.get(neighbour) - 1);
-                if(indegree.get(neighbour) == 0){
-                    bfsQueue.add(neighbour); //add to bfs queue once indegree becomes 0
+
+                indegree[neighbour]--;
+
+                if(indegree[neighbour] == 0){
+                    bfsQueue.offer(neighbour); //add to bfs queue once indegree becomes 0
                 }
             }
         }
