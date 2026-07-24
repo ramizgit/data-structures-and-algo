@@ -1,4 +1,4 @@
-package consistenthashing.lineSweep;
+package lineSweep;
 
 import java.util.*;
 
@@ -81,7 +81,7 @@ public class MinimumIntervalToIncludeEachQuery {
             //heap top is the smallest interval that contains the current query.
             if(!minHeap.isEmpty()){
                 //Heap top is the smallest valid interval
-                Interval minSizeInterval = minHeap.peek();
+                Interval minSizeInterval = minHeap.peek(); //do not remove heap top here, as same interval can be answer for other queries
                 result[queryIndex] = minSizeInterval.size;
             }else{
                 result[queryIndex] = -1;
