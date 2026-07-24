@@ -1,33 +1,29 @@
-package twopointer;
+package twopointers;
 
 public class BestTimeToBuySellStock {
 
     //https://leetcode.com/problems/best-time-to-buy-and-sell-stock/description/
 
-    public static void main(String[] args)
+    public int maxProfit(int[] prices)
     {
-        System.out.println(maxProfit(new int[]{7,1,5,3,9,4})); //8
-        System.out.println(maxProfit(new int[]{7,5,4,3})); //0
-    }
+        //input validation
+        if(prices == null || prices.length < 2){
+            return 0;
+        }
 
-    private static int maxProfit(int[] prices)
-    {
-        int buy = 0;
-        int sell = 1;
-        int maxProfit = Integer.MIN_VALUE;
+        int buy = 0; //assume buy on first day
+        int maxProfit = 0;
 
-        while (sell < prices.length){
+        for(int sell = 1; sell < prices.length; sell++){
 
             maxProfit = Math.max(maxProfit, prices[sell] - prices[buy]);
 
-            //reset if selling price is lower
+            //reset if a lower buying price is found
             if(prices[sell] < prices[buy]){
                 buy = sell;
             }
-
-            sell++;
         }
 
-        return Math.max(maxProfit, 0);
+        return maxProfit;
     }
 }
