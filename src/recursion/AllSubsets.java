@@ -4,24 +4,41 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AllSubsets {
-    public static void main(String[] args)
+
+    //https://leetcode.com/problems/subsets/description/
+
+    /*
+    Time Complexity
+    There are 2^n subsets.
+    Copying each subset takes O(n) in the worst case.
+
+    Time: O(n × 2^n)
+
+    Auxiliary Space: O(n) (recursion stack + current subset)
+
+    Output Space: O(n × 2^n)
+     */
+
+    public List<List<Integer>> subsets(int[] nums)
     {
-        printAllSubsets(new int[]{1,2,3}, 0, new ArrayList<>());
+        List<List<Integer>> subsets = new ArrayList<>();
+        generateAllSubsets(nums, 0, new ArrayList<>(), subsets);
+        return subsets;
     }
 
-    public static void printAllSubsets(int[] arr, int index, List<Integer> result)
+    public static void generateAllSubsets(int[] arr, int index, List<Integer> subset, List<List<Integer>> subsets)
     {
         if(index == arr.length){
-            System.out.println(result);
+            subsets.add(new ArrayList<>(subset));
             return;
         }
 
         //pick
-        result.add(arr[index]);
-        printAllSubsets(arr, index+1, result);
-        result.remove(result.size()-1);
+        subset.add(arr[index]);
+        generateAllSubsets(arr, index+1, subset, subsets);
+        subset.removeLast(); //backtrack
 
-        //not pick
-        printAllSubsets(arr, index+1, result);
+        //don't pick
+        generateAllSubsets(arr, index+1, subset, subsets);
     }
 }
