@@ -12,7 +12,7 @@ public class SlidingWindowMedian {
         PriorityQueue<Integer> maxHeap = new PriorityQueue<>((a, b) -> b - a);
         PriorityQueue<Integer> minHeap = new PriorityQueue<>();
 
-        Map<Integer, Integer> delayed = new HashMap<>();
+        Map<Integer, Integer> delayed = new HashMap<>(); //{num, frequency}
 
         int maxHeapSize = 0;
         int minHeapSize = 0;
@@ -37,20 +37,16 @@ public class SlidingWindowMedian {
             maxHeapSize = sizes[0];
             minHeapSize = sizes[1];
 
-            // Proceed only when the window size reaches k
+            //proceed only when the window size reaches k
             if (windowEnd - windowStart + 1 < k) {
                 continue;
             }
 
             //---------------- COMPUTE MEDIAN ----------------
-            prune(maxHeap, delayed);
-            prune(minHeap, delayed);
-
             if (k % 2 == 1) {
                 median[idx++] = maxHeap.peek();
             } else {
-                median[idx++] =
-                        ((long) maxHeap.peek() + (long) minHeap.peek()) / 2.0;
+                median[idx++] = ((long) maxHeap.peek() + (long) minHeap.peek()) / 2.0;
             }
 
             //---------------- SHRINK ----------------
@@ -74,12 +70,9 @@ public class SlidingWindowMedian {
         return median;
     }
 
-    private int[] balance(PriorityQueue<Integer> maxHeap,
-                          PriorityQueue<Integer> minHeap,
-                          int maxHeapSize,
-                          int minHeapSize)
+    private int[] balance(PriorityQueue<Integer> maxHeap, PriorityQueue<Integer> minHeap, int maxHeapSize, int minHeapSize)
     {
-        if (maxHeapSize - minHeapSize > 1) {
+        if (maxHeapSize > minHeapSize + 1) {
             minHeap.offer(maxHeap.poll());
             maxHeapSize--;
             minHeapSize++;
@@ -92,16 +85,20 @@ public class SlidingWindowMedian {
         return new int[]{maxHeapSize, minHeapSize};
     }
 
-    // Remove elements marked for deletion from heap top
-    private void prune(PriorityQueue<Integer> heap, Map<Integer, Integer> delayed) {
+    //remove elements marked for deletion from heap top
+    private void prune(PriorityQueue<Integer> heap, Map<Integer, Integer> delayed)
+    {
         while (!heap.isEmpty()) {
+
             int num = heap.peek();
 
             if (!delayed.containsKey(num)) {
-                break;
+                break; //heap top is not stale, return
             }
 
-            heap.poll();
+            heap.poll(); //remove heap top
+
+            //reduce freq in map
             delayed.put(num, delayed.get(num) - 1);
             if(delayed.get(num) == 0){
                 delayed.remove(num);
