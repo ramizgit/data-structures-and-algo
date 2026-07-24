@@ -1,4 +1,4 @@
-package slidingWindow;
+package sliding_window;
 
 import java.util.*;
 
@@ -7,78 +7,89 @@ public class SlidingWindowMedian {
     public double[] medianSlidingWindow(int[] nums, int k)
     {
         int n = nums.length;
-        double[] median = new double[n-k+1];
-        PriorityQueue<Integer> minheap = new PriorityQueue<>();
-        PriorityQueue<Integer> maxheap = new PriorityQueue<>( (a,b) -> b - a );
-        Map<Integer, Integer> tobeDeleted = new HashMap<>();
-        int maxheapSize = 0;
-        int minheapSize = 0;
+        double[] median = new double[n - k + 1];
+
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<>((a, b) -> b - a);
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+
+        Map<Integer, Integer> delayed = new HashMap<>();
+
+        int maxHeapSize = 0;
+        int minHeapSize = 0;
+
+        int windowStart = 0;
         int idx = 0;
 
-        for(int i=0; i<nums.length; i++){
-            int num = nums[i];
-            //-------------ADD TO HEAPS
-            if(maxheap.isEmpty() || num <= maxheap.peek()){
-                maxheap.offer(num);
-                maxheapSize++;
-            }else{
-                minheap.offer(num);
-                minheapSize++;
+        for (int windowEnd = 0; windowEnd < n; windowEnd++) {
+
+            //---------------- EXPAND ----------------
+            int num = nums[windowEnd];
+
+            if (maxHeap.isEmpty() || num <= maxHeap.peek()) {
+                maxHeap.offer(num);
+                maxHeapSize++;
+            } else {
+                minHeap.offer(num);
+                minHeapSize++;
             }
 
-            //---------BALANE
-            if(maxheapSize - minheapSize > 1){
-                minheap.offer(maxheap.poll());
-                maxheapSize--;
-                minheapSize++;
-            }else if(maxheapSize < minheapSize){
-                maxheap.offer(minheap.poll());
-                maxheapSize++;
-                minheapSize--;
+            int[] sizes = balance(maxHeap, minHeap, maxHeapSize, minHeapSize);
+            maxHeapSize = sizes[0];
+            minHeapSize = sizes[1];
+
+            // Proceed only when the window size reaches k
+            if (windowEnd - windowStart + 1 < k) {
+                continue;
             }
 
-            // ---------- COMPUTE MEDIAN ----------
-            if (i >= k - 1) {
+            //---------------- COMPUTE MEDIAN ----------------
+            prune(maxHeap, delayed);
+            prune(minHeap, delayed);
 
-                prune(maxheap, tobeDeleted);
-                prune(minheap, tobeDeleted);
-
-                if (k % 2 == 1) {
-                    median[idx++] = maxheap.peek();
-                } else {
-                    median[idx++] = ((long) maxheap.peek() + (long) minheap.peek()) / 2.0;
-                }
+            if (k % 2 == 1) {
+                median[idx++] = maxHeap.peek();
+            } else {
+                median[idx++] =
+                        ((long) maxHeap.peek() + (long) minHeap.peek()) / 2.0;
             }
 
-            //-------REMOVE WHEN LEFT SHRINKS, BUT
-            if(i >= k){
-                int out = nums[i-k];
-                tobeDeleted.put(out, tobeDeleted.getOrDefault(out, 0) + 1);
+            //---------------- SHRINK ----------------
+            int out = nums[windowStart++];
+            delayed.put(out, delayed.getOrDefault(out, 0) + 1);
 
-                // Ensure tops are valid BEFORE comparison
-                prune(maxheap, tobeDeleted);
-                prune(minheap, tobeDeleted);
+            prune(maxHeap, delayed);
+            prune(minHeap, delayed);
 
-                if(out <= maxheap.peek()){
-                    maxheapSize--;
-                }else{
-                    minheapSize--;
-                }
-
-                //---------BALANE AGAIN AFTER REMOVAL
-                if(maxheapSize - minheapSize > 1){
-                    minheap.offer(maxheap.poll());
-                    maxheapSize--;
-                    minheapSize++;
-                }else if(maxheapSize < minheapSize){
-                    maxheap.offer(minheap.poll());
-                    maxheapSize++;
-                    minheapSize--;
-                }
+            if (out <= maxHeap.peek()) {
+                maxHeapSize--;
+            } else {
+                minHeapSize--;
             }
+
+            sizes = balance(maxHeap, minHeap, maxHeapSize, minHeapSize);
+            maxHeapSize = sizes[0];
+            minHeapSize = sizes[1];
         }
 
         return median;
+    }
+
+    private int[] balance(PriorityQueue<Integer> maxHeap,
+                          PriorityQueue<Integer> minHeap,
+                          int maxHeapSize,
+                          int minHeapSize)
+    {
+        if (maxHeapSize - minHeapSize > 1) {
+            minHeap.offer(maxHeap.poll());
+            maxHeapSize--;
+            minHeapSize++;
+        } else if (maxHeapSize < minHeapSize) {
+            maxHeap.offer(minHeap.poll());
+            maxHeapSize++;
+            minHeapSize--;
+        }
+
+        return new int[]{maxHeapSize, minHeapSize};
     }
 
     // Remove elements marked for deletion from heap top
