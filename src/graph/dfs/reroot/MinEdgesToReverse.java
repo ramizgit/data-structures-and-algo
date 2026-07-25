@@ -13,7 +13,7 @@ public class MinEdgesToReverse {
 
     public int[] minEdgeReversals(int n, int[][] edges)
     {
-        //initialize graph
+        //build graph as adjacency list
         Map<Integer, List<Edge>> graph = new HashMap<>();
         for(int i=0; i<n; i++){
             graph.put(i, new ArrayList<>());

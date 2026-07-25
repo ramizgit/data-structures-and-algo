@@ -27,7 +27,7 @@ public class ReorderRoutes {
 
     public int minReorder(int n, int[][] connections)
     {
-        //initialize graph
+        //build graph as adjacency list
         Map<Integer, List<Edge>> graph = new HashMap<>();
         for(int i=0; i<n; i++){
             graph.put(i, new ArrayList<>());
