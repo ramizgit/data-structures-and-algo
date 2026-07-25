@@ -37,41 +37,41 @@ public class MinEdgesToReverse {
         }
 
         //compute answer for root which is ans[0] using dfs
-        int[] ans = new int[n];
-        dfsTotalRootCount(0, -1, ans, graph);
+        int[] answer = new int[n];
+        dfsTotalRootCount(0, -1, answer, graph);
 
         // run re-root dfs logic to compute answer for all other nodes
-        dfsReroot(0, -1, ans, graph);
+        dfsReroot(0, -1, answer, graph);
 
-        return ans;
+        return answer;
     }
 
     // counts reversals needed so that all nodes reachable from root (0)
-    public void dfsTotalRootCount(int node, int parent, int[] cost, Map<Integer, List<Edge>> graph)
+    public void dfsTotalRootCount(int node, int parent, int[] answer, Map<Integer, List<Edge>> graph)
     {
         //explore neighbours
         for(Edge neighbour : graph.get(node)){
             if(neighbour.v != parent){ //ensures recursion only goes to children, not back to parent to avoid infinite loop
-                cost[0] += neighbour.w;
-                dfsTotalRootCount(neighbour.v, node, cost, graph);
+                answer[0] += neighbour.w;
+                dfsTotalRootCount(neighbour.v, node, answer, graph);
             }
         }
     }
 
-    private void dfsReroot(int node, int parent, int[] ans, Map<Integer, List<Edge>> graph)
+    private void dfsReroot(int node, int parent, int[] answer, Map<Integer, List<Edge>> graph)
     {
         //explore neighbours
         for(Edge neighbour : graph.get(node)){
             if(neighbour.v != parent){ //to avoid infinite loop, ensures recursion only goes to children, not parent
                 if(neighbour.w == 0){
                     // Original edge: node -> child. When child becomes the root, this edge must be reversed. hence +1
-                    ans[neighbour.v] = ans[node] + 1; //parent node didnt pay to come to v as original edge exists, hence we need to add +1 to go from v to node via reverse edge
+                    answer[neighbour.v] = answer[node] + 1; //parent node didnt pay to come to v as original edge exists, hence we need to add +1 to go from v to node via reverse edge
                 }else{
                     // Reverse edge: child -> node. This reversal was needed for the parent root, but becomes unnecessary when the child becomes the root. hence -1
-                    ans[neighbour.v] = ans[node] - 1; //parent node had paid extra +1 to come to v via reverse edge, hence we need to reduce it by 1 to go from v to node via original edge
+                    answer[neighbour.v] = answer[node] - 1; //parent node had paid extra +1 to come to v via reverse edge, hence we need to reduce it by 1 to go from v to node via original edge
                 }
 
-                dfsReroot(neighbour.v, node, ans, graph);
+                dfsReroot(neighbour.v, node, answer, graph);
             }
         }
     }
