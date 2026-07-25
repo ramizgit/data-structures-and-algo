@@ -6,6 +6,8 @@ public class HeightOfBinaryTreeAfterSubtreeRemovalQueries {
 
     // https://leetcode.com/problems/height-of-binary-tree-after-subtree-removal-queries/
 
+    //todo : practice
+
     /*
     Approach:
 
