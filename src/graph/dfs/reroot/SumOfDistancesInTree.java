@@ -1,4 +1,4 @@
-package consistenthashing.graph.dfs;
+package graph.dfs.reroot;
 
 import java.util.*;
 
@@ -27,13 +27,13 @@ public class SumOfDistancesInTree {
         optimal : DFS from one node, then reuse it, O(n)
          */
 
-        //initialize graph - O(n)
+        //build graph as adjacency list - O(n)
         Map<Integer, List<Integer>> graph = new HashMap<>();
         for(int i=0; i<n; i++){
             graph.put(i, new ArrayList<>());
         }
 
-        //populate graph - O(n)
+        //populate edges - O(n)
         for(int[] edge : edges){
             int u = edge[0];
             int v = edge[1];
@@ -45,25 +45,36 @@ public class SumOfDistancesInTree {
 
         //first dfs to compute subtree sizes and dist[0]
         int[] size = new int[n];
-        int[] dist = new int[n];
-        dfsComputeSubTreeSizes(0, -1, 0, size, dist, graph); //O(n)
+        int[] answer = new int[n]; //answer array
+        dfsComputeSubtreeInfo(0, -1, 0, size, answer, graph); //O(n)
 
         //second dfs to compute answer for other nodes
-        dfsReroot(0, -1, size, dist, graph, n); //O(n)
+        dfsReroot(0, -1, size, answer, graph, n); //O(n)
 
-        return dist;
+        return answer;
     }
 
     //second dfs to compute answer for all other nodes
     private void dfsReroot(int node, int parent, int[] size, int[] dist, Map<Integer, List<Integer>> graph, int n)
     {
         for(int neighbour : graph.get(node)){
-
             if(neighbour == parent){
                 continue;
             }
 
-            dist[neighbour] = dist[node] // reuse the distance of parent node
+            /*
+            When moving root from parent -> child
+
+            Nodes inside child's subtree:
+            distance decreases by 1
+            contribution = -size[child]
+
+            Nodes outside child's subtree:
+            distance increases by 1
+            contribution = +(n - size[child])
+            */
+
+            dist[neighbour] = dist[node] // reuse distance sum of parent node
                     - size[neighbour] // number of nodes that become 1 step closer when rerooting to this neighbour node
                     + (n - size[neighbour]); // all other nodes become 1 step farther
 
@@ -72,19 +83,18 @@ public class SumOfDistancesInTree {
     }
 
     //first dfs to get subtree size of all nodes, and distance for 0th node
-    private void dfsComputeSubTreeSizes(int node, int parent, int depth, int[] size, int[] dist, Map<Integer, List<Integer>> graph)
+    private void dfsComputeSubtreeInfo(int node, int parent, int depth, int[] size, int[] answer, Map<Integer, List<Integer>> graph)
     {
         size[node] = 1; //size of the node itself
-        dist[0] += depth; // depth == distance from root node 0
+        answer[0] += depth; // depth == distance from root node 0
 
         //explore neighbours
         for(int neighbour : graph.get(node)) {
-
             if(neighbour == parent){
                 continue;
             }
 
-            dfsComputeSubTreeSizes(neighbour, node, depth + 1, size, dist, graph);
+            dfsComputeSubtreeInfo(neighbour, node, depth + 1, size, answer, graph);
 
             size[node] += size[neighbour]; //add the size of the child subtree
         }
