@@ -1,4 +1,4 @@
-package consistenthashing.graph.dfs;
+package graph.dfs;
 
 import java.util.*;
 
@@ -48,20 +48,20 @@ public class IsGraphBipartite {
         return true;
     }
 
-    private boolean dfs(int node, int color, int[][] graph, int[] nodeColor)
+    private boolean dfs(int node, int parentColor, int[][] graph, int[] nodeColor)
     {
-        nodeColor[node] = color; //assign color to the node
+        nodeColor[node] = parentColor; //assign color to the node
 
         //explore neighbours
         for(int neighbour : graph[node]){
             if(nodeColor[neighbour] == -1){ //unvisited neighbour
-                int neighbourColor = color == 0 ? 1 : 0; //same as "1-color"
+                int neighbourColor = parentColor == 0 ? 1 : 0; //same as "1-color"
                 if(!dfs(neighbour, neighbourColor, graph, nodeColor)){
                     return false;
                 }
             }else{
                 //already visited neighbour, compare color
-                if(nodeColor[neighbour] == color){
+                if(nodeColor[neighbour] == parentColor){
                     return false; // Conflict: adjacent nodes have the same color.
                 }
             }
