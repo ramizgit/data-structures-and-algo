@@ -1,6 +1,6 @@
-LeetCode 834 – Sum of Distances in Tree (the canonical reroot problem)
+LeetCode 834 – Sum of Distances in Tree (the canonical reroot problem) [Done]
 CSES Tree Distances I (introduces down[] and up[])
 CSES Tree Distances II (reinforces reroot transitions)
 LeetCode 2458 – Height of Binary Tree After Subtree Removal Queries
-LeetCode 2858 – Minimum Edge Reversals So Every Node Is Reachable
+LeetCode 2858 – Minimum Edge Reversals So Every Node Is Reachable [Done]
 LeetCode 2538 – Difference Between Maximum and Minimum Price Sum
