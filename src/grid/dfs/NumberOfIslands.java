@@ -1,4 +1,6 @@
-package consistenthashing.grid.dfs;
+package grid.dfs;
+
+import java.util.*;
 
 public class NumberOfIslands {
 
@@ -50,6 +52,44 @@ public class NumberOfIslands {
             {
                 dfs(grid, visited, x, y, m, n);
             }
+        }
+    }
+
+    private void bfs(int[][] grid, boolean[][] visited, int i, int j, int m, int n)
+    {
+        Queue<State> bfsQueue = new ArrayDeque<>();
+        bfsQueue.offer(new State(i, j));
+
+        visited[i][j] = true;
+
+        while(!bfsQueue.isEmpty()){
+
+            State curr = bfsQueue.poll();
+
+            //explore neighbours
+            for(int[] dir : DIRECTIONS){
+                int x = curr.row + dir[0];
+                int y = curr.col + dir[1];
+
+                if(x >= 0 && x < m && y >= 0 && y < n //boundary check
+                        && grid[x][y] == 1 //land check
+                        && !visited[x][y]) //visited check
+                {
+                    visited[x][y] = true;
+                    bfsQueue.offer(new State(x, y));
+                }
+            }
+        }
+
+    }
+
+    static class State{
+        int row;
+        int col;
+
+        public State(int row, int col) {
+            this.row = row;
+            this.col = col;
         }
     }
 }
