@@ -21,3 +21,14 @@ Dijkstra vs Floyd–Warshall
 | **Data Structure**           | Priority Queue (Min Heap)               | 2D matrix                           |
 | **Example Use Case**         | GPS routing from one city               | Network latency between all servers |
 
+
+Shortest parth algos:-
+| Algorithm               | Graph Type         | Negative Edges            | Negative Cycle | Source    | Time                 | Space    | Typical Use                             |
+| ----------------------- | ------------------ | ------------------------- | -------------- | --------- | -------------------- | -------- | --------------------------------------- |
+| **BFS**                 | Unweighted         | N/A                       | N/A            | Single    | **O(V + E)**         | O(V)     | Shortest path in unweighted graph       |
+| **0-1 BFS**             | Edge weights {0,1} | No                        | No             | Single    | **O(V + E)**         | O(V)     | Binary weighted graphs                  |
+| **Dijkstra**            | Weighted           | ❌ No                      | ❌ No           | Single    | **O((V + E) log V)** | O(V + E) | Shortest path with non-negative weights |
+| **Bellman-Ford**        | Weighted           | ✅ Yes                     | ✅ Detects      | Single    | **O(V × E)**         | O(V)     | Negative edges / cycle detection        |
+| **Floyd-Warshall**      | Weighted           | ✅ Yes                     | ✅ Detects      | All pairs | **O(V³)**            | O(V²)    | All-pairs shortest paths                |
+| **Johnson's Algorithm** | Weighted           | ✅ Yes (no negative cycle) | Detects        | All pairs | **O(VE + V² log V)** | O(V²)    | Sparse graph all-pairs shortest paths   |
+
