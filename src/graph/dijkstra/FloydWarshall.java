@@ -2,6 +2,30 @@ package graph.dijkstra;
 
 public class FloydWarshall {
 
+    /*
+    int[][] dist = new int[n][n];
+
+    // 1. Fill with INF
+    for (int i = 0; i < n; i++) {
+        Arrays.fill(dist[i], INF);
+    }
+
+    // 2. Distance to self = 0
+    for (int i = 0; i < n; i++) {
+        dist[i][i] = 0;
+    }
+
+    // 3. Add edges
+    for (each edge u, v, w) {
+        dist[u][v] = Math.min(dist[u][v], w);
+        dist[v][u] = Math.min(dist[v][u], w); // only for undirected graphs
+    }
+
+    // 4. Run Floyd-Warshall
+    floydWarshall(dist);
+
+     */
+
     public static void floydWarshall(int[][] dist) {
         int n = dist.length;
 
