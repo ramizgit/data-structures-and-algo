@@ -38,7 +38,7 @@ public class BellmanFord {
                 int v = edge[1];
                 int w = edge[2];
 
-                // Skip unreachable vertices
+                //skip unreachable vertices, avoid integer overflow
                 /*
                 We initialize dist[source] = 0, so initially only the source is reachable. During the first iteration,
                 only edges leaving the source can be relaxed because every other vertex still has distance ∞.
@@ -49,8 +49,9 @@ public class BellmanFord {
                 }
 
                 //relaxation
-                if (dist[u] + w < dist[v]) {
-                    dist[v] = dist[u] + w;
+                int newDist = dist[u] + w;
+                if (newDist < dist[v]) {
+                    dist[v] = newDist;
                 }
             }
         }
