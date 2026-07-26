@@ -16,6 +16,7 @@ public class FloydWarshall {
                     if (dist[i][k] != Integer.MAX_VALUE &&
                             dist[k][j] != Integer.MAX_VALUE) {
 
+                        //goal : can I get from i to j more cheaply by going through node k?
                         dist[i][j] = Math.min(
                                 dist[i][j],
                                 dist[i][k] + dist[k][j]
