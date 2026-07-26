@@ -52,3 +52,15 @@ public class FloydWarshall {
         }
     }
 }
+
+/*
+When is Floyd-Warshall feasible?
+
+|    n | n³ Operations |      Feasible?     |
+| ---: | ------------: | :----------------: |
+|  100 |     1 million |          ✅         |
+|  300 |    27 million |          ✅         |
+|  500 |   125 million |          ✅         |
+| 1000 |     1 billion | ❌ Usually too slow |
+
+ */
