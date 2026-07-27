@@ -32,6 +32,8 @@ Output:
 
 public class FlightDiscount {
 
+    //https://cses.fi/problemset/task/1195
+
     //important : this is similar to MinimumCostToReachCityWithDiscounts, except
     //1. we can use discount only ONE time here
     //2. graph is uni-directional
