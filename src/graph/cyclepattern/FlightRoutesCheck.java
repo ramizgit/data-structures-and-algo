@@ -37,8 +37,8 @@ public class FlightRoutesCheck {
     {
         //important : this problem just asks in graph is SCC or not. so simple two DFS approach will work, without going deep into kosaraju/tarjan
 
-        //First DFS on input graph and check if all other nodes reachable or not
+        //First DFS on input graph and check if all other nodes reachable or not via boolean[][] visited array
 
-        //Second DFS on reversed graph and check if all other nodes reachable or not
+        //Second DFS on reversed graph and check if all other nodes reachable or not via boolean[][] visited array
     }
 }
