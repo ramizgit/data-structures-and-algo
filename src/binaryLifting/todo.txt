@@ -1,0 +1,5 @@
+✅ CSES Planet Queries I ← learn binary lifting here.
+✅ LeetCode 1483 – Kth Ancestor of a Tree Node (same idea in a tree).
+✅ LCA using Binary Lifting.
+✅ CSES Planet Queries II (more advanced functional graph).
+✅ Distance/path queries using LCA.
