@@ -1,3 +1,9 @@
+BFS: Finds shortest paths in an unweighted graph.
+Dijkstra: Finds shortest paths from a single source in a graph with non-negative edge weights.
+Bellman-Ford: Finds shortest paths from a single source, supports negative weights, and detects negative cycles.
+Floyd-Warshall: Finds shortest paths between every pair of vertices by treating each vertex as a possible intermediate, supports negative weights, and detects negative cycles.
+
+
 | Edge Weights               | Algorithm                     |
 | -------------------------- | ----------------------------- |
 | All edges = 1 (unweighted) | ✅ BFS                         |

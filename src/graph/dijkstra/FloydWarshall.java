@@ -2,6 +2,8 @@ package graph.dijkstra;
 
 public class FloydWarshall {
 
+    //Floyd-Warshall is an all-pairs shortest path algorithm for weighted graphs by considering each vertex as a possible intermediate node.
+
     /*
     int[][] dist = new int[n][n];
 
