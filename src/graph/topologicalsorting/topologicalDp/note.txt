@@ -1,0 +1,9 @@
+If it's a DAG and the value of a node depends on its parent(s), Topological DP is usually the natural solution.
+
+Mental rule:-
+Think about which direction the dependency flows:
+
+Parent → Child dependency (child's value is updated from parents)
+✅ Topological DP is usually the cleanest.
+Child → Parent dependency (parent's value is computed from children)
+✅ DFS + memoization is often the most natural.

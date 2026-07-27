@@ -1,4 +1,4 @@
-package graph.topologicalsorting;
+package graph.topologicalsorting.topologicalDp;
 
 import java.util.*;
 
@@ -66,7 +66,7 @@ public class ParallelCoursesiii {
 
                 //relaxation - update neighbour's earliest finish time using current course
                 //important : the relaxation must happen for every incoming edge, not only when indegree becomes 0.
-                finish[neighbour] = Math.max(finish[neighbour], finish[curr] + time[neighbour-1]);
+                finish[neighbour] = Math.max(finish[neighbour], finish[curr] + time[neighbour-1]); //time array is 0-indexed, hence -1
 
                 indegree[neighbour]--;
 

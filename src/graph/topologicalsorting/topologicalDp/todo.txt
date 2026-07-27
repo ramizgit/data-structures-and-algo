@@ -1,0 +1,11 @@
+| Problem                                                    | Company     | DP State                   | Transition                 |
+| ---------------------------------------------------------- | ----------- | -------------------------- | -------------------------- |
+| CSES 1681 Game Routes                                      | CP classic  | `ways[node]`               | `+=`                       | [Done]
+| CSES 1680 Longest Flight Route                             | CP classic  | `longest[node]`            | `max`                      | [Done]
+| DAG Shortest Path                                          | Classic     | `dist[node]`               | `min`                      |
+| Largest Color Value in a Directed Graph                    | Google/Meta | `count[node][color]`       | `max`                      | [Done]
+| Parallel Courses III                                       | Google      | `finishTime[node]`         | `max(parentTime)+duration` | [Done]
+| Maximum Employees to Be Invited to a Meeting *(partially)* | Meta        | longest chains into cycles | `max`                      |
+| All Ancestors of a Node in a DAG                           | Google      | ancestor sets              | `union`                    | [Done]
+| Build a Matrix With Conditions                             | Google      | two topological orders     | —                          |
+| Sort Items by Groups Respecting Dependencies               | Google      | two-level topo             | —                          |
