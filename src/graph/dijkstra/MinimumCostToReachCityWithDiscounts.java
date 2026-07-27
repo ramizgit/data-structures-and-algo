@@ -61,7 +61,7 @@ public class MinimumCostToReachCityWithDiscounts {
                     pq.offer(new State(neighbour.v, curr.discountLeft, normalCost));
                 }
 
-                //option 2 : use discount
+                //option 2 : use discount if still left
                 if(curr.discountLeft > 0){
                     int discountedCost = curr.cost + (neighbour.w / 2);
                     if(discountedCost < dist[neighbour.v][curr.discountLeft - 1]){

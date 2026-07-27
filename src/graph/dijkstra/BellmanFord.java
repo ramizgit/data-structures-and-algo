@@ -24,6 +24,12 @@ public class BellmanFord {
 
     public int[] bellmanFord(int n, int[][] edges, int source)
     {
+        /*
+        Relax all edges n - 1 times.
+        Relax one more time.
+        If anything still improves, you've found a negative cycle.
+         */
+
         int[] dist = new int[n];
         Arrays.fill(dist, Integer.MAX_VALUE);
 
