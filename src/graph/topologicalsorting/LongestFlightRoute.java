@@ -77,7 +77,7 @@ public class LongestFlightRoute {
 
                 //state propagation from parent to neighbouring child nodes
                 //dist[neighbour] = Math.max(dist[neighbour], dist[curr] + 1);
-                if(dist[curr] != Integer.MIN_VALUE){
+                if(dist[curr] != Integer.MIN_VALUE){ //why infinity check? : only propagate from nodes that are reachable from the source.
                     dist[neighbour] = Math.max(dist[neighbour], dist[curr] + 1);
                 }
 
