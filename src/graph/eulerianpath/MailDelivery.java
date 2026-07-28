@@ -58,6 +58,7 @@ public class MailDelivery {
             int u = route[0];
             int v = route[1];
 
+            //bi-directional edges
             graph.get(u).add(new Edge(v, id));
             graph.get(v).add(new Edge(u, id));
 
