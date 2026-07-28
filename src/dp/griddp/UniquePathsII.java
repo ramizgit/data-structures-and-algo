@@ -1,20 +1,27 @@
-package consistenthashing.dp.griddp;
+package dp.griddp;
 
 public class UniquePathsII {
+
     //https://leetcode.com/problems/unique-paths-ii/
-    public static void main(String[] args)
-    {
-        System.out.println(uniquePaths(new int[][]{{0,0,0}, {0,1,0}, {0,0,0}})); //2
-        System.out.println(uniquePaths(new int[][]{{0,1}, {0,0}})); //1
-    }
 
     private static int uniquePaths(int[][] grid)
     {
+        //input validation
+        if (grid == null || grid.length == 0 || grid[0].length == 0) {
+            return 0;
+        }
+
         int m = grid.length;
         int n = grid[0].length;
 
-        int[][] dp = new int[m][n];
-        dp[0][0] = grid[0][0] == 1 ? 0 : 1;
+        //edge case : early return if start or end is blocked
+        if (grid[0][0] == 1 || grid[m - 1][n - 1] == 1) {
+            return 0;
+        }
+
+        int[][] dp = new int[m][n]; //dp[i][j] = number of unique paths to reach cell (i, j)
+
+        dp[0][0] = 1; //base case
 
         //first row
         for(int i=1; i<n; i++){
