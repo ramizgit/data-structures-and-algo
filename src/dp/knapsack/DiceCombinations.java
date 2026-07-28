@@ -128,7 +128,7 @@ With:
 for (coin)
     for (sum)
 
-you first process all sequences using coin 1, then later extend them with coin 2.
+you first process all sequences using coin 1, then later extend them with coin 2. hence answer is always in increasing coin order.
 
 When processing coin 2, you're effectively only creating sequences that end with 2 after all smaller coins have already been considered.
 You never go back and append a 1 after a 2, so 2+1 is never generated separately.
