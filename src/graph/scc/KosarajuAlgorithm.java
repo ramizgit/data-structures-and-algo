@@ -96,6 +96,7 @@ public class KosarajuAlgorithm {
         stack.push(node); //push to stack after exploring all neighbours
     }
 
+    //preorder DFS
     private void dfsSecondPass(int node, boolean[] visited, Map<Integer, List<Integer>> graph, List<Integer> scc)
     {
         visited[node] = true; //mark visited

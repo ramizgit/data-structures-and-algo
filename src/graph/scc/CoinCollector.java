@@ -186,12 +186,13 @@ public class CoinCollector {
         stack.push(node); //push to stack after exploring all neighbours
     }
 
+    //preorder DFS
     private void dfsSecondPass(int node, boolean[] visited, Map<Integer, List<Integer>> graph, int[] component, int componentId,
                                int[] sccCoins, int[] coins)
     {
         visited[node] = true; //mark visited
-        component[node] = componentId;
-        sccCoins[componentId] += coins[node];
+        component[node] = componentId; //assign current scc id to each node in the scc
+        sccCoins[componentId] += coins[node]; //accumulate coins within current scc nodes
 
         //explore neighbours
         for(int neighbour : graph.get(node)){
