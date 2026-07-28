@@ -1,4 +1,4 @@
-package graph.cyclepattern;
+package graph.scc;
 
 import java.util.*;
 

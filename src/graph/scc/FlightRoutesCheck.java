@@ -1,4 +1,4 @@
-package graph.cyclepattern;
+package graph.scc;
 
 /*
 There are n cities and m flight connections. Your task is to check if you can travel from any city to any other city using the available flights.
