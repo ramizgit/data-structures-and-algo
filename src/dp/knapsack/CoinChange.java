@@ -3,7 +3,10 @@ package dp.knapsack;
 import java.util.*;
 
 public class CoinChange {
+
     //https://leetcode.com/problems/coin-change/description/
+
+    //Pattern : Unbounded Knapsack (Optimization)
 
     private static int minCoinChange(int[] coins, int amount)
     {

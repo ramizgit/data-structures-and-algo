@@ -4,7 +4,9 @@ public class CoinChangeii {
 
     //https://leetcode.com/problems/coin-change-ii/description/
 
-    //Return the number of combinations that make up that amount.
+    //Return the number of combinations that make up that amount. Order DOES NOT matter.
+
+    //Pattern : Unbounded Counting DP (Combinations)
 
     public int change(int amount, int[] coins)
     {
