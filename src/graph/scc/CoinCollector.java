@@ -34,6 +34,8 @@ public class CoinCollector {
 
     //https://cses.fi/problemset/task/1686
 
+    //important : this is scc kosaraju + topological sort dp problem
+
     //todo : practice
 
     public int collectMaxCoin(int n, int[][] edges, int[] coins)
