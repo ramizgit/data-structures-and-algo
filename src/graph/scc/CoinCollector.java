@@ -84,18 +84,11 @@ public class CoinCollector {
         }
 
         //populate reverse edges
-        /*for(int[] edge : edges){
+        for(int[] edge : edges){
             int u = edge[0];
             int v = edge[1];
 
             revGraph.get(v).add(u); //v -> u reverse directed edge
-        }*/
-
-        //another way to populate reverse edges from existing graph
-        for(int u : graph.keySet()){
-            for(int v : graph.get(u)){
-                revGraph.get(v).add(u);
-            }
         }
 
         //Step 3 : Second pass DFS in stack order
@@ -116,10 +109,10 @@ public class CoinCollector {
         }
 
         //build another DAG
-        Map<Integer, List<Integer>> dag = new HashMap<>();
+        Map<Integer, Set<Integer>> dag = new HashMap<>();
 
         for (int i = 0; i < componentId; i++) {
-            dag.put(i, new ArrayList<>());
+            dag.put(i, new HashSet<>());
         }
 
         int[] indegree = new int[componentId];
@@ -133,8 +126,10 @@ public class CoinCollector {
             int cv = component[v];
 
             if (cu != cv) {
-                dag.get(cu).add(cv);
-                indegree[cv]++;
+                if(!dag.get(cu).contains(cv)){
+                    dag.get(cu).add(cv);
+                    indegree[cv]++;
+                }
             }
         }
 
@@ -142,11 +137,9 @@ public class CoinCollector {
         int[] dp = new int[componentId];
 
         for (int i = 0; i < componentId; i++) {
-
-            dp[i] = sccCoins[i]; //every SCC is a valid starting point, not just those with indegree 0
-
             if(indegree[i] == 0){
                 bfsQueue.offer(i);
+                dp[i] = sccCoins[i];
             }
         }
 
@@ -157,7 +150,9 @@ public class CoinCollector {
             //explore neighbours
             for(int neighbour : dag.get(curr)){
 
-                dp[neighbour] = Math.max(dp[neighbour], dp[curr] + sccCoins[neighbour]);
+                dp[neighbour] = Math.max(dp[neighbour], //coins collected via existing best path
+                        dp[curr] + sccCoins[neighbour] //coins collected via the current SCC path
+                );
 
                 indegree[neighbour]--;
 
