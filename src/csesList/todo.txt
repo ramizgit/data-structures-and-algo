@@ -1,25 +1,3 @@
-| Category             | CSES Problem             | FAANG Relevance | Priority |
-| -------------------- | ------------------------ | --------------- | -------- |
-| Prefix Sum           | Static Range Sum Queries | ⭐⭐⭐⭐⭐           | Must     |
-| Prefix Sum           | Range Xor Queries        | ⭐⭐⭐             | Optional |
-| Prefix Sum           | Subarray Sums I          | ⭐⭐⭐⭐⭐           | Must     |
-| Prefix Sum + HashMap | Subarray Sums II         | ⭐⭐⭐⭐⭐           | Must     |
-| Prefix Sum           | Subarray Divisibility    | ⭐⭐⭐⭐            | High     |
-| Binary Search        | Factory Machines         | ⭐⭐⭐⭐⭐           | Must     |
-| Binary Search        | Array Division           | ⭐⭐⭐⭐⭐           | Must     |
-| Greedy               | Apartments               | ⭐⭐⭐⭐            | High     |
-| Greedy               | Ferris Wheel             | ⭐⭐⭐⭐            | High     |
-| Greedy               | Movie Festival           | ⭐⭐⭐⭐⭐           | Must     |
-| Heap                 | Room Allocation          | ⭐⭐⭐⭐⭐           | Must     |
-| Heap                 | Concert Tickets          | ⭐⭐⭐⭐            | High     |
-| Sliding Window       | Playlist                 | ⭐⭐⭐⭐⭐           | Must     |
-| Monotonic Stack      | Nearest Smaller Values   | ⭐⭐⭐⭐⭐           | Must     |
-| Intervals            | Restaurant Customers     | ⭐⭐⭐⭐⭐           | Must     |
-| Intervals            | Traffic Lights           | ⭐⭐⭐             | Optional |
-| Two Sum              | Sum of Two Values        | ⭐⭐⭐⭐⭐           | Must     |
-| 3Sum                 | Sum of Three Values      | ⭐⭐⭐⭐            | High     |
-| 4Sum                 | Sum of Four Values       | ⭐⭐⭐             | Optional |
-
 
 | Category             | CSES Problem             | FAANG Relevance | Priority |
 | -------------------- | ------------------------ | --------------- | -------- |
