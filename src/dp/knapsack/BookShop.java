@@ -36,12 +36,12 @@ public class BookShop {
     //value  = pages
     //capacity = maxPrice
 
-    public int maximizeNumOfPages(int numOfBooks, int maxPrice, int[] pages, int[] prices)
+    public int maximizeNumOfPages(int numOfBooks, int maxBudget, int[] pages, int[] prices)
     {
-        int[] dp = new int[maxPrice + 1]; //dp[p] = maximum pages that can be obtained with budget p
+        int[] dp = new int[maxBudget + 1]; //dp[p] = maximum pages that can be obtained with budget p
 
         for (int book = 0; book < numOfBooks; book++) {
-            for (int budget = maxPrice; budget >= prices[book]; budget--) { //iterate backward so each book is used at most once (0/1 Knapsack)
+            for (int budget = maxBudget; budget >= prices[book]; budget--) { //iterate backward so each book is used at most once (0/1 Knapsack)
                 dp[budget] = Math.max(
                         dp[budget],                             // don't pick
                         pages[book] + dp[budget - prices[book]]     // pick
@@ -49,6 +49,6 @@ public class BookShop {
             }
         }
 
-        return dp[maxPrice];
+        return dp[maxBudget];
     }
 }
