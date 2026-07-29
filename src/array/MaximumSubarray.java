@@ -1,36 +1,23 @@
-package prefixSum;
+package array;
 
 public class MaximumSubarray {
 
     //https://leetcode.com/problems/maximum-subarray/
 
-    //hint : KADANE'S ALGORITHM
-    public static void main(String[] args)
-    {
-        System.out.println(maxSubArray(new int[]{-2,1,-3,4,-1,2,1,-5,4})); //6
-        System.out.println(maxSubArrayWithIdx(new int[]{-2,1,-3,4,-1,2,1,-5,4})); //6
-
-        System.out.println(maxSubArray(new int[]{-2,-3,-4})); //-2
-        System.out.println(maxSubArrayWithIdx(new int[]{-2,-3,-4})); //-2
-
-        System.out.println(maxSubArray(new int[]{-2,-1,-4})); //-2
-        System.out.println(maxSubArrayWithIdx(new int[]{-2,-1,-4})); //-2
-
-    }
-
+    //KADANE'S ALGORITHM
     private static int maxSubArray(int[] nums)
     {
         int sum = 0;
         int max = Integer.MIN_VALUE;
 
-        for(int i=0; i< nums.length; i++){
-            sum += nums[i];
+        for (int num : nums) {
+
+            sum += num;
 
             max = Math.max(max, sum);
 
-            //reset if negative
             if(sum < 0){
-                sum = 0;
+                sum = 0; //reset if negative
             }
         }
 
@@ -43,9 +30,19 @@ public class MaximumSubarray {
         int max = Integer.MIN_VALUE;
         int start = 0;
         int end = 0;
+
+        /*
+        why tmpstart?
+        When the running sum becomes negative:
+        Throw away the current subarray.
+        The next element becomes the candidate start.
+        If the running sum later becomes the best ever:
+        Promote tmpstart to the real start.
+         */
         int tmpstart = 0;
 
         for(int i=0; i< nums.length; i++){
+
             sum += nums[i];
 
             if(sum > max){
