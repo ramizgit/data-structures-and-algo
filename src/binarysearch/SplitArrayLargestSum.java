@@ -15,12 +15,13 @@ public class SplitArrayLargestSum {
         }
 
         //binary search
-        int low = max;
-        int high = total;
+        int low = max; //lower bound : minimum possible answer is the largest element
+        int high = total; //upper bound : maximum possible answer is the sum of the entire array
 
         int answer = 0;
 
         while(low <= high){
+
             int mid = low + (high - low) / 2;
 
             if(canSplit(nums, k, mid)){
@@ -38,15 +39,15 @@ public class SplitArrayLargestSum {
     private static boolean canSplit(int[] nums, int k, int maxSum)
     {
         int sum = 0;
-        int subarray = 1;
+        int subarray = 1; //before we process any elements, we're already building the first subarray
 
-        for(int n : nums){
-            sum += n;
+        for(int num : nums){
+            sum += num;
 
             if(sum > maxSum){
                 subarray++;
                 //reset
-                sum = n;
+                sum = num;
             }
         }
 
