@@ -6,10 +6,10 @@
 | Prefix Sum           | Subarray Sums I          | ⭐⭐⭐⭐⭐           | Must     |
 | Prefix Sum + HashMap | Subarray Sums II         | ⭐⭐⭐⭐⭐           | Must     |
 | Prefix Sum           | Subarray Divisibility    | ⭐⭐⭐⭐            | High     |
-| Binary Search        | Factory Machines         | ⭐⭐⭐⭐⭐           | Must     |
-| Binary Search        | Array Division           | ⭐⭐⭐⭐⭐           | Must     |
-| Greedy               | Apartments               | ⭐⭐⭐⭐            | High     |
-| Greedy               | Ferris Wheel             | ⭐⭐⭐⭐            | High     |
+| Binary Search        | Factory Machines         | ⭐⭐⭐⭐⭐           | Must     | [Done]
+| Binary Search        | Array Division           | ⭐⭐⭐⭐⭐           | Must     | [Done]
+| Greedy               | Apartments               | ⭐⭐⭐⭐            | High     | [Done]
+| Greedy               | Ferris Wheel             | ⭐⭐⭐⭐            | High     | [Done]
 | Greedy               | Movie Festival           | ⭐⭐⭐⭐⭐           | Must     |
 | Heap                 | Room Allocation          | ⭐⭐⭐⭐⭐           | Must     |
 | Heap                 | Concert Tickets          | ⭐⭐⭐⭐            | High     |
