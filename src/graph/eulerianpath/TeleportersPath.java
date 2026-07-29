@@ -100,7 +100,7 @@ public class TeleportersPath {
         List<Integer> neighbours = graph.get(node);
 
         while (!neighbours.isEmpty()){
-            int neighbour = neighbours.removeLast();
+            int neighbour = neighbours.removeLast(); //this is the key Hierholzer step - We're marking edge used by removing it from the graph
             dfs(neighbour, graph, path);
         }
 
