@@ -37,13 +37,10 @@ public class MeetingRoomII {
         */
         PriorityQueue<Integer> minHeap = new PriorityQueue<>();
 
-        // Add the first meeting's end time → allocate first room
-        minHeap.offer(intervals[0][1]);
-
         /*
         Step 3: Process remaining meetings
         */
-        for (int i = 1; i < intervals.length; i++) {
+        for (int i = 0; i < intervals.length; i++) {
 
             int currStart = intervals[i][0];
             int currEnd = intervals[i][1];
@@ -56,7 +53,7 @@ public class MeetingRoomII {
             If current meeting starts AFTER or AT that time:
             → that room is now free → reuse it
             */
-            if (currStart >= minHeap.peek()) {
+            if (!minHeap.isEmpty() && currStart >= minHeap.peek()) {
                 minHeap.poll(); // reuse room whose meeting ended earliest
             }
 
