@@ -10,9 +10,9 @@
 | Binary Search        | Array Division           | ⭐⭐⭐⭐⭐           | Must     | [Done]
 | Greedy               | Apartments               | ⭐⭐⭐⭐            | High     | [Done]
 | Greedy               | Ferris Wheel             | ⭐⭐⭐⭐            | High     | [Done]
-| Greedy               | Movie Festival           | ⭐⭐⭐⭐⭐           | Must     |
-| Heap                 | Room Allocation          | ⭐⭐⭐⭐⭐           | Must     |
-| Heap                 | Concert Tickets          | ⭐⭐⭐⭐            | High     |
+| Greedy               | Movie Festival           | ⭐⭐⭐⭐⭐           | Must     | [Done]
+| Heap                 | Room Allocation          | ⭐⭐⭐⭐⭐           | Must     | [Done]
+| TreeMap              | Concert Tickets          | ⭐⭐⭐⭐            | High     |
 | Sliding Window       | Playlist                 | ⭐⭐⭐⭐⭐           | Must     |
 | Monotonic Stack      | Nearest Smaller Values   | ⭐⭐⭐⭐⭐           | Must     |
 | Intervals            | Restaurant Customers     | ⭐⭐⭐⭐⭐           | Must     |

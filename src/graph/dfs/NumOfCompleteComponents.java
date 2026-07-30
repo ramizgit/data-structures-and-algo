@@ -43,13 +43,13 @@ public class NumOfCompleteComponents {
         for(int i=0; i<n; i++){
             if(!visited[i]){
 
-                int[] component = new int[2]; // component[0] = number of nodes, component[1] = sum of degrees
+                int[] stats = new int[2]; // component[0] = number of nodes, component[1] = sum of degrees
 
-                dfs(i, graph, visited, component);
+                dfs(i, graph, visited, stats);
 
                 //check whether this connected component is complete.
-                int numOfNodes = component[0];
-                int numOfEdges = component[1] / 2; //divide by 2 as every edge is counted twice in an undirected graph dfs
+                int numOfNodes = stats[0];
+                int numOfEdges = stats[1] / 2; //divide by 2 as every edge is counted twice in an undirected graph dfs
 
                 int expectedNumOfEdges = numOfNodes * (numOfNodes-1) / 2; //formula to get number of edges in a complete connected graph
 
@@ -62,18 +62,18 @@ public class NumOfCompleteComponents {
         return completeComponents;
     }
 
-    private void dfs(int node, Map<Integer, List<Integer>> graph, boolean[] visited, int[] component)
+    private void dfs(int node, Map<Integer, List<Integer>> graph, boolean[] visited, int[] stats)
     {
         visited[node] = true;
 
         //capture num of nodes and sum of degrees of all nodes in the component.
-        component[0]++; //number of nodes
-        component[1] += graph.get(node).size(); //sum of degrees of each node, later to be divided by 2 since undirected graph
+        stats[0]++; //number of nodes
+        stats[1] += graph.get(node).size(); //sum of degrees of each node, later to be divided by 2 since undirected graph
 
         //explore neighbours
         for(int neighbour : graph.get(node)){
             if(!visited[neighbour]){
-                dfs(neighbour, graph, visited, component);
+                dfs(neighbour, graph, visited, stats);
             }
         }
     }
