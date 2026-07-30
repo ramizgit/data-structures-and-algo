@@ -16,6 +16,8 @@ public class MeetingRoomII {
 
     public int minMeetingRooms(int[][] intervals) {
 
+        //similar to RoomAllocation, where we assign room number also
+
         // Edge case: no meetings → no rooms needed
         if (intervals == null || intervals.length == 0) {
             return 0;
