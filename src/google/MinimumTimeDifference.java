@@ -6,6 +6,8 @@ import java.util.*;
 
 public class MinimumTimeDifference {
 
+    //https://leetcode.com/problems/minimum-time-difference/description/?envType=problem-list-v2&envId=7p55wqm
+
     public int findMinDifference(List<String> timePoints) {
         int n = timePoints.size();
         int[] minutes = new int[n];
