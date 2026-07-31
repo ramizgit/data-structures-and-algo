@@ -4,6 +4,8 @@ public class BattleshipsInABoard {
 
     //https://leetcode.com/problems/battleships-in-a-board/description/?envType=problem-list-v2&envId=7p55wqm
 
+    // Time: O(m * n)
+    // Space: O(1)
     public int countBattleships(char[][] board)
     {
         /*
