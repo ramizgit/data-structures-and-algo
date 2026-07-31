@@ -1,4 +1,4 @@
-package consistenthashing.dp.griddp;
+package dp.griddp;
 
 public class MaximumNumberOfPointsWithCost {
 
@@ -8,11 +8,36 @@ public class MaximumNumberOfPointsWithCost {
 
     public long maxPoints(int[][] points)
     {
+        /*
+        Initialize dp = first row
+
+        For every remaining row
+
+            Compute leftMax
+
+            Compute rightMax
+
+            curr[j] =
+                points +
+                max(leftMax,rightMax)
+
+            dp = curr
+
+        Return maximum in dp
+         */
+
         int m = points.length;
         int n = points[0].length;
 
-        // dp[i] = maximum score achievable when reaching column i in the current processed row
-        long[] dp = new long[n];
+        long[] dp = new long[n]; // dp[i] = maximum score achievable when reaching column i in the current processed row
+
+        /*
+        curr[j] = points[i][j] + max(dp[k] - |j-k|) for all k
+        where
+        k = previous row column
+        j = current row column
+        |j-k| = movement cost
+         */
 
         // initialize first row
         for(int i = 0; i < n; i++){
@@ -22,23 +47,25 @@ public class MaximumNumberOfPointsWithCost {
         // process remaining rows
         for(int i = 1; i < m; i++) {
 
+            // Step 1: Compute best previous score reaching every column
             // left-to-right scan on prev dp row
             long[] leftMax = new long[n];
             leftMax[0] = dp[0];
             for(int j = 1; j < n; j++){
-                leftMax[j] = Math.max(dp[j], leftMax[j - 1] - 1);
+                leftMax[j] = Math.max(dp[j], leftMax[j - 1] - 1); //The -1 is the movement penalty.
             }
 
             // right-to-left scan on prev dp row
             long[] rightMax = new long[n];
             rightMax[n - 1] = dp[n - 1];
             for(int j = n - 2; j >= 0; j--){
-                rightMax[j] = Math.max(dp[j], rightMax[j + 1] - 1);
+                rightMax[j] = Math.max(dp[j], rightMax[j + 1] - 1); //The -1 is the movement penalty.
             }
 
             // build current row dp
             long[] curr = new long[n];
             for(int j = 0; j < n; j++){
+                // Step 2: Collect points from current row
                 curr[j] = points[i][j] + Math.max(leftMax[j], rightMax[j]);
             }
 
