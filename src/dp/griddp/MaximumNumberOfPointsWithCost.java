@@ -49,14 +49,14 @@ public class MaximumNumberOfPointsWithCost {
 
             // Step 1: Compute best previous score reaching every column
             // left-to-right scan on prev dp row
-            long[] leftMax = new long[n];
+            long[] leftMax = new long[n]; //leftMax[j]  = best score reaching j from any column to the left
             leftMax[0] = dp[0];
             for(int j = 1; j < n; j++){
                 leftMax[j] = Math.max(dp[j], leftMax[j - 1] - 1); //The -1 is the movement penalty.
             }
 
             // right-to-left scan on prev dp row
-            long[] rightMax = new long[n];
+            long[] rightMax = new long[n]; //rightMax[j] = best score reaching j from any column to the right
             rightMax[n - 1] = dp[n - 1];
             for(int j = n - 2; j >= 0; j--){
                 rightMax[j] = Math.max(dp[j], rightMax[j + 1] - 1); //The -1 is the movement penalty.
