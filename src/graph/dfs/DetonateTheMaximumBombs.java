@@ -1,4 +1,4 @@
-package graph;
+package graph.dfs;
 
 import java.util.*;
 
@@ -15,6 +15,12 @@ public class DetonateTheMaximumBombs {
      whereas ri denotes the radius of its range.
      */
 
+    // Time: O(n³)
+    // - O(n²) to build the graph
+    // - O(n²) per DFS × n starting bombs
+
+    // Space: O(n²)
+    // - Adjacency list + O(n) visited/recursion stack
     public int maximumDetonation(int[][] bombs)
     {
         //initialize graph
