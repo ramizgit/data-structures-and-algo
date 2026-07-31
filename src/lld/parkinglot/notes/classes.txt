@@ -1,0 +1,51 @@
+parkinglot
+│
+├── ParkingLotApplication.java
+│
+├── model
+│   ├── Vehicle.java
+│   ├── Car.java
+│   ├── Bike.java
+│   ├── Truck.java
+│   │
+│   ├── ParkingSpot.java
+│   ├── BikeSpot.java
+│   ├── CompactSpot.java
+│   ├── LargeSpot.java
+│   │
+│   ├── ParkingFloor.java
+│   ├── ParkingLot.java
+│   ├── Ticket.java
+│   ├── EntranceGate.java
+│   ├── ExitGate.java
+│   └── Payment.java
+│
+├── enums
+│   ├── VehicleType.java
+│   ├── SpotType.java
+│   ├── TicketStatus.java
+│   ├── PaymentStatus.java
+│   └── PaymentMode.java
+│
+├── strategy
+│   ├── ParkingStrategy.java
+│   ├── NearestParkingStrategy.java
+│   └── RandomParkingStrategy.java
+│
+├── service
+│   ├── ParkingService.java
+│   ├── TicketService.java
+│   └── PaymentService.java
+│
+├── repository
+│   ├── ParkingLotRepository.java
+│   ├── TicketRepository.java
+│   └── VehicleRepository.java
+│
+├── exception
+│   ├── ParkingLotFullException.java
+│   ├── InvalidTicketException.java
+│   └── SpotNotFoundException.java
+│
+└── util
+    └── IdGenerator.java

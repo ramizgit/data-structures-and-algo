@@ -23,17 +23,17 @@ public class MedianOfTwoSortedArrays {
 
         //run binary search on nums1 length (not index)
         int low = 0;
-        int high = m; //binary search on length, not index (important), hence high = m and NOT high = m-1
+        int high = m; //binary search on the partition size (0..m), not array indices., hence high = m and NOT high = m-1
 
         while(low <= high){
             int mid1 = low + (high - low) / 2;
             int mid2 = halfLen - mid1;
 
-            //note : mid1 is NOT an index, it represents how many elements are taken into left partition
-            int left1 = (mid1 == 0) ? Integer.MIN_VALUE : nums1[mid1 - 1];
-            int right1 = (mid1 == m) ? Integer.MAX_VALUE : nums1[mid1];
-            int left2 = (mid2 == 0) ? Integer.MIN_VALUE : nums2[mid2 - 1];
-            int right2 = (mid2 == n) ? Integer.MAX_VALUE : nums2[mid2];
+            //note : mid1 is a partition, NOT an index, it represents how many elements are taken into left partition
+            int left1 = (mid1 == 0) ? Integer.MIN_VALUE : nums1[mid1 - 1]; //element just before the mid1 partition
+            int right1 = (mid1 == m) ? Integer.MAX_VALUE : nums1[mid1]; //element just after the mid1 partition
+            int left2 = (mid2 == 0) ? Integer.MIN_VALUE : nums2[mid2 - 1]; //element just before the mid2 partition
+            int right2 = (mid2 == n) ? Integer.MAX_VALUE : nums2[mid2]; //element just after the mid2 partition
 
             // correct partition
             if(left1 <= right2 && left2 <= right1) {
