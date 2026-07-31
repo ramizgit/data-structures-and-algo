@@ -58,9 +58,7 @@ public class NumberOfMatchingSubsequences {
     {
         int prevIdx = -1;
 
-        for(int i=0; i<word.length(); i++){
-
-            char ch = word.charAt(i);
+        for(char ch : word.toCharArray()){
 
             if(!charToIdxMap.containsKey(ch)){
                 return false;
