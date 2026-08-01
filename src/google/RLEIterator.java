@@ -18,7 +18,7 @@ public class RLEIterator {
 
             if(this.encoding[index] >= n){
                 this.encoding[index] -= n;
-                return this.encoding[index+1];
+                return this.encoding[index+1]; //index is freq, index+1 is the actual value to be returned
             }
 
             //consume entire block and move to next
