@@ -16,13 +16,16 @@ public class EarliestMomentWhenEveryoneBecomeFriends {
         Whenever two different components merge, decrement components.
         As soon as only one component remains, return the current timestamp.
          */
+
         //sort by timestamp asc order
         Arrays.sort(logs, (a, b) -> a[0] - b[0]); //O(m log m)
 
-        graph.unionfindDSU.UnionFind uf = new graph.unionfindDSU.UnionFind(n);
+        UnionFind uf = new UnionFind(n);
+
         int components = n; //start with n isolated person for each n nodes
 
         for(int[] log : logs){
+
             if(uf.union(log[1], log[2])){ //O(α(n)) ~ O(1)
                 components--;
             }
