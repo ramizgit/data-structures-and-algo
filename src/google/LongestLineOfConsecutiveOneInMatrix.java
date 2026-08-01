@@ -1,4 +1,4 @@
-package dp;
+package google;
 
 public class LongestLineOfConsecutiveOneInMatrix {
 
@@ -18,7 +18,9 @@ public class LongestLineOfConsecutiveOneInMatrix {
         int maxLength = 0;
 
         for(int i = 1; i <= m; i++) {
+
             for(int j = 1; j <= n; j++) {
+
                 if(mat[i-1][j-1] == 1)
                 {
                     // horizontal
