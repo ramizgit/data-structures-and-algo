@@ -9,7 +9,22 @@ public class SetMatrixZero {
     A simple improvement uses O(m + n) space, but still not the best solution.
     Could you devise a constant space solution?
      */
-    
+
+    /*
+    Interview progression. This is a nice progression to present:
+
+    Brute Force: Extra m × n matrix (very intuitive)
+    Time: O(mn(m+n))
+    Space: O(mn)
+
+    Better: Two marker arrays (rows[], cols[])
+    Time: O(mn)
+    Space: O(m+n)
+
+    Optimal: Use the first row and first column as marker arrays
+    Time: O(mn)
+    Space: O(1)
+     */
     public void setZeroes(int[][] matrix)
     {
         int m = matrix.length;
@@ -38,8 +53,8 @@ public class SetMatrixZero {
         for(int i=1; i<m; i++){
             for(int j=1; j<n; j++){
                 if(matrix[i][j] == 0){
-                    matrix[0][j] = 0;
                     matrix[i][0] = 0;
+                    matrix[0][j] = 0;
                 }
             }
         }
