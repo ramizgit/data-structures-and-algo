@@ -43,8 +43,7 @@ public class RobotRoomCleaner {
 
                     dfs(robot, newRow, newCol, newDir);
 
-                    // Backtrack to previous cell
-                    goBack(robot);
+                    goBack(robot); // Backtrack to previous cell
                 }
 
                 // Rotate to face next direction
