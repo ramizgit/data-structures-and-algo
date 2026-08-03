@@ -15,8 +15,9 @@ public class LongestStringChain {
         int n = words.length;
 
         //LIS DP logic
-        int[] dp = new int[n];
-        Arrays.fill(dp, 1); //each string word is of chain length 1
+        int[] dp = new int[n]; //dp[i] = maximum chain length where words[i] is the last word in the chain
+
+        Arrays.fill(dp, 1); //base case - each string word is of chain length 1
 
         int longest = 0;
 
