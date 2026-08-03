@@ -10,7 +10,7 @@ public class DetectSquares {
     /*
     Duplicate points are allowed and should be treated as different points. hence Map of map being used to keep track of freq
      */
-    Map<Integer, Map<Integer, Integer>> map;
+    Map<Integer, Map<Integer, Integer>> map; //{x -> {y -> count}}
 
     public DetectSquares() {
         this.map = new HashMap<>();
@@ -20,8 +20,8 @@ public class DetectSquares {
         int x = point[0];
         int y = point[1];
 
-        map.putIfAbsent(x, new HashMap<>());
-        map.get(x).put(y, map.get(x).getOrDefault(y, 0) + 1);
+        Map<Integer, Integer> yMap = map.computeIfAbsent(x, k -> new HashMap<>());
+        yMap.put(y, yMap.getOrDefault(y, 0) + 1);
     }
 
     public int count(int[] point) {
@@ -45,7 +45,11 @@ public class DetectSquares {
             int d = Math.abs(y - y2);
 
             //check right, multiply due to dupes
-            count += getCount(x+d, y) * getCount(x+d, y2) * getCount(x, y2);
+            //multiply the frequencies of the three stored corners. The query point (x, y) is fixed and is not counted.
+            //note : The query point is considered fixed—it is not taken from the map and therefore doesn't contribute a multiplicity. Only the three stored corners do.
+            count += getCount(x+d, y) //first stored corner
+                    * getCount(x+d, y2) //second stored corner
+                    * getCount(x, y2); //third stored corner
 
             //check left, multiply due to dupes
             count += getCount(x-d, y) * getCount(x-d, y2) * getCount(x, y2);
@@ -64,7 +68,10 @@ public class DetectSquares {
         Map<Integer, Integer> yMap = map.get(x);
 
         for (int y2 : yMap.keySet()) {
-            if (y == y2) continue;
+
+            if(y == y2){
+                continue; //skip the query point itself; a square side must have positive length
+            }
 
             int d = Math.abs(y - y2);
 
@@ -87,7 +94,11 @@ public class DetectSquares {
     }
 
     private int getCount(int x, int y) {
-        if (!map.containsKey(x)) return 0;
+
+        if (!map.containsKey(x)) {
+            return 0;
+        }
+
         return map.get(x).getOrDefault(y, 0);
     }
 }

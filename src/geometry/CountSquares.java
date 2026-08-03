@@ -99,7 +99,10 @@ public class CountSquares {
                 int y4 = y2 + dx; //then up dx
 
                 //check if A->B-C->D is a square
-                if (set.contains(x3 + "," + y3) && set.contains(x4 + "," + y4)) {
+                if (
+                        set.contains(x3 + "," + y3) //check if C exits
+                        && set.contains(x4 + "," + y4) //check if D exists
+                ) {
                     count++;
                 }
 
