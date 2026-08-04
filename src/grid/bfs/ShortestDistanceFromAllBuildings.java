@@ -142,7 +142,7 @@ public class ShortestDistanceFromAllBuildings {
         return minDist == Integer.MAX_VALUE ? -1 : minDist;
     }
 
-    private void bfs(int startRow, int startCol, int[][] grid, int[][] dist, int[][] reachCount, int m, int n)
+    private void bfs(int startRow, int startCol, int[][] grid, int[][] distanceSum, int[][] reachCount, int m, int n)
     {
         Queue<State> bfsQueue = new ArrayDeque<>();
         bfsQueue.offer(new State(startRow, startCol, 0)); //starting building
@@ -177,7 +177,7 @@ public class ShortestDistanceFromAllBuildings {
                 }
 
                 //process empty cell
-                dist[newRow][newCol] += curr.dist + 1; //increment dist
+                distanceSum[newRow][newCol] += curr.dist + 1; //accumulate shortest distance from the current building
                 reachCount[newRow][newCol]++; //increment reach count
                 visited[newRow][newCol] = true;
                 bfsQueue.offer(new State(newRow, newCol, curr.dist + 1));
