@@ -17,6 +17,10 @@ public class OpenTheLock {
             return -1;
         }
 
+        if (target.equals("0000")) {
+            return 0;
+        }
+
         //bfs logic
         Queue<State> bfsQueue = new ArrayDeque<>();
         bfsQueue.offer(new State(start, 0));
