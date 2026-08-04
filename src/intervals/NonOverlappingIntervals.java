@@ -27,12 +27,12 @@ public class NonOverlappingIntervals {
 
         for(int i=1; i<intervals.length; i++){
             int currStartTime = intervals[i][0];
-            int currentEndTime = intervals[i][1];
+            int currEndTime = intervals[i][1];
 
             if(currStartTime < prevEndTime){
                 remove++; //overlap found → remove current interval (greedy choice)
             }else{
-                prevEndTime = currentEndTime; //move forward with current valid interval
+                prevEndTime = currEndTime; //move forward with current valid interval
             }
         }
 
