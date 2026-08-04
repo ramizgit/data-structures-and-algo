@@ -1,4 +1,4 @@
-package neetcode150.arraysAndHashing;
+package array;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -21,7 +21,7 @@ public class LongestConsecutiveSequence {
         int max = 0;
 
         for(int num : nums){
-            if(!set.contains(num-1)){
+            if(!set.contains(num-1)){ //this identifies the start of a consecutive sequence
                 //starting element found, track max length
                 int curr = num;
                 int len = 0;
