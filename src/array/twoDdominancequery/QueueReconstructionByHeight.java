@@ -1,4 +1,4 @@
-package arrays.twoDdominancequery;
+package array.twoDdominancequery;
 
 import java.util.*;
 
@@ -8,6 +8,12 @@ public class QueueReconstructionByHeight {
 
     public int[][] reconstructQueue(int[][] people)
     {
+        /*
+        Trick:-
+        Process taller people first so that when inserting a person at index k, every person already in the queue is tall enough to count toward their k,
+        and later insertions of shorter people won't invalidate that count.
+         */
+
         //sort people by descending height, if tie then ascending k
         Arrays.sort(people, (a, b) -> {
            if(a[0] == b[0]){
@@ -18,6 +24,7 @@ public class QueueReconstructionByHeight {
         });
 
         //now move each person at index k
+        //after processing all people taller than h: Their positions will never be affected by inserting shorter people later.
         List<int[]> result = new ArrayList<>();
 
         for(int i=0; i<people.length; i++){
