@@ -98,16 +98,16 @@ public class TaskScheduleriii {
                 availableTasks.offer(cooldownTasks.poll());
             }
 
+            //if no task is currently executable; jump to the next cooldown completion time.
             if (availableTasks.isEmpty()) {
                 time = cooldownTasks.peek().nextAvailable;
                 continue;
             }
 
             Task task = availableTasks.poll();
-
-            time += task.duration;
-
             task.count--; //reduce count
+
+            time += task.duration; //advance time
 
             if(task.count > 0){
                 //add to cool down queue
