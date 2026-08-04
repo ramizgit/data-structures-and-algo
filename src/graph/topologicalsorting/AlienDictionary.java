@@ -1,4 +1,4 @@
-package graph;
+package graph.topologicalsorting;
 
 import java.util.*;
 
@@ -11,6 +11,7 @@ public class AlienDictionary {
         //initialize graph as adjacency list
         Map<Character, Set<Character>> graph = new HashMap<>(); //set for efficient lookup later
 
+        //initializing every character
         for(String word : words){
             for(char ch : word.toCharArray()){
                 graph.putIfAbsent(ch, new HashSet<>());
@@ -58,6 +59,7 @@ public class AlienDictionary {
         //Start with all 0-indegree nodes from the graph, topological sort - standard Kahn's algorithm
         Queue<Character> bfsQueue = new ArrayDeque<>();
 
+        //only enqueue chars that actually appear
         for(char ch : graph.keySet()){ //important : do not iterate whole indegree array, as it will add all letters a-z but not all supposed to be in the graph
             if(indegree[ch - 'a'] == 0){
                 bfsQueue.offer(ch);
