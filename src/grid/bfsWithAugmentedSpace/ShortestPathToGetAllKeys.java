@@ -23,21 +23,23 @@ public class ShortestPathToGetAllKeys {
 
         for(int i=0; i<m; i++){
             for(int j=0; j<n; j++){
+
                 char ch = grid[i].charAt(j);
+
                 if(ch == '@'){
                     startRow = i;
                     startCol = j;
                 }
 
                 if(ch >= 'a' && ch <= 'f'){
-                    expectedKeysMask |= (1 << (ch - 'a'));
+                    expectedKeysMask |= (1 << (ch - 'a')); //note : the problem guarantees at most 6 keys, not exactly 6, hence this bit mask representation
                 }
             }
         }
 
         //bfs queue
         Queue<State> queue = new ArrayDeque<>();
-        queue.offer(new State(startRow, startCol, 0, 0));
+        queue.offer(new State(startRow, startCol, 0, 0)); //key mask is part of the state because reaching the same cell with different keys leads to different future paths
 
         //visited tracking : visited[row][col][mask]
         //important note : in Dijkstra/BFS, the PQ/BFS state and dist/visited state must represent the SAME state space.
@@ -52,24 +54,25 @@ public class ShortestPathToGetAllKeys {
 
             //early exit
             if(curr.keysMask == expectedKeysMask){
-                return curr.dist;
+                return curr.dist; //target achieved, all keys collected
             }
 
             //explore neighbours
             for(int[] dir : directions){
+
                 int x = dir[0] + curr.row;
                 int y = dir[1] + curr.col;
 
                 //boundary check
                 if(x < 0 || x >= m || y < 0 || y >= n){
-                    continue;
+                    continue; //out of boundary
                 }
 
                 char ch = grid[x].charAt(y);
 
                 //wall check
                 if(ch == '#'){
-                    continue;
+                    continue; //hit a wall
                 }
 
                 int newMask = curr.keysMask;
@@ -79,10 +82,10 @@ public class ShortestPathToGetAllKeys {
                     newMask |= (1 << (ch - 'a'));
                 }
 
-                //lock check
+                //check if we have key for the lock
                 if(ch >= 'A' && ch <= 'F'){
-                    int requiredKeyBit = ch - 'A';
-                    if((newMask & (1 << requiredKeyBit)) == 0){
+                    int lockBit = 1 << (ch - 'A');
+                    if((newMask & lockBit) == 0){
                         continue; //don't have key
                     }
                 }
@@ -91,12 +94,10 @@ public class ShortestPathToGetAllKeys {
                 if(visited[x][y][newMask]){
                     continue;
                 }
+
                 visited[x][y][newMask] = true;
-
-                //enqueue
-                queue.offer(new State(x, y, newMask, curr.dist + 1));
+                queue.offer(new State(x, y, newMask, curr.dist + 1)); //enqueue
             }
-
         }
 
         return -1;
