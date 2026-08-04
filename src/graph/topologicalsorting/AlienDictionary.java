@@ -8,6 +8,15 @@ public class AlienDictionary {
 
     public String alienOrder(String[] words)
     {
+        /*
+        traps:-
+        1. not initializing the graph for all chars, wont be able to handle input ["abc"]
+        2. not handling dupe edge, will explode indegree
+        3. no break after first differing character
+        4. no prefix handling, example: ["apple", "app"]
+        5. not referring chars only present in the graph while populating bfsQueue first time for 0 degree nodes
+         */
+
         //initialize graph as adjacency list
         Map<Character, Set<Character>> graph = new HashMap<>(); //set for efficient lookup later
 
@@ -28,7 +37,7 @@ public class AlienDictionary {
             String word2 = words[i+1];
 
             int minLen = Math.min(word1.length(), word2.length());
-            boolean diff = false;
+            boolean foundDiff = false;
 
             for(int j = 0; j < minLen; j++){
 
@@ -39,7 +48,7 @@ public class AlienDictionary {
                     continue;
                 }
 
-                diff = true;
+                foundDiff = true;
 
                 //avoid duplicate edges, prevents indegree inflation (important)
                 if(!graph.get(ch1).contains(ch2)){
@@ -51,7 +60,7 @@ public class AlienDictionary {
             }
 
             // invalid prefix case: longer word appears before its prefix, example: ["apple", "app"]
-            if(!diff && word1.length() > word2.length()){
+            if(!foundDiff && word1.length() > word2.length()){
                 return "";
             }
         }
