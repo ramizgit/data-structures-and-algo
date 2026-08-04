@@ -79,7 +79,6 @@ public class TaskScheduleriii {
             int[] durations,
             int cooldown)
     {
-
         //max heap for remaining ones
         PriorityQueue<Task> availableTasks = new PriorityQueue<>( (a, b) -> Integer.compare(b.count, a.count) );
 
@@ -125,7 +124,6 @@ public class TaskScheduleriii {
         int count;
         int duration;
         int nextAvailable;
-
 
         public Task(char type, int count, int duration) {
             this.type = type;
