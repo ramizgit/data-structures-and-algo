@@ -13,6 +13,8 @@ public class NonOverlappingIntervals {
      */
 
     //option1 : sort by end time
+    //hint : keep the earliest finishing interval
+    //**********IMPORTANT : a good follow up if cost of removal is not 1 (like above), refer MinCosttoRemoveOverlappingIntervals ***********
     public int eraseOverlapIntervals(int[][] intervals)
     {
         if(intervals == null || intervals.length == 0){
@@ -38,6 +40,8 @@ public class NonOverlappingIntervals {
 
         return remove;
     }
+
+    //**********IMPORTANT : a good follow up if cost of removal is not 1 (like above), refer MinCosttoRemoveOverlappingIntervals ***********
 
     //option2 : sort by start time
     public int eraseOverlapIntervals2(int[][] intervals)
