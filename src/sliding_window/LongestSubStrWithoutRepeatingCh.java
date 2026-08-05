@@ -41,7 +41,7 @@ public class LongestSubStrWithoutRepeatingCh {
         return maxLen;
     }
 
-    //Approach 1 : Using Map - Store each character's last seen index to jump the window start past duplicates.
+    //Approach 2 : Using Map - Store each character's last seen index to jump the window start past duplicates.
     //Time : O(n)
     //Space : O(n)
     private static int lengthOfLongestSubstringViaMap(String s)
