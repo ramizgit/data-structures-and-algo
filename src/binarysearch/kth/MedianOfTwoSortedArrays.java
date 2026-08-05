@@ -9,6 +9,8 @@ public class MedianOfTwoSortedArrays {
 
     //https://leetcode.com/problems/median-of-two-sorted-arrays/
 
+    //Time: O(log(min(m, n))) because we always binary search on the smaller array
+    //Space: O(1)
     public double findMedianSortedArrays(int[] nums1, int[] nums2)
     {
         //make sure first arr is smaller, to run binary search on it
@@ -25,7 +27,7 @@ public class MedianOfTwoSortedArrays {
         int low = 0;
         int high = m; //binary search on the partition size (0..m), not array indices., hence high = m and NOT high = m-1
 
-        while(low <= high){
+        while(low <= high){ //O(log(m))
             int mid1 = low + (high - low) / 2;
             int mid2 = halfLen - mid1;
 
