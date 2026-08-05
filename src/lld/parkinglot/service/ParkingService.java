@@ -9,23 +9,25 @@ public class ParkingService {
 
     //It should coordinate the entire parking process.
 
-    private ParkingStrategy strategy;
+    private ParkingStrategy parkingStrategy;
     private TicketService ticketService;
 
-    public ParkingService(ParkingStrategy strategy, TicketService ticketService) {
-        this.strategy = strategy;
+    public ParkingService(ParkingStrategy parkingStrategy, TicketService ticketService) {
+        this.parkingStrategy = parkingStrategy;
         this.ticketService = ticketService;
     }
 
     public Ticket parkVehicle(Vehicle vehicle)
     {
-        ParkingSpot spot = strategy.findParkingSpot(vehicle);
+        //find spot
+        ParkingSpot spot = parkingStrategy.findParkingSpot(vehicle);
 
         if (spot == null) {
             return null; //throw new ParkingLotFullException(); //todo throw exception
         }
 
-        spot.parkVehicle(vehicle);   // <-- Missing step
+        //park
+        spot.parkVehicle(vehicle);
 
         return ticketService.createTicket(spot);
     }

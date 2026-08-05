@@ -2,12 +2,19 @@ package lld.parkinglot.model;
 
 import lld.parkinglot.enums.Type;
 
-public abstract class ParkingSpot {
+public class ParkingSpot {
 
     private int spotId;
     private Type spotType;
     private boolean isOccupied;
     private Vehicle vehicle;
+
+    public ParkingSpot(int spotId, Type spotType) {
+        this.spotId = spotId;
+        this.spotType = spotType;
+        this.isOccupied = false;
+        this.vehicle = null;
+    }
 
     public ParkingSpot(int spotId, Type spotType, boolean isOccupied, Vehicle vehicle) {
         this.spotId = spotId;
