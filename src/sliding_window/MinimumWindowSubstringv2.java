@@ -6,7 +6,6 @@ public class MinimumWindowSubstringv2 {
 
     public String minWindow(String s, String t)
     {
-
         //input validation
         if(s == null || t == null){
             return "";
