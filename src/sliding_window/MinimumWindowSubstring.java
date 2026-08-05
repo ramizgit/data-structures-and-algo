@@ -16,9 +16,9 @@ public class MinimumWindowSubstring {
         }
 
         //compute frequency of t
-        int[] freq = new int[128]; //all ASCII chars including lower and upper case letters
+        int[] need = new int[128]; //all ASCII chars including lower and upper case letters
         for(char ch : t.toCharArray()){
-            freq[ch]++;
+            need[ch]++;
         }
 
         int left = 0;
@@ -32,11 +32,11 @@ public class MinimumWindowSubstring {
             //expand window
             char rch = s.charAt(right);
 
-            if(freq[rch] > 0){
+            if(need[rch] > 0){
                 remaining--;
             }
 
-            freq[rch]--;
+            need[rch]--;
 
             while(remaining == 0){
 
@@ -50,10 +50,10 @@ public class MinimumWindowSubstring {
                 //shrink window
                 char lch = s.charAt(left);
                 left++;
-                if(freq[lch] >= 0){
+                if(need[lch] >= 0){
                     remaining++;
                 }
-                freq[lch]++;
+                need[lch]++;
             }
 
             right++;
