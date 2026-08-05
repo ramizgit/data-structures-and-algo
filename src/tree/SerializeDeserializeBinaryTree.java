@@ -25,9 +25,10 @@ public class SerializeDeserializeBinaryTree {
                 sb.append("null,");
                 continue;
             }
+
             sb.append(curr.val).append(",");
 
-            //explore children
+            //add children
             queue.add(curr.left);
             queue.add(curr.right);
         }
