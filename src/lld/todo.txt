@@ -1,0 +1,11 @@
+| Rank  | Problem                           | Why it's asked                                                      |
+| ----- | --------------------------------- | ------------------------------------------------------------------- |
+| ⭐⭐⭐⭐⭐ | Parking Lot                       |  |
+| ⭐⭐⭐⭐⭐ | Splitwise                         | Business modeling, Strategy pattern, graph-like debt simplification |
+| ⭐⭐⭐⭐⭐ | BookMyShow / Movie Ticket Booking | Concurrency, seat locking, state transitions                        |
+| ⭐⭐⭐⭐⭐ | Elevator System                   | State machines, scheduling algorithms                               |
+| ⭐⭐⭐⭐☆ | Vending Machine                   | State pattern, inventory management                                 |
+| ⭐⭐⭐⭐☆ | Amazon Locker                     | Allocation strategies, notifications                                |
+| ⭐⭐⭐⭐☆ | Chess                             | Heavy OOP, inheritance, polymorphism                                |
+| ⭐⭐⭐⭐☆ | Library Management                | CRUD modeling, relationships                                        |
+| ⭐⭐⭐⭐☆ | Snake & Ladder                    | OO modeling with simple game logic                                  |
