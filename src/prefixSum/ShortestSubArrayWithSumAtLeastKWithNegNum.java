@@ -10,17 +10,23 @@ public class ShortestSubArrayWithSumAtLeastKWithNegNum {
     public static int shortestSubArray(int[] arr, int targetSum)
     {
         //populate prefix sum array
-        int[] prefixSum = new int[arr.length+1];
-        prefixSum[0] = 0;
+        //handles all subarrays that start at index 0
+        int[] prefixSum = new int[arr.length];
+        prefixSum[0] = arr[0];
 
         for(int i=1; i<prefixSum.length; i++){
-            prefixSum[i] = prefixSum[i-1] + arr[i-1];
+            prefixSum[i] = prefixSum[i-1] + arr[i];
         }
 
         Deque<Integer> deque = new ArrayDeque<>();
         int minSize = Integer.MAX_VALUE;
 
         for(int i=0; i<prefixSum.length; i++){
+
+            //handle subarrays starting from index 0
+            if (prefixSum[i] >= targetSum) {
+                minSize = Math.min(minSize, i + 1);
+            }
 
             //1. Shrink from front
             //decrease window if sum is greater than target, and capture min same time
