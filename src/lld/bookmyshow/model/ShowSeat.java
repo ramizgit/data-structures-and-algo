@@ -1,10 +1,27 @@
 package lld.bookmyshow.model;
 
 import lld.bookmyshow.enums.SeatStatus;
-import lld.bookmyshow.enums.SeatType;
 
 import java.time.LocalDateTime;
-import java.util.Map;
+
+/*
+ * Represents a seat for a specific show.
+ *
+ * A Seat is a physical entity (e.g., A1, B2) and is shared across all shows
+ * running on the same screen. However, its availability, lock status, and
+ * pricing are different for each show.
+ *
+ * Example:
+ *
+ * Screen 1
+ *   Seat A1
+ *
+ * 10:00 AM Show -> AVAILABLE, ₹250
+ * 07:00 PM Show -> BOOKED, ₹500
+ *
+ * Therefore, show-specific state is modeled separately in ShowSeat instead of
+ * storing it inside Seat.
+ */
 
 public class ShowSeat {
 

@@ -1,7 +1,6 @@
 package lld.bookmyshow.model;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Map;
 
 public class Show {
@@ -10,14 +9,14 @@ public class Show {
     Movie movie;
     Screen screen;
     LocalDateTime startTime;
-    private Map<String, ShowSeat> showSeats;
+    private Map<String, ShowSeat> seatsByNumber;
 
-    public Show(int id, Movie movie, Screen screen, LocalDateTime startTime, Map<String, ShowSeat> showSeats) {
+    public Show(int id, Movie movie, Screen screen, LocalDateTime startTime, Map<String, ShowSeat> seatsByNumber) {
         this.id = id;
         this.movie = movie;
         this.screen = screen;
         this.startTime = startTime;
-        this.showSeats = showSeats;
+        this.seatsByNumber = seatsByNumber;
     }
 
     public int getId() {
@@ -52,11 +51,11 @@ public class Show {
         this.startTime = startTime;
     }
 
-    public Map<String, ShowSeat> getShowSeats() {
-        return showSeats;
+    public Map<String, ShowSeat> getSeatsByNumber() {
+        return seatsByNumber;
     }
 
-    public void setShowSeats(Map<String, ShowSeat> showSeats) {
-        this.showSeats = showSeats;
+    public void setSeatsByNumber(Map<String, ShowSeat> seatsByNumber) {
+        this.seatsByNumber = seatsByNumber;
     }
 }

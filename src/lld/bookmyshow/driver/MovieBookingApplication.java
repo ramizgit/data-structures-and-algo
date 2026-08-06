@@ -16,6 +16,7 @@ import java.util.Map;
 public class MovieBookingApplication {
 
     public static void main(String[] args) throws SeatUnavailableException, PaymentFailedException {
+
         //create movie
         Movie movie = new Movie(1, "Interstellar", 169, "English");
 
@@ -31,7 +32,7 @@ public class MovieBookingApplication {
         Theatre theatre = new Theatre(1, "PVR", "Bangalore", "Whitefield", List.of(screen));
 
         //Create ShowSeats
-        Map<String, ShowSeat> showSeats = new HashMap<>();
+        Map<String, ShowSeat> showSeats = new HashMap<>(); //{seat number : showseat}
         showSeats.put("A1", new ShowSeat(a1, SeatStatus.AVAILABLE, 250));
         showSeats.put("A2", new ShowSeat(a2, SeatStatus.AVAILABLE, 250));
         showSeats.put("B1", new ShowSeat(b1, SeatStatus.AVAILABLE, 500));
