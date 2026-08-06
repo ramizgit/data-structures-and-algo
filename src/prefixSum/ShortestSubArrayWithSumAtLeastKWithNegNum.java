@@ -30,7 +30,9 @@ public class ShortestSubArrayWithSumAtLeastKWithNegNum {
             }
 
             //2. Remove dominated prefixes from back, maintain monotonic increasing queue
-            //increase widow, remove from back to maintain increasing order considering -ve numbers
+            // Once we find a smaller prefix sum, it takes priority.
+            // Previous larger prefix sums can never produce a better answer.
+            // A smaller (or equal) prefix sum at a later index is always better.
             while (!deque.isEmpty() && prefixSum[i] <= prefixSum[deque.peekLast()]){
                 deque.removeLast();
             }
