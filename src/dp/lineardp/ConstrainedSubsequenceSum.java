@@ -6,6 +6,8 @@ public class ConstrainedSubsequenceSum {
 
     //https://leetcode.com/problems/constrained-subsequence-sum/description/
 
+    //hint : Linear DP + Monotonic Decreasing Deque
+
     // Time : O(n * k)
     // Space: O(n)
     public int constrainedSubsetSum(int[] nums, int k)
@@ -40,6 +42,7 @@ public class ConstrainedSubsequenceSum {
         return answer;
     }
 
+    //optimized version below using Linear DP + Monotonic Decreasing Deque
     // Time : O(n)
     // Space: O(n)
     /*

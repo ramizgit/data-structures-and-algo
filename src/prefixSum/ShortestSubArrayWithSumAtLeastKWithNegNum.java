@@ -7,6 +7,8 @@ public class ShortestSubArrayWithSumAtLeastKWithNegNum {
 
     //https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/description/
 
+    //hint : Prefix Sum + Monotonic Increasing Deque
+
     public static int shortestSubArray(int[] arr, int targetSum)
     {
         //populate prefix sum array
