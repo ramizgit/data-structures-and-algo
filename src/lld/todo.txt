@@ -2,9 +2,9 @@
 | ----- | --------------------------------- | ------------------------------------------------------------------- |
 | ⭐⭐⭐⭐⭐ | Parking Lot                       |                                                               | [Done]
 | ⭐⭐⭐⭐⭐ | Splitwise                         | Business modeling, Strategy pattern, graph-like debt simplification | [Done]
-| ⭐⭐⭐⭐⭐ | BookMyShow / Movie Ticket Booking | Concurrency, seat locking, state transitions                        |
-| ⭐⭐⭐⭐⭐ | Elevator System                   | State machines, scheduling algorithms                               |
-| ⭐⭐⭐⭐☆ | Vending Machine                   | State pattern, inventory management                                 |
+| ⭐⭐⭐⭐⭐ | BookMyShow / Movie Ticket Booking | Concurrency, seat locking, state transitions                        | [Done]
+| ⭐⭐⭐⭐⭐ | Elevator System                   | State machines, scheduling algorithms                               | [Done]
+| ⭐⭐⭐⭐☆ | Vending Machine                   | State pattern, inventory management                                 | [Done]
 | ⭐⭐⭐⭐☆ | Amazon Locker                     | Allocation strategies, notifications                                |
 | ⭐⭐⭐⭐☆ | Chess                             | Heavy OOP, inheritance, polymorphism                                |
 | ⭐⭐⭐⭐☆ | Library Management                | CRUD modeling, relationships                                        |
