@@ -14,8 +14,11 @@ public class CheckValidPartitionForTheArray {
         int n = nums.length;
 
         boolean[] dp = new boolean[n + 1]; // dp[i] = true means the first i elements can be partitioned validly
-        dp[0] = true; // base case: empty prefix
 
+        dp[0] = true; // base case: empty prefix
+        // dp[1] = false; //false by default - impossible to form any valid partition, need at least two elements
+
+        //compute dp for every prefix from length 2 to n (inclusive), since dp[n] represents the answer for the entire array
         for (int i = 2; i <= n; i++) {
 
             /*
