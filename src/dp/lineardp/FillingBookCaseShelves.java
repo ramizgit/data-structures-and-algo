@@ -1,6 +1,4 @@
-package dp;
-
-import java.util.*;
+package dp.lineardp;
 
 public class FillingBookCaseShelves {
 

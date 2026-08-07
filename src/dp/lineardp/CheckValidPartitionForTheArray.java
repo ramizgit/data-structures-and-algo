@@ -1,4 +1,4 @@
-package consistenthashing.dp;
+package dp.lineardp;
 
 public class CheckValidPartitionForTheArray {
 

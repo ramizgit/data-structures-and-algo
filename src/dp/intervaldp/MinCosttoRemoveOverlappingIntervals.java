@@ -1,4 +1,4 @@
-package dp;
+package dp.intervaldp;
 
 import java.util.*;
 
