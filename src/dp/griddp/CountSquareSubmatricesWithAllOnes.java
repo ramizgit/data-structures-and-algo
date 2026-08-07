@@ -1,4 +1,4 @@
-package matrix;
+package dp.griddp;
 
 public class CountSquareSubmatricesWithAllOnes {
 
@@ -29,7 +29,13 @@ public class CountSquareSubmatricesWithAllOnes {
                     if(i == 0 || j == 0){
                         dp[i][j] = 1; //base case
                     }else{
-                        dp[i][j] = 1 + Math.min(dp[i-1][j-1], Math.min(dp[i][j-1], dp[i-1][j]));
+                        dp[i][j] = 1 + Math.min(
+                                dp[i-1][j-1], //diagonal
+                                Math.min(
+                                        dp[i][j-1], //left
+                                        dp[i-1][j] //top
+                                )
+                        );
                     }
 
                     maxSquare = Math.max(maxSquare, dp[i][j]);
