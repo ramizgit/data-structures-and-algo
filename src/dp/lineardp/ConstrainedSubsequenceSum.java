@@ -23,7 +23,7 @@ public class ConstrainedSubsequenceSum {
 
             dp[i] = nums[i];   //start a new subsequence ending at the current index
 
-            //loop backward from i-1 to i-k and try extending each valid subsequence.
+            //loop from i-k to i-i and try extending each valid subsequence.
             for (int j = Math.max(0, i - k); j < i; j++){ //O(k)
 
                 // Extend only if the previous subsequence contributes positively.

@@ -21,10 +21,10 @@ public class JumpGamevi {
         int[] dp = new int[n]; //dp[i] = maximum score to reach index i
         Arrays.fill(dp, Integer.MIN_VALUE);
 
-        dp[0] = nums[0]; //base case
+        dp[0] = nums[0]; //base case, starting point of jump
 
         for(int i=1; i<n; i++){ //O(n)
-            //loop backward from i-1 to i-k and try extending each valid subsequence.
+            //loop from i-k to i-i and try extending each valid subsequence.
             for (int j = Math.max(0, i - k); j < i; j++){ //O(k)
                 dp[i] = Math.max(dp[i], nums[i] + dp[j]);
             }
