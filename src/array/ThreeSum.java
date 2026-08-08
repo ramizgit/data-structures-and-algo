@@ -76,3 +76,18 @@ public class ThreeSum {
         return result;
     }
 }
+
+/*
+4Sum:-
+for (int i = 0; i < n - 3; i++) {
+    for (int j = i + 1; j < n - 2; j++) {
+
+        int left = j + 1;
+        int right = n - 1;
+
+        while (left < right) {
+            // check nums[i] + nums[j] + nums[left] + nums[right]
+        }
+    }
+}
+ */
