@@ -8,4 +8,4 @@
 | ⭐⭐⭐⭐☆ | Amazon Locker                     | Allocation strategies, notifications                                | [Done]
 | ⭐⭐⭐⭐☆ | Chess                             | Heavy OOP, inheritance, polymorphism                                |
 | ⭐⭐⭐⭐☆ | Library Management                | CRUD modeling, relationships                                        |
-| ⭐⭐⭐⭐☆ | Snake & Ladder                    | OO modeling with simple game logic                                  |
+| ⭐⭐⭐⭐☆ | Snake & Ladder                    | OO modeling with simple game logic                                  | [Done]
