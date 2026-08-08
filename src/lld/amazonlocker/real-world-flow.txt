@@ -1,0 +1,17 @@
+Think about the real-world flow:
+
+Delivery person
+    ↓
+Locker #27
+    ↓
+Package stored
+    ↓
+Customer receives OTP: 483921 //? station also?
+
+Later, the customer arrives at the station and enters:
+
+483921
+
+The locker system needs to answer:
+
+"Which locker contains the package associated with 483921?"
