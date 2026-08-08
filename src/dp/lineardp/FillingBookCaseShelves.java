@@ -37,9 +37,10 @@ public class FillingBookCaseShelves {
                 }
 
                 // books[j...i] are placed on same shelf
-                currHeight = Math.max(currHeight, books[j][1]);
+                currHeight = Math.max(currHeight, books[j][1]); //max within a shelf, min across possible shelf arrangements.
 
-                dp[i] = Math.min(dp[i], currHeight + (j > 0 ? dp[j - 1] : 0));
+                //take the minimum across all possible arrangements.
+                dp[i] = Math.min(dp[i], currHeight + (j > 0 ? dp[j - 1] : 0)); //max within a shelf, min across possible shelf arrangements.
             }
         }
 
