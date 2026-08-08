@@ -26,10 +26,10 @@ public class IntegerBreak {
                 int firstPart = j;
                 int remainingPart = i - j;
 
-                //the remaining part can either stay intact or be broken further
+                //either keep the remaining part intact or reuse its best precomputed product
                 int bestRemaining = Math.max(
                         remainingPart,  //either keep the remaining part intact,
-                        dp[remainingPart] //or break it further if that gives a better product.
+                        dp[remainingPart] //or reuse its best precomputed product
                 );
 
                 dp[i] = Math.max(
