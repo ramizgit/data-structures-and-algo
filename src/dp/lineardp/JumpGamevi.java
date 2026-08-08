@@ -24,9 +24,12 @@ public class JumpGamevi {
         dp[0] = nums[0]; //base case, starting point of jump
 
         for(int i=1; i<n; i++){ //O(n)
-            //loop from i-k to i-i and try extending each valid subsequence.
+            //For every index i, try all possible previous jump positions from i-k to i-i and take the one giving the maximum score
             for (int j = Math.max(0, i - k); j < i; j++){ //O(k)
-                dp[i] = Math.max(dp[i], nums[i] + dp[j]);
+                dp[i] = Math.max(
+                        dp[i], //current best
+                        nums[i] + dp[j] //jump from j to i
+                );
             }
         }
 
