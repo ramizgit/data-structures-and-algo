@@ -20,12 +20,13 @@ public class IntegerBreak {
 
         for (int i = 2; i <= n; i++) { //compute dp[2], dp[3] .... dp[n]
 
-            //try every possible first break of i, and chooses the one that gives the maximum product.
+            //try every possible first cut and keep the split that gives the maximum product.
             for (int j = 1; j < i; j++) {
 
                 int firstPart = j;
                 int remainingPart = i - j;
 
+                //the remaining part can either stay intact or be broken further
                 int bestRemaining = Math.max(
                         remainingPart,  //either keep the remaining part intact,
                         dp[remainingPart] //or break it further if that gives a better product.
