@@ -1,0 +1,23 @@
+Player's turn
+      ↓
+Roll Dice
+      ↓
+Calculate new position
+      ↓
+Valid position?
+      ↓
+Snake?
+   ↙       ↘
+ YES       NO
+ ↓          ↓
+Move tail   Ladder?
+              ↓
+           Move top
+              ↓
+Update player position
+              ↓
+Reached 100?
+   ↓       ↓
+ YES       NO
+  ↓         ↓
+Winner    Next player

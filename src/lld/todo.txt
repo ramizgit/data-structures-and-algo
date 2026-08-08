@@ -5,7 +5,7 @@
 | ⭐⭐⭐⭐⭐ | BookMyShow / Movie Ticket Booking | Concurrency, seat locking, state transitions                        | [Done]
 | ⭐⭐⭐⭐⭐ | Elevator System                   | State machines, scheduling algorithms                               | [Done]
 | ⭐⭐⭐⭐☆ | Vending Machine                   | State pattern, inventory management                                 | [Done]
-| ⭐⭐⭐⭐☆ | Amazon Locker                     | Allocation strategies, notifications                                |
+| ⭐⭐⭐⭐☆ | Amazon Locker                     | Allocation strategies, notifications                                | [Done]
 | ⭐⭐⭐⭐☆ | Chess                             | Heavy OOP, inheritance, polymorphism                                |
 | ⭐⭐⭐⭐☆ | Library Management                | CRUD modeling, relationships                                        |
 | ⭐⭐⭐⭐☆ | Snake & Ladder                    | OO modeling with simple game logic                                  |
