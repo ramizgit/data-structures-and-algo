@@ -15,3 +15,35 @@ Later, the customer arrives at the station and enters:
 The locker system needs to answer:
 
 "Which locker contains the package associated with 483921?"
+
+----------------------------------------
+STORE
+
+Package
+   ↓
+LockerService
+   ↓
+LockerAllocationStrategy
+   ↓
+Locker
+   ↓
+Generate PickupCode
+   ↓
+pickupCode → Locker
+
+
+PICKUP
+
+PickupCode
+   ↓
+LockerService
+   ↓
+pickupCodeLockerMap
+   ↓
+Locker
+   ↓
+releasePackage()
+   ↓
+Package
+   ↓
+Locker → AVAILABLE
