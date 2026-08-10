@@ -1,61 +1,65 @@
-package slidingWindow;
+package sliding_window;
 
 import java.util.*;
 
 public class NumOfSubarrayWithCostK {
+
+    //https://leetcode.com/problems/count-subarrays-with-cost-less-than-or-equal-to-k/description/
 
     /*
     given an input arr, find num of subarrays that have cost <=k, cost is defined as (max - min) * length of subarray
      */
 
      /*
-     NOTE:
+    NOTE:
+
     if questions asks to find num of subarrays with cost exactly k, then call below
+
     return numOfSubarrWithCostAtMostK(arr, k) - numOfSubarrWithCostAtMostK(arr, k - 1);
+
+    exactly(K) = atMost(K) - atMost(K - 1)
      */
 
-    public int numOfSubarrWithCostK(int[] arr, int k)
+    public long numOfSubarrWithCostK(int[] arr, int k)
     {
-        int left = 0;
-        int right = 0;
-        int answer = 0;
-        Deque<Integer> maxQueue = new ArrayDeque<>();
-        Deque<Integer> minQueue = new ArrayDeque<>();
+        int windowStart = 0;
+        long answer = 0;
+        Deque<Integer> maxQueue = new ArrayDeque<>(); //monotonically decreasing deque
+        Deque<Integer> minQueue = new ArrayDeque<>(); //monotonically increasing deque
 
-        while(right < arr.length){
-            int num = arr[right];
+        for(int windowEnd = 0; windowEnd < arr.length; windowEnd++){
+
+            int num = arr[windowEnd];
 
             while(!maxQueue.isEmpty() && arr[maxQueue.peekLast()] < num){
                 maxQueue.pollLast();
             }
-            maxQueue.offer(right);
+            maxQueue.offerLast(windowEnd);
 
             while(!minQueue.isEmpty() && arr[minQueue.peekLast()] > num){
                 minQueue.pollLast();
             }
-            minQueue.offer(right);
+            minQueue.offerLast(windowEnd);
 
-            long cost = (long)(arr[maxQueue.peekFirst()] - arr[minQueue.peekFirst()]) * (right - left + 1);
+            long cost = (long)(arr[maxQueue.peekFirst()] - arr[minQueue.peekFirst()]) * (windowEnd - windowStart + 1);
 
             while(cost > k){ //shrink window
 
-                if (maxQueue.peekFirst() == left) {
+                if (maxQueue.peekFirst() == windowStart) {
                     maxQueue.pollFirst();
                 }
-                if (minQueue.peekFirst() == left) {
+                if (minQueue.peekFirst() == windowStart) {
                     minQueue.pollFirst();
                 }
 
-                left++;
+                windowStart++;
 
                 // recompute cost after shrinking
-                cost = (long)(arr[maxQueue.peekFirst()] - arr[minQueue.peekFirst()]) * (right - left + 1);
+                cost = (long)(arr[maxQueue.peekFirst()] - arr[minQueue.peekFirst()]) * (windowEnd - windowStart + 1);
             }
 
             //capture answer
-            answer += right - left + 1;
-
-            right++;
+            answer += windowEnd - windowStart + 1;
         }
 
         return answer;

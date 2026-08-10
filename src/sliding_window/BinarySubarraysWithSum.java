@@ -25,23 +25,22 @@ public class BinarySubarraysWithSum {
             return 0;
         }
 
-        int left = 0;
-        int right = 0;
+        int windowStart = 0;
         int sum = 0;
         int count = 0;
 
-        while(right < nums.length){
-            sum += nums[right];
+        for(int windowEnd = 0; windowEnd < nums.length; windowEnd++){
 
-            //shrink if needed
+            sum += nums[windowEnd];
+
+            //shrink window as long as sum > k
             while(sum > k){
-                sum -= nums[left];
-                left++;
+                sum -= nums[windowStart];
+                windowStart++;
             }
 
-            count += right - left + 1; //num of subarrays with at most k sum
-
-            right++;
+            //now window sum is at most k, add num of subarrays to count
+            count += windowEnd - windowStart + 1;
         }
 
         return count;
