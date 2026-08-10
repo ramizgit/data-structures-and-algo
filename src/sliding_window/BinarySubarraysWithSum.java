@@ -7,7 +7,13 @@ public class BinarySubarraysWithSum {
     Given a binary array nums and an integer goal, return the number of non-empty subarrays with a sum goal.
     A subarray is a contiguous part of the array.
      */
-    
+
+    /*
+    All positive (> 0) → direct sliding window works for sum == K.
+    0 and positive (>= 0) → atMost(K) - atMost(K-1) as direct (sum == K) count++ can miss multiple valid windows;
+    Negative numbers allowed → sliding window generally doesn't work; use prefix sum + HashMap for exact-sum counting.
+     */
+
     public int numSubarraysWithSum(int[] nums, int goal)
     {
         return numSubarraysWithSumAtMostK(nums, goal) - numSubarraysWithSumAtMostK(nums, goal-1);

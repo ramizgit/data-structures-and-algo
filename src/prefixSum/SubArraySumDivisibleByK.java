@@ -12,25 +12,24 @@ public class SubArraySumDivisibleByK {
     A subarray is a contiguous part of an array.
      */
 
-    public static void main(String[] args)
-    {
-        //nums = [4,5,0,-2,-3,1], k = 5
-        System.out.println(subarraysDivByK(new int[]{4,5,0,-2,-3,1}, 5)); //7
-
-    }
-
     private static int subarraysDivByK(int[] nums, int k)
     {
-        Map<Integer, Integer> prefixSum = new HashMap<>();
-        prefixSum.put(0, 1);
+        Map<Integer, Integer> prefixSumFreq = new HashMap<>();
+
+        prefixSumFreq.put(0, 1); //base case to handle cases where a valid subarray starts at index 0
         int sum = 0;
         int count = 0;
 
         for(int i=0; i<nums.length; i++){
+
             sum += nums[i];
-            int remain = sum % k;
-            count += prefixSum.getOrDefault(remain, 0);
-            prefixSum.put(remain, prefixSum.getOrDefault(remain, 0) + 1);
+
+            //int remain = sum % k;
+            //normalize negative remainder to [0, k-1]
+            int remain = ((sum % k) + k) % k;
+
+            count += prefixSumFreq.getOrDefault(remain, 0);
+            prefixSumFreq.put(remain, prefixSumFreq.getOrDefault(remain, 0) + 1);
 
         }
 
