@@ -37,6 +37,7 @@ public class FenwickTree {
     public int query(int index) {
 
         //get sum of all values from index 1 through index.
+        // Query: remove lowest set bit → move backward → index -= index & -index
 
         int sum = 0;
 
