@@ -57,3 +57,22 @@ public class FenwickTree {
     }
 
 }
+
+// query(7) example:
+//
+// Binary representation:
+// 7 = 111
+//
+// index -= index & -index removes the lowest set bit:
+//
+// 7 = 111  →  remove 001  →  110 = 6
+// 6 = 110  →  remove 010  →  100 = 4
+// 4 = 100  →  remove 100  →  000 = 0
+//
+// So query(7) visits:
+//
+// BIT[7] → [7]
+// BIT[6] → [5,6]
+// BIT[4] → [1,2,3,4]
+//
+// Together:BIT[7] + BIT[6] + BIT[4] = [1,2,3,4] + [5,6] + [7] = prefix sum [1..7]
