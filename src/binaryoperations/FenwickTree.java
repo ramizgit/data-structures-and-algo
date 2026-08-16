@@ -76,4 +76,11 @@ public class FenwickTree {
 // BIT[6] → [5,6]
 // BIT[4] → [1,2,3,4]
 //
-// Together:BIT[7] + BIT[6] + BIT[4] = [1,2,3,4] + [5,6] + [7] = prefix sum [1..7]
+// Together:BIT[7] + BIT[6] + BIT[4] = [7] + [5,6] + [1,2,3,4] = prefix sum [1..7]
+
+
+/*
+OBSERVATIONS:-
+If i is a power of 2, BIT[i] stores the entire prefix [1..i]
+BIT[oddIndex] stores exactly 1 element: the value at that index
+ */
