@@ -65,7 +65,7 @@ public class EvaluateDivision {
             }
         }
 
-        return -1.0;
+        return -1.0; //no path exists
     }
 
     class Edge{
