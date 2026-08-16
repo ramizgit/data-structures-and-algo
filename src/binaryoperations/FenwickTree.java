@@ -38,6 +38,7 @@ public class FenwickTree {
 
         //get sum of all values from index 1 through index.
         // Query: remove lowest set bit → move backward → index -= index & -index
+        //Query walks backward, taking one complete block at a time. Since each jump skips exactly the block just consumed, the blocks never overlap.
 
         int sum = 0;
 
