@@ -1,0 +1,17 @@
+| Priority | Problem                                                 | Pattern              |
+| -------- | ------------------------------------------------------- | -------------------- |
+| ⭐⭐⭐⭐⭐    | **Find Median from Data Stream**                        | Two Heaps            |
+| ⭐⭐⭐⭐⭐    | **Word Ladder II**                                      | BFS + Backtracking   |
+| ⭐⭐⭐⭐⭐    | **Longest Non-decreasing Subarray From Two Arrays**     | DP                   |
+| ⭐⭐⭐⭐⭐    | **Currency Exchange / Best Exchange Rate**              | Graph + DFS/BFS      |
+| ⭐⭐⭐⭐⭐    | **Minimum Operations to Reduce Array Elements to Zero** | Binary Search        |
+| ⭐⭐⭐⭐⭐    | **Subarray with Specific Property**                     | Prefix Sum + Hashing |
+| ⭐⭐⭐⭐⭐    | **Toad Ivan / 2-SAT-like pair constraint**              | Graph / Greedy       |
+| ⭐⭐⭐⭐     | **Longest Increasing Subsequence**                      | DP + Binary Search   |
+| ⭐⭐⭐⭐     | **Coin Change / Knapsack variants**                     | DP                   |
+| ⭐⭐⭐⭐     | **Number of Islands / Grid BFS-DFS**                    | Graph                |
+| ⭐⭐⭐⭐     | **Top K / K-way merge problems**                        | Heap                 |
+| ⭐⭐⭐⭐     | **Sliding Window Maximum**                              | Monotonic Deque      |
+| ⭐⭐⭐⭐     | **Meeting Rooms / Interval problems**                   | Sorting + Heap       |
+| ⭐⭐⭐⭐     | **LRU Cache**                                           | HashMap + DLL        |
+| ⭐⭐⭐⭐     | **Design a data structure supporting insert + median**  | Two Heaps            |
