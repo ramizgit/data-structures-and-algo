@@ -1,27 +1,34 @@
 package binarysearch.answersearch;
 
 public class KokoEatingBananas {
+
     //https://leetcode.com/problems/koko-eating-bananas/description/
 
-    public static void main(String[] args)
-    {
-        System.out.println(minEatingSpeed(new int[]{3,6,7,11}, 8)); //4
-        System.out.println(minEatingSpeed(new int[]{30,11,23,4,20}, 5)); //30
-        System.out.println(minEatingSpeed(new int[]{30,11,23,4,20}, 6)); //23
-        System.out.println(minEatingSpeed(new int[]{1000}, 1000)); //1
-    }
+    /*
+    Complexity:-
 
+    Let M = max(piles) and n = piles.length.
+
+    canFinish() → O(n)
+    Binary search → O(log M)
+    Total → O(n log M)
+    Space → O(1)
+     */
     private static int minEatingSpeed(int[] piles, int h)
     {
-        int low = 1;
-        int high = 0;
-        int answer = 0;
+        int maxPile = 0;
 
         for(int pile : piles){
-            high = Math.max(high, pile);
+            maxPile = Math.max(maxPile, pile);
         }
 
+        int low = 1; //slowest possible positive speed
+        int high = maxPile; //fastest speed needed: every pile can be finished in 1 hour
+
+        int answer = 0;
+
         while (low <= high){
+
             int mid = low + (high - low)/2;
 
             if (canFinish(piles, mid, h)) {
@@ -38,13 +45,16 @@ public class KokoEatingBananas {
     private static boolean canFinish(int[] piles, int speed, int h)
     {
         int time = 0;
+
         for (int pile : piles) {
             time += Math.ceilDiv(pile, speed);
 
+            //early exit
             if (time > h) {
-                return false;
+                return false; //cant finish as guard has arrived
             }
         }
+
         return true;
     }
 }
