@@ -1,11 +1,12 @@
-package consistenthashing.graph.unionfindDSU;
+package graph.unionfindDSU;
 
 public class FindIfPathExistsInGraph {
 
     //https://leetcode.com/problems/find-if-path-exists-in-graph/
+
     public boolean validPath(int n, int[][] edges, int source, int destination)
     {
-        graph.unionfindDSU.UnionFind uf = new graph.unionfindDSU.UnionFind(n);
+        UnionFind uf = new UnionFind(n);
 
         for(int[] edge : edges){
             int u = edge[0];
@@ -16,7 +17,6 @@ public class FindIfPathExistsInGraph {
 
         return uf.find(source) == uf.find(destination);
     }
-
 }
 
 
