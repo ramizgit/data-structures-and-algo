@@ -85,7 +85,7 @@ public class LargestColorValueInADirectedGraphTopoSort {
         }
 
         Queue<Integer> topoQueue = new ArrayDeque<>();
-        int[][] dp = new int[n][26];
+        int[][] dp = new int[n][26]; // dp[i][c] = maximum number of occurrences of color c on any path ending at ith node
 
         for(int i=0; i<n; i++){
             if(indegree[i] == 0){
@@ -124,6 +124,7 @@ public class LargestColorValueInADirectedGraphTopoSort {
 
         //find answer
         int answer = 0;
+
         for(int i=0; i<n; i++){
             for(int j=0; j<26; j++){
                 answer = Math.max(answer, dp[i][j]);
