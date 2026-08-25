@@ -42,12 +42,12 @@ public class ParallelCoursesiii {
         }
 
         //topo sort
-        Queue<Integer> bfsQueue = new ArrayDeque<>();
+        Queue<Integer> topoQueue = new ArrayDeque<>();
 
         //add 0 degree nodes to start with
         for(int i=1; i<=n; i++){
             if(indegree[i] == 0){
-                bfsQueue.offer(i);
+                topoQueue.offer(i);
             }
         }
 
@@ -57,21 +57,26 @@ public class ParallelCoursesiii {
             finish[i+1] = time[i];
         }
 
-        while(!bfsQueue.isEmpty()){
+        while(!topoQueue.isEmpty()){
 
-            int curr = bfsQueue.poll();
+            int curr = topoQueue.poll();
 
             //explore neighbours
             for(int neighbour : graph.get(curr)){
 
                 //relaxation - update neighbour's earliest finish time using current course
                 //important : the relaxation must happen for every incoming edge, not only when indegree becomes 0.
-                finish[neighbour] = Math.max(finish[neighbour], finish[curr] + time[neighbour-1]); //time array is 0-indexed, hence -1
+                //a course with multiple prerequisites can start only after ALL of its prerequisites are finished. That's why we take the maximum.
+
+                finish[neighbour] = Math.max(
+                        finish[neighbour],                  // earliest finish based on previous prerequisites
+                        finish[curr] + time[neighbour-1]    // finish time if curr is the latest prerequisite
+                );
 
                 indegree[neighbour]--;
 
                 if(indegree[neighbour] == 0){
-                    bfsQueue.offer(neighbour);
+                    topoQueue.offer(neighbour);
                 }
             }
         }
