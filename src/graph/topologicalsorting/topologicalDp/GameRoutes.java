@@ -57,20 +57,20 @@ public class GameRoutes {
             indegree[v]++;
         }
 
-        Queue<Integer> bfsQueue = new ArrayDeque<>();
+        Queue<Integer> topoQueue = new ArrayDeque<>();
 
         for(int node=1; node<=n; node++){
             if(indegree[node] == 0){
-                bfsQueue.offer(node);
+                topoQueue.offer(node);
             }
         }
 
         int[] dp = new int[n+1]; // dp[u] = number of ways to reach node u from node 1, start with 0 for all
         dp[1] = 1; //starting node
 
-        while(!bfsQueue.isEmpty()){
+        while(!topoQueue.isEmpty()){
 
-            int curr = bfsQueue.poll();
+            int curr = topoQueue.poll();
 
             //explore neighbours
             for(int neighbour : graph.get(curr)){
@@ -79,8 +79,9 @@ public class GameRoutes {
                 dp[neighbour] = (dp[neighbour] + dp[curr]) % MOD;
 
                 indegree[neighbour]--;
+
                 if(indegree[neighbour] == 0){
-                    bfsQueue.offer(neighbour);
+                    topoQueue.offer(neighbour);
                 }
             }
         }

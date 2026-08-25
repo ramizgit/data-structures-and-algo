@@ -29,30 +29,30 @@ public class AllAncestorsOfANodeInDAG {
         Map<Integer, Set<Integer>> nodeToParents = new HashMap<>();
 
         //add all 0 degree nodes to bfs queue
-        Queue<Integer> bfsQueue = new ArrayDeque<>();
+        Queue<Integer> topoQueue = new ArrayDeque<>();
 
         for(int i=0; i<n; i++){
             if(indegree[i] == 0){
-                bfsQueue.offer(i);
+                topoQueue.offer(i);
                 nodeToParents.put(i, Collections.emptySet());
             }
         }
 
-        while(!bfsQueue.isEmpty()){
+        while(!topoQueue.isEmpty()){
 
-            int curr = bfsQueue.poll();
+            int curr = topoQueue.poll();
 
             //explore neighbours
             for(int neighbour : graph.get(curr)){
 
                 //process ancestors
                 nodeToParents.computeIfAbsent(neighbour, key -> new HashSet<>()).addAll(nodeToParents.get(curr)); //add grand parents
-                nodeToParents.get(neighbour).add(curr); //add parent
+                nodeToParents.get(neighbour).add(curr); //add immediate parent
 
                 indegree[neighbour]--;
 
                 if(indegree[neighbour] == 0){
-                    bfsQueue.offer(neighbour);
+                    topoQueue.offer(neighbour);
                 }
             }
         }

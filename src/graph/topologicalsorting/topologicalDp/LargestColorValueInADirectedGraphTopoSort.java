@@ -84,21 +84,21 @@ public class LargestColorValueInADirectedGraphTopoSort {
             indegree[v]++;
         }
 
-        Queue<Integer> bfsQueue = new ArrayDeque<>();
+        Queue<Integer> topoQueue = new ArrayDeque<>();
         int[][] dp = new int[n][26];
 
         for(int i=0; i<n; i++){
             if(indegree[i] == 0){
-                bfsQueue.offer(i);
+                topoQueue.offer(i);
                 dp[i][colors.charAt(i) - 'a']++;
             }
         }
 
         int nodesProcessed = 0;
 
-        while(!bfsQueue.isEmpty()){
+        while(!topoQueue.isEmpty()){
 
-            int curr = bfsQueue.poll();
+            int curr = topoQueue.poll();
             nodesProcessed++;
 
             //explore neighbours
@@ -112,7 +112,7 @@ public class LargestColorValueInADirectedGraphTopoSort {
                 indegree[neighbour]--;
 
                 if(indegree[neighbour] == 0){
-                    bfsQueue.offer(neighbour);
+                    topoQueue.offer(neighbour);
                     dp[neighbour][colors.charAt(neighbour) - 'a']++; // Increment only when indegree becomes 0 to avoid counting the node's color multiple times
                 }
             }
