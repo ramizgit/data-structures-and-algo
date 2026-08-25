@@ -34,13 +34,14 @@ public class AccountMerge {
         Map<String, String> emailToName = new HashMap<>();
         int id = 0;
 
-        //assign every email a unique id - O(E) where E = total number of emails
+        //first pass : assign every email a unique id - O(E) where E = total number of emails
         for(List<String> account : accounts){
 
             String name = account.getFirst();
 
             for(int i=1; i<account.size(); i++){
                 String email = account.get(i);
+
                 if(!emailToId.containsKey(email)){
                     emailToId.put(email, id++);
                     emailToName.put(email, name);
@@ -48,8 +49,8 @@ public class AccountMerge {
             }
         }
 
-        //union emails inside each account - O(E) as every email participates once.
-        graph.unionfindDSU.UnionFind uf = new graph.unionfindDSU.UnionFind(id);
+        //second pass : union emails inside each account - O(E) as every email participates once.
+        UnionFind uf = new UnionFind(id);
 
         for(List<String> account : accounts){
 

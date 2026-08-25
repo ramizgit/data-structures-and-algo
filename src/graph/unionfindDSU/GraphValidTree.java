@@ -23,14 +23,14 @@ public class GraphValidTree {
         }
 
         //use union find utility to detect cycle
-        graph.unionfindDSU.UnionFind unionFind = new graph.unionfindDSU.UnionFind(n);
+        UnionFind uf = new UnionFind(n);
 
         for(int[] edge : edges){
 
             int u = edge[0];
             int v = edge[1];
 
-            if(!unionFind.union(u, v)){
+            if(!uf.union(u, v)){
                 return false; //detects cycle
             }
         }

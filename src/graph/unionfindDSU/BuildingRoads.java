@@ -44,12 +44,10 @@ public class BuildingRoads {
     Approach (DSU)
 
     1. Initially, every city is its own connected component.
-    2. Union all existing roads. Every successful union merges two components,
-       reducing the total number of connected components.
+    2. Union all existing roads. Every successful union merges two components, reducing the total number of connected components.
     3. After processing all roads, each DSU root represents one connected component.
     4. Collect all component roots and connect consecutive roots with new roads.
-    5. If there are k connected components, exactly (k - 1) roads are required
-       to connect the entire graph, which is the minimum possible.
+    5. If there are k connected components, exactly (k - 1) roads are required to connect the entire graph, which is the minimum possible.
     */
 
     public List<int[]> buildRoads(int n, int m, int[][] roads)
@@ -72,7 +70,7 @@ public class BuildingRoads {
         List<Integer> componentRoot = new ArrayList<>();
 
         for(int i=1; i<=n; i++){
-            if(uf.find(i) == i){ //every root represents one connected component
+            if(i == uf.find(i)){ //every root represents one connected component
                 componentRoot.add(i);
             }
         }
