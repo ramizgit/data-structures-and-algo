@@ -30,6 +30,12 @@ Output:
 16
  */
 
+/*
+Hint:-
+DAG: DFS + memoization or topological-sort + DP [if its a DAG, then topo + DP, no need for scc]
+Graph with cycles: SCC → condensed DAG → DP [which is this current problem as it can have cycles]
+ */
+
 public class CoinCollector {
 
     //https://cses.fi/problemset/task/1686
@@ -68,7 +74,7 @@ public class CoinCollector {
 
         //kosaraju algorithm
 
-        // Step 1 : First pass DFS in finish order, populating stack with nodes in decreasing order of finishing time
+        // Step 1 : First pass post oder DFS in finish order, populating stack with nodes in decreasing order of finishing time
         Deque<Integer> stack = new ArrayDeque<>();
         boolean[] visited = new boolean[n];
 
@@ -96,8 +102,8 @@ public class CoinCollector {
         //Step 3 : Second pass DFS in stack order
         Arrays.fill(visited, false); //reset visited array
 
-        int[] sccCoins = new int[n];
-        int[] component = new int[n];
+        int[] sccCoin = new int[n];
+        int[] sccComponents = new int[n];
         int componentId = 0;
 
         while(!stack.isEmpty()){
@@ -105,7 +111,7 @@ public class CoinCollector {
             int node = stack.pop();
 
             if(!visited[node]){
-                dfsSecondPass(node, visited, revGraph, component, componentId, sccCoins, coins);
+                dfsSecondPass(node, visited, revGraph, sccComponents, componentId, sccCoin, coins);
                 componentId++;
             }
         }
@@ -124,8 +130,8 @@ public class CoinCollector {
             int u = edge[0];
             int v = edge[1];
 
-            int cu = component[u];
-            int cv = component[v];
+            int cu = sccComponents[u];
+            int cv = sccComponents[v];
 
             if (cu != cv) {
                 if(!dag.get(cu).contains(cv)){
@@ -141,7 +147,7 @@ public class CoinCollector {
         for (int i = 0; i < componentId; i++) {
             if(indegree[i] == 0){
                 bfsQueue.offer(i);
-                dp[i] = sccCoins[i];
+                dp[i] = sccCoin[i];
             }
         }
 
@@ -153,7 +159,7 @@ public class CoinCollector {
             for(int neighbour : dag.get(curr)){
 
                 dp[neighbour] = Math.max(dp[neighbour], //coins collected via existing best path
-                        dp[curr] + sccCoins[neighbour] //coins collected via the current SCC path
+                        dp[curr] + sccCoin[neighbour] //coins collected via the current SCC path
                 );
 
                 indegree[neighbour]--;
@@ -189,17 +195,17 @@ public class CoinCollector {
     }
 
     //preorder DFS
-    private void dfsSecondPass(int node, boolean[] visited, Map<Integer, List<Integer>> graph, int[] component, int componentId,
-                               int[] sccCoins, int[] coins)
+    private void dfsSecondPass(int node, boolean[] visited, Map<Integer, List<Integer>> graph, int[] sccComponent, int componentId,
+                               int[] sccCoin, int[] coins)
     {
         visited[node] = true; //mark visited
-        component[node] = componentId; //assign current scc id to each node in the scc
-        sccCoins[componentId] += coins[node]; //accumulate coins within current scc nodes
+        sccComponent[node] = componentId; //assign current scc id to each node in the scc
+        sccCoin[componentId] += coins[node]; //accumulate coins within current scc nodes
 
         //explore neighbours
         for(int neighbour : graph.get(node)){
             if(!visited[neighbour]){
-                dfsSecondPass(neighbour, visited, graph, component, componentId, sccCoins, coins);
+                dfsSecondPass(neighbour, visited, graph, sccComponent, componentId, sccCoin, coins);
             }
         }
     }

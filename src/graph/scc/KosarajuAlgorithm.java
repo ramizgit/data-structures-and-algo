@@ -31,7 +31,7 @@ public class KosarajuAlgorithm {
 
         //kosaraju algorithm
 
-        // Step 1 : First pass DFS in finish order, populating stack with nodes in decreasing order of finishing time
+        // Step 1 : First pass post order DFS in finish order, populating stack with nodes in decreasing order of finishing time
         Deque<Integer> stack = new ArrayDeque<>();
         boolean[] visited = new boolean[n];
 
