@@ -65,6 +65,7 @@ public class GameRoutes {
             }
         }
 
+        //note : starting point is fixed (node 1), hence dp[1] = 1, and all other 0 to start with
         int[] dp = new int[n+1]; // dp[u] = number of ways to reach node u from node 1, start with 0 for all
         dp[1] = 1; //starting node
 
