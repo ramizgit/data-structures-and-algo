@@ -25,26 +25,27 @@ public class TopKFrequentElements {
             frequencyMap.put(e, frequencyMap.getOrDefault(e, 0)+1);
         }
 
-        //create freq buckets
         int n = arr.length;
-        List<Integer>[] buckets = new ArrayList[n + 1];
+
+        //create freq buckets - an array of n + 1 buckets, where each bucket can hold a List<Integer>
+        List<Integer>[] frequencyBuckets = new ArrayList[n + 1]; //because frequency can range from 1 to n max
 
         for(int key : frequencyMap.keySet()){
             int freq = frequencyMap.get(key);
 
-            if(buckets[freq] == null){
-                buckets[freq] = new ArrayList<>();
+            if(frequencyBuckets[freq] == null){
+                frequencyBuckets[freq] = new ArrayList<>();
             }
 
-            buckets[freq].add(key);
+            frequencyBuckets[freq].add(key);
         }
 
         //now iterate buckets from end and collect result
         int[] result = new int[k];
         int idx = 0;
         for(int i=n; i>=0; i--){
-            if(buckets[i] != null){
-                for(int val : buckets[i]){
+            if(frequencyBuckets[i] != null){
+                for(int val : frequencyBuckets[i]){
                     result[idx++] = val;
 
                     //exit condition
