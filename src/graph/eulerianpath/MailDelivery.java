@@ -51,7 +51,7 @@ public class MailDelivery {
             graph.put(i, new ArrayList<>());
         }
 
-        int id = 0;
+        int id = 0; //give every edge a unique id for visited tracking, as each edge must be used exactly once
 
         //populate edges
         for(int[] route : routes){
@@ -65,13 +65,19 @@ public class MailDelivery {
             id++;
         }
 
-        //euler circuit check - confirm all degrees are even
+        //euler circuit check - confirm all degrees are even, no odd degree
         for (int i = 1; i <= n; i++) {
             if (graph.get(i).size() % 2 != 0) {
                 return Collections.emptyList(); // IMPOSSIBLE
             }
         }
 
+
+        /*
+        //since this is undirected graph, we need to use edgeUsed visited tracking, as we cant simply remove edge while dfs (which we do for directed graph)
+        //Undirected: use edgeId + edgeUsed[] because each physical edge has 2 adjacency entries.
+        //Directed Eulerian graphs can conveniently remove each edge during DFS.
+         */
         boolean[] edgeUsed = new boolean[routes.length];
         List<Integer> path = new ArrayList<>();
 
@@ -92,8 +98,8 @@ public class MailDelivery {
     {
         //explore neighbour
         for(Edge neighbour : graph.get(node)){
-            if(!edgeUsed[neighbour.id]){
-                edgeUsed[neighbour.id] = true;
+            if(!edgeUsed[neighbour.edgeId]){
+                edgeUsed[neighbour.edgeId] = true;
                 dfs(neighbour.node, graph, edgeUsed, path);
             }
         }
@@ -103,11 +109,11 @@ public class MailDelivery {
 
     static class Edge{
         int node;
-        int id;
+        int edgeId;
 
-        public Edge(int node, int id) {
+        public Edge(int node, int edgeId) {
             this.node = node;
-            this.id = id;
+            this.edgeId = edgeId;
         }
     }
 }
