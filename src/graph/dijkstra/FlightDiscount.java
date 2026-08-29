@@ -58,9 +58,8 @@ public class FlightDiscount {
         PriorityQueue<State> minHeap = new PriorityQueue<>( (a, b) -> Integer.compare(a.price, b.price) ); //always process flight with cheapest price first
         minHeap.offer(new State(1, 1, 0)); //starting city with one discount left and 0 price
 
-        // price[node][discountLeft]
-        // discountLeft = 1 -> coupon still available
-        // discountLeft = 0 -> coupon already used
+        //price[node][1] = cheapest cost to reach node with coupon still available
+        //price[node][0] = cheapest cost to reach node after coupon is used
         int[][] price = new int[n+1][2];
         for(int i=1; i<=n; i++){
             Arrays.fill(price[i], Integer.MAX_VALUE); //start with high cost, to be relaxed later
