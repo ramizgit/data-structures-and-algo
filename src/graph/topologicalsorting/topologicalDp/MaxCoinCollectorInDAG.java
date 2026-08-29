@@ -42,7 +42,7 @@ public class MaxCoinCollectorInDAG {
         }
 
         Queue<Integer> topoQueue = new ArrayDeque<>();
-        int[] dp = new int[n]; //dp[i] = max coin collected while visiting ith node
+        int[] dp = new int[n]; //dp[i] = maximum coin sum of any path ending at node i
 
         for(int i=0; i<n; i++){
             if(indegree[i] == 0){
@@ -58,6 +58,7 @@ public class MaxCoinCollectorInDAG {
             //explore neighbours
             for(int neighbour : graph.get(curr)){
 
+                //propagate the maximum coin sum to the neighbour
                 dp[neighbour] = Math.max(
                         dp[neighbour], //best path found so far
                         dp[curr] + coins[neighbour] //best path through curr + neighbour's coins
