@@ -31,6 +31,7 @@ public class MinimumCostToReachCityWithDiscounts {
         pq.offer(new State(0, discounts, 0));
 
         //distance array : dist[node][discountsLeft]
+        //dist[i][d] = minimum cost to reach ith node with d discounts remaining
         //important note : in Dijkstra/BFS, the PQ/BFS state and dist/visited state must represent the SAME state space.
         int[][] dist = new int[n][discounts+1];
         for(int i = 0; i < n; i++){
