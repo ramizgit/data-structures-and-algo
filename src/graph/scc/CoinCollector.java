@@ -44,6 +44,16 @@ public class CoinCollector {
 
     //todo : practice
 
+    /*
+    Graph with cycles
+     ↓
+    SCC
+     ↓
+    Condensed DAG
+     ↓
+    Topo + DP
+     */
+
     public int collectMaxCoin(int n, int[][] edges, int[] coins)
     {
         /*
@@ -158,6 +168,7 @@ public class CoinCollector {
             //explore neighbours
             for(int neighbour : dag.get(curr)){
 
+                //propagate coins from node to its neighbour
                 dp[neighbour] = Math.max(dp[neighbour], //coins collected via existing best path
                         dp[curr] + sccCoin[neighbour] //coins collected via the current SCC path
                 );
