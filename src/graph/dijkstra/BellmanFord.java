@@ -36,6 +36,7 @@ public class BellmanFord {
         dist[source] = 0; //initially only the source is reachable
 
         // Relax all edges V-1 times
+        //V-1 passes because a shortest simple path can have at most V-1 edges; each pass propagates shortest paths one more edge
         for (int i = 1; i <= n - 1; i++) {
 
             for (int[] edge : edges) {
@@ -62,7 +63,7 @@ public class BellmanFord {
             }
         }
 
-        // Detect negative weight cycle
+        //one extra pass to detect negative weight cycle
         /*
         Normally, after V-1 passes, every shortest path should already be found.
         So Bellman-Ford performs one extra pass. If any edge can still be relaxed, if(dist[u] + w < dist[v]) then a negative cycle is reachable.
