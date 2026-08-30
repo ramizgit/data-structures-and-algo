@@ -44,18 +44,10 @@ public class CoinCollector {
 
     //todo : practice
 
-    /*
-    Graph with cycles
-     ↓
-    SCC
-     ↓
-    Condensed DAG
-     ↓
-    Topo + DP
-     */
-
     public int collectMaxCoin(int n, int[][] edges, int[] coins)
     {
+        //Cycles → SCC compression → DAG → Topo DP
+
         /*
         Original Graph
           ↓
