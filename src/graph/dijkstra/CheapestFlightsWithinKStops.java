@@ -35,10 +35,12 @@ public class CheapestFlightsWithinKStops {
         //modified Dijkstra: state = (node, stops), using 2D dist to handle stop constraint, since cost depends on stops used
         //important note : in Dijkstra/BFS, the PQ/BFS state and dist/visited state must represent the SAME state space.
         //cost array - dist[i][k] = min cost to reach node i with k stops
-        int[][] dist = new int[n][k + 2];
+        int[][] dist = new int[n][k + 2]; //why k+2? : k stops → at most k+1 edges; indices 0..k+1 require k+2 slots
+
         for(int i = 0; i < n; i++){
             Arrays.fill(dist[i], Integer.MAX_VALUE); //initially put max possible value, to be relaxed later
         }
+
         dist[src][0] = 0; //starting point
 
         while(!minheap.isEmpty()){
