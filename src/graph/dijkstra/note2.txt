@@ -1,0 +1,15 @@
+                    Graph
+                      |
+              Any negative edge?
+                 /          \
+               NO            YES
+               ↓              ↓
+          Dijkstra ✅    Can have negative cycle
+                              |
+                       ----------------
+                       |              |
+                      NO             YES
+                       ↓              ↓
+                Bellman-Ford ✅   Negative cycle
+                                  → shortest path
+                                    undefined
