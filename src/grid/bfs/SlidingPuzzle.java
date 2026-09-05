@@ -50,7 +50,7 @@ public class SlidingPuzzle {
         int zeroRow = zeroIdx / n;
         int zeroCol = zeroIdx % n;
 
-        int[][] directions = { {1, 0}, {-1, 0}, {0, 1}, {0, -1} };
+        int[][] directions = { {1, 0}, {-1, 0}, {0, 1}, {0, -1} }; //all four adjacent directions
 
         for(int[] dir : directions){
 
