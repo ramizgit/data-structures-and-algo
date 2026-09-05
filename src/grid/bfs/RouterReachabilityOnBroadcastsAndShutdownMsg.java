@@ -81,7 +81,6 @@ public class RouterReachabilityOnBroadcastsAndShutdownMsg {
                 continue;
             }
 
-
             String id = entry[0];
             int x = Integer.parseInt(entry[1]);
             int y = Integer.parseInt(entry[2]);
@@ -110,10 +109,8 @@ public class RouterReachabilityOnBroadcastsAndShutdownMsg {
         Queue<Router> bfsQueue = new ArrayDeque<>();
         bfsQueue.offer(sourceRouter); //starting point
 
-        Set<String> visitedRouters = new HashSet<>();
-        visitedRouters.add(source); //starting point
-
-        int[][] directions = { {0, 0}, {0, 1}, {0, -1}, {1, 0}, {-1, 0}, {1, 1}, {-1, -1}, {1, -1}, {-1, 1} };
+        Set<String> visited = new HashSet<>();
+        visited.add(sourceRouter.id); //starting point
 
         while(!bfsQueue.isEmpty()){
 
@@ -125,38 +122,54 @@ public class RouterReachabilityOnBroadcastsAndShutdownMsg {
             }
 
             //explore neighbours
-
-            //get current block
-            int currCellX = Math.floorDiv(curr.x, range); // = curr.x / range
-            int currCellY = Math.floorDiv(curr.y, range); // = curr.y / range
-
-            for(int[] dir : directions){
-                int newCellX = currCellX + dir[0];
-                int newCellY = currCellY + dir[1];
-
-                Cell neighbourCell = new Cell(newCellX, newCellY);
-
-                for(Router neighbour : buckets.getOrDefault(neighbourCell, Collections.emptyList())){
-
-                    if(visitedRouters.contains(neighbour.id)){
-                       continue;
-                    }
-
-                    // verify if negihour falls within the given range, via euclidean distance (pythagorean formula)
-                    long dx = (long) curr.x - neighbour.x;
-                    long dy = (long) curr.y - neighbour.y;
-
-                    long distSquared = dx * dx + dy * dy;
-
-                    if(distSquared <= (long) range * range){
-                        visitedRouters.add(neighbour.id);
-                        bfsQueue.offer(neighbour);
-                    }
+            // Explore neighbours
+            for (Router neighbour : getNeighbours(curr, buckets, range)) {
+                if (!visited.contains(neighbour.id)) {
+                    visited.add(neighbour.id);
+                    bfsQueue.offer(neighbour);
                 }
             }
         }
 
         return false;
+    }
+
+    private List<Router> getNeighbours(Router curr, Map<Cell, List<Router>> buckets, int range)
+    {
+        List<Router> neighbours = new ArrayList<>();
+
+        //get current router's bucket
+        int currCellX = Math.floorDiv(curr.x, range); // = curr.x / range
+        int currCellY = Math.floorDiv(curr.y, range); // = curr.y / range
+
+        int[][] directions = { {0, 0}, {0, 1}, {0, -1}, {1, 0}, {-1, 0}, {1, 1}, {-1, -1}, {1, -1}, {-1, 1} }; //why {0, 0}? : Because another router can be in the same bucket as the current router.
+
+        for(int[] dir : directions){
+            int newCellX = currCellX + dir[0];
+            int newCellY = currCellY + dir[1];
+
+            Cell neighbourCell = new Cell(newCellX, newCellY);
+
+            for(Router candidate : buckets.getOrDefault(neighbourCell, Collections.emptyList())){
+
+                // Don't consider itself
+                if (candidate.id.equals(curr.id)) {
+                    continue;
+                }
+
+                //verify if candidate falls within the given range, via euclidean distance (pythagorean formula)
+                long dx = (long) curr.x - candidate.x;
+                long dy = (long) curr.y - candidate.y;
+
+                long distSquared = dx * dx + dy * dy;
+
+                if(distSquared <= (long) range * range){
+                    neighbours.add(candidate);
+                }
+            }
+        }
+
+        return neighbours;
     }
 
     class Router{

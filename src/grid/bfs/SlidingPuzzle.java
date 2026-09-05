@@ -43,6 +43,16 @@ public class SlidingPuzzle {
 
     private List<String> getNeighbours(String boardStr, int m, int n)
     {
+        /*
+        Find 0
+        ↓
+        Find cells adjacent to 0
+          ↓
+        Swap 0 with each
+          ↓
+        Each swap creates a NEW BOARD STATE
+         */
+
         List<String> neighbours = new ArrayList<>();
 
         int zeroIdx = boardStr.indexOf('0');
