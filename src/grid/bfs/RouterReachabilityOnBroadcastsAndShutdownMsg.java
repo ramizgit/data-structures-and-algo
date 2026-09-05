@@ -206,3 +206,86 @@ public class RouterReachabilityOnBroadcastsAndShutdownMsg {
         }
     }
 }
+
+/*
+IMPORTANT : had this be a smaller graph (N <= 1000), we can build full graph and then bfs
+
+public boolean canReachDestination(
+        List<String> routers,
+        int range,
+        String source,
+        String destination) {
+
+    Map<String, List<Router>> graph = new HashMap<>();
+    Map<String, Router> routerMap = new HashMap<>();
+
+    // Create Router objects for working routers
+    for (String router : routers) {
+        String[] entry = router.split(",");
+
+        String id = entry[0];
+        int x = Integer.parseInt(entry[1]);
+        int y = Integer.parseInt(entry[2]);
+        String status = entry[3];
+
+        if ("DEFECTIVE".equals(status)) {
+            continue;
+        }
+
+        Router routerObj = new Router(id, x, y);
+
+        routerMap.put(id, routerObj);
+        graph.put(id, new ArrayList<>());
+    }
+
+    // Build all edges
+    List<Router> workingRouters = new ArrayList<>(routerMap.values());
+
+    for (int i = 0; i < workingRouters.size(); i++) {
+        for (int j = i + 1; j < workingRouters.size(); j++) {
+
+            Router a = workingRouters.get(i);
+            Router b = workingRouters.get(j);
+
+            long dx = (long) a.x - b.x;
+            long dy = (long) a.y - b.y;
+
+            long distanceSquared = dx * dx + dy * dy;
+
+            if (distanceSquared <= (long) range * range) {
+                // Undirected connection
+                graph.get(a.id).add(b);
+                graph.get(b.id).add(a);
+            }
+        }
+    }
+
+    // Source/destination must be working
+    if (!graph.containsKey(source) || !graph.containsKey(destination)) {
+        return false;
+    }
+
+    // Normal BFS
+    Queue<Router> queue = new ArrayDeque<>();
+    Set<String> visited = new HashSet<>();
+
+    queue.offer(routerMap.get(source));
+    visited.add(source);
+
+    while (!queue.isEmpty()) {
+        Router curr = queue.poll();
+
+        if (curr.id.equals(destination)) {
+            return true;
+        }
+
+        for (Router neighbour : graph.get(curr.id)) {
+            if (visited.add(neighbour.id)) {
+                queue.offer(neighbour);
+            }
+        }
+    }
+
+    return false;
+}
+ */
