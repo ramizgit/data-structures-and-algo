@@ -30,31 +30,31 @@ public class CheapestFlightsWithinKStops {
 
         //dijkstra algo
         PriorityQueue<State> minheap = new PriorityQueue<>( (a,b) -> a.price - b.price ); //always process flight with min price first
-        minheap.offer(new State(src, 0, 0)); //starting point
+        minheap.offer(new State(src, 1, 0)); //starting point
 
-        //modified Dijkstra: state = (node, stops), using 2D dist to handle stop constraint, since cost depends on stops used
-        //important note : in Dijkstra/BFS, the PQ/BFS state and dist/visited state must represent the SAME state space.
-        //cost array - dist[i][k] = min cost to reach node i with k stops
-        int[][] dist = new int[n][k + 2]; //why k+2? : k stops → at most k+1 edges; indices 0..k+1 require k+2 slots
+        /*
+        Modified Dijkstra:
+        state = (node, nodesUsed)
+        nodesUsed includes src and current node.
+        k stops → at most k + 2 nodes:
+        src + k intermediate nodes + dst
+        Therefore indices 1..k+2 require k+3 slots.
+        */
+        int[][] dist = new int[n][k + 3];
 
         for(int i = 0; i < n; i++){
             Arrays.fill(dist[i], Integer.MAX_VALUE); //initially put max possible value, to be relaxed later
         }
 
-        dist[src][0] = 0; //starting point
+        dist[src][1] = 0; //starting point
 
         while(!minheap.isEmpty()){
 
             State curr = minheap.poll();
 
             //check stale/outdated records
-            if (curr.price > dist[curr.node][curr.stops]) {
+            if (curr.price > dist[curr.node][curr.nodesUsed]) {
                 continue;
-            }
-
-            //don't proceed if exceeds allowed stops
-            if(curr.stops > k) {
-                continue; //skip if exceeds allowed stops
             }
 
             //early exit
@@ -62,15 +62,21 @@ public class CheapestFlightsWithinKStops {
                 return curr.price;
             }
 
+            //don't proceed if path already uses the maximum allowed nodes
+            if(curr.nodesUsed >= k+2) {
+                continue;
+            }
+
             //explore neighbours
             for(Edges neighbour : graph.get(curr.node)){
 
                 int newCost = curr.price + neighbour.price;
-                int newStops = curr.stops + 1;
+                int newNodesUsed = curr.nodesUsed + 1;
 
-                if(newCost < dist[neighbour.dst][newStops]){ //have I already reached this node with same stops but cheaper cost?
-                    dist[neighbour.dst][newStops] = newCost; //relaxation
-                    minheap.offer(new State(neighbour.dst, newStops, newCost));//enqueue
+                //relaxation
+                if(newCost < dist[neighbour.dst][newNodesUsed]){
+                    dist[neighbour.dst][newNodesUsed] = newCost; //relaxation
+                    minheap.offer(new State(neighbour.dst, newNodesUsed, newCost));//enqueue
                 }
             }
         }
@@ -79,8 +85,8 @@ public class CheapestFlightsWithinKStops {
         if not early exit, then we need to iterate price for all stops (0 to k+1) for dest node and pick min price
 
         int ans = Integer.MAX_VALUE;
-        for (int s = 0; s <= k + 1; s++) {
-            ans = Math.min(ans, dist[dst][s]);
+        for (int nodes = 1; nodes <= k + 2; nodes++) {
+           ans = Math.min(ans, dist[dst][nodes]);
         }
         return ans == Integer.MAX_VALUE ? -1 : ans;
          */
@@ -100,12 +106,12 @@ public class CheapestFlightsWithinKStops {
 
     class State{
         int node;
-        int stops;
+        int nodesUsed;
         int price;
 
-        public State(int node, int stops, int price) {
+        public State(int node, int nodesUsed, int price) {
             this.node = node;
-            this.stops = stops;
+            this.nodesUsed = nodesUsed;
             this.price = price;
         }
     }
