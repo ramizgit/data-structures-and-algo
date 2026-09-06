@@ -4,6 +4,24 @@ import java.util.*;
 
 public class NotificationDeduplicator {
 
+    /*
+    Approach:
+    Use a Map<userId, Map<notificationType, lastTimestamp>> to quickly find when
+    a user last received a particular notification type.
+
+    Use a Queue<Event> to store sent events in timestamp order. Before processing
+    each request, remove events that are outside the deduplication window.
+
+    If the notification was never sent or the last sent time is at least 'window'
+    seconds ago, send it and add the event to the queue. Otherwise, suppress it.
+
+    The timestamp check while expiring prevents an old queued event from removing
+    a newer timestamp for the same user + notification type.
+
+    Time: O(1) amortized per shouldSend()
+    Space: O(number of active sent notifications)
+    */
+
     private Map<String, Map<String, Long>> userNotifications;
     private Queue<Event> eventsQueue;
     private long window;
