@@ -6,31 +6,29 @@ public class ParkingSpot {
 
     private int spotId;
     private Type spotType;
-    private boolean isOccupied;
+    //private boolean isOccupied;
     private Vehicle vehicle;
 
     public ParkingSpot(int spotId, Type spotType) {
         this.spotId = spotId;
         this.spotType = spotType;
-        this.isOccupied = false;
         this.vehicle = null;
     }
 
     public ParkingSpot(int spotId, Type spotType, boolean isOccupied, Vehicle vehicle) {
         this.spotId = spotId;
         this.spotType = spotType;
-        this.isOccupied = isOccupied;
         this.vehicle = vehicle;
     }
 
     public void parkVehicle(Vehicle vehicle) {
         this.vehicle = vehicle;
-        this.isOccupied = true;
+        //this.isOccupied = true;
     }
 
     public void unParkVehicle() {
         this.vehicle = null;
-        this.isOccupied = false;
+        //this.isOccupied = false;
     }
 
     public int getSpotId() {
@@ -42,7 +40,7 @@ public class ParkingSpot {
     }
 
     public boolean isOccupied() {
-        return isOccupied;
+        return this.vehicle != null;
     }
 
     public Vehicle getVehicle() {
