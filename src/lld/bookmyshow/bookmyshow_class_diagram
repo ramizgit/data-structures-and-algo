@@ -60,7 +60,8 @@
                                    | - bookingId          |
                                    | - user               |
                                    | - show               |
-                                   | - bookedSeats        |
+                                   | - seats
+                                   | - bookingStatus
                                    +----------------------+
                                              ^
                                              |
