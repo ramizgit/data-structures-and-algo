@@ -11,7 +11,7 @@ public class Show {
     Screen screen;
     LocalDateTime startTime;
     private LocalDateTime endTime;
-    private Map<String, ShowSeat> seatsByNumber;
+    private Map<String, ShowSeat> seatsByNumber; //e.g. "A1" → ShowSeat(A1, AVAILABLE, ₹300); enables fast lookup by seat number when booking
 
     public Show(int id, Movie movie, Theatre theatre, Screen screen, LocalDateTime startTime, LocalDateTime endTime, Map<String, ShowSeat> seatsByNumber) {
         this.id = id;
