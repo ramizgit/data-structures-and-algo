@@ -7,9 +7,21 @@ public class Show {
 
     int id;
     Movie movie;
+    private Theatre theatre;
     Screen screen;
     LocalDateTime startTime;
+    private LocalDateTime endTime;
     private Map<String, ShowSeat> seatsByNumber;
+
+    public Show(int id, Movie movie, Theatre theatre, Screen screen, LocalDateTime startTime, LocalDateTime endTime, Map<String, ShowSeat> seatsByNumber) {
+        this.id = id;
+        this.movie = movie;
+        this.theatre = theatre;
+        this.screen = screen;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.seatsByNumber = seatsByNumber;
+    }
 
     public Show(int id, Movie movie, Screen screen, LocalDateTime startTime, Map<String, ShowSeat> seatsByNumber) {
         this.id = id;
