@@ -28,7 +28,7 @@ public class ShowSeat {
     private Seat seat;
     private SeatStatus status;
     private LocalDateTime lockedUntil;
-    private double price;
+    private double price; //price per seat is not static it can change based on which movie show, hence price here
 
     public ShowSeat(Seat seat, SeatStatus status, double price) {
         this.seat = seat;

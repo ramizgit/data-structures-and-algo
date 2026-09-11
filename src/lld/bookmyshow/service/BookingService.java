@@ -66,7 +66,7 @@ public class BookingService {
         List<ShowSeat> selectedSeats = new ArrayList<>();
 
         for (String seatNumber : seatNumbers) {
-            ShowSeat seat = show.getSeatsByNumber().get(seatNumber);
+            ShowSeat seat = show.getShowSeats().get(seatNumber);
 
             if (seat == null) {
                 throw new IllegalArgumentException("Invalid seat number");

@@ -9,6 +9,7 @@ import lld.bookmyshow.service.BookingService;
 import lld.bookmyshow.service.PaymentService;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,10 +33,10 @@ public class MovieBookingApplication {
         Theatre theatre = new Theatre(1, "PVR", "Bangalore", "Whitefield", List.of(screen));
 
         //Create ShowSeats
-        Map<String, ShowSeat> showSeats = new HashMap<>(); //{seat number : showseat}
-        showSeats.put("A1", new ShowSeat(a1, SeatStatus.AVAILABLE, 250));
-        showSeats.put("A2", new ShowSeat(a2, SeatStatus.AVAILABLE, 250));
-        showSeats.put("B1", new ShowSeat(b1, SeatStatus.AVAILABLE, 500));
+        List<ShowSeat> showSeats = new ArrayList<>(); //{seat number : showseat}
+        showSeats.add(new ShowSeat(a1, SeatStatus.AVAILABLE, 250));
+        showSeats.add(new ShowSeat(a2, SeatStatus.AVAILABLE, 250));
+        showSeats.add(new ShowSeat(b1, SeatStatus.AVAILABLE, 500));
 
         //create show
         Show show = new Show(1, movie, screen, LocalDateTime.now(), showSeats);

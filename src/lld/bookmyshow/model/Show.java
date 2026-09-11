@@ -1,7 +1,7 @@
 package lld.bookmyshow.model;
 
 import java.time.LocalDateTime;
-import java.util.Map;
+import java.util.List;
 
 public class Show {
 
@@ -11,24 +11,24 @@ public class Show {
     Screen screen;
     LocalDateTime startTime;
     private LocalDateTime endTime;
-    private Map<String, ShowSeat> seatsByNumber; //e.g. "A1" → ShowSeat(A1, AVAILABLE, ₹300); enables fast lookup by seat number when booking
+    private List<ShowSeat> showSeats; //e.g. "A1" → ShowSeat(A1, AVAILABLE, ₹300); enables fast lookup by seat number when booking
 
-    public Show(int id, Movie movie, Theatre theatre, Screen screen, LocalDateTime startTime, LocalDateTime endTime, Map<String, ShowSeat> seatsByNumber) {
+    public Show(int id, Movie movie, Theatre theatre, Screen screen, LocalDateTime startTime, LocalDateTime endTime, List<ShowSeat> showSeats) {
         this.id = id;
         this.movie = movie;
         this.theatre = theatre;
         this.screen = screen;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.seatsByNumber = seatsByNumber;
+        this.showSeats = showSeats;
     }
 
-    public Show(int id, Movie movie, Screen screen, LocalDateTime startTime, Map<String, ShowSeat> seatsByNumber) {
+    public Show(int id, Movie movie, Screen screen, LocalDateTime startTime, List<ShowSeat> showSeats) {
         this.id = id;
         this.movie = movie;
         this.screen = screen;
         this.startTime = startTime;
-        this.seatsByNumber = seatsByNumber;
+        this.showSeats = showSeats;
     }
 
     public int getId() {
@@ -63,11 +63,11 @@ public class Show {
         this.startTime = startTime;
     }
 
-    public Map<String, ShowSeat> getSeatsByNumber() {
-        return seatsByNumber;
+    public List<ShowSeat> getShowSeats() {
+        return showSeats;
     }
 
-    public void setSeatsByNumber(Map<String, ShowSeat> seatsByNumber) {
-        this.seatsByNumber = seatsByNumber;
+    public void setShowSeats(List<ShowSeat> showSeats) {
+        this.showSeats = showSeats;
     }
 }
