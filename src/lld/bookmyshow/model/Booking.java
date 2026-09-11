@@ -1,5 +1,7 @@
 package lld.bookmyshow.model;
 
+import lld.bookmyshow.enums.BookingStatus;
+
 import java.util.List;
 
 public class Booking {
@@ -8,7 +10,21 @@ public class Booking {
     User user;
     Show show;
     private List<ShowSeat> seats;
-    int bookingStatus; //?
+    private BookingStatus bookingStatus; //?
+
+    /*
+    If payment succeeds:
+
+    Booking
+    Seats: A1, A2, A3
+    Status: CONFIRMED
+
+    If the booking is cancelled:
+
+    Booking
+    Seats: A1, A2, A3
+    Status: CANCELLED
+     */
 
     public Booking(int id, User user, Show show, List<ShowSeat> seats) {
         this.id = id;
@@ -31,29 +47,5 @@ public class Booking {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public int getBookingStatus() {
-        return bookingStatus;
-    }
-
-    public void setBookingStatus(int bookingStatus) {
-        this.bookingStatus = bookingStatus;
-    }
-
-    public Show getShow() {
-        return show;
-    }
-
-    public void setShow(Show show) {
-        this.show = show;
-    }
-
-    public List<ShowSeat> getSeats() {
-        return seats;
-    }
-
-    public void setSeats(List<ShowSeat> seats) {
-        this.seats = seats;
     }
 }
