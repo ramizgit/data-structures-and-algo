@@ -54,7 +54,7 @@ NEXT()       → -1
 Goal: Design the data structures and implement all four operations efficiently.
  */
 
-public class TaskSchedulerWithDependency {
+public class TaskSchedulerWithDependencyDynamicTopo {
 
     //todo : practice
 
@@ -65,7 +65,7 @@ public class TaskSchedulerWithDependency {
     // Eligible tasks: shortest duration first, then smallest taskId
     private PriorityQueue<Task> eligibleTasks;
 
-    public TaskSchedulerWithDependency() {
+    public TaskSchedulerWithDependencyDynamicTopo() {
         tasks = new HashMap<>();
         graph = new HashMap<>();
         indegree = new HashMap<>();
