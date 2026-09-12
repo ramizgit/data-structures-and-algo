@@ -1,4 +1,4 @@
-package consistenthashing.lineSweep;
+package lineSweep;
 
 import java.util.TreeMap;
 
@@ -52,13 +52,12 @@ public class MyCalendarii {
 
                 //rollback logic
                 events.put(startTime, events.get(startTime) - START_DELTA); //rollback start
+                events.put(endTime, events.get(endTime) - END_DELTA); //rollback end
 
+                //remove from map if needed
                 if (events.get(startTime) == 0) {
                     events.remove(startTime);
                 }
-
-                events.put(endTime, events.get(endTime) - END_DELTA); //rollback end
-
                 if (events.get(endTime) == 0) {
                     events.remove(endTime);
                 }
