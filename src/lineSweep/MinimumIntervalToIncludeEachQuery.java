@@ -41,7 +41,7 @@ public class MinimumIntervalToIncludeEachQuery {
         intervalList.sort( (a, b) -> Integer.compare(a.start, b.start) );
 
         //store queries along with index, so that we dont lose ordering while sorting
-        List<int[]> queriesWithIdx = new ArrayList<>();
+        List<int[]> queriesWithIdx = new ArrayList<>(); //list of [query, originalIdx]
         for(int i=0; i<queries.length; i++){
             queriesWithIdx.add(new int[]{queries[i], i});
         }
@@ -50,7 +50,7 @@ public class MinimumIntervalToIncludeEachQuery {
         queriesWithIdx.sort( (a, b) -> Integer.compare(a[0], b[0]));
 
         // Sweep queries from left to right while maintaining all active intervals in a min-heap ordered by interval length.
-        PriorityQueue<Interval> minHeap = new PriorityQueue<>( (a, b) -> Integer.compare(a.size, b.size));
+        PriorityQueue<Interval> eligibleIntervalsMinHeapBySize = new PriorityQueue<>( (a, b) -> Integer.compare(a.size, b.size));
 
         int[] result = new int[queries.length];
         int intervalIndex = 0;
@@ -62,13 +62,13 @@ public class MinimumIntervalToIncludeEachQuery {
 
             //add all intervals whose start <= query
             while(intervalIndex < intervalList.size() && intervalList.get(intervalIndex).start <= queryValue){
-                minHeap.offer(intervalList.get(intervalIndex));
+                eligibleIntervalsMinHeapBySize.offer(intervalList.get(intervalIndex));
                 intervalIndex++;
             }
 
-            //remove all expired intervals whose end < query
-            while(!minHeap.isEmpty() && minHeap.peek().end < queryValue){
-                minHeap.poll();
+            //remove expired intervals from heap top whose end < query, this ensures the heap top is not expired
+            while(!eligibleIntervalsMinHeapBySize.isEmpty() && eligibleIntervalsMinHeapBySize.peek().end < queryValue){
+                eligibleIntervalsMinHeapBySize.poll();
             }
 
             /*
@@ -79,9 +79,9 @@ public class MinimumIntervalToIncludeEachQuery {
              */
 
             //heap top is the smallest interval that contains the current query.
-            if(!minHeap.isEmpty()){
+            if(!eligibleIntervalsMinHeapBySize.isEmpty()){
                 //Heap top is the smallest valid interval
-                Interval minSizeInterval = minHeap.peek(); //do not remove heap top here, as same interval can be answer for other queries
+                Interval minSizeInterval = eligibleIntervalsMinHeapBySize.peek(); //do not remove heap top here, as same interval can be answer for other queries
                 result[queryIndex] = minSizeInterval.size;
             }else{
                 result[queryIndex] = -1;
