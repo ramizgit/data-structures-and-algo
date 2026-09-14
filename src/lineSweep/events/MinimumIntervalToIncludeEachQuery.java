@@ -1,4 +1,4 @@
-package lineSweep;
+package lineSweep.events;
 
 import java.util.*;
 
