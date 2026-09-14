@@ -93,6 +93,7 @@ public class DaysWhenEveryoneIsFree {
         /*
         Approach:
         Group intervals by person and merge overlapping/adjacent intervals so each person is counted only once for any blocked day.
+        Merge interval is needed as each person may have overlapping intervals
 
         Use a difference array to mark each merged blocked interval with +1 at start and -1 at end + 1. Prefix sum gives the number of blocked people
         each day.

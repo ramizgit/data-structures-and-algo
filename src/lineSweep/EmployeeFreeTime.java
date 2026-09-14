@@ -58,6 +58,7 @@ public class EmployeeFreeTime {
 
         int prevTime = -1;
 
+        //sweep
         for(Map.Entry<Integer, Integer> event : events.entrySet()){
 
             int currTime = event.getKey();

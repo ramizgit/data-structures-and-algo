@@ -1,4 +1,4 @@
-package consistenthashing.lineSweep;
+package lineSweep.diffMap;
 
 import java.util.*;
 
@@ -48,10 +48,7 @@ public class DescribeThePaintingViaTreeMap {
 
             // The previous color sum was valid in [prevX, currX)
             if (prevIdx != -1 && currSum != 0) {
-                result.add(Arrays.asList(
-                        (long) prevIdx,
-                        (long) currIdx,
-                        currSum));
+                result.add(Arrays.asList((long) prevIdx, (long) currIdx, currSum));
             }
 
             // Apply the color change at the current coordinate.

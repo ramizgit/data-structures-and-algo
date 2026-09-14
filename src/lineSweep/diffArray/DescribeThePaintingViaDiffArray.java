@@ -1,4 +1,4 @@
-package consistenthashing.lineSweep;
+package lineSweep.diffArray;
 
 import java.util.*;
 
@@ -45,16 +45,11 @@ public class DescribeThePaintingViaDiffArray {
 
             if(currSum != prevSum){
 
-                if (prevSum != 0) {
-                    List<Long> list = new ArrayList<>();
-                    list.add((long) prevIdx);
-                    list.add((long) i);
-                    list.add(prevSum);
-                    result.add(list);
-
-                    prevIdx = i;
+                if (prevSum != 0) { //prevSum == 0 means there is no painting in that interval, so we don't want to add it to the result.
+                    result.add(Arrays.asList((long) prevIdx, (long) i, prevSum));
                 }
 
+                prevIdx = i;
             }
 
             prevSum = currSum;
