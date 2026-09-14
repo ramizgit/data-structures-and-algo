@@ -1,4 +1,4 @@
-package lineSweep;
+package lineSweep.diffMap;
 
 /*
 Total Passenger Threshold Intervals
@@ -89,9 +89,10 @@ import java.util.*;
 
 public class FindBusyIntervals {
 
-    //todo : practice
+    //hint : similar to EmployeeFreeTime
 
     List<int[]> findBusyIntervals(int[][] flights, long P) {
+
         //create list of events
         TreeMap<Integer, Integer> events = new TreeMap<>(); //diff. map of {time -> passenger count}
 
@@ -119,6 +120,7 @@ public class FindBusyIntervals {
              */
 
             int currTime = entry.getKey();
+            int delta = entry.getValue();
 
             //remember we are evaluating the interval [prevTime, currTime)
 
@@ -128,6 +130,12 @@ public class FindBusyIntervals {
                 // Merge with previous interval if adjacent
                 if (!result.isEmpty() && result.getLast()[1] == prevTime) {
                     //does this new interval start where the previous one ended?
+                    /*
+                    e.g.,
+                    [5,6] free
+                    [6,9] free
+                    should become [5,9]
+                     */
                     result.getLast()[1] = currTime; //extend last result end time
                 } else {
                     result.add(new int[]{prevTime, currTime});
@@ -135,9 +143,9 @@ public class FindBusyIntervals {
             }
 
             //apply all passenger changes at currTime
-            activePassengers += entry.getValue(); //important : this active count is valid from curr time till nex interval time
+            activePassengers += delta; //important : this active count is valid from curr time till nex interval time
 
-            prevTime = currTime;
+            prevTime = currTime; //move boundary
         }
 
         return result;
