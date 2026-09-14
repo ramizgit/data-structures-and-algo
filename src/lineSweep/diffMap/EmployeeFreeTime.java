@@ -1,4 +1,4 @@
-package lineSweep;
+package lineSweep.diffMap;
 
 import java.util.*;
 
@@ -64,19 +64,33 @@ public class EmployeeFreeTime {
             int currTime = event.getKey();
             int delta = event.getValue();
 
-            //current interval is [prevTime, currTime]
+            /*
+            Since the end of an interval is not inclusive, the if checks the interval
+            before the current event, hence we apply the current event after checking prev interval
+            */
+
+            //current interval is [prevTime, currTime)
+            //currentActive = number of employees working during [prevTime, currTime)
+            // 1. Check the interval before currTime
             if(prevTime != -1 && currentActive == 0){
                 //merge if needed
+                /*
+                e.g.,
+                [5,6] free
+                [6,9] free
+                should become [5,9]
+                 */
                 if(!result.isEmpty() && result.getLast()[1] == prevTime){
                     result.getLast()[1] = currTime; //expand interval end time to curr time
                 }else{
                     result.add(new int[]{prevTime, currTime});
                 }
-
             }
 
+            // 2. Update state AT this currTime
             currentActive += delta;
-            prevTime = currTime;
+
+            prevTime = currTime; //move the boundary
         }
 
         return result;
