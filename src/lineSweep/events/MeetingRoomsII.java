@@ -1,4 +1,4 @@
-package lineSweep;
+package lineSweep.events;
 
 import java.util.*;
 
@@ -6,7 +6,7 @@ public class MeetingRoomsII {
 
     //https://leetcode.com/problems/meeting-rooms-ii/description/
 
-    //IMPORTANT : this can be solved via both heap and line sweep. for heap approach, look inside intervals package
+    //IMPORTANT : this can be solved via both heap and line sweep. for heap approach, look inside intervals package MeetingRoomII
 
     private static final int START_DELTA = 1;
     private static final int END_DELTA = -1;
