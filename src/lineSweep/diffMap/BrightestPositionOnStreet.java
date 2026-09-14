@@ -1,4 +1,4 @@
-package consistenthashing.lineSweep;
+package lineSweep.diffMap;
 
 import java.util.*;
 
@@ -32,6 +32,7 @@ public class BrightestPositionOnStreet {
         int maxBrightness = 0;
         int brightestPosition = 0;
 
+        //sweep
         for(Map.Entry<Integer, Integer> entry : diffMap.entrySet()){
             currBrightness += entry.getValue();
 

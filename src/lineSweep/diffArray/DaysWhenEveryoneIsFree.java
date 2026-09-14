@@ -1,4 +1,4 @@
-package lineSweep;
+package lineSweep.diffArray;
 
 /*
 You are given a list of records and an integer d representing the range of days from 1 to d.
@@ -55,7 +55,7 @@ public class DaysWhenEveryoneIsFree {
     public List<Integer> getDaysWhenEveryoneIsFree(String[] records, int d)
     {
         //initialzie difference array
-        int[] days = new int[d+2];
+        int[] days = new int[d+2]; //size d + 2 is needed because the inclusive range uses an end + 1 update.
 
         for(String record : records){
 
@@ -90,6 +90,19 @@ public class DaysWhenEveryoneIsFree {
      */
     List<Integer> getDaysWhenAtLeastKPeopleAreFree(String[] records, int d, int k)
     {
+        /*
+        Approach:
+        Group intervals by person and merge overlapping/adjacent intervals so each person is counted only once for any blocked day.
+
+        Use a difference array to mark each merged blocked interval with +1 at start and -1 at end + 1. Prefix sum gives the number of blocked people
+        each day.
+
+        A day is valid if total people - blocked people >= k.
+
+        Time: O(N log N)
+        Space: O(N + d)
+        */
+
         //group by {person -> list of intervals}
         Map<Integer, List<int[]>> personToIntervals = new HashMap<>();
 
@@ -105,10 +118,7 @@ public class DaysWhenEveryoneIsFree {
 
         //run merge interval against each person
         for(int person : personToIntervals.keySet()){
-
-            List<int[]> currIntervals = personToIntervals.get(person);
-            List<int[]> mergedIntervals = mergeIntervals(currIntervals);
-            personToIntervals.put(person, mergedIntervals);
+            personToIntervals.put(person, mergeIntervals(personToIntervals.get(person)));
         }
 
         //initialzie difference array
@@ -120,7 +130,7 @@ public class DaysWhenEveryoneIsFree {
                 int end = interval[1];
 
                 days[start] += 1;
-                days[end+1] -= 1;
+                days[end+1] -= 1; //end is inclusive, hence end + 1
             }
         }
 

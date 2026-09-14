@@ -1,4 +1,4 @@
-package lineSweep;
+package lineSweep.diffArray;
 
 public class CheckIfAllIntegersInRangeAreCovered {
 
@@ -20,7 +20,7 @@ public class CheckIfAllIntegersInRangeAreCovered {
         }
 
         //convert each range into difference array update using start (+1) and end (-1)
-        int[] diff = new int[52];
+        int[] diff = new int[52]; //size 52 gives us index 51, which is needed for end + 1 when end can be 50.
 
         for(int[] range : ranges){
 
