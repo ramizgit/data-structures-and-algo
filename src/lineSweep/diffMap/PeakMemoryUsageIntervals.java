@@ -1,4 +1,4 @@
-package lineSweep;
+package lineSweep.diffMap;
 
 /*
 Peak Memory Usage Intervals
