@@ -110,8 +110,22 @@ public class PeakMemoryUsageIntervals {
         for(Map.Entry<Integer, Long> event : events.entrySet()){
 
             int currTime = event.getKey();
+            long delta = event.getValue();
 
             //remember we are evaluating the interval [prevTime, currTime)
+
+            /*
+
+                    prevTime                 currTime
+                       ↓                        ↓
+                       |------------------------|
+                            known state
+                             [prev,curr)
+
+                    1. Evaluate this interval
+                    2. Apply event at currTime
+                    3. Move prevTime = currTime
+             */
 
             if(prevTime != -1 && currMemory == maxMemory){
                 if (!result.isEmpty() && result.getLast()[1] == prevTime) {
@@ -122,8 +136,9 @@ public class PeakMemoryUsageIntervals {
                 }
             }
 
-            currMemory += event.getValue();
-            prevTime = currTime;
+            currMemory += delta; //apply delta to current time
+
+            prevTime = currTime; //move boundary
         }
 
         return result;

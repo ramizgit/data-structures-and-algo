@@ -1,4 +1,4 @@
-package consistenthashing.lineSweep;
+package lineSweep.diffMap;
 
 import java.util.*;
 

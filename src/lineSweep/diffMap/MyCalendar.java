@@ -1,4 +1,4 @@
-package lineSweep;
+package lineSweep.diffMap;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -28,13 +28,13 @@ public class MyCalendar {
         //check floor for immediately before interval
         Map.Entry<Integer, Integer> floorEntry = events.floorEntry(start);
         if( floorEntry != null && start < floorEntry.getValue() ){
-            return false; //overlap found
+            return false; //overlaps with previous booking - current event starts even before prev event has ended
         }
 
         //check ceiling for immediately after interval
         Map.Entry<Integer, Integer> ceilingEntry = events.ceilingEntry(start);
         if( ceilingEntry != null && end > ceilingEntry.getKey()){
-            return false; //overlap found
+            return false; //overlaps with next booking - current event ends after next event starts
         }
 
         events.put(start, end); //populate booking if no overlap
