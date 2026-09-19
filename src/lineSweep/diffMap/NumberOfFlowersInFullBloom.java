@@ -1,4 +1,4 @@
-package consistenthashing.lineSweep;
+package lineSweep.diffMap;
 
 public class NumberOfFlowersInFullBloom {
 

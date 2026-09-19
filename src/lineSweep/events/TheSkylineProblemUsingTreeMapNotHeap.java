@@ -1,4 +1,4 @@
-package consistenthashing.lineSweep;
+package lineSweep.events;
 
 import java.util.*;
 
