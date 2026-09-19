@@ -37,6 +37,20 @@ public class EmployeeFreeTime {
 
     public List<int[]> employeeFreeTime(List<List<int[]>> schedule)
     {
+        /*
+        Build difference map
+                ↓
+        Sweep through events
+                ↓
+        Evaluate [prevTime, currTime)
+                ↓
+        If condition is satisfied: add / extend result
+                ↓
+        Apply event at currTime
+                ↓
+        move the boundary
+         */
+
         //diff. map of {event time -> delta}
         TreeMap<Integer, Integer> events = new TreeMap<>();
 

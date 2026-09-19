@@ -89,6 +89,20 @@ import java.util.*;
 
 public class FindBusyIntervals {
 
+    /*
+        Build difference map
+                ↓
+        Sweep through events
+                ↓
+        Evaluate [prevTime, currTime)
+                ↓
+        If condition is satisfied: add / extend result
+                ↓
+        Apply event at currTime
+                ↓
+        move the boundary
+         */
+
     //hint : similar to EmployeeFreeTime
 
     List<int[]> findBusyIntervals(int[][] flights, long P) {
@@ -109,8 +123,9 @@ public class FindBusyIntervals {
         //sweep
         List<int[]> result = new ArrayList<>();
         long activePassengers = 0;
-        Integer prevTime = null;
+        int prevTime = -1;
 
+        //sweep through events
         for (Map.Entry<Integer, Integer> entry : events.entrySet()) {
 
             /*
@@ -125,7 +140,7 @@ public class FindBusyIntervals {
             //remember we are evaluating the interval [prevTime, currTime)
 
             //interval [prevTime, currTime) has the previous active passenger count
-            if (prevTime != null && activePassengers >= P) {
+            if (prevTime != -1 && activePassengers >= P) {
 
                 // Merge with previous interval if adjacent
                 if (!result.isEmpty() && result.getLast()[1] == prevTime) {
