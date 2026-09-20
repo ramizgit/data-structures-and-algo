@@ -37,9 +37,10 @@ public class DetectFirstTimedOutJobFromLog {
             while(!minheap.isEmpty()){
                 //note : there can be multiple stale jobs at the top of the heap, and we need to remove all of them before we can trust peek()
                 if(!jobIdStartTimeMap.containsKey(minheap.peek()[0])){
-                    //remove inactive job from heap top
+                    //lazy deletion : remove inactive job from heap top
                     minheap.poll(); //O(log n)
                 }else{
+                    //check if earliest starting job has gone timeout or not
                     int[] earliestJob = minheap.peek();
                     int earliestJobId = earliestJob[0];
                     int earliestJobStartTime = earliestJob[1];
