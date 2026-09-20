@@ -1,6 +1,6 @@
 | Problem                               | Core pattern                  | Similarity |
 | ------------------------------------- | ----------------------------- | ---------- |
-| **Logger Rate Limiter**               | HashMap + timestamps          | ⭐⭐⭐⭐⭐      |
+| **Logger Rate Limiter**               | HashMap + timestamps          | ⭐⭐⭐⭐⭐      | [Done]
 | **Hit Counter**                       | Queue + Sliding Window        | ⭐⭐⭐⭐⭐      | [Done]
 | **Design Rate Limiter**               | HashMap + Queue/Deque         | ⭐⭐⭐⭐⭐      |
 | **Number of Recent Calls**            | Queue + Sliding Window        | ⭐⭐⭐⭐       |
