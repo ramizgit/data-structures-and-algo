@@ -12,6 +12,8 @@ public class MinCostToConnectAllPointsV2 {
 
     public int minCostConnectPoints(int[][] points) {
 
+        //Hint : When the graph is dense/complete and edge weights can be calculated on demand, array-based Prim can be better than heap-based Prim.
+
         /*
         approach :-
         Repeat n times
