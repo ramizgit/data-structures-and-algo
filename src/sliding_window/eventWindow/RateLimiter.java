@@ -1,4 +1,6 @@
-package misc;
+package sliding_window.eventWindow;
+
+import java.util.*;
 
 /*
 Rate Limiter
@@ -50,35 +52,31 @@ Goal: Implement allow() with O(1) amortized time per request.
 
 public class RateLimiter {
 
-    //todo : implement
+    private Map<String, Queue<Long>> userToEventQueue;
+    int k;
+    long window;
 
-    /*
-    Hint:
-    Map<String, Queue<Long>> userRequests;
+    public RateLimiter(int k, long window) {
+        this.userToEventQueue = new HashMap<>();
+        this.k = k;
+        this.window = window;
+    }
 
-    Why this works so nicely:
+    public boolean allow(String userId, long timestamp) {
 
-    Map → find a user's request history in O(1) average.
-    Queue → timestamps are chronological, so expired requests are always at the front.
-    queue.size() → directly tells us how many requests are currently inside the rolling window.
-    No need for a separate counter.
+        //first expire old events (if any)
+        Queue<Long> eventsQueue = this.userToEventQueue.computeIfAbsent(userId, key -> new ArrayDeque<>());
 
-    So the core pattern is:
+        while(!eventsQueue.isEmpty() && eventsQueue.peek() <= timestamp - window){
+            eventsQueue.poll();
+        }
 
-    HashMap + per-key Queue + lazy expiration
+        if(eventsQueue.size() >= k){
+            return false;
+        }
 
-    For ALLOW():
+        eventsQueue.offer(timestamp);
 
-    get user's queue
-    ↓
-    remove expired timestamps
-    ↓
-    if queue.size() < K
-        add current timestamp
-        return true
-    else
-        return false
-     */
-
-
+        return true;
+    }
 }
