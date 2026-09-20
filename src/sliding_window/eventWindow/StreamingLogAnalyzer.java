@@ -109,6 +109,29 @@ public class StreamingLogAnalyzer {
         return result;
     }
 
+    //todo : incomplete code : integrate below code if top k is asked
+    private TreeMap<Integer, Set<String>> freqToUsers;
+
+    public List<String> getTopKUsers(int k) {
+
+        List<String> result = new ArrayList<>();
+
+        // Highest frequency first
+        for (Map.Entry<Integer, Set<String>> entry : freqToUsers.descendingMap().entrySet()) {
+
+            for (String user : entry.getValue()) {
+
+                result.add(user);
+
+                if (result.size() == k) {
+                    return result;
+                }
+            }
+        }
+
+        return result;
+    }
+
     static class LogEntry{
         int timestamp;
         String user;
