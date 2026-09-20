@@ -1,0 +1,10 @@
+| Problem                               | Core pattern                  | Similarity |
+| ------------------------------------- | ----------------------------- | ---------- |
+| **Logger Rate Limiter**               | HashMap + timestamps          | ⭐⭐⭐⭐⭐      |
+| **Hit Counter**                       | Queue + Sliding Window        | ⭐⭐⭐⭐⭐      |
+| **Design Rate Limiter**               | HashMap + Queue/Deque         | ⭐⭐⭐⭐⭐      |
+| **Number of Recent Calls**            | Queue + Sliding Window        | ⭐⭐⭐⭐       |
+| **Active Users in Window**            | Queue + Frequency Map         | ⭐⭐⭐⭐⭐      |
+| **Notification Deduplicator**         | Map + timestamp/window        | ⭐⭐⭐⭐⭐      |
+| **Web Traffic / API Request Counter** | Sliding Window + HashMap      | ⭐⭐⭐⭐       |
+| **Top-K Users in Time Window**        | Sliding Window + Heap/TreeMap | ⭐⭐⭐⭐       |
