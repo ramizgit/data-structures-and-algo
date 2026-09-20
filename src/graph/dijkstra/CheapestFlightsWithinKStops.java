@@ -13,7 +13,7 @@ public class CheapestFlightsWithinKStops {
 
     public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k)
     {
-        //initialize graph
+        //initialize graph as adj. list
         Map<Integer, List<Edges>> graph = new HashMap<>();
         for(int i=0; i<n; i++){
             graph.put(i, new ArrayList<>());
@@ -21,11 +21,11 @@ public class CheapestFlightsWithinKStops {
 
         //populate graph as per input times
         for(int[] flight : flights){
-            int u = flight[0];
-            int v = flight[1];
-            int p = flight[2];
+            int from = flight[0];
+            int to = flight[1];
+            int price = flight[2];
 
-            graph.get(u).add(new Edges(v, p));
+            graph.get(from).add(new Edges(to, price));
         }
 
         //dijkstra algo
@@ -53,7 +53,7 @@ public class CheapestFlightsWithinKStops {
             State curr = minheap.poll();
 
             //check stale/outdated records
-            if (curr.price > dist[curr.node][curr.nodesUsed]) {
+            if (curr.price > dist[curr.node][curr.stops]) {
                 continue;
             }
 
@@ -63,7 +63,7 @@ public class CheapestFlightsWithinKStops {
             }
 
             //don't proceed if path already uses the maximum allowed nodes
-            if(curr.nodesUsed >= k+2) {
+            if(curr.stops >= k+2) {
                 continue;
             }
 
@@ -71,12 +71,12 @@ public class CheapestFlightsWithinKStops {
             for(Edges neighbour : graph.get(curr.node)){
 
                 int newCost = curr.price + neighbour.price;
-                int newNodesUsed = curr.nodesUsed + 1;
+                int newStops = curr.stops + 1;
 
                 //relaxation
-                if(newCost < dist[neighbour.dst][newNodesUsed]){
-                    dist[neighbour.dst][newNodesUsed] = newCost; //relaxation
-                    minheap.offer(new State(neighbour.dst, newNodesUsed, newCost));//enqueue
+                if(newCost < dist[neighbour.dst][newStops]){
+                    dist[neighbour.dst][newStops] = newCost; //relaxation
+                    minheap.offer(new State(neighbour.dst, newStops, newCost));//enqueue
                 }
             }
         }
@@ -106,12 +106,12 @@ public class CheapestFlightsWithinKStops {
 
     class State{
         int node;
-        int nodesUsed;
+        int stops;
         int price;
 
-        public State(int node, int nodesUsed, int price) {
+        public State(int node, int stops, int price) {
             this.node = node;
-            this.nodesUsed = nodesUsed;
+            this.stops = stops;
             this.price = price;
         }
     }
