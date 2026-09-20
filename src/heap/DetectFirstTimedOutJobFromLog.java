@@ -1,4 +1,4 @@
-package consistenthashing.heap;
+package heap;
 
 import java.util.*;
 
@@ -11,7 +11,7 @@ public class DetectFirstTimedOutJobFromLog {
     //Time : O(n log n)
     int firstTimedOutJobId(List<String> logs, int timeoutThreshold)
     {
-        Map<Integer, Integer> jobIdStartTimeMap = new HashMap<>(); //to keep active jobs
+        Map<Integer, Integer> jobIdStartTimeMap = new HashMap<>(); //to keep active jobs {jobId -> start time}
 
         //minheap of {job id, start time}
         PriorityQueue<int[]> minheap = new PriorityQueue<>(
@@ -35,8 +35,9 @@ public class DetectFirstTimedOutJobFromLog {
 
             //heap cleanup
             while(!minheap.isEmpty()){
+                //note : there can be multiple stale jobs at the top of the heap, and we need to remove all of them before we can trust peek()
                 if(!jobIdStartTimeMap.containsKey(minheap.peek()[0])){
-                    //remove inactive jobs
+                    //remove inactive job from heap top
                     minheap.poll(); //O(log n)
                 }else{
                     int[] earliestJob = minheap.peek();
@@ -58,6 +59,8 @@ public class DetectFirstTimedOutJobFromLog {
             }else if("END".equals(eventType)){
                 int startTime = jobIdStartTimeMap.get(jobId);
                 jobIdStartTimeMap.remove(jobId);
+
+                //note : we dont remove the job from heap yet due to performance reason, we do lazy deletion from heap
 
                 //check threshold
                 if(timestamp - startTime > timeoutThreshold){
