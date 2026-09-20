@@ -1,15 +1,10 @@
-package google;
+package misc;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GuessTheWord {
     //todo:practice
-
-    private static void main(String[] args)
-    {
-
-    }
 
     private void findSecretWord(String[] words, Master master)
     {
@@ -57,20 +52,21 @@ public class GuessTheWord {
         return copy;
     }
 
-}
-
-class Master{
-    public int guess(String word) {
-        return -1;
-    }
-
-    public int findMatches(String w1, String w2){
-        int count = 0;
-        for(int i=0; i<6; i++){
-            if(w1.charAt(i) == w2.charAt(i)){
-                count++;
-            }
+    static class Master{
+        public int guess(String word) {
+            return -1;
         }
-        return count;
+
+        public int findMatches(String w1, String w2){
+            int count = 0;
+            for(int i=0; i<6; i++){
+                if(w1.charAt(i) == w2.charAt(i)){
+                    count++;
+                }
+            }
+            return count;
+        }
     }
 }
+
+

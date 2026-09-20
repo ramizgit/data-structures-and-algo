@@ -1,4 +1,4 @@
-package meta;
+package heap;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,14 +9,7 @@ public class KClosePointsToOrigin {
 
     //https://leetcode.com/problems/k-closest-points-to-origin/description/
 
-    public static void main(String[] args)
-    {
-        System.out.println(kClosest(new int[][]{{1,3}, {-2,2}} , 1)); //[[-2, 2]]
-
-        System.out.println(kClosest(new int[][]{ {3,3}, {5,-1}, {-2,4} }, 2)); //[[3, 3], [-2, 4]]
-    }
-
-    private static List<List<Integer>> kClosest(int[][] points, int k)
+    public List<List<Integer>> kClosest(int[][] points, int k)
     {
         PriorityQueue<Point> minheap = new PriorityQueue<>( (a,b) -> a.dist - b.dist );
         List<List<Integer>> answer = new ArrayList<>();
@@ -33,16 +26,18 @@ public class KClosePointsToOrigin {
 
         return answer;
     }
-}
 
-class Point{
-    int x;
-    int y;
-    int dist;
+    static class Point{
+        int x;
+        int y;
+        int dist;
 
-    Point(int x, int y, int dist){
-        this.x = x;
-        this.y = y;
-        this.dist = dist;
+        Point(int x, int y, int dist){
+            this.x = x;
+            this.y = y;
+            this.dist = dist;
+        }
     }
 }
+
+

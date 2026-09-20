@@ -1,6 +1,53 @@
-package misc;
+package sliding_window.eventWindow;
 
 import java.util.*;
+
+/*
+Notification Deduplicator
+
+You are given a stream of notification events arriving in non-decreasing order of timestamp.
+
+Each event is represented as:
+
+events[i] = {timestamp, userId, notificationType}
+
+where:
+
+timestamp is the time at which the notification is generated.
+userId identifies the recipient.
+notificationType identifies the type of notification.
+
+You are also given an integer W, representing a deduplication window.
+
+A notification should be suppressed if the same user has already received a notification of the same type within the previous W time units.
+
+Otherwise, the notification should be delivered.
+
+Return an array where:
+
+answer[i] = true
+
+if events[i] should be delivered, and
+
+answer[i] = false
+
+if it should be suppressed.
+
+Example
+events = [
+    [1, "A", "EMAIL"],
+    [3, "A", "EMAIL"],
+    [4, "B", "EMAIL"],
+    [7, "A", "EMAIL"],
+    [8, "A", "SMS"]
+]
+
+W = 5
+
+Output:
+
+[true, false, true, true, true]
+ */
 
 public class NotificationDeduplicator {
 
