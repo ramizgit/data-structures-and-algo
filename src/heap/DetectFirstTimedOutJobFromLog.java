@@ -61,7 +61,7 @@ public class DetectFirstTimedOutJobFromLog {
                 int startTime = jobIdStartTimeMap.get(jobId);
                 jobIdStartTimeMap.remove(jobId);
 
-                //note : we dont remove the job from heap yet due to performance reason, we do lazy deletion from heap
+                //note : we don't remove the job from heap yet due to performance reason, we do lazy deletion from heap
 
                 //check threshold
                 if(timestamp - startTime > timeoutThreshold){
