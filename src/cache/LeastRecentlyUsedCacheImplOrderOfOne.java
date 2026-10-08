@@ -1,4 +1,4 @@
-package google.cache;
+package cache;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -147,9 +147,9 @@ public class LeastRecentlyUsedCacheImplOrderOfOne {
                 return null;
             }
 
-            Node node = tail.prev;
-            remove(node);
-            return node;
+            Node lastNode = tail.prev;
+            remove(lastNode);
+            return lastNode;
         }
 
         public boolean isEmpty() {

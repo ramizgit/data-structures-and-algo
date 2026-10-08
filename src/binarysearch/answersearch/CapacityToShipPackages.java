@@ -12,23 +12,26 @@ public class CapacityToShipPackages {
     private static int leastCapacity(int[] weights, int days)
     {
         int minCapacity = 0;
-        int maxCapacity = 0;
+        int capacitySum = 0;
 
         for(int w : weights){
             minCapacity = Math.max(minCapacity, w);
-            maxCapacity += w;
+            capacitySum += w;
         }
 
+        int low = minCapacity;
+        int high = capacitySum;
         int answer = 0;
 
-        while(minCapacity <= maxCapacity){
-            int midCapacity = minCapacity + (maxCapacity - minCapacity)/2;
+        while(low <= high){
+
+            int midCapacity = low + (high - low)/2;
 
             if(canShip(weights, days, midCapacity)){
                 answer = midCapacity; //potentail answer
-                maxCapacity = midCapacity - 1;
+                high = midCapacity - 1;
             }else{
-                minCapacity = midCapacity + 1;
+                low = midCapacity + 1;
             }
         }
 

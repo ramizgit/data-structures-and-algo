@@ -57,10 +57,11 @@ public class AgressiveCows {
         int count = 1;
 
         for(int i=1; i<stalls.length; i++){
-            if( (stalls[i] - lastPlaced) >= distance){
-                //place another cow at current stall
+            int currStall = stalls[i];
+            if( (currStall - lastPlaced) >= distance){
+                //place another cow at the current stall
                 count++;
-                lastPlaced = stalls[i];
+                lastPlaced = currStall;
 
                 //early exit
                 if(count == k){
