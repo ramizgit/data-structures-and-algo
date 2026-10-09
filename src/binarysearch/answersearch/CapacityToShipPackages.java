@@ -2,56 +2,59 @@ package binarysearch.answersearch;
 
 public class CapacityToShipPackages {
 
-    public static void main(String[] args)
-    {
-        System.out.println(leastCapacity(new int[]{1,2,3,4,5,6,7,8,9,10}, 5)); //15
-        System.out.println(leastCapacity(new int[]{3,2,2,4,1,4}, 3)); //6
-        System.out.println(leastCapacity(new int[]{1,2,3,1,1}, 4)); //3
-    }
+    //https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/description/
 
     private static int leastCapacity(int[] weights, int days)
     {
-        int minCapacity = 0;
-        int capacitySum = 0;
+        int maxWeight = 0;
+        int totalWeight = 0;
 
-        for(int w : weights){
-            minCapacity = Math.max(minCapacity, w);
-            capacitySum += w;
+        for(int weight : weights){
+            maxWeight = Math.max(maxWeight, weight);
+            totalWeight += weight;
         }
 
-        int low = minCapacity;
-        int high = capacitySum;
+        int low = maxWeight; //min possible ship capacity, to carry the heaviest package
+        int high = totalWeight; //max possible ship capacity, to carry all packages in one day
+
         int answer = 0;
 
         while(low <= high){
 
             int midCapacity = low + (high - low)/2;
 
+            //check whether this capacity can ship all packages within the given number of days
             if(canShip(weights, days, midCapacity)){
-                answer = midCapacity; //potentail answer
-                high = midCapacity - 1;
+                answer = midCapacity; //potential answer
+                high = midCapacity - 1; //try lower to minimize ship capacity
             }else{
-                low = midCapacity + 1;
+                low = midCapacity + 1; //cant ship, try higher ship capacity
             }
         }
 
         return answer;
     }
 
-    private static boolean canShip(int[] weights, int days, int capacity)
+    private static boolean canShip(int[] weights, int days, int shipCapacity)
     {
         int totalDays = 1;
-        int totalWeight = 0;
+        int currLoad = 0;
 
-        for(int w : weights){
-            totalWeight += w;
+        for(int weight : weights){
+            currLoad += weight;
 
-            if(totalWeight > capacity){
+            if(currLoad > shipCapacity){
+                //exceeds ship capacity, start a new day
                 totalDays++;
-                totalWeight = w; //reset
+                currLoad = weight; //reset
+            }
+
+            //early exit
+            if (totalDays > days) {
+                return false;
             }
         }
 
-        return totalDays <= days;
+        return true;
     }
 }
