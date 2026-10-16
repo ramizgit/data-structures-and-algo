@@ -19,8 +19,23 @@ public class KthElementOfTwoSortedArrays {
         int m = nums1.length;
         int n = nums2.length;
 
+        /*
+        Remember:-
+        The real reason for the difference
+        Median
+        The target left-partition size is approximately half the total. Since we binary-search the smaller array, the other array can always accommodate the remaining elements.
+        Simple bounds: low = 0, high = m
+
+
+        K-th element
+        The target left-partition size is k, which could be very small or very large. Either array might not have enough elements to accommodate every possible partition.
+        Safe bounds: low = max(0, k - n), high = min(k, m)
+
+        high = min(k, m): nums1 cannot contribute more than k elements or its own size.
+        low = max(0, k - n): nums1 must contribute enough elements so that nums2 never has to contribute more than its size.
+         */
         //run binary search on nums1 length (not index)
-        int low = 0; // OR // Math.max(0, k - n); //[low tells minimum elements nums1 MUST contribute]
+        int low = Math.max(0, k - n); //[low tells minimum elements nums1 MUST contribute]
         //if nums2 already has enough elements for left partition, A may contribute 0 elements
 
         int high = Math.min(k, m); //[high tells maximum elements nums1 CAN contribute]
