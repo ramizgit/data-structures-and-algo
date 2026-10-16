@@ -33,10 +33,14 @@ public class MedianOfTwoSortedArrays {
 
             //note : mid1 is a partition, NOT an index, it represents how many elements are taken into left partition
             //mid1 represents the number of elements taken from nums1 into the left partition, not an array index.
-            int left1 = (mid1 == 0) ? Integer.MIN_VALUE : nums1[mid1 - 1]; //element just before the mid1 partition
-            int right1 = (mid1 == m) ? Integer.MAX_VALUE : nums1[mid1]; //element just after the mid1 partition
-            int left2 = (mid2 == 0) ? Integer.MIN_VALUE : nums2[mid2 - 1]; //element just before the mid2 partition
-            int right2 = (mid2 == n) ? Integer.MAX_VALUE : nums2[mid2]; //element just after the mid2 partition
+
+            //boundaries of nums1 partition
+            int left1  = (mid1 == 0) ? Integer.MIN_VALUE : nums1[mid1 - 1];
+            int right1 = (mid1 == m) ? Integer.MAX_VALUE : nums1[mid1];
+
+            //boundaries of nums2 partition
+            int left2  = (mid2 == 0) ? Integer.MIN_VALUE : nums2[mid2 - 1];
+            int right2 = (mid2 == n) ? Integer.MAX_VALUE : nums2[mid2];
 
             // correct partition
             if(left1 <= right2 && left2 <= right1) {
