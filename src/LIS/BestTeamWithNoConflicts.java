@@ -40,7 +40,7 @@ public class BestTeamWithNoConflicts {
             dp[i] = players.get(i).score; //base case
         }
 
-        int answer = 0;
+        int maxScore = 0;
 
         for (int i = 0; i < n; i++) {
             Player curr = players.get(i);
@@ -52,13 +52,13 @@ public class BestTeamWithNoConflicts {
                 }
             }
 
-            answer = Math.max(answer, dp[i]);
+            maxScore = Math.max(maxScore, dp[i]);
         }
 
-        return answer;
+        return maxScore;
     }
 
-    class Player{
+    static class Player{
         int score;
         int age;
 
