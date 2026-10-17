@@ -1,4 +1,4 @@
-package LIS;
+package LIS.twoDimensionLIS;
 
 import java.util.*;
 

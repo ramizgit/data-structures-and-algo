@@ -1,4 +1,4 @@
-package LIS;
+package LIS.classicLIS;
 
 import java.util.*;
 

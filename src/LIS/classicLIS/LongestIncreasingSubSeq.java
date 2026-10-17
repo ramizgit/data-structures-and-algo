@@ -1,4 +1,4 @@
-package longestIncreasingSubseqVariants;
+package LIS.classicLIS;
 
 import java.util.*;
 

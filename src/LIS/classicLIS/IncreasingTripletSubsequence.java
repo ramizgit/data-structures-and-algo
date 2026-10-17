@@ -1,4 +1,4 @@
-package longestIncreasingSubseqVariants;
+package LIS.classicLIS;
 
 public class IncreasingTripletSubsequence {
 

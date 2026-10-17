@@ -1,4 +1,4 @@
-package LIS;
+package LIS.threeDimensionLIS;
 
 import java.util.*;
 
