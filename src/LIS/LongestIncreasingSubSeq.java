@@ -53,19 +53,20 @@ public class LongestIncreasingSubSeq {
             int high = tails.size()-1;
 
             while(low <= high){
+
                 int mid = low + (high - low) / 2;
 
-                if(nums[i] > tails.get(mid)){
-                    low = mid + 1;
+                if(tails.get(mid) < nums[i]){
+                    low = mid + 1; //try higher
                 }else{
-                    high = mid - 1;
+                    high = mid - 1; //try lower
                 }
             }
 
             if(low == tails.size()){
-                tails.add(nums[i]);
+                tails.add(nums[i]); //the element is larger than every element in tails, so append it
             }else{
-                tails.set(low, nums[i]);
+                tails.set(low, nums[i]); //replace tails[low] with nums[i].
             }
         }
 
