@@ -27,17 +27,18 @@ public class FindKTheSmallestPairDistance {
     One important distinction: Binary search on the answer doesn't inherently require sorting the input array. However, in this problem, sorting is what makes the countPairs() feasibility check efficient — \(O(n)\) rather than \(O(n^2)\).
      */
 
+    //Time : O(n logn + n logD)
     public int smallestDistancePair(int[] nums, int k)
     {
         //sort input array
-        Arrays.sort(nums);
+        Arrays.sort(nums); //O(nlogn)
 
         //binary search
         int low = 0; //min possible distance
         int high = nums[nums.length-1] - nums[0]; //max possible distance, larget - smallest
         int answer = 0;
 
-        while(low <= high){
+        while(low <= high){ //O(logD), where D is the range = max(nums) - min(nums)
             int mid = low + (high - low)/2;
 
             if(countPairs(nums, mid) >= k){
@@ -51,6 +52,7 @@ public class FindKTheSmallestPairDistance {
         return answer;
     }
 
+    //O(n)
     private int countPairs(int[] nums, int maxDistance)
     {
         int windowStart = 0;
