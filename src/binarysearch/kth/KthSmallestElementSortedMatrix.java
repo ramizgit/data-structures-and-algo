@@ -44,7 +44,7 @@ public class KthSmallestElementSortedMatrix {
 
         while(row < n && col >= 0){
             if(matrix[row][col] <= target){
-                count += (col + 1);
+                count += (col + 1); //increment count
                 row++; //go down
             }else{
                 col--; //go left
