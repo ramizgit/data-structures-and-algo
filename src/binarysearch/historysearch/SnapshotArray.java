@@ -57,9 +57,9 @@ public class SnapshotArray {
 
             if(list.get(mid).snapId <= snap_id){
                 answer = mid; //possible answer
-                low = mid + 1; //try higher
+                low = mid + 1; //try higher in case this value was overridden in a later snapshot
             }else{
-                high = mid - 1; //try lower
+                high = mid - 1; //try lower snapshot
             }
         }
 
