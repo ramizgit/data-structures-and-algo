@@ -13,9 +13,9 @@ public class FindKTheSmallestPairDistance {
         - Generate all pairs: (O(n^2))
         - Number of pair distances: (n(n-1)/2 = O(n^2))
         - Sort distances: (O(n^2 log(n^2)) = O(n^2log n))
-        So the full brute-force solution is (O(n^2log n)), not just (O(n^2)).
+        So the full brute-force solution is [O(n^2)+O(n^2 log n)]
 
-    2. Binary search : binary search on the distance, then counts valid pairs indirectly using sliding window
+    2. Binary search : binary search on the distance, then counts valid pairs indirectly using sliding window : O(n logn + n logD)
      */
 
     /*
