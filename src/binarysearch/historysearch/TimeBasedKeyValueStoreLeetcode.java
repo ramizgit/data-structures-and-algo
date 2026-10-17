@@ -9,7 +9,7 @@ public class TimeBasedKeyValueStoreLeetcode {
 
     class TimeBasedKeyValueStore {
 
-        private Map<String, List<Value>> keyValuesMap;
+        private Map<String, List<TimeValue>> keyValuesMap;
 
         public TimeBasedKeyValueStore()
         {
@@ -19,13 +19,13 @@ public class TimeBasedKeyValueStoreLeetcode {
         //Time complexity : O(1)
         public void set(String key, String value, int timestamp)
         {
-            this.keyValuesMap.computeIfAbsent(key, val -> new ArrayList<>()).add(new Value(timestamp, value));
+            this.keyValuesMap.computeIfAbsent(key, val -> new ArrayList<>()).add(new TimeValue(timestamp, value));
         }
 
         //Time complexity : O(logn)
         public String get(String key, int timestamp)
         {
-            List<Value> values = this.keyValuesMap.get(key);
+            List<TimeValue> values = this.keyValuesMap.get(key);
 
             //handle edge cases
             if(values == null || values.isEmpty()){
@@ -60,11 +60,11 @@ public class TimeBasedKeyValueStoreLeetcode {
         }
     }
 
-    class Value {
+    class TimeValue {
         int time;
         String value;
 
-        public Value(int time, String value) {
+        public TimeValue(int time, String value) {
             this.time = time;
             this.value = value;
         }

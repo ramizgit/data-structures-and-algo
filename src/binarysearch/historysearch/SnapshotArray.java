@@ -6,7 +6,7 @@ public class SnapshotArray {
 
     //https://leetcode.com/problems/snapshot-array/description/
 
-    List<Pair>[] arr;
+    List<VersionedValue>[] arr;
     int currSnap = 0;
 
     public SnapshotArray(int length) {
@@ -14,19 +14,24 @@ public class SnapshotArray {
 
         for (int i = 0; i < length; i++) {
             arr[i] = new ArrayList<>();
-            arr[i].add(new Pair(0, 0));
+            arr[i].add(new VersionedValue(0, 0));
         }
     }
 
     //O(1)
     public void set(int index, int val) {
 
-        List<Pair> list = arr[index];
+        /*
+        Same snapshot ID → overwrite the latest entry.
+        New snapshot ID → append a new entry.
+         */
+
+        List<VersionedValue> list = arr[index];
 
         if(list.getLast().snapId == currSnap){
-            list.getLast().value = val;
+            list.getLast().value = val; //override
         }else{
-            list.add(new Pair(currSnap, val));
+            list.add(new VersionedValue(currSnap, val)); //append
         }
     }
 
@@ -38,7 +43,7 @@ public class SnapshotArray {
     //O(log k) where k is the number of updates for that index.
     public int get(int index, int snap_id) {
 
-        List<Pair> list = arr[index];
+        List<VersionedValue> list = arr[index];
 
         //binary search on list - find the latest snapshot whose snapId <= requested snap_id
         int low = 0;
@@ -61,11 +66,11 @@ public class SnapshotArray {
         return list.get(answer).value;
     }
 
-    static class Pair {
+    static class VersionedValue {
         int snapId;
         int value;
 
-        Pair(int snapId, int value) {
+        VersionedValue(int snapId, int value) {
             this.snapId = snapId;
             this.value = value;
         }
