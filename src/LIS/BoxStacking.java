@@ -1,6 +1,16 @@
-package consistenthashing.LIS;
+package LIS;
 
 import java.util.*;
+
+/*
+Problem statement
+You are given the height, width, and length of \(n\) boxes. Your task is to find the maximum possible height of a stack that can be created by stacking these boxes on top of one another.
+Rules
+1. You can rotate a box so that any of its three dimensions becomes its height.
+2. When stacking one box on another, the length and width of the upper box's base must both be strictly smaller than the length and width of the box below it.
+3. You can use multiple instances of the same box type. In other words, each box can be used in any of its three rotations, and the classic version allows rotations to be reused.
+4. Return the maximum achievable stack height.
+ */
 
 public class BoxStacking {
 
