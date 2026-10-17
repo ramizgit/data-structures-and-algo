@@ -46,14 +46,17 @@ public class KthElementOfTwoSortedArrays {
             int mid2 = k - mid1;
 
             //note : mid1 is NOT an index, it represents how many elements are taken into left partition
+            //boundaries of nums1 partition
             int left1 = (mid1 == 0) ? Integer.MIN_VALUE : nums1[mid1 - 1];
             int right1 = (mid1 == m) ? Integer.MAX_VALUE : nums1[mid1];
+
+            //boundaries of nums2 partition
             int left2 = (mid2 == 0) ? Integer.MIN_VALUE : nums2[mid2 - 1];
             int right2 = (mid2 == n) ? Integer.MAX_VALUE : nums2[mid2];
 
             // correct partition
             if(left1 <= right2 && left2 <= right1) {
-                    return Math.max(left1, left2);
+                return Math.max(left1, left2);
             }else if (left1 > right2) {
                 high = mid1 - 1; //took too many elements from nums1, move left
             } else {
