@@ -8,9 +8,23 @@ public class FindKTheSmallestPairDistance {
 
     /*
     Appraoch:-
-    1. Brute force : generate all pair distance, then sort them, return kth distance in the sorted order. O(n^2)
+    1. Brute force : generate all "pair distances", then sort them, return kth distance in the sorted order. O(n^2)
+    Complexity:
+        - Generate all pairs: (O(n^2))
+        - Number of pair distances: (n(n-1)/2 = O(n^2))
+        - Sort distances: (O(n^2 log(n^2)) = O(n^2log n))
+        So the full brute-force solution is (O(n^2log n)), not just (O(n^2)).
 
     2. Binary search : binary search on the distance, then counts valid pairs indirectly using sliding window
+     */
+
+    /*
+    hint why sort:
+    Sorting is crucial for both parts of this solution.
+    1. Binary search on the answer: We search the possible distance values, from 0 to max(nums) - min(nums). Sorting lets us easily determine the maximum possible distance from the endpoints.
+    2. Sliding window to count pairs: Sorting ensures that as windowEnd moves forward, we can move windowStart forward whenever the distance exceeds maxDistance. We never need to move windowStart backward because the values are in ascending order.
+    Without sorting, the two-pointer counting logic would not work correctly, because elements could appear in any order.
+    One important distinction: Binary search on the answer doesn't inherently require sorting the input array. However, in this problem, sorting is what makes the countPairs() feasibility check efficient — \(O(n)\) rather than \(O(n^2)\).
      */
 
     public int smallestDistancePair(int[] nums, int k)
@@ -39,19 +53,18 @@ public class FindKTheSmallestPairDistance {
 
     private int countPairs(int[] nums, int maxDistance)
     {
-        int left = 0;
-        int right = 0;
+        int windowStart = 0;
         int count = 0;
 
-        while(right < nums.length){
+        for(int windowEnd = 0; windowEnd < nums.length; windowEnd++){
 
-            while(nums[right] - nums[left] > maxDistance){
-                left++; //shrink window if distance is more than max dist.
+            while(nums[windowEnd] - nums[windowStart] > maxDistance){
+                windowStart++; //shrink window until distance is valid
             }
 
-            count += right - left;
+            //every element before windowEnd inside the window forms a valid pair with nums[windowEnd]
+            count += windowEnd - windowStart; //why no +1? because nums[windowEnd] cannot pair with itself. We count only the elements before windowEnd within the valid window.
 
-            right++;
         }
 
         return count;
