@@ -1,17 +1,9 @@
-package longestIncreasingSubseqVariants;
+package LIS;
 
 import java.util.*;
 
 public class LongestBitonicSubsequence {
 
-    public static void main(String[] args)
-    {
-
-        int[] nums = {1, 11, 2, 10, 4, 5, 2, 1};
-
-        System.out.println(longestBitonicSubsequence(nums));
-        // Expected: 6  → [1, 2, 10, 5, 2, 1]
-    }
 
     public static int longestBitonicSubsequence(int[] nums)
     {

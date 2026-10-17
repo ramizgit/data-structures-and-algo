@@ -1,6 +1,6 @@
-package longestIncreasingSubseqVariants;
+package LIS;
 
-import static longestIncreasingSubseqVariants.LongestBitonicSubsequence.longestBitonicSubsequence;
+import static LIS.LongestBitonicSubsequence.longestBitonicSubsequence;
 
 public class MinimumRemovalsMountain {
 
