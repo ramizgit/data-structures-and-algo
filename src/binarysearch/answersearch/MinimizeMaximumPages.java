@@ -94,7 +94,7 @@ public class MinimizeMaximumPages {
 
         /*
         why count <= students?
-        reason : If we can allocate using FEWER students, then we can ALWAYS split further to use exactly all students.
+        reason : If we can allocate using FEWER students, then we can ALWAYS split further to use exactly all students without breaching the maxAllocation threshold
          */
         return count <= students;
     }
