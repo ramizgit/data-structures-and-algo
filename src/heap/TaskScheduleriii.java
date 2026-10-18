@@ -87,32 +87,32 @@ public class TaskScheduleriii {
         }
 
         //min heap for cooldown waiting
-        PriorityQueue<Task> cooldownTasks = new PriorityQueue<>( (a, b) -> Integer.compare(a.nextAvailable, b.nextAvailable) );
+        PriorityQueue<Task> tasksInCooldown = new PriorityQueue<>( (a, b) -> Integer.compare(a.nextAvailable, b.nextAvailable) );
 
         int time = 0;
 
-        while(!availableTasks.isEmpty() || !cooldownTasks.isEmpty()){
+        while(!availableTasks.isEmpty() || !tasksInCooldown.isEmpty()){
 
             //move tasks from cooldown to available queue
-            while(!cooldownTasks.isEmpty() && cooldownTasks.peek().nextAvailable <= time){
-                availableTasks.offer(cooldownTasks.poll());
+            while(!tasksInCooldown.isEmpty() && tasksInCooldown.peek().nextAvailable <= time){
+                availableTasks.offer(tasksInCooldown.poll());
             }
 
-            //if no task is currently executable; jump to the next cooldown completion time.
+            //if no task available; fast forward time to the next available task from cooldown queue
             if (availableTasks.isEmpty()) {
-                time = cooldownTasks.peek().nextAvailable;
+                time = tasksInCooldown.peek().nextAvailable;
                 continue;
             }
 
+            //pick first available task
             Task task = availableTasks.poll();
+            time += task.duration; //advance time
             task.count--; //reduce count
 
-            time += task.duration; //advance time
-
+            //add to cool down queue if remaining freq
             if(task.count > 0){
-                //add to cool down queue
                 task.nextAvailable = time + cooldown;
-                cooldownTasks.offer(task);
+                tasksInCooldown.offer(task);
             }
         }
 
