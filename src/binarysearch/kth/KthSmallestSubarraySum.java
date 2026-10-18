@@ -42,7 +42,7 @@ public class KthSmallestSubarraySum {
              */
 
             //find how many subarrays have a sum at most mid
-            if (countSubArrayWithSumAtMost(nums, mid) >= k) {
+            if (countSubArrayWithSumAtMost(nums, mid) >= k) { //does this threshold has at least k subarrays
                 //at least k subarrays fit under this sum limit. The answer could be mid or smaller.
                 answer = mid;      // Valid candidate
                 high = mid - 1;    //try smaller

@@ -41,7 +41,7 @@ public class FindKTheSmallestPairDistance {
         while(low <= high){ //O(logD), where D is the range = max(nums) - min(nums)
             int mid = low + (high - low)/2;
 
-            if(countPairs(nums, mid) >= k){
+            if(countPairsWithDistanceAtMost(nums, mid) >= k){ //does this threshold has at least k paris
                 answer = mid; //possible answer
                 high = mid - 1; //try lower
             }else{
@@ -53,7 +53,7 @@ public class FindKTheSmallestPairDistance {
     }
 
     //O(n)
-    private int countPairs(int[] nums, int maxDistance)
+    private int countPairsWithDistanceAtMost(int[] nums, int maxDistance)
     {
         int windowStart = 0;
         int count = 0;
