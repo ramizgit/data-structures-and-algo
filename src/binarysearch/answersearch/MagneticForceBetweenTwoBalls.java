@@ -6,14 +6,7 @@ public class MagneticForceBetweenTwoBalls {
 
     //https://leetcode.com/problems/magnetic-force-between-two-balls/description/
 
-    public static void main(String[] args)
-    {
-        //position = [1,2,3,4,7], m = 3
-        System.out.println(maxDistance(new int[]{1,2,3,4,7}, 3));
-        System.out.println(maxDistance(new int[]{1, 3, 5, 6, 7}, 3));
-    }
-
-    private static int maxDistance(int[] position, int m)
+    public int maxDistance(int[] position, int m)
     {
         //sort inputs if not already
         Arrays.sort(position);
@@ -26,25 +19,27 @@ public class MagneticForceBetweenTwoBalls {
             int mid = left + (right - left)/2;
 
             if(canPlace(position, m, mid)){
-                answer = Math.max(answer, mid);
-                left = mid + 1;
+                answer = mid; //possible answer
+                left = mid + 1; //try higher to maximise distance
             }else{
-                right = mid - 1;
+                right = mid - 1; //cant place, try lower distance
             }
         }
 
         return answer;
     }
 
-    private static boolean canPlace(int[] position, int m, int dist) {
-        int lastPlaced = position[0]; ////always place first ball at the start
+    private boolean canPlace(int[] position, int m, int dist) {
+        int lastPlaced = position[0]; //always place first ball at the start
         int count = 1;
     
         for (int i = 1; i < position.length; i++) {
             if (position[i] - lastPlaced >= dist) {
+                //place another ball at the current basket
                 count++;
                 lastPlaced = position[i]; //reset position
-    
+
+                //early exit
                 if (count == m) {
                     return true;
                 }

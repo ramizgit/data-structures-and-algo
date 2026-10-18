@@ -29,7 +29,7 @@ public class AgressiveCows {
     //Time : O(n log n + n log(max-min))
     public int aggressiveCows(int[] stalls, int k)
     {
-        //sort stalls
+        //sort stalls, this lets us greedily place cows from left to right, ensuring each new cow is placed at the earliest stall that satisfies the minimum distance.
         Arrays.sort(stalls); //O(n log n)
 
         //binary search
@@ -42,7 +42,7 @@ public class AgressiveCows {
 
             if(canPlace(stalls, k, mid)){ //O(n)
                 answer = mid; //possible answer
-                low = mid + 1; //try higher to maximise distnce
+                low = mid + 1; //try higher to maximise distance
             }else{
                 high = mid - 1; //cant place, try lower distance
             }
@@ -70,6 +70,6 @@ public class AgressiveCows {
             }
         }
 
-        return count >= k;
+        return false;
     }
 }
