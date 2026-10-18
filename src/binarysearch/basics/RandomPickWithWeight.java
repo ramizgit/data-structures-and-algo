@@ -1,4 +1,4 @@
-package binarysearch.answersearch;
+package binarysearch.basics;
 
 import java.util.Random;
 
