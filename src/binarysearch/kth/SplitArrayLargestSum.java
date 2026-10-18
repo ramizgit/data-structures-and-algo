@@ -1,4 +1,4 @@
-package binarysearch.answersearch;
+package binarysearch.kth;
 
 public class SplitArrayLargestSum {
 
