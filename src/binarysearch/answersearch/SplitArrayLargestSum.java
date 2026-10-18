@@ -24,38 +24,32 @@ public class SplitArrayLargestSum {
 
             int mid = low + (high - low) / 2;
 
-            if(canSplit(nums, k, mid)){
+            if (countSubarraysForThreshold(nums, mid) <= k) {
+                //if we can split into <= k subarrays with max sum mid, we can always further split to make exactly k subarrays
                 answer = mid; //possible answer
-                high = mid - 1; //try lower to minimize max sum
-            }else{
-                low = mid + 1; //try higher
+                high = mid - 1;  //try lower to minimize answer
+            } else {
+                low = mid + 1;   //try higher
             }
         }
 
         return answer;
     }
 
-    //nums = [7,2,5,10,8], k = 2
-    private static boolean canSplit(int[] nums, int k, int maxSum)
+    private static int countSubarraysForThreshold(int[] nums, int maxSum)
     {
         int sum = 0;
-        int subarray = 1; //before we process any elements, we're already building the first subarray
+        int subarrays = 1; //before we process any elements, we're already building the first subarray
 
         for(int num : nums){
             sum += num;
 
             if(sum > maxSum){
-                subarray++;
-                //reset
-                sum = num;
+                subarrays++;
+                sum = num; //reset
             }
         }
 
-        // if we can split into <= k subarrays with max sum <= X,
-        // we can always further split to make exactly k subarrays,
-        // and the max sum will only stay same or decrease
-        // hence we check subarray <= k
-
-        return subarray <= k;
+        return subarrays;
     }
 }
