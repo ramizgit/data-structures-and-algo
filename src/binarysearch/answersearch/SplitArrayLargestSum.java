@@ -1,9 +1,9 @@
-package binarysearch.kthBinarySearchOnAnswer;
+package binarysearch.answersearch;
 
 public class SplitArrayLargestSum {
 
     //https://leetcode.com/problems/split-array-largest-sum/description/
-    
+
     private static int splitArray(int[] nums, int k)
     {
         int max = 0;
@@ -24,32 +24,38 @@ public class SplitArrayLargestSum {
 
             int mid = low + (high - low) / 2;
 
-            if (countSubarraysForThreshold(nums, mid) <= k) {
-                //if we can split into <= k subarrays with max sum mid, we can always further split to make exactly k subarrays
+            if(canSplit(nums, k, mid)){
                 answer = mid; //possible answer
-                high = mid - 1;  //try lower to minimize answer
-            } else {
-                low = mid + 1;   //try higher
+                high = mid - 1; //try lower to minimize max sum
+            }else{
+                low = mid + 1; //try higher
             }
         }
 
         return answer;
     }
 
-    private static int countSubarraysForThreshold(int[] nums, int maxSum)
+    //nums = [7,2,5,10,8], k = 2
+    private static boolean canSplit(int[] nums, int k, int maxSum)
     {
         int sum = 0;
-        int subarrays = 1; //before we process any elements, we're already building the first subarray
+        int subarray = 1; //before we process any elements, we're already building the first subarray
 
         for(int num : nums){
             sum += num;
 
             if(sum > maxSum){
-                subarrays++;
-                sum = num; //reset
+                subarray++;
+                //reset
+                sum = num;
             }
         }
 
-        return subarrays;
+        // if we can split into <= k subarrays with max sum <= X,
+        // we can always further split to make exactly k subarrays,
+        // and the max sum will only stay same or decrease
+        // hence we check subarray <= k
+
+        return subarray <= k;
     }
 }
