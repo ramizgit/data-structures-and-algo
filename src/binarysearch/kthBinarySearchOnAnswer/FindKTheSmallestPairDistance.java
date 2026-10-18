@@ -1,4 +1,4 @@
-package binarysearch.kth;
+package binarysearch.kthBinarySearchOnAnswer;
 
 import java.util.*;
 

@@ -1,4 +1,4 @@
-package binarysearch.kth;
+package binarysearch.kthBinarySearchOnAnswer;
 
 public class KthSmallestSubarraySum {
 
