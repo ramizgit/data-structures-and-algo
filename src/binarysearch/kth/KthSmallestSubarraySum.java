@@ -35,6 +35,12 @@ public class KthSmallestSubarraySum {
 
             int mid = low + (high - low) / 2;
 
+            /*
+            We need two things:
+            1. A threshold where count >= k tells us that the answer is at most that threshold.
+            2. Searching for the smallest such threshold ensures we land on the actual k-th smallest sum.
+             */
+
             //find how many subarrays have a sum at most mid
             if (countSubArrayWithSumAtMost(nums, mid) >= k) {
                 //at least k subarrays fit under this sum limit. The answer could be mid or smaller.
