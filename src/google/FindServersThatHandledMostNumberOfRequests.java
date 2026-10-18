@@ -14,7 +14,7 @@ public class FindServersThatHandledMostNumberOfRequests {
             freeServers.add(i);
         }
 
-        //busy servers - minheap {serverId, endTime}
+        //busy servers - minheap of {serverId, endTime} ordered by endTime
         PriorityQueue<int[]> busyServers = new PriorityQueue<>( (a, b) -> a[1] - b[1] );
         int[] requests = new int[k]; //keep track of num of requests by each server
         int maxRequest = 0;
@@ -23,10 +23,9 @@ public class FindServersThatHandledMostNumberOfRequests {
             int arrivalTime = arrival[i];
             int runTime = load[i];
 
-            // free completed servers
+            //first free servers which have completed tasks before this arrivalTime
             while (!busyServers.isEmpty() && busyServers.peek()[1] <= arrivalTime) {
-                int freedServer = busyServers.poll()[0];
-                freeServers.add(freedServer);
+                freeServers.add(busyServers.poll()[0]);
             }
 
             // no free server -> drop request
@@ -35,9 +34,9 @@ public class FindServersThatHandledMostNumberOfRequests {
             }
 
             // find next available server starting from i % k
-            Integer availableServer = freeServers.ceiling(i % k);
+            Integer availableServer = freeServers.ceiling(i % k); //find the next available server at or after the preferred server
 
-            // circular wrap
+            //if none exists, wrap around to the smallest available server
             if (availableServer == null) {
                 availableServer = freeServers.first();
             }
