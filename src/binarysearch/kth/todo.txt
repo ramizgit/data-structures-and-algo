@@ -1,5 +1,7 @@
+https://leetcode.com/problems/find-k-th-smallest-pair-distance/description/ [Done]
 https://leetcode.com/problems/kth-smallest-subarray-sum/description/ [Done]
-https://leetcode.com/problems/minimize-the-maximum-difference-of-pairs/description/?utm_source=chatgpt.com
+https://leetcode.com/problems/minimize-the-maximum-difference-of-pairs/description/ [Done]
+
 https://leetcode.com/problems/split-array-largest-sum/description/?utm_source=chatgpt.com
 https://leetcode.com/problems/kth-smallest-product-of-two-sorted-arrays/description/?utm_source=chatgpt.com
 https://leetcode.com/problems/k-th-smallest-prime-fraction/description/?utm_source=chatgpt.com

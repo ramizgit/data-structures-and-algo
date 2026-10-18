@@ -8,13 +8,13 @@ public class KthSmallestSubarraySum {
     public int kthSmallestSubarraySum(int[] nums, int k)
     {
         //input validation
-        if(nums == null || nums.length == 0 || k <= 0){
+        if(nums == null || nums.length == 0){
             return -1;
         }
 
         int n = nums.length;
         long totalSubarrays = (long) n * (n + 1) / 2;
-        if (k > totalSubarrays) {
+        if (k <= 0 || k > totalSubarrays) {
             return -1;
         }
 
