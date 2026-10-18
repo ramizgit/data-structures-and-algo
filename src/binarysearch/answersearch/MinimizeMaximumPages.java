@@ -99,3 +99,13 @@ public class MinimizeMaximumPages {
         return count <= students;
     }
 }
+
+/*
+Example: pages = [10, 20, 30], students = 2, maxAllocation = 20.
+- Student 1 gets [10] → 10 pages.
+- Student 2 gets [20] → 20 pages.
+- The book with 30 pages exceeds the limit, so it needs another student.
+Greedy allocation results in count = 3.
+Since 3 > students (2), count <= students is false.
+We cannot allocate all books to 2 students without someone exceeding 20 pages, so the threshold is too small. Increase low.
+ */
