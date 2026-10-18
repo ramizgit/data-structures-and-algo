@@ -14,7 +14,8 @@ public class MinimizeTheMaximumDifferenceOfPairs {
             return 0;
         }
 
-        Arrays.sort(nums); //(O(nlog n))
+        //(O(nlog n))
+        Arrays.sort(nums); //sorting puts similar values next to each other, allowing us to greedily form valid pairs by comparing only adjacent elements.
 
         int low = 0;
         int high = nums[nums.length - 1] - nums[0];
@@ -44,9 +45,9 @@ public class MinimizeTheMaximumDifferenceOfPairs {
 
             if(nums[i+1] - nums[i] <= threshold){
                 count++;
-                i += 2;
+                i += 2; //valid pair found, skip both elements so neither is reused
             }else{
-                i += 1;
+                i += 1; //valid pair not found, skip only the current element
             }
         }
 
