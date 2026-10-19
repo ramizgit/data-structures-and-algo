@@ -42,8 +42,7 @@ public class MeetingRoomIII {
 
             //free all rooms whose meetings ended before current meeting start
             while(!usedRooms.isEmpty() && usedRooms.peek()[1] <= start){
-                int[] room = usedRooms.poll(); //Time : O(logn)
-                unusedRooms.offer(room[0]);
+                unusedRooms.offer(usedRooms.poll()[0]); //Time : O(logn)
             }
 
             if(!unusedRooms.isEmpty()){
