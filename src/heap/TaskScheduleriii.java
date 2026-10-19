@@ -79,7 +79,7 @@ public class TaskScheduleriii {
             int[] durations,
             int cooldown)
     {
-        //max heap for remaining ones
+        //max heap for remaining ones : greedy strategy: prioritize the available task type with the most remaining executions to reduce potential idle time.
         PriorityQueue<Task> availableTasks = new PriorityQueue<>( (a, b) -> Integer.compare(b.count, a.count) );
 
         for(int i=0; i<taskTypes.length; i++){
