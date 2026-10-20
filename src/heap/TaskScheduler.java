@@ -22,17 +22,22 @@ public class TaskScheduler {
         int time = 0;
 
         while (!maxheap.isEmpty()){
-            List<Character> used = new ArrayList<>();
+
+            List<Character> remainingTasks = new ArrayList<>();
 
             for(int i=0; i<=n; i++){
                 if(!maxheap.isEmpty()){
                     Character task = maxheap.poll();
                     frequency.put(task, frequency.get(task)-1);
-                    used.add(task);
+
+                    if (frequency.get(task) > 0) {
+                        remainingTasks.add(task); //only add a task to used if it has remaining executions
+                    }
+
                     result.add(task.toString());
                     time++;
                 }else {
-                    if(used.isEmpty()){
+                    if(remainingTasks.isEmpty()){
                         break; //early exit as all tasks completed; no need to add trailing idle slots
                     }
                     result.add("Idle");
@@ -41,12 +46,7 @@ public class TaskScheduler {
             }
 
             //add unfinished tasks back to heap
-            for(char ch : used){
-                if(frequency.get(ch) > 0){
-                    maxheap.add(ch);
-                }
-            }
-
+            maxheap.addAll(remainingTasks);
         }
 
         System.out.println(result);
