@@ -37,6 +37,8 @@ public class EmployeeFreeTime {
 
     public List<int[]> employeeFreeTime(List<List<int[]>> schedule)
     {
+        //todo : follow EmployeeFreeTime from intervals package, thats easier
+
         /*
         Build difference map
                 ↓
