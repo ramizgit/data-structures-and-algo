@@ -55,8 +55,8 @@ public class MeetingRoomIII {
                 numOfMeetings[lowestUnusedRoom]++;
                 maxNumOfMeetings = Math.max(maxNumOfMeetings, numOfMeetings[lowestUnusedRoom]);
             }else{
-                //no room available
-                //immediately delay the current meeting to the earliest room that becomes free.
+                //no room available, immediately delay the current meeting to the earliest room that becomes free.
+                //when all rooms are busy, choose the room that finishes earliest, start the meeting at that room's finish time, and preserve the meeting's original duration.
                 int[] earliestRoom = usedRooms.poll();
                 int currMeetingDuration = end - start;
                 int newEndTime = earliestRoom[1] + currMeetingDuration;
