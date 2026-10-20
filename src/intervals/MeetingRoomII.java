@@ -14,7 +14,43 @@ public class MeetingRoomII {
     That equals the number of rooms required.
     */
 
-    public int minMeetingRooms(int[][] intervals) {
+    public int minMeetingRooms(int[][] intervals)
+    {
+        //input validation
+        if (intervals == null || intervals.length == 0) {
+            return 0;
+        }
+
+        //sort meetings by start time
+        Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
+
+        //minheap ordered by end time, to process earliest available meeting room first
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+
+        for (int i = 0; i < intervals.length; i++) {
+
+            int currStart = intervals[i][0];
+            int currEnd = intervals[i][1];
+
+            //remove expired meetings
+            if (!minHeap.isEmpty() && minHeap.peek() <= currStart) {
+                minHeap.poll(); // reuse room whose meeting ended earliest
+            }
+
+            //add current meeting
+            minHeap.offer(currEnd);
+        }
+
+        /*
+        Final heap size = number of rooms needed
+
+        Because heap contains ALL meetings that are overlapping
+        at peak time
+        */
+        return minHeap.size();
+    }
+
+    public int minMeetingRoomsWithDetails(int[][] intervals) {
 
         //similar to RoomAllocation, where we assign room number also
 
@@ -55,7 +91,7 @@ public class MeetingRoomII {
             If current meeting starts AFTER or AT that time:
             → that room is now free → reuse it
             */
-            if (!minHeap.isEmpty() && currStart >= minHeap.peek()) {
+            if (!minHeap.isEmpty() && minHeap.peek() <= currStart) {
                 minHeap.poll(); // reuse room whose meeting ended earliest
             }
 
