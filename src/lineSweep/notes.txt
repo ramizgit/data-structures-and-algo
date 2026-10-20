@@ -20,11 +20,11 @@ Sweep Line
 │
 └── Large / sparse coordinate range
        │
-       ├── Need event ordering at same coordinate?
+       ├── All intervals upfront / Need event ordering at same coordinate?
        │      ↓
        │   YES → Event List + Sort [Need to distinguish events occurring at the same coordinate? e.g., Meeting Rooms II (END before START), Skyline (START before END, taller before shorter)]
        │
-       └── NO  → TreeMap (Difference Map)
+       └── NO  → TreeMap (Difference Map) - Dynamic interval insertions
 
 
 
@@ -62,6 +62,9 @@ Examples:
 ---
 
 ### Quick Rule
+Rule of thumb:
+All intervals upfront → event list + sort.
+Dynamic interval insertions → consider a TreeMap.
 
 Need to distinguish the order of events at the same coordinate?
 
@@ -81,3 +84,4 @@ Need to distinguish the order of events at the same coordinate?
 | Event List + Sorting            | Meeting Rooms II             |
 | Event List + Sorting + Multiset | Skyline                      |
 | Difference Array                | Maximum Population Year      |
+
