@@ -30,6 +30,15 @@ public class MyCalendariii {
     It's the same sweep-line idea with a different data structure. This is a great pattern to remember.
      */
 
+    /*
+    Approach:-
+    For every new booking [start, end):
+    1. Update events[start] += 1.
+    2. Update events[end] -= 1.
+    3. Sweep the TreeMap entries in ascending time order.
+    4. Maintain the running active-booking count and return the maximum.
+     */
+
     //difference map : +1 at booking start and -1 at booking end
     TreeMap<Integer, Integer> events; //TreeMap<time, delta>
 
@@ -40,7 +49,7 @@ public class MyCalendariii {
         this.events = new TreeMap<>();
     }
 
-    //Time : O(n)
+    // Time: O(n) per booking
     public int book(int startTime, int endTime)
     {
         //add event
