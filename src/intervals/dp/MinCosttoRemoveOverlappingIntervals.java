@@ -109,6 +109,13 @@ Constraints
 
 public class MinCosttoRemoveOverlappingIntervals {
 
+    /*
+    Hint:-
+    this is mostly similar 99% to MaxProfitFromNonOverlappingJobs
+    you maximise the cost/profit u can keep
+    then answer = total - max cost = min cost to remove
+     */
+
     public long minimumRemovalCost(int[][] intervals)
     {
         //intervals[i] = [start, end, cost]
@@ -169,7 +176,7 @@ public class MinCosttoRemoveOverlappingIntervals {
                 answer = mid; //possible answer
                 low = mid + 1; //try higher
             }else{
-                high = mid - 1;
+                high = mid - 1; //try lower
             }
         }
 
