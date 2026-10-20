@@ -1,4 +1,4 @@
-package intervals;
+package intervals.dp;
 
 import java.util.*;
 
@@ -35,14 +35,14 @@ public class MaxProfitFromNonOverlappingJobs {
 
     //todo : practice
 
-    public long maxProfit(int[][] jobs) {
+    public long maxProfit(int[][] jobs)
+    {
+        //jobs[i] = [startTime, endTime, profit]
 
         // Input validation
         if (jobs == null || jobs.length == 0) {
             return 0;
         }
-
-        int n = jobs.length;
 
         // Sort jobs by end time in ascending order
         /*
@@ -52,24 +52,31 @@ public class MaxProfitFromNonOverlappingJobs {
          */
         Arrays.sort(jobs, (a, b) -> Integer.compare(a[1], b[1]));
 
-        long[] dp = new long[n + 1]; //dp[i] = maximum profit using the first i jobs. dp[0] = 0, meaning no jobs selected.
+        int n = jobs.length;
 
-        for (int i = 1; i <= n; i++) {
+        long[] dp = new long[n]; //dp[i] = maximum profit using jobs[0...i]
+        dp[0] = jobs[0][2]; //base case: only the first job is available
 
-            int[] currJob = jobs[i - 1];
-
-            int startTime = currJob[0];
-            int profit = currJob[2];
+        for (int i = 1; i < n; i++) {
+            int currStart = jobs[i][0];
+            int currProfit = jobs[i][2];
 
             // Find the last job ending <= current job's start time
-            int lastCompatible = findLastCompatibleJob(jobs, i - 2, startTime); //why i-1? Because i - 1 is the current job's index. Including it would allow the binary search to consider the current job itself as its own predecessor.
+            int lastCompatible = findLastCompatibleJob(jobs, i - 1, currStart);
 
-            dp[i] = Math.max(dp[i - 1], // Option 1: Skip the current job
-                    profit + dp[lastCompatible + 1] // Option 2: Take the current job
+            long take = currProfit;
+
+            if (lastCompatible != -1) {
+                take += dp[lastCompatible];
+            }
+
+            dp[i] = Math.max(
+                    take, //take curr job
+                    dp[i - 1] //skip curr job
             );
         }
 
-        return dp[n];
+        return dp[n-1];
     }
 
     /*
@@ -80,8 +87,7 @@ public class MaxProfitFromNonOverlappingJobs {
      * Time: O(log n)
      * Space: O(1)
      */
-    private int findLastCompatibleJob(
-            int[][] jobs, int high, int startTime) {
+    private int findLastCompatibleJob(int[][] jobs, int high, int startTime) {
 
         int low = 0;
         int answer = -1;

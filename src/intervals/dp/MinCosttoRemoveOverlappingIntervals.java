@@ -1,4 +1,4 @@
-package dp.intervaldp;
+package intervals.dp;
 
 import java.util.*;
 
@@ -120,15 +120,9 @@ public class MinCosttoRemoveOverlappingIntervals {
 
         Arrays.sort(intervals, (a, b) -> Integer.compare(a[1], b[1])); //sort by end time
 
-        long totalCost = 0;
-
-        for(int[] interval : intervals){
-            totalCost += interval[2];
-        }
-
         int n = intervals.length;
 
-        long[] dp = new long[n]; //dp[i] = maximum total cost of non-overlapping intervals we can KEEP considering intervals[0...i]
+        long[] dp = new long[n]; //dp[i] = max total cost of non-overlapping intervals among intervals[0...i]
 
         dp[0] = intervals[0][2]; //base case
 
@@ -151,6 +145,12 @@ public class MinCosttoRemoveOverlappingIntervals {
                     take, //take
                     dp[i-1] //don't take
             );
+        }
+
+        long totalCost = 0;
+
+        for(int[] interval : intervals){
+            totalCost += interval[2];
         }
 
         return totalCost - dp[n-1]; //min cost to remove overlapping ones
