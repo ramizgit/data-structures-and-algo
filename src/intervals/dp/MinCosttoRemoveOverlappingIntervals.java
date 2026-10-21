@@ -138,10 +138,10 @@ public class MinCosttoRemoveOverlappingIntervals {
             int currStart = intervals[i][0];
             int currCost = intervals[i][2];
 
-            //among intervals 0 to i-1, find the rightmost interval whose end <= current.start.
-            int lastCompatible = binarySearchLastCompatible(intervals, i - 1, currStart);
-
             long take = currCost;
+
+            //among intervals 0 to i-1, find the rightmost interval whose end <= current.start.
+            int lastCompatible = binarySearchLastCompatible(intervals, i, currStart);
 
             if (lastCompatible != -1) {
                 take += dp[lastCompatible];
@@ -163,9 +163,10 @@ public class MinCosttoRemoveOverlappingIntervals {
         return totalCost - dp[n-1]; //min cost to remove overlapping ones
     }
 
-    private int binarySearchLastCompatible(int[][] intervals, int high, int currStart)
+    private int binarySearchLastCompatible(int[][] intervals, int currIdx, int currStart)
     {
         int low = 0;
+        int high = currIdx - 1;
         int answer = -1; //index of the right most compatible interval
 
         while(low <= high){
