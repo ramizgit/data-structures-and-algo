@@ -40,8 +40,9 @@ public class JumpGamevi {
     // Time : O(n)
     // Space: O(n)
     /*
-    Each index is inserted into the deque exactly once and removed at most once (either from the front when it expires or from the back when it's dominated).
-    Therefore, the total number of deque operations across the entire algorithm is O(n), making the overall time complexity O(n).
+    The DP transition needs the maximum dp[j] among the previous k indices, which is a sliding window maximum problem.
+    Use a monotonic decreasing deque to maintain candidate indices in decreasing order of their DP values, removing expired and dominated indices.
+    This optimizes the time complexity from (O(nk)) to (O(n)).
      */
     public int maxResultViaMonotonicDeque(int[] nums, int k)
     {
@@ -51,7 +52,7 @@ public class JumpGamevi {
 
         dp[0] = nums[0]; //base case
 
-        Deque<Integer> monoDecDeque = new ArrayDeque<>(); //monotonic deque over the DP array
+        Deque<Integer> monoDecDeque = new ArrayDeque<>(); //monotonic deque over the DP array. the deque stores indices, not DP values, but those indices are ordered by their corresponding DP values in descending order.
         monoDecDeque.offerLast(0); //push first index
 
         for(int i=1; i<n; i++){ //O(n)
@@ -62,7 +63,7 @@ public class JumpGamevi {
             }
 
             // Jump from the previous index with the maximum score in the current window.
-            dp[i] = nums[i] + dp[monoDecDeque.peekFirst()];
+            dp[i] = nums[i] + dp[monoDecDeque.peekFirst()]; //The deque does the maximization, so you don't need Math.max() again.
 
             //remove smaller DP values from the back, maintain monotonic decreasing queue
             while(!monoDecDeque.isEmpty() && dp[monoDecDeque.peekLast()] <= dp[i]){
