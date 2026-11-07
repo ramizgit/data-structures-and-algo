@@ -37,7 +37,7 @@ public class ShortestSubArrayWithSumAtLeastKWithNegNum {
                 deque.removeFirst();
             }
 
-            //2. If the current prefix sum is smaller than an older prefix sum, remove the older one.
+            //2. Shrink from last. If the current prefix sum is smaller than an older prefix sum, remove the older one.
             // Once we find a smaller prefix sum, it takes priority.
             // Previous larger prefix sums can never produce a better answer.
             // A smaller (or equal) prefix sum at a later index is always better.
