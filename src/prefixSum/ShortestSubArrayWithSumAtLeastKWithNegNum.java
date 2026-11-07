@@ -42,7 +42,7 @@ public class ShortestSubArrayWithSumAtLeastKWithNegNum {
             // Previous larger prefix sums can never produce a better answer.
             // A smaller (or equal) prefix sum at a later index is always better.
             while (!deque.isEmpty() && prefixSum[i] <= prefixSum[deque.peekLast()]){
-                deque.removeLast();
+                deque.removeLast(); //The second while loop ensures that the prefix sum values corresponding to indices in the deque are always in strictly increasing order.
             }
 
             //3. Add current
