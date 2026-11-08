@@ -1,4 +1,4 @@
-package twopointers;
+package greedy;
 
 public class BestTimeToBuySellStock {
 
