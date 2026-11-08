@@ -34,10 +34,7 @@ public class BestTimeToBuyAndSellStockiii {
 
         for (int buyIndex = n - 2; buyIndex >= 0; buyIndex--) {
 
-            maxProfit = Math.max(
-                    maxProfit,
-                    prices[sell] - prices[buyIndex]
-            );
+            maxProfit = Math.max(maxProfit, prices[sell] - prices[buyIndex]);
 
             if (prices[buyIndex] > prices[sell]) {
                 sell = buyIndex;
@@ -52,7 +49,8 @@ public class BestTimeToBuyAndSellStockiii {
         for (int i = 0; i < n; i++) {
             result = Math.max(
                     result,
-                    leftProfit[i] + rightProfit[i]
+                    leftProfit[i] //Best first transaction ending on or before day i
+                            + rightProfit[i] //Best second transaction starting on or after day i
             );
         }
 
