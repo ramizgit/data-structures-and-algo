@@ -36,14 +36,14 @@ public class ParallelCoursesWithLimitedMachines {
         }
 
         // Pool of available machines.
-        Queue<Integer> availableMachines = new LinkedList<>();
+        Queue<Integer> availableMachines = new LinkedList<>(); //could use a set/list also here
 
         for (int i = 0; i < machines; i++) {
             availableMachines.offer(i);
         }
 
         // Pool of busy machines, ordered by finish time.
-        PriorityQueue<Machine> busyMachines = new PriorityQueue<>(Comparator.comparingInt(m -> m.finishTime));
+        PriorityQueue<Machine> busyMachines = new PriorityQueue<>( (a, b) -> Integer.compare(a.finishTime, b.finishTime));
 
         int currentTime = 0;
         int completedJobs = 0;
