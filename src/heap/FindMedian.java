@@ -28,7 +28,7 @@ public class FindMedian {
         if(maxheap.size() > minheap.size()){
             return maxheap.peek();
         }else {
-            return (maxheap.peek() + minheap.peek())/2.0;
+            return ((double) maxheap.peek() + minheap.peek()) / 2.0;
         }
     }
 }
