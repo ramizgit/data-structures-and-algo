@@ -1,4 +1,4 @@
-package practice;
+package sliding_window.eventWindow;
 
 import java.util.*;
 
