@@ -18,14 +18,12 @@ public class BestTimeToBuyAndSellStockiii {
         int maxProfit = 0;
 
         for (int sell = 1; sell < n; sell++) {
-
             maxProfit = Math.max(maxProfit, prices[sell] - prices[buy]);
+            leftProfit[sell] = maxProfit;
 
             if (prices[sell] < prices[buy]) {
                 buy = sell;
             }
-
-            leftProfit[sell] = maxProfit;
         }
 
         // Second pass: Right to left
@@ -33,14 +31,12 @@ public class BestTimeToBuyAndSellStockiii {
         maxProfit = 0;
 
         for (int buyIndex = n - 2; buyIndex >= 0; buyIndex--) {
-
             maxProfit = Math.max(maxProfit, prices[sell] - prices[buyIndex]);
+            rightProfit[buyIndex] = maxProfit;
 
             if (prices[buyIndex] > prices[sell]) {
                 sell = buyIndex;
             }
-
-            rightProfit[buyIndex] = maxProfit;
         }
 
         // Combine both transactions
