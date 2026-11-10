@@ -52,9 +52,9 @@ public class ParallelCoursesiii {
         }
 
         //initialize finish time to time of each node
-        int[] finish = new int[n+1];
+        int[] dp = new int[n+1]; //dp[i] = finish time of ith node
         for(int i=0; i<n; i++){
-            finish[i+1] = time[i];
+            dp[i+1] = time[i];
         }
 
         while(!topoQueue.isEmpty()){
@@ -68,9 +68,9 @@ public class ParallelCoursesiii {
                 //important : the relaxation must happen for every incoming edge, not only when indegree becomes 0.
                 //a course with multiple prerequisites can start only after ALL of its prerequisites are finished. That's why we take the maximum.
 
-                finish[neighbour] = Math.max(
-                        finish[neighbour],                  // earliest finish based on previous prerequisites
-                        finish[curr] + time[neighbour-1]    // finish time if curr is the latest prerequisite
+                dp[neighbour] = Math.max(
+                        dp[neighbour],                  // earliest finish based on previous prerequisites
+                        dp[curr] + time[neighbour-1]    // finish time if curr is the latest prerequisite
                 );
 
                 indegree[neighbour]--;
@@ -83,7 +83,7 @@ public class ParallelCoursesiii {
 
         int answer = 0;
 
-        for(int t : finish){
+        for(int t : dp){
             answer = Math.max(answer, t);
         }
 
