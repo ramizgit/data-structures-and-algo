@@ -6,11 +6,11 @@ public class ParallelCoursesWithLimitedMachines {
 
     //todo : practice
 
-    public int minimumCompletionTime(int[] processingTime, int[][] dependencies, int machines)
-    {
+    public int minimumCompletionTime(int[] processingTime, int[][] dependencies, int machines) {
+
         int n = processingTime.length;
 
-        // Build graph and calculate indegree.
+        // Build graph.
         List<List<Integer>> graph = new ArrayList<>();
         for (int i = 0; i < n; i++) {
             graph.add(new ArrayList<>());
@@ -26,64 +26,62 @@ public class ParallelCoursesWithLimitedMachines {
             indegree[to]++;
         }
 
-        // Jobs eligible to start, ordered by shortest processing time.
-        PriorityQueue<Integer> availableJobs = new PriorityQueue<>((a, b) ->
-                {
-                    if (processingTime[a] != processingTime[b]) {
-                        return Integer.compare(processingTime[a], processingTime[b]);
-                    }
+        // Jobs whose dependencies are completed.
+        Queue<Integer> topoQueue = new LinkedList<>();
 
-                    return Integer.compare(a, b);
-                }
-                );
-
-        // Currently running jobs, ordered by earliest finish time.
-        PriorityQueue<RunningJob> runningJobs = new PriorityQueue<>((a, b) -> Integer.compare(a.finishTime, b.finishTime));
-
-        // Initially, all jobs with no dependencies are eligible.
         for (int i = 0; i < n; i++) {
             if (indegree[i] == 0) {
-                availableJobs.offer(i);
+                topoQueue.offer(i);
             }
         }
+
+        // Pool of available machines.
+        Queue<Integer> availableMachines = new LinkedList<>();
+
+        for (int i = 0; i < machines; i++) {
+            availableMachines.offer(i);
+        }
+
+        // Pool of busy machines, ordered by finish time.
+        PriorityQueue<Machine> busyMachines = new PriorityQueue<>(Comparator.comparingInt(m -> m.finishTime));
 
         int currentTime = 0;
         int completedJobs = 0;
 
         while (completedJobs < n) {
 
-            // Start jobs while machines are available.
-            while (!availableJobs.isEmpty() && runningJobs.size() < machines) {
-
-                int job = availableJobs.poll();
-
+            // Assign eligible jobs to available machines.
+            while (!topoQueue.isEmpty() && !availableMachines.isEmpty()) {
+                int job = topoQueue.poll();
+                int machineId = availableMachines.poll();
                 int finishTime = currentTime + processingTime[job];
-
-                runningJobs.offer(
-                        new RunningJob(job, finishTime));
+                busyMachines.offer(new Machine(machineId, finishTime, job));
             }
 
-            // No running or available jobs means a cycle exists.
-            if (runningJobs.isEmpty()) {
+            // No running jobs and no eligible jobs means a cycle exists.
+            if (busyMachines.isEmpty()) {
                 return -1;
             }
 
-            // Advance time to the next job completion.
-            currentTime = runningJobs.peek().finishTime;
+            // Advance time to the next machine completion.
+            currentTime = busyMachines.peek().finishTime;
 
-            // Process ALL jobs finishing at this same time.
-            while (!runningJobs.isEmpty()
-                    && runningJobs.peek().finishTime == currentTime) {
+            //free machines whose jobs have completed
+            while (!busyMachines.isEmpty() && busyMachines.peek().finishTime == currentTime) {
 
-                RunningJob completed = runningJobs.poll();
+                Machine machine = busyMachines.poll();
+
                 completedJobs++;
 
-                // Make dependent jobs eligible when all dependencies finish.
-                for (int neighbour : graph.get(completed.job)) {
+                // Return machine to the available pool.
+                availableMachines.offer(machine.machineId);
+
+                // Unlock dependent jobs.
+                for (int neighbour : graph.get(machine.runningJob)) {
                     indegree[neighbour]--;
 
                     if (indegree[neighbour] == 0) {
-                        availableJobs.offer(neighbour);
+                        topoQueue.offer(neighbour);
                     }
                 }
             }
@@ -92,13 +90,15 @@ public class ParallelCoursesWithLimitedMachines {
         return currentTime;
     }
 
-    static class RunningJob {
-        int job;
+    static class Machine {
+        int machineId;
         int finishTime;
+        int runningJob;
 
-        RunningJob(int job, int finishTime) {
-            this.job = job;
+        Machine(int machineId, int finishTime, int runningJob) {
+            this.machineId = machineId;
             this.finishTime = finishTime;
+            this.runningJob = runningJob;
         }
     }
 }
