@@ -5,26 +5,15 @@ import java.util.PriorityQueue;
 
 public class FindMedian {
 
-    private static PriorityQueue<Integer> minheap = new PriorityQueue<>();
-    private static PriorityQueue<Integer> maxheap = new PriorityQueue<>(Collections.reverseOrder());
+    private PriorityQueue<Integer> minheap = new PriorityQueue<>();
+    private PriorityQueue<Integer> maxheap = new PriorityQueue<>( (a, b) -> Integer.compare(b, a));
 
-    public static void main(String[] args)
-    {
-        int[] stream = {5, 15, 1, 3, 8, 7, 9};
-
-        for (int num : stream) {
-            add(num);
-            System.out.println("Current Median: " + findMedian());
-        }
-
-    }
-
-    private static void add(int num)
+    private void add(int num)
     {
         if(maxheap.isEmpty() || num <= maxheap.peek()){
-            maxheap.add(num);
+            maxheap.add(num); //smaller numbers go into maxheap.
         }else{
-            minheap.add(num);
+            minheap.add(num); //larger numbers go into minheap.
         }
 
         //balance
@@ -35,7 +24,7 @@ public class FindMedian {
         }
     }
 
-    private static double findMedian(){
+    private double findMedian(){
         if(maxheap.size() > minheap.size()){
             return maxheap.peek();
         }else {
