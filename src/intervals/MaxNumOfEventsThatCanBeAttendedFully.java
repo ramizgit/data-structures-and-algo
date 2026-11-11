@@ -41,12 +41,12 @@ public class MaxNumOfEventsThatCanBeAttendedFully {
         Arrays.sort(events, (a, b) -> Integer.compare(a[1], b[1]));
 
         int attended = 0;
-        int lastEndTime = Integer.MIN_VALUE;
+        int lastEndTime = events[0][1]; //attend first event
 
-        for(int[] event : events){
+        for(int i=1; i<events.length; i++){
 
-            int currStartTime = event[0];
-            int currEndTime = event[1];
+            int currStartTime = events[i][0];
+            int currEndTime = events[i][1];
 
             if(currStartTime >= lastEndTime){
                 attended++;

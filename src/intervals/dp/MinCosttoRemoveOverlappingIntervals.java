@@ -110,6 +110,8 @@ Constraints
 public class MinCosttoRemoveOverlappingIntervals {
 
     /*
+    Pattern: Intervals + Binary Search + Dynamic Programming
+
     Hint:-
     this is mostly similar 99% to MaxProfitFromNonOverlappingJobs
     you maximise the cost/profit u can keep
