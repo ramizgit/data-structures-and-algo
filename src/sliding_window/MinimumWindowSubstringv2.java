@@ -40,7 +40,7 @@ public class MinimumWindowSubstringv2 {
             }
 
             //shrink window till substring criteria meets
-            while(isSubString(need, window)){
+            while(containsAllRequiredChars(need, window)){
 
                 int windowLen = windowEnd - windowStart + 1;
 
@@ -58,7 +58,7 @@ public class MinimumWindowSubstringv2 {
         return minStart == -1 ? "" : s.substring(minStart, minStart + minLen);
     }
 
-    private boolean isSubString(int[] need, int[] window)
+    private boolean containsAllRequiredChars(int[] need, int[] window)
     {
         for(int i=0; i<128; i++){
             if(window[i] < need[i]){
