@@ -9,7 +9,7 @@ public class MaxNumOfEventsThatCanBeAttendedFully {
     You are given an array of events where each event is represented as
     [startDay, endDay].
 
-    Unlike the original problem, if you choose to attend an event, you must
+    Unlike the original problem (MaxNumOfEventsThatCanBeAttended), if you choose to attend an event, you must
     attend the entire interval from startDay to endDay. Therefore, you cannot
     attend two events whose intervals overlap.
 
@@ -37,7 +37,7 @@ public class MaxNumOfEventsThatCanBeAttendedFully {
             return 0;
         }
 
-        //sort by end day
+        //sort by end day to proiritize events ending earlier
         Arrays.sort(events, (a, b) -> Integer.compare(a[1], b[1]));
 
         int attended = 0;
