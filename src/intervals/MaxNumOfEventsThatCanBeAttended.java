@@ -57,7 +57,7 @@ public class MaxNumOfEventsThatCanBeAttended {
 
             //by this time, heap should have all valid events for today
             if(!minheap.isEmpty()){
-                //attend event
+                //attend event that ends earliest.
                 answer++;
 
                 //once you attend an event, it is finished, remove it from heap

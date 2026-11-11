@@ -2,9 +2,7 @@ package intervals;
 
 import java.util.Arrays;
 
-public class MaxNumOfEventsThatCanBeAttendedFully {
-
-    /*
+/*
     Follow-up:
     You are given an array of events where each event is represented as
     [startDay, endDay].
@@ -25,6 +23,8 @@ public class MaxNumOfEventsThatCanBeAttendedFully {
     Explanation:
     One optimal selection is [2,3] and [6,8].
      */
+
+public class MaxNumOfEventsThatCanBeAttendedFully {
 
     //important point : you need to attend event from start to end in full
 
