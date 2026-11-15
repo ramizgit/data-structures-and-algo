@@ -1,4 +1,4 @@
-package consistenthashing.array;
+package array;
 
 import java.util.*;
 
@@ -17,30 +17,30 @@ public class InsertDeleteGetrandomO1 {
 
         //supporting datastructures
         List<Integer> values; //to maintain set elements
-        Map<Integer, Integer> valueToIdx; //to maintain value to index map
+        Map<Integer, Integer> valueToIdxMap; //to maintain value to index map
         private Random random;
 
         public RandomizedSet() {
             this.values = new ArrayList<>();
-            this.valueToIdx = new HashMap<>();
+            this.valueToIdxMap = new HashMap<>();
             this.random = new Random();
         }
 
         public boolean insert(int val) {
 
-            if(this.valueToIdx.containsKey(val)){
+            if(this.valueToIdxMap.containsKey(val)){
                 return false;
             }
 
             this.values.add(val); //add to the end of values list - O(1)
-            this.valueToIdx.put(val, this.values.size() - 1); //populate index map
+            this.valueToIdxMap.put(val, this.values.size() - 1); //populate index map
 
             return true;
         }
 
         public boolean remove(int val) {
 
-            if(!this.valueToIdx.containsKey(val)){
+            if(!this.valueToIdxMap.containsKey(val)){
                 return false;
             }
 
@@ -53,16 +53,16 @@ public class InsertDeleteGetrandomO1 {
             6. Remove last element from list
              */
 
-            int index = this.valueToIdx.get(val);
+            int index = this.valueToIdxMap.get(val);
             int lastValue = this.values.getLast();
 
             if (index != values.size() - 1) {
                 values.set(index, lastValue);
-                valueToIdx.put(lastValue, index);
+                valueToIdxMap.put(lastValue, index);
             }
 
             this.values.removeLast();
-            this.valueToIdx.remove(val);
+            this.valueToIdxMap.remove(val);
 
             return true;
         }
