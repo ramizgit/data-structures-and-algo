@@ -26,6 +26,7 @@ public class MinimumNumberOfRefuelingStops {
 
         int capacity = startFuel; // Maximum distance we can currently reach
 
+        //First loop: Refuel when you cannot reach the next gas station.
         for (int i = 0; i < stations.length; i++) {
 
             int position = stations[i][0];
@@ -47,6 +48,7 @@ public class MinimumNumberOfRefuelingStops {
         }
 
         // After all stations, keep refueling until we reach the target.
+        //Second loop: Refuel when you cannot reach the destination.
         while (capacity < target) {
 
             if (fuelMaxHeap.isEmpty()) {
