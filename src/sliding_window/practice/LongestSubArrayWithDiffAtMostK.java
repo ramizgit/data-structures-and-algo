@@ -44,6 +44,7 @@ public class LongestSubArrayWithDiffAtMostK {
         int n = nums.length;
         int windowLeft = 0;
 
+        //use two monotonic deques to efficiently track the window's maximum and minimum, allowing us to validate the window in O(1).
         Deque<Integer> maxDeque = new ArrayDeque<>();
         Deque<Integer> minDeque = new ArrayDeque<>();
 
