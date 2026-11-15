@@ -29,18 +29,17 @@ public class CheapestFlightsWithinKStops {
         }
 
         //dijkstra algo
-        PriorityQueue<State> minheap = new PriorityQueue<>( (a,b) -> a.price - b.price ); //always process flight with min price first
+        PriorityQueue<State> minheap = new PriorityQueue<>( (a,b) -> Integer.compare(a.price, b.price)); //always process flight with min price first
         minheap.offer(new State(src, 1, 0)); //starting point
 
         /*
         Modified Dijkstra:
-        state = (node, nodesUsed)
-        nodesUsed includes src and current node.
-        k stops → at most k + 2 nodes:
-        src + k intermediate nodes + dst
+        state = (node, price, stops)
+        stops includes src and current node.
+        k stops → at most k + 2 nodesVisited (src + k intermediate nodes + dst)
         Therefore indices 1..k+2 require k+3 slots.
         */
-        int[][] dist = new int[n][k + 3];
+        int[][] dist = new int[n][k + 3]; //dist[node][nodesVisited] = price
 
         for(int i = 0; i < n; i++){
             Arrays.fill(dist[i], Integer.MAX_VALUE); //initially put max possible value, to be relaxed later
@@ -53,7 +52,7 @@ public class CheapestFlightsWithinKStops {
             State curr = minheap.poll();
 
             //check stale/outdated records
-            if (curr.price > dist[curr.node][curr.stops]) {
+            if (curr.price > dist[curr.node][curr.nodesVisited]) {
                 continue;
             }
 
@@ -63,7 +62,7 @@ public class CheapestFlightsWithinKStops {
             }
 
             //don't proceed if path already uses the maximum allowed nodes
-            if(curr.stops >= k+2) {
+            if(curr.nodesVisited >= k+2) {
                 continue;
             }
 
@@ -71,12 +70,12 @@ public class CheapestFlightsWithinKStops {
             for(Edges neighbour : graph.get(curr.node)){
 
                 int newCost = curr.price + neighbour.price;
-                int newStops = curr.stops + 1;
+                int newStops = curr.nodesVisited + 1;
 
                 //relaxation
-                if(newCost < dist[neighbour.dst][newStops]){
-                    dist[neighbour.dst][newStops] = newCost; //relaxation
-                    minheap.offer(new State(neighbour.dst, newStops, newCost));//enqueue
+                if(newCost < dist[neighbour.node][newStops]){
+                    dist[neighbour.node][newStops] = newCost; //relaxation
+                    minheap.offer(new State(neighbour.node, newStops, newCost));//enqueue
                 }
             }
         }
@@ -95,23 +94,23 @@ public class CheapestFlightsWithinKStops {
     }
 
     class Edges{
-        int dst;
+        int node;
         int price;
 
-        public Edges(int dst, int price) {
-            this.dst = dst;
+        public Edges(int node, int price) {
+            this.node = node;
             this.price = price;
         }
     }
 
     class State{
         int node;
-        int stops;
+        int nodesVisited;
         int price;
 
-        public State(int node, int stops, int price) {
+        public State(int node, int nodesVisited, int price) {
             this.node = node;
-            this.stops = stops;
+            this.nodesVisited = nodesVisited;
             this.price = price;
         }
     }
