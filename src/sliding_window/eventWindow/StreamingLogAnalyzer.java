@@ -119,6 +119,9 @@ public class StreamingLogAnalyzer {
             int oldFreq = userFreq.getOrDefault(user, 0);
             int newFreq = oldFreq + 1;
 
+            //update user frequency
+            userFreq.put(user, newFreq);
+
             // Remove from old frequency bucket
             if (oldFreq > 0) {
                 freqToUsers.get(oldFreq).remove(user);
@@ -127,9 +130,6 @@ public class StreamingLogAnalyzer {
                     freqToUsers.remove(oldFreq);
                 }
             }
-
-            //update user frequency
-            userFreq.put(user, newFreq);
 
             //add to new frequency bucket
             freqToUsers.computeIfAbsent(newFreq, key -> new TreeSet<>()).add(user);
