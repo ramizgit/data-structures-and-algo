@@ -64,6 +64,8 @@ public class StreamingLogAnalyzer {
 
     //hint : sliding window + frequency map
 
+    private TreeMap<Integer, Set<String>> freqToUsers = new TreeMap<>(); //this is needed only when top k is asked
+
     //Time: O(N) amortized
     //Space: O(N) worst case
     //N = number of log entries.
@@ -80,7 +82,9 @@ public class StreamingLogAnalyzer {
         Deque<LogEntry> activeRequestQueue = new ArrayDeque<>();
         Map<String, Integer> userFreq = new HashMap<>();
 
+
         for(int i=0; i<logs.length; i++){
+
             String[] log = logs[i];
             int timestamp = Integer.parseInt(log[0]);
             String user = log[1];
@@ -90,18 +94,45 @@ public class StreamingLogAnalyzer {
                 //remove stale entries from front
                 LogEntry staleEntry = activeRequestQueue.pollFirst();
 
-                //reduce freq in map
-                userFreq.put(staleEntry.user, userFreq.get(staleEntry.user) - 1);
-
-                //remove from map if freq is 0
+                //update user to freq map
+                int oldFreq = userFreq.get(staleEntry.user);
+                int newFreq = oldFreq - 1;
+                userFreq.put(staleEntry.user, newFreq);
                 if(userFreq.get(staleEntry.user) == 0){
                     userFreq.remove(staleEntry.user);
+                }
+
+                //update freq to users map
+                freqToUsers.get(oldFreq).remove(staleEntry.user);
+                if(freqToUsers.get(oldFreq).isEmpty()){
+                    freqToUsers.remove(oldFreq);
+                }
+                if(newFreq > 0){
+                    freqToUsers.computeIfAbsent(newFreq, key -> new TreeSet<>()).add(staleEntry.user);
                 }
             }
 
             //add current event at the end
+            // Add current event at the end
             activeRequestQueue.offerLast(new LogEntry(timestamp, user));
-            userFreq.put(user, userFreq.getOrDefault(user, 0) + 1);
+
+            int oldFreq = userFreq.getOrDefault(user, 0);
+            int newFreq = oldFreq + 1;
+
+            // Remove from old frequency bucket
+            if (oldFreq > 0) {
+                freqToUsers.get(oldFreq).remove(user);
+
+                if (freqToUsers.get(oldFreq).isEmpty()) {
+                    freqToUsers.remove(oldFreq);
+                }
+            }
+
+            //update user frequency
+            userFreq.put(user, newFreq);
+
+            //add to new frequency bucket
+            freqToUsers.computeIfAbsent(newFreq, key -> new TreeSet<>()).add(user);
 
             result[i] = userFreq.size();
         }
@@ -109,12 +140,13 @@ public class StreamingLogAnalyzer {
         return result;
     }
 
-    //todo : incomplete code : integrate below code if top k is asked
-    private TreeMap<Integer, Set<String>> freqToUsers;
-
     public List<String> getTopKUsers(int k) {
 
         List<String> result = new ArrayList<>();
+
+        if (k <= 0) {
+            return result;
+        }
 
         // Highest frequency first
         for (Map.Entry<Integer, Set<String>> entry : freqToUsers.descendingMap().entrySet()) {
