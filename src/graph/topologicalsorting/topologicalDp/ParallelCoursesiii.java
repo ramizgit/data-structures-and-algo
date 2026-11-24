@@ -57,9 +57,12 @@ public class ParallelCoursesiii {
             dp[i+1] = time[i];
         }
 
+        int processedCount = 0; //to detect cycle
+
         while(!topoQueue.isEmpty()){
 
             int curr = topoQueue.poll();
+            processedCount++;
 
             //explore neighbours
             for(int neighbour : graph.get(curr)){
@@ -79,6 +82,10 @@ public class ParallelCoursesiii {
                     topoQueue.offer(neighbour);
                 }
             }
+        }
+
+        if (processedCount != n) {
+            throw new IllegalArgumentException("Cycle detected");
         }
 
         int answer = 0;
