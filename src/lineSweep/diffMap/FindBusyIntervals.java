@@ -134,6 +134,12 @@ public class FindBusyIntervals {
             Once you internalize that, the ordering in the sweep becomes very natural.
              */
 
+            /*
+            Before processing the event at currTime, check whether the previous active usage satisfies the threshold.
+            If it does, add [prevTime, currTime) or extend the previous result.
+            Apply the current event's delta and move prevTime.
+             */
+
             int currTime = entry.getKey();
             int delta = entry.getValue();
 

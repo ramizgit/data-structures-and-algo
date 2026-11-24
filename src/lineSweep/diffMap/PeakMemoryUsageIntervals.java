@@ -109,6 +109,12 @@ public class PeakMemoryUsageIntervals {
 
         for(Map.Entry<Integer, Long> event : events.entrySet()){
 
+            /*
+            Before processing the event at currTime, check whether the previous active usage satisfies the threshold.
+            If it does, add [prevTime, currTime) or extend the previous result.
+            Apply the current event's delta and move prevTime.
+             */
+
             int currTime = event.getKey();
             long delta = event.getValue();
 
