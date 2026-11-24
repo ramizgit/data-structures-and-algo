@@ -22,7 +22,7 @@ public class NonOverlappingIntervals {
         }
 
         //Greedy approach : always keep the interval that ends earliest, because it frees up the timeline earlier and leaves maximum space for future intervals
-        Arrays.sort(intervals, (a, b) -> a[1] - b[1]); //sort by end time
+        Arrays.sort(intervals, (a, b) -> Integer.compare(a[1], b[1])); //sort by end time
 
         int remove = 0;
         int prevEndTime = intervals[0][1];

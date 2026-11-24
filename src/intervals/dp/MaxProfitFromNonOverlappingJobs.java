@@ -64,7 +64,7 @@ public class MaxProfitFromNonOverlappingJobs {
             long take = currProfit;
 
             // Find the last job ending <= current job's start time
-            int lastCompatible = findLastCompatibleJob(jobs, i, currStart);
+            int lastCompatible = findLastNonOverlappingJob(jobs, i, currStart);
 
             if (lastCompatible != -1) {
                 take += dp[lastCompatible];
@@ -87,24 +87,24 @@ public class MaxProfitFromNonOverlappingJobs {
      * Time: O(log n)
      * Space: O(1)
      */
-    private int findLastCompatibleJob(int[][] jobs, int currIdx, int startTime)
+    private int findLastNonOverlappingJob(int[][] jobs, int currIdx, int startTime)
     {
         int low = 0;
         int high = currIdx - 1;
-        int answer = -1;
+        int lastNovOverlappingJob = -1;
 
         while (low <= high) {
 
             int mid = low + (high - low) / 2;
 
             if (jobs[mid][1] <= startTime) {
-                answer = mid; //possible answer
+                lastNovOverlappingJob = mid; //possible answer
                 low = mid + 1; // Look for a later compatible job
             } else {
                 high = mid - 1; // Job ends too late
             }
         }
 
-        return answer;
+        return lastNovOverlappingJob;
     }
 }

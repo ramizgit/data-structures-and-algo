@@ -131,7 +131,7 @@ public class MinCosttoRemoveOverlappingIntervals {
 
         int n = intervals.length;
 
-        long[] dp = new long[n]; //dp[i] = max total cost of non-overlapping intervals among intervals[0...i]
+        long[] dp = new long[n];  //dp[i] = maximum profit using jobs[0...i]
 
         dp[0] = intervals[0][2]; //base case
 
@@ -143,7 +143,7 @@ public class MinCosttoRemoveOverlappingIntervals {
             long take = currCost;
 
             //among intervals 0 to i-1, find the rightmost interval whose end <= current.start.
-            int lastCompatible = binarySearchLastCompatible(intervals, i, currStart);
+            int lastCompatible = findLastNonOverlappingJob(intervals, i, currStart);
 
             if (lastCompatible != -1) {
                 take += dp[lastCompatible];
@@ -165,24 +165,24 @@ public class MinCosttoRemoveOverlappingIntervals {
         return totalCost - dp[n-1]; //min cost to remove overlapping ones
     }
 
-    private int binarySearchLastCompatible(int[][] intervals, int currIdx, int currStart)
+    private int findLastNonOverlappingJob(int[][] intervals, int currIdx, int currStart)
     {
         int low = 0;
         int high = currIdx - 1;
-        int answer = -1; //index of the right most compatible interval
+        int lastNovOverlappingJob = -1; //index of the right most compatible interval
 
         while(low <= high){
 
             int mid = low + (high - low)/2;
 
             if(intervals[mid][1] <= currStart){
-                answer = mid; //possible answer
+                lastNovOverlappingJob = mid; //possible answer
                 low = mid + 1; //try higher
             }else{
                 high = mid - 1; //try lower
             }
         }
 
-        return answer;
+        return lastNovOverlappingJob;
     }
 }
